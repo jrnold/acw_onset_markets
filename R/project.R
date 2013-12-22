@@ -1,10 +1,19 @@
-ROOT_DIR <- normalizePath(".")
+suppressPackageStartupMessages({
+    library("filehash")
+    library("rstan")
+})
+
+ROOT_DIR <- "."
 STAN_MODEL_DIR <- file.path(ROOT_DIR, "stan")
 DATA_DIR <- file.path(ROOT_DIR, "data")
-FILEHASH_DB <- file.path(ROOT_DIR, "rdatadb")
+FILEHASH_DB <- file.path(ROOT_DIR, "filehashdb")
 RDATA <- dbInit(FILEHASH_DB, "RDS")
 
-CIVIL_WAR_FINDATA <- file.path(ROOT_DIR, "vendor/civil_war_era_findata")
+filehashdb_key <- function(filename = commandArgs(FALSE)[1]) {
+    gsub("filehashdb_", "", tools::file_path_sans_ext(basename(filename)))
+}
+
+CIVIL_WAR_FINDATA <- file.path(ROOT_DIR, "submodules/civil_war_era_findata")
 get_findata_path <- function(key) file.path(CIVIL_WAR_FINDATA, "data", key)
 
 DATAFILE <- function(path) {
@@ -127,12 +136,6 @@ FINDATA[["dewey1918_expenditures_1862_1865"]] <-
 FINDATA[["dewey1918_deficit_1862_1865"]] <-
     function() read.csv(get_findata_path("dewey1918_deficit_1862_1865.csv"))
 
-
-HSUS <- list()
-HSUS[["cc113-124"]] <- function() {
-  read.csv(file.path(DATA_DIR, "hsus_cc113-124/Cc113-124.CSV"),
-           skip = 1)
-}
 
 ACW_BATTLES <- function() {
     outcome_factor_3 <- function(x) {

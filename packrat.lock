@@ -1,7 +1,15 @@
 PackratFormat: 1.1
 PackratVersion: 0.1.0
 RVersion: 3.0.2
-Repos: http://cran.rstudio.com/
+Repos: http://cran.rstudio.com
+
+Package: colorspace
+Source: CRAN
+Version: 1.2-4
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
 
 Package: digest
 Source: CRAN
@@ -10,6 +18,23 @@ Version: 0.6.4
 Package: filehash
 Source: CRAN
 Version: 2.2-1
+
+Package: ggplot2
+Source: CRAN
+Version: 0.9.3.1
+Requires: plyr, digest, gtable, reshape2, scales, proto, MASS
+
+Package: gtable
+Source: CRAN
+Version: 0.1.2
+
+Package: inline
+Source: CRAN
+Version: 0.3.13
+
+Package: labeling
+Source: CRAN
+Version: 0.2
 
 Package: lattice
 Source: CRAN
@@ -20,10 +45,19 @@ Source: CRAN
 Version: 1.3.2
 Requires: plyr, stringr, memoise
 
+Package: MASS
+Source: CRAN
+Version: 7.3-29
+
 Package: memoise
 Source: CRAN
 Version: 0.1
 Requires: digest
+
+Package: munsell
+Source: CRAN
+Version: 0.4.2
+Requires: colorspace
 
 Package: packrat
 Source: github
@@ -37,6 +71,18 @@ Package: plyr
 Source: CRAN
 Version: 1.8
 
+Package: proto
+Source: CRAN
+Version: 0.3-10
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.0-5
+
+Package: Rcpp
+Source: CRAN
+Version: 0.10.6
+
 Package: reshape2
 Source: CRAN
 Version: 1.2.2
@@ -45,6 +91,17 @@ Requires: plyr, stringr, lattice
 Package: RJSONIO
 Source: CRAN
 Version: 1.0-3
+
+Package: rstan
+Source: source
+Version: 2.0.1
+Requires: Rcpp, inline
+SourcePath: /home/jrnold/Downloads/rstan
+
+Package: scales
+Source: CRAN
+Version: 0.2.3
+Requires: RColorBrewer, stringr, dichromat, munsell, plyr, labeling
 
 Package: stringr
 Source: CRAN

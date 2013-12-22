@@ -1,5 +1,6 @@
 suppressPackageStartupMessages({
     library("filehash")
+    library("plyr")
     library("rstan")
 })
 

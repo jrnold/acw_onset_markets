@@ -1,0 +1,55 @@
+PackratFormat: 1.1
+PackratVersion: 0.1.0
+RVersion: 3.0.2
+Repos: http://cran.rstudio.com/
+
+Package: digest
+Source: CRAN
+Version: 0.6.4
+
+Package: filehash
+Source: CRAN
+Version: 2.2-1
+
+Package: lattice
+Source: CRAN
+Version: 0.20-24
+
+Package: lubridate
+Source: CRAN
+Version: 1.3.2
+Requires: plyr, stringr, memoise
+
+Package: memoise
+Source: CRAN
+Version: 0.1
+Requires: digest
+
+Package: packrat
+Source: github
+Version: 0.1.0
+GithubRepo: packrat
+GithubUsername: rstudio
+GithubRef: master
+GithubSha1: 0e360b5c15d319b796a1d4fdc83a2c5ae7a67333
+
+Package: plyr
+Source: CRAN
+Version: 1.8
+
+Package: reshape2
+Source: CRAN
+Version: 1.2.2
+Requires: plyr, stringr, lattice
+
+Package: RJSONIO
+Source: CRAN
+Version: 1.0-3
+
+Package: stringr
+Source: CRAN
+Version: 0.6.2
+
+Package: yaml
+Source: CRAN
+Version: 2.1.8

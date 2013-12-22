@@ -1,0 +1,3 @@
+[submodule "submodules/civil_war_era_findata"]
+	path = submodules/civil_war_era_findata
+	url = https://github.com/jrnold/civil_war_era_findata

@@ -1,0 +1,539 @@
+---
+# AL003 Mobile Bay
+# ================
+# 
+# Battle: Aug 2--23, 1864
+# 
+# - SOUTHERN NEWS. (1864, Aug 30). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91860181?accountid=13567
+# - "The Military news from Petersburgh and the Naval success before Mobile, in connection with the political discussions and rumors of a perspectiv Peace, have, to all present appearances, thoroughly discourages the speculation for the rise in Gold and Exchange, and reversed the views of some of the speculators in this direction themselves." MONETARY AFFAIRS. (1864, Aug 30). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91865735?accountid=13567
+
+AL003: 
+   start_date: 1864-8-29
+
+# AL006 Fort Blakely
+# =====================
+# 
+# April 4--9, 1865
+# 
+# - CAPTURE OF MOBILE. (1865, Apr 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91934724?accountid=13567
+# 
+# Could not find mention in the monetary affairs section. This is during the aftermath of Lincoln's assassination.
+
+AL006:
+  start_date: 1865-4-18
+
+# AR001 Pea Ridge
+# ======================
+# 
+# March 6--8, 1862
+# 
+# - ANOTHER GREAT BATTLE. (1862, Mar 11). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91722829?accountid=13567
+# - "The war news in the morning " MONETARY AFFAIRS. (1862, Mar 12). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91720335?accountid=13567
+
+AR001:
+  start_date: 1862-03-08
+
+
+# GA004 Chickamagua
+# ====================
+# 
+# 1863-9-19 to 1863-9-22
+# 
+# *Monetary Affairs* articles on Sept 20-23 all cite adverse war news about Chickamagua.
+# 
+# - MONETARY AFFAIRS. (1863, Sep 23). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91768928?accountid=13567
+# - MONETARY AFFAIRS. (1863, Sep 22). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91774605?accountid=13567
+# - MONETARY AFFAIRS. (1863, Sep 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91686892?accountid=13567
+# - MONETARY AFFAIRS. (1863, Sep 20). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91775053?accountid=1356
+
+GA004:
+  start_date: 1863-09-20
+  end_date: 1863-09-23
+
+# GA022 Jonesborough
+# =====================
+# 
+# Sept 3, 186
+#
+# This is the battle associated with the capture of Atlanta.
+# 
+# - MONETARY AFFAIRS. (1864, Sep 04). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91854105?accountid=13567
+GA022: 
+  start_date: 1864-09-04
+
+# KY009 Perryville
+# ======================
+# 
+# October 8, 1862
+# 
+# - VICTORY IN KENTUCKY. (1862, Oct 11). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91721416?accountid=13567
+# 
+# Sales and movement in the market cited, but no mention of war news
+# 
+# - MONETARY AFFAIRS. (1862, Oct 11). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91680220?accountid=1356
+# - MONETARY AFFAIRS. (1862, Oct 12). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91682664?accountid=13567
+KY009:
+  start_date: 1862-10-11
+
+
+# LA 001 Forts Jackson & St. Philip
+# ====================================
+# 
+# April 16--28, 1862
+# 
+# - NEW-ORLEANS OURS! (1862, Apr 28). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91732130?accountid=13567
+# - MONETARY AFFAIRS. (1862, Apr 29). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91730482?accountid=13567
+LA001:
+  start_date: 1862-04-28
+
+
+# LA010 Siege of Port Hudson
+# ==========================
+# 
+# May 22--July 9, 1863
+# 
+# - THE FALL OF PORT HUDSON. (1863, Jul 17). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91753450?accountid=13567
+# - MONETARY AFFAIRS. (1863, Jul 16). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91723313?accountid=13567
+# - MONETARY AFFAIRS. (1863, Jul 17). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91768053?accountid=13567
+LA010: 
+  start_date: 1863-7-16
+
+# LA018 Mansfield
+# ================
+# 
+# - THE WAR IN LOUISIANA. (1864, Apr 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91842112?accountid=13567
+# 
+# Not mentioned in Monetary affairs
+
+LA018:
+  start_date: 1864-4-21
+
+# MD003 Antietam
+# ===============
+# 
+# Sept 16--18, 1862
+# 
+# - MONETARY AFFAIRS. (1862, Sep 19). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91723274?accountid=13567
+# - THE GREAT BATTLE. (1862, Sep 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91638761?accountid=13567
+
+MD003:
+  start_date: 1862-9-18
+
+# MO004 Wilson's Creek
+# =======================
+# 
+# Aug 10, 1861
+#
+# - ANOTHER BATTLE IN MISSOURI. (1861, Aug 14). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91547575?accountid=13567
+# 
+# Could not find in Monetary Affairs
+MO004:
+  start_date: 1861-8-14
+
+# MO012 Island Number 10
+# =======================
+# 
+# April 9, 1862
+#
+# Only focus on the news of the capture of the island.
+# 
+# - THE REBELLION. (1862, Apr 09). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91723331?accountid=13567
+# - MONETARY AFFAIRS. (1862, Apr 10). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91641433?accountid=13567
+
+MO012: 
+  start_date: 1862-4-9
+
+# MO027 Westport
+# ==================
+# 
+# October 28, 1862
+# 
+# Hard to tell. Either Oct 24 or 28.
+# 
+# - THE WAR IN MISSOURI. (1864, Oct 26). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91856042?accountid=13567
+# - THE WAR IN MISSOURI. (1864, Oct 28). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91874797?accountid=13567
+# 
+# Did not see in monetary affairs.
+
+MO027:
+  start_date: 1864-10-28
+
+# MS002 2nd Corinth
+# ==============================
+# 
+# October 3--4, 1862
+# 
+# - HIGHLY IMPORTANT. (1862, Oct 06). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91721563?accountid=13567
+# 
+# Could not find in monetary affairs
+MS002:
+  start_date: 1862-10-6
+
+# MS009 Battle of Champion Hill
+# ==============================
+# 
+# May 23, 1863
+# 
+# - IMPORTANT NEWS. (1863, May 23). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91795727?accountid=13567
+
+MS009: 
+  start_date: 1863-5-23
+
+
+# MS011 Vicksburg
+# ===================
+# 
+# Only news of the surrender and fall of Vicksburg
+# 
+# - VICKSBURG. (1863, Jul 08). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91774822?accountid=13567
+# - MONETARY AFFAIRS. (1863, Jul 08). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91774778?accountid=13567
+MS011:
+  start_date: 1863-7-7
+
+# NC015 Fort Fisher II
+# =========================
+# 
+# Jan 13-15, 1865
+# 
+# - MONETARY AFFAIRS. (1865, Jan 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91878893?accountid=13567
+# - WILMINGTON. (1865, Jan 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91892520?accountid=13567
+
+NC015:
+  start_date: 1865-1-17
+
+# NC020 Bentonville
+# ====================
+# 
+# March 29, 1865
+# 
+# Sherman was slow in giving updates
+# 
+# - Further facts concerning sherman's recent movement--the battle at bentonville-- schofield joins sherman--supplies arriving at morehead city--rebel prisoners sent to newbern--reinforcements for sherman. (1865, Mar 29). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91916141?accountid=13567
+
+NC020:
+  start_date: 1865-3-29
+
+# NM002 Glorieta Pass
+# ====================
+# 
+# April 15, 1862
+# 
+# - ANOTHER FIGHT IN NEW-MEXICO. (1862, Apr 15). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91619497?accountid=13567
+
+NM002:
+  start_date: 1862-4-15
+
+# Gettysburg
+# ==============
+#
+# July 1-3, 1862
+#
+# News reaches New York within a day.
+#
+# - POSTSCRIPT. (1863, Jul 02). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91731247?accountid=13567
+# - VERY IMPORTANT NEWS. (1863, Jul 03). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91772436?accountid=13567
+# - THE GREAT BATTLES. (1863, Jul 04). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91792132?accountid=13567
+# - MONETARY AFFAIRS. (1863, Jul 04). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91773439?accountid=13567
+# - MONETARY AFFAIRS. (1863, Jul 03). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91760646?accountid=13567
+# - MONETARY AFFAIRS. (1863, Jul 06). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91757630?accountid=13567
+
+PA002:
+  start_date: 1863-7-2
+  end_date: 1863-7-4
+
+# SC001 Fort Sumter
+# ==================
+# 
+# Surrender: April 15, 1861
+# 
+# - FORT SUMPTER FALLEN. (1861, Apr 15). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91578304?accountid=13567
+# 
+# Initiation: April 13, 1861
+# 
+# - The first gun fired by fort moultrie against fort sumpter. (1861, Apr 13). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91609028?accountid=13567
+
+SC001:
+  start_date: 1861-4-13
+  end_date: 1861-4-15
+
+# Fort Donelson
+# ===============
+# 
+# Feb 11-16, 1862
+# 
+# - MONETARY AFFAIRS. (1862, Feb 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91713320?accountid=13567
+# - THE FALL OF FORT DONELSON. (1862, Feb 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91665894?accountid=13567
+# 
+# The battle was reported in about real-time. With articles about the battle appearing within a day of events.
+
+TN002:
+  start_date: 1862-2-12
+  end_date: 1862-2-17
+
+# TN003 Shiloh
+# ================
+# 
+# April 6-7, 1862
+# 
+# - MORE GLORIOUS NEWS. (1862, Apr 09). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91708534?accountid=13567
+# - MONETARY AFFAIRS. (1862, Apr 10). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91641433?accountid=13567
+
+TN003:
+  start_date: 1862-4-9
+
+# TN010 Murfreesboro
+# =====================
+# 
+# 1863-1-3 to 1865-1-5
+# 
+# Accounts of battle reach NY during battle starting Jan 3.
+# 
+# - MURFREESBORO. (1863, Jan 05). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91739805?accountid=13567
+
+TN010:
+  start_date: 1863-1-3
+  end_date: 1863-1-5
+
+# TN024 Battle of missionary ridge
+# =================================
+# 
+# 1863-11-23 to 1863-11-25
+# 
+# - GLORIOUS VICTORY! (1863, Nov 26). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91765234?accountid=13567
+# - MONETARY AFFAIRS. (1863, Nov 25). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91746936?accountid=13567
+# - MONETARY AFFAIRS. (1863, Nov 28). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91774691?accountid=13567
+TN024:
+  start_date: 1863-11-24
+  end_date: 1863-11-26
+
+# TN036 Battle of Franklin
+# ===========================
+# 
+# Nov 30, 1864
+# 
+# - TENNESSEE. (1864, Dec 02). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91822736?accountid=13567
+# - MONETARY AFFAIRS. (1864, Dec 03). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91809656?accountid=13567
+
+TN036:
+  start_date: 1864-12-2
+
+# TN038 Nashville
+# ====================
+# 
+# Nov 15--16, 1864
+# 
+# - NASHVILLE. (1864, Dec 16). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91838584?accountid=13567
+# TODO:
+
+TN038:
+  start_date: 1864-12-16
+
+# VA005 1st Bull Run
+# =====================
+# 
+# Jul 21, 1861
+# 
+# - MONETARY AFFAIRS. (1861, Jul 23). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91614910?accountid=13567
+
+VA005:
+  start_date: 1861-7-22
+
+# VA017 Gaine's Mill
+# ====================
+# 
+# June 27, 1862
+# 
+# - HIGHLY IMPORTANT. (1862, Jul 03). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91649403?accountid=13567
+# - MONETARY AFFAIRS. (1862, Jul 04). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91717545?accountid=13567
+
+VA017:
+  start_date: 1862-7-3
+
+# VA021 Malvern Hill
+# ====================
+# 
+# 1862-7-4
+#
+# By Jul 5, the market seems to have incorporated the full news of the 7-days battles.
+#
+VA021:
+  start_date: 1862-7-4
+
+# 
+# VA026 2nd Bull Run
+# =====================
+# 
+# 1862-8-29 to 1862-9-1
+# 
+# - MONETARY AFFAIRS. (1862, Sep 01). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91692664?accountid=13567
+# 
+# News is reaching market within 1 day.
+
+VA026:
+  start_date: 1862-8-29
+  end_date: 1862-9-1
+
+# VA028 Fredericksburg
+# ======================
+# 
+# Dec 11-15, 1862
+
+VA028:
+  start_date: 1862-12-12
+  end_date: 1862-12-16
+
+# VA032 Chancellorsville
+# ========================
+# 
+# Apr 30--May 6, 1863
+
+VA032:
+  start_date: 1863-5-1
+  end_date: 1863-5-7
+
+# VA046 Battle of the Wilderness
+# ===============================
+# 
+# May 6--7, 1864
+# 
+# - THE BATTLE. (1864, May 08). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91840726?accountid=13567
+# - GLORIOUS NEWS. (1864, May 09). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91838172?accountid=13567
+# - "ON TO RICHMOND.". (1864, May 10). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91847348?accountid=1356
+# - MONETARY AFFAIRS. (1864, May 08). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91825612?accountid=13567
+# - MONETARY AFFAIRS. (1864, May 09). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91838674?accountid=13567
+# - MONETARY AFFAIRS. (1864, May 10). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91837696?accountid=13567
+
+VA046:
+  start_date: 1864-5-7
+  end_date: 1864-5-10
+
+
+# VA048 Spotsylvania Court House
+# ================================
+#
+# May 8-21, 1864 
+#
+# Almost constant front page news the entire battle.
+# 
+# - REPORTS FROM WASHINGTON. (1864, May 13). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91816575?accountid=13567
+# - THE GREAT CAMPAIGN. (1864, May 14). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91844695?accountid=13567
+# - IMPORTANT. (1864, May 20). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91836667?accountid=13567
+# - The rebels attempt to turn our right flank --A bloody repulse--bravery of a new division. (1864, May 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91834714?accountid=13567
+# - ANOTHER FIGHT ON THURSDAY. (1864, May 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91821416?accountid=13567
+# - THE GREAT CAMPAIGN. (1864, May 22). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91820725?accountid=13567
+# - RICHMOND. (1864, May 23). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91813251?accountid=13567
+
+VA048:
+  start_date: 1864-5-12
+  end_date: 1864-5-22
+
+# Battle of Cold Carbor
+# =========================
+# 
+# May 31-June 12, 1864. Most of the major fighting and newspaper news appears between May 31-June 4.
+#
+# 
+# - BEFORE RICHMOND. (1864, Jun 05). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91862806?accountid=13567
+# - THE SITUATION. (1864, Jun 04). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91853293?accountid=13567
+# - GRANT'S ARMY. (1864, Jun 03). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91866719?accountid=13567
+# - GRANT'S ARMY. (1864, Jun 02). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91863659?accountid=13567
+# - GRANT'S ARMY. (1864, Jun 01). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91864050?accountid=13567
+# 
+# Not much mention in Monetary Affairs
+
+VA062:
+  start_date: 1864-6-1
+  end_date: 1864-6-5
+
+# Second Battle of Petersburg
+# ==============================
+# 
+# June 15-18, 1864
+# 
+# - Grant's army all south of the james. (1864, Jun 17). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91791692?accountid=13567
+# - IMPORTANT. (1864, Jun 18). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91816169?accountid=13567
+# - GRANT'S ARMY. (1864, Jun 19). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91861435?accountid=13567
+# - THE ARMY. (1864, Jun 20). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91844160?accountid=13567
+# - PETERSBURGH. (1864, Jun 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91805247?accountid=13567
+
+VA063:
+  start_date: 1864-6-16
+  end_date: 1864-6-20
+
+# VA070 Crater
+# ===============
+# 
+# July 30, 1864
+# 
+# - The assault by our troops on saturday. (1864, Aug 02). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91815295?accountid=13567
+
+VA070:
+  start_date: 1864-8-1
+
+# 
+# VA084 Fort Stedman
+# ====================
+# 
+# March 25, 1865
+# 
+# IMPORTANT FROM GRANT. (1865, Mar 26). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91894191?accountid=13567
+
+VA084:
+  start_date: 1865-3-25
+
+# VA088 
+# =======================
+# 
+# - From Our, O. C. (1865, Apr 03). THE CAVALRY OPERATIONS. New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91904745?accountid=13567
+# 
+# Reported on the same day as Third Petersburg. Ignore
+
+
+# VA089 Third Petersburg
+# =========================
+# 
+# April 2, 1865
+# 
+# - VICTORY! (1865, Apr 03). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91904697?accountid=13567
+
+VA089:
+  start_date: 1865-4-3
+
+# VA097 Appomattox Court House
+# =================================
+# April 9, 1865
+#
+# Newspapers report the victory the day later.
+
+VA097:
+  start_date: 1865-4-10
+
+# VA104 First Winchester
+# =============================
+# 
+# May 25, 1862
+
+VA104:
+  start_date: 1862-5-26
+
+# VA119 Opequon
+# ===============================
+# 
+# Sep 19, 1864
+# 
+# - VICTORY! (1864, Sep 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91846392?accountid=13567
+# - MONETARY AFFAIRS. (1864, Sep 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91847788?accountid=13567
+
+VA119:
+  start_date: 1864-9-20
+
+# VA122 Cedar Creek
+# ===============================
+# 
+# Oct 19, 1864
+# 
+# - MONETARY AFFAIRS. (1864, Oct 21). New York Times (1857-1922). Retrieved from http://search.proquest.com/docview/91847941?accountid=13567
+
+VA122:
+  start_date: 1864-10-20
+

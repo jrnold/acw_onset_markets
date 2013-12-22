@@ -1,3 +1,4 @@
 /doc/build/
 /library
 /filehashdb/*
+/R/*.q

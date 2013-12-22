@@ -1,0 +1,733 @@
+\documentclass[11pt, oneside, article]{memoir}
+
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{comment}
+\usepackage{rotating}
+\usepackage{todonotes}
+
+\raggedyright
+\counterwithout{section}{chapter}
+\setcounter{secnumdepth}{2}
+
+\abstractrunin
+\abslabeldelim{:\quad}
+
+% Floats
+\setfloatadjustment{figure}{\centerfloat}
+\setfloatadjustment{table}{\scriptsize\centering\sffamily}
+\captionnamefont{\sffamily\itshape\footnotesize}
+\captiontitlefont{\sffamily\footnotesize}
+
+\usepackage[section]{placeins}
+
+\usepackage[]{color}
+\definecolor{light-gray}{gray}{0.66}
+\definecolor{dkred}{rgb}{0.5,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.5}
+\definecolor{vermillion}{HTML}{E34234}
+
+\usepackage{fontspec,xltxtra,xunicode}
+\defaultfontfeatures{Mapping=tex-text}
+\setmainfont[Numbers=OldStyle]{Linux Libertine O}
+\setsansfont[]{Linux Biolinum O}
+\setmonofont[Scale=MatchLowercase]{Linux Libertine Mono O}
+\setmonofont[Scale=MatchLowercase]{DejaVu Sans Mono}
+\usepackage[math-style=TeX]{unicode-math}
+\setmathfont{xits-math.otf}
+
+\usepackage[]{titlesec}
+\titleformat{\section}[hang]{\color{dkred}\Large\bfseries\sffamily}{\thesection}{1em}{}{}
+\titlespacing*{\section}{0em}{1.5em}{0.5em}
+
+\titleformat{\subsection}[hang]{\large\itshape}{\addfontfeatures{Numbers=OldStyle}\thesubsection}{1em}{}
+\titlespacing*{\subsection}{0em}{1.5em}{0.5em}
+
+\titleformat{\subsubsection}[runin]{\normalsize\bfseries}{\addfontfeatures{Numbers=OldStyle}\thesubsubsection}{1em}{}[:]
+
+\usepackage[authordate, doi=false, isbn=false, backend=biber,
+            backref=true, maxbibnames=10, hyperref=true,
+            dateabbrev=false, uniquename=false, backend=biber]{biblatex-chicago}
+\ExecuteBibliographyOptions{url=false}
+\ExecuteBibliographyOptions{doi=false}
+\newbibmacro{string+url}[1]{%
+ \iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+\DeclareFieldFormat{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+\DeclareFieldFormat[article]{title}{\usebibmacro{string+url}{\mkbibquote{#1}}}
+\DeclareFieldFormat[misc]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+\DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+\AtEveryBibitem{\clearlist{language}}
+
+%\addbibresource{acw_markets_2.bib}
+\bibliography{default.bib}
+
+\newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
+
+% Programming Languages
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\RLang}{\proglang{R}}
+\newcommand{\Stan}{\proglang{Stan}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+
+% Used to typeset distributions
+\newcommand{\dist}[1]{\mathcal{#1}}
+\newcommand{\distsep}[1]{;}
+\newcommand{\paren}[1]{\mathopen{}\left(#1\right)\mathclose{}}
+\newcommand{\disti}[2]{\ensuremath{\dist{#1}\paren{#2}}}
+\newcommand{\distii}[3]{\ensuremath{\dist{#1}\paren{#2 \distsep{} #3}}}
+\newcommand{\distiii}[3]{\ensuremath{\dist{#1}_{#2}\paren{#3}}}
+\newcommand{\distiv}[4]{\ensuremath{\dist{#1}_{#2}\paren{#3 \distsep{} #4}}}
+
+\newcommand{\dnorm}[1]{\disti{N}{#1}}
+\newcommand{\dmvnorm}[2]{\distiii{N}{#1}{#2}}
+\newcommand{\dlnorm}[1]{\disti{LN}{#1}}
+\newcommand{\dt}[1]{\disti{T}{#1}}
+\newcommand{\dcauchy}[1]{\disti{C}{#1}}
+\newcommand{\dhalfcauchy}[1]{\disti{C^+}{#1}}
+\newcommand{\dbeta}[1]{\disti{B}{#1}}
+\newcommand{\dinvbeta}[1]{\disti{IB}{#1}}
+\newcommand{\dgamma}[1]{\disti{G}{#1}}
+\newcommand{\dinvgamma}[1]{\disti{IG}{#1}}
+\newcommand{\dwishart}[1]{\disti{W}{#1}}
+\newcommand{\dinvwishart}[1]{\disti{IW}{#1}}
+\newcommand{\dunif}[1]{\disti{U}{#1}}
+\newcommand{\dexp}[1]{\disti{E}{#1}}
+
+% Math operators, misc
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Median}{Median}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\sd}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+\newcommand{\tran}{^\top}
+
+% Misc
+\newcommand{\Model}[2]{$\mathcal{M}$(#1, #2)}
+
+%% Macros with values calculated from R
+\input{assets/macros.tex}
+
+\usepackage[colorlinks]{hyperref}
+% %% HYPERREF
+
+
+\hypersetup{
+  pdftitle={Pricing the Costly Lottery: Financial Market Reactions to Battlefield Events in the American Civil War},
+  pdfauthor={Jeffrey B. Arnold},
+  pdfkeywords={American Civil War, Bargaining, Combat, Bayesian Inference, Battle, United States Note, Demand Note, Union (American Civil War), Confederate States of America Greyback}
+  %% Colors from jss.cls (Journal of statistical software)
+  colorlinks = true,
+  linkcolor=dkblue,          % color of internal links
+  citecolor=dkblue,        % color of links to bibliography
+  filecolor=dkred,      % color of file links
+  urlcolor=dkred,           % color of external links
+}
+
+
+\newcommand{\thanksnote}{
+  \scriptsize
+  Check \url{http://jrnold.me/research.html} for the most current version of this paper.
+  Thanks to
+  Randall Stone,
+  Hein Goemans,
+  Tom Dolan,
+  Curtis Signorino,
+  Michael Peress,
+  Shawn Ling Ramirez,
+  Ian Sulam,
+  Jeremy Kedziora,
+  Patrick Kuhn,
+  Jeffrey Marshall,
+  Jonathan Olmsted,
+  Tyson Chatagnier,
+  Trung Dang,
+  Miguel R. Rueda
+  and the members of the University of Rochester Political Science Department and Emory University Political Science Department
+  for their helpful comments and discussions.
+  This paper has been presented in significantly different versions at 2011 APSA, 2012 Peace Science, 2013 Peace Science, and 2013 MPSA conferences.
+}
+\newcommand{\affiliations}{\footnotesize Instructor of Political Science, Emory University; Ph.D. Candidate in Political Science, University of Rochester}
+\author{Jeffrey B. Arnold \thanks{\affiliations}}
+\date{\today{}}
+\newcommand{\draftstatus}{DRAFT}
+
+\title{Pricing the Costly Lottery:\thanks{\thanksnote}}
+\newcommand{\subtitle}{Financial Market Reactions \\to Battlefield Events in the American Civil War}
+
+\input{version}
+\pretitle{\begin{center}\sffamily\color{dkred}\Huge}
+\posttitle{\end{center}}
+\renewcommand{\maketitlehookb}{\vspace{-1em}\begin{center}\color{dkred}\sffamily\large\subtitle{}\end{center}}
+\preauthor{\begin{center}\sffamily\LARGE}
+\postauthor{\end{center}}
+\predate{\begin{center}\sffamily}
+\postdate{\end{center}}
+\renewcommand{\maketitlehookd}{\begin{center}\sffamily{}Version: \version{}\par \textsc{\draftstatus{}}\end{center}}
+
+% Macros
+\newcommand{\UCn}{Union and Confederacy}
+\newcommand{\UCa}{Union and Confederate}
+
+\begin{document}
+
+\begin{titlingpage}
+\maketitle{}
+
+% Don't say anything about results until i'm confident in them.
+\begin{abstract}
+\footnotesize
+This paper estimates the effects of major battles in the American Civil War on the price of Union bonds.
+Bond prices are a function of expected future cash flows, and war results can have a large influence on the the expectation of the timely payment of those cash flows.
+Thus, bond prices provide a method to assess the effects of war events on the expected war result.
+This allows for understanding how events within war influenced the expected war result.
+Assessing the importance of war events on war termination provides another method for researchers to ``open up the black box of war''.
+In this application, initial results suggest that for the Union bonds considered, the average Confederate victory decreased the price by \AcwGammaMeanCPct{} and Union victory increased it by \AcwGammaMeanUPct{}.
+\end{abstract}
+
+\end{titlingpage}
+
+\section{Introduction}
+\label{sec:introduction}
+
+How do financial markets respond to war events?
+How do the events within war, such as battles, lead to the termination of war?
+This paper addresses both of these questions by estimating the effects of battles in the American Civil War on the prices of Union bonds.
+The strategy of this paper is to answer the first question in order to understand the second.
+The credit risk of Union bonds was almost certainly driven by the expected debt of the Union.
+The expected debt was driven by expectations of how the war would influence the size of that debt through expenditures and the resources to pay off that debt through its outcome.
+Since military expenditures accounted for almost all Union expenditures and the price movements during the war were unprecedented, the changes in Union bond prices appear to be an indicator of the markets' expectations about how war events affected the expected war result.
+Thus, events associated with large changes in the price of Union bonds can be used to infer those events which had large influences on the expected war result.
+
+Specifically, this paper models the prices of six percent coupon bonds, ``Sixes'', issued by the Union before and during the American Civil War.
+Importantly, and unlike many other price series of this era, this price series spans the entire war.
+The effects of \AcwBattleNumSigA{} militarily significant battles on the returns of Sixes are estimated.
+These battle-level effects are modeled hierarchically by battle outcome (Confederate victory, Union victory, inconclusive).
+This provides estimates of both the effects of individual battles and the effects of the average battle outcome.
+Since news of battles reaches the market neither instantaneously nor simultaneously, newspaper coverage of each battle in \textit{The New York Times} is used as a proxy for the time it takes news to reach the market.
+
+I find that, on average, Confederate victories were associated with decreases in the bond price and Union victories associated with  increases.
+However, these effects were asymmetric. The average Confederate victory was associated with a \AcwGammaMeanCPct{} decrease in the bond price, while the average Union victory was associated with only a \AcwGammaMeanUPct{} increase.
+The battle-level effects are imprecisely estimated, but the battle with the largest posterior mean was the Battle of Gettysburg (\AcwBetaGettysburg{}), while the battle with the smallest posterior mean was the First Battle of Fort Sumter (\AcwBetaFtSumter{}).
+
+Financial market data provides an alternative method with which to analyze the intra-war events, especially in cases where data on intra-war events is only available in a small number of cases.
+Since \textcite{Fearon1995}, the game theoretic literature in international relations has analyzed the relationship between bargaining and fighting within war \parencites{FilsonWerner2002}{Slantchev2003}{SmithStam2004}{Powell2004}{LeventogluSlantchev2007}{LangloisLanglois2009}{WolfordReiterCarrubba2011}.
+However, there has been little empirical work that tests the implications of the bargaining theory of war with intra-war data \parencites{Goemans2000}{Ramsay2008}{Reiter2009}{Tierney2011}. 
+One of the reasons for the relative dearth of empirical work in this literature is a lack of intra-war data, e.g. battle data. 
+While there are established datasets of wars, namely, the Correlates of War (COW) \parencite{SarkeesWayman2010} and the Upsalla Conflict Data Program (UCDP), there is nothing remotely equivalent for battle level data.
+The only existing dataset of battles covering a large number of wars is CDB90 \parencite{cdb90}, a dataset collected in the mid-80s which has been criticized for its non-random selection of wars and battles, and the quality of its data \parencite{BiddleLong2004}. %
+More recently, there has been massive efforts at collecting intra-war data for civil wars. %
+However, these new datasets, such as ACLED \parencites{RaleighLinkeHegreEtAl2010} and the Empirical Studies of Conflict (\href{http://esoc.princeton.edu/}{ESOC}), only cover a handful of wars.
+Due to the lack of multi-war intra-war data, the preferred approach to the empirical study of the bargaining theory of war with intra-war data has been qualitative case studies \parencites{Reiter2003}[][Chapter 9]{Reiter2009}. 
+While there are some implications of the bargaining model of war that can be tested with within-case data, such as those regarding the offers made throughout the war, the use of within-case data prohibits the use of several key dependent variables of interest in these models---the cost, duration, and outcome of a war---since there is no variation in these variables within a single war.%
+\footnote{
+  I will use \textit{outcome} to refer the result of who wins or loses a conflict, and \textit{result} to refer to the tuple of outcome, costs of each belligerent, and duration of a conflict.
+}
+Financial asset price data, through its relationship to the expected war result, a provides a proxy for war results with within-war variation that can be used to estimate the effect of events on the expected war result.
+
+The case of the American Civil War was chosen primarily for the quality of its data, both financial market data and battle data.
+There is a long and deep economic history literature that documents the close relationship between war expectations and events and financial market prices during the American Civil War \parencites{Mitchell1903}{Mitchell1908}{Calomiris1988}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{Schwab1901}{Weidenmier2002}{BurdekinLangdana1993}{DavisPecquet1990}{BrownBurdekin2000}{OosterlinckWeidenmier2007}{Roll1972}.
+In terms of its battle data, the American Civil War is one of the best documented wars, so quality battle-level is available.%
+\footnote{%
+  For example, \textit{The Official Records of the Union and  Confederate Armies} \parencites{US1901}, published between 1880 and 1901, consists of 128 books in 70 volumes totaling 139 thousand pages. %
+} %
+However, although there are multiple sources of American Civil War battle data, there has previously not been a comprehensive database suitable for quantitative analysis. 
+Thus, this paper introduces a new dataset of American Civil War battles, which includes casualty, force size, and other data for the battles of the American Civil War.
+
+The American Civil War is also relevant to modern war.
+It is considered the first modern war, having introduced many of the technologies used in World War I \parencite[89][]{Fuller1956a}.%
+\footnote{
+  \begin{quotation}
+    The Civil War was the first in which railroads were extensively used for the transportation of troops, aerial reconnaissance was effectively used, command and control was exercised through the electric telegraph, ironclad naval vessels engaged in combat, a multimanned submarine sank a naval vessel, rifled artillery came into general use, wire entanglements were used in field fortifications, and the repeating rifle was used by large troop units. \parencite[760]{Weiss1966}
+  \end{quotation}
+}
+Like half of post-Cold War civil wars, the American Civil War was a conventional conflict \parencite[423]{kalyvas2010inter}.%
+\footnote{
+  \textcite{kalyvas2010inter} notes that there is a ``striking decline [in] irregular wars following the end of the Cold War''.
+}
+The income levels of the Union and Confederacy in 1860 place them as lower-middle income countries today---approximately the income levels of Pakistan and Iraq respectively.%
+\footnote{%
+  The GDP per capita of the US in 1860 was \$2,241 in 1990 GK international dollars. %
+  In 2010, Cambodia had a GDP per capita of \$2,450, Pakistan \$2,494, and Ghana \$1,922 \parencite{BoltZanden2013}. %
+  The southern states were poorer than the northern states, with a per capita consumption of about 70 percent of the overall U.S. level \parencite[324]{GoldinLewis1975}. 
+  The GDP per capita of the pre-war Confederacy is similar to that of Angola, Iraq and Senegal in 2010.%
+  The estimated GDP per capita of the southern states in 1860 at 70\% that of the northern states was \$1,568. %
+  In 2010, the following countries had approximately the same real GDP per capita: Angola \$1,600, Iraq \$1,610, and Senegal \$1,507 \parencite{BoltZanden2013}. %
+}
+
+The American Civil War is also an interesting case for study in its own right. 
+Its importance to American history is obvious.
+But, surprisingly, given the voluminous literature on the subject, it is understudied in two regards. %
+First, the international relations literature has largely ignored the conflict since inter-state war scholars consider it a civil war and intra-state war scholars focus on the post-1945 era \parencites[140-141]{Reiter2009}[2]{Poast2012}. %
+Second, almost none of the existing work on the American Civil War, including the few examples in international relations, use any form of quantitative analysis.%
+\footnote{
+  Consider, for example, that until \textcite{hacker2011census}, no historian had reanalyzed the total  number killed in the American Civil War since  \textcite{Livermore1900}. 
+  See \textcite{Weiss1966} for a quantitative analysis of the American Civil War battles.
+} %
+In applying international relations theory and quantitative methods to the study of this war, this work contributes to the larger literature on the American Civil War.
+
+An outline of the paper follows.
+Section \ref{sec:risky-bond-pricing} presents a model of bond valuation.
+Section \ref{sec:war-prob-union} discusses the relationship between the expected war result and Union bond prices.
+Section \ref{sec:price-data} describes the bond price data used in the analysis.
+Section \ref{sec:model} presents a statistical model of the bond prices.
+Section \ref{sec:battle-data} discusses the battle data used in the model.
+Section \ref{sec:estimation} discusses the estimation techniques used.
+Section \ref{sec:results} presents and discusses the results of the model.
+Section \ref{sec:conclusion} concludes.
+
+% This paper builds on a large and growing literature which measures impact or identifies important political events using financial \parencites{NorthWeingast1989}{north2000introd}{FreyKucher2000}{sussman2000instit}{wells2000revol}{Herron2000}{eldor2004finan}{chensiems2004}{Greenstone2007} or prediction markets \parencites{WolfersZitzewitz2004}{ArrowForsytheGorhamEtAl2008}{WolfersZitzewitz2009}.
+
+\section{Bond Pricing}
+\label{sec:risky-bond-pricing}
+
+In order to understand the relationship between bond prices and war outcomes, a general model of bond pricing is required.
+A standard method for valuing bonds is that its current price is equal to the discounted sum of the expected future cash flows from that bond.%
+\footnote{This is a simple model of bond prices but sufficient for the purposes of this paper.} %
+Let $V_{t}$ be the price and present value of a bond at time $t$, 
+$T$ be the time at which the bond matures, 
+$C_{j}$ be a payment from the bond at time $j$ for $j > t$, including both coupons and principal at maturity,
+$\Omega_{t}$ be the information available to the market at time $t$,
+$\E(. | \Omega_{t})$ be an expectation with respect to the information available,
+and $r$ be the risk free interest rate.%
+\footnote{The notation used in this section is local to this section and will not be used elsewhere.}
+Then, the current price of the bond is%
+\footnote{See \textcites{Fons1987}{Merrick2001}{Chan-Lau2006}}
+\begin{equation}
+  \label{eq:3}
+  V_{t} = \sum_{j = t + 1}^{T} \frac{\E ( C_{j} | \Omega_{t})}{(r + 1)^{j - t}} \text{.}
+\end{equation}
+
+In Equation \eqref{eq:3}, $C_{j}$ is known.
+Thus, supposing that the risk free interest is known, all changes in the price come from changes in the distribution over which the expectation is taken.
+Suppose that the risk free interest rate $r$ is constant across periods, the one-period difference in the price is
+\begin{align}
+  \label{eq:6}
+  V_{t} - V_{t - 1} =
+  \sum_{j = t + 1}^{T} \frac{\E ( C_{j} | \Omega_{t}) - \E (C_{j} | \Omega_{t - 1})}{(r + 1)^{j - t}}
+  + \left(
+    C_{t} - \E (C_{t} | \Omega_{t - 1}) \text{.}
+  \right)
+\end{align}
+The first term is the change in the expected discounted future cash flows due to new information at time $t$.
+The second term is the difference between the realized and expected cash-flow at time $t$.
+If $V_{t}$ is a  clean price, which excludes accrued interest since the last payment, then $C_{t} - \E(C_{t} | \Omega_{t-1}) \approx 0$. 
+Thus, Equation \eqref{eq:6} implies that the change in the clean price is only due to changes in the information set, i.e. news, at time $t$ that influence expectations about future cash flow.%
+\footnote{Changes due to a payout of the cash-flow in that period are addressed by using the clean price of the bond, which subtracts accrued interest.}
+% TODO: tie to macroeconomic news
+
+Since in equation \eqref{eq:3} the bond is discounted by the risk-free interest rate, all the riskiness of a bond is incorporated into the expectation function of the cash flows.
+One way this riskiness can be modeled is as a per-period default probability.
+For simplicity, suppose a constant per-period default probability and let $d_{t}$ be the expected per period default probability given the information available at time $t$.
+Let $R \in [0, 1]$ be the recovery rate, which is the fraction of future cash flows that is received in the event of a default.
+Then,
+\begin{equation}
+  \label{eq:14}
+  V_{t} = \sum_{j = t + 1}^{T} \frac{(1 - d_{t})^{t - j - 1}((1 - d_{t}) + d_{t} R) C_{j}}{(r + 1)^{j - t}} \text{.}
+\end{equation}
+The important feature of equation \eqref{eq:14} is that as the expected probability of default increases, the price of the bond decreases.
+
+\section{Union Bond Prices and War Termination}
+\label{sec:war-prob-union}
+
+The war result could influence the ability of the Union to repay its debt in two ways: the amount of debt that the Union issued and the resources that the Union would have to repay that debt after the end of the war.
+The former is directly related to the war expenditures per year and the duration of the war, the latter to whether the southern states would be reincorporated back into the Union.
+Contemporary analyses of the Union debt and its ability to repay it focused on both of these aspects. 
+The debt level of the Union relative to its population and total wealth was compared with the U.S. during the Revolutionary War and War of 1812, and the U.K. during the Napoleonic Wars \parencites{elder1863debt}{Treasury1865}.
+
+The Union primarily financed its war expenditures through the issue of interest and non-interest bearing debt.
+After the War of 1812, the U.S. government issued relatively little debt, and had not issued paper currency since the Revolutionary War.%
+\footnote{See \textcites{dewey1918financial}{HomerSylla2005} for more detail on U.S. monetary and fiscal policy during that era.} %
+But between 1860 and 1866, the debt of the U.S. grew from 2 to 31~percent of GDP \parencites[Figure 1.5]{CBO2012}{CBO2012a}, of which 17~percent was non-interest bearing currency notes.
+The rise in debt was almost completely due to the need to cover war expenditures.
+During the war, the sources of Union revenue were: 66~percent loans
+(interest-bearing debt), 20~percent taxes, and 14~percent currency (non-interest bearing debt) \parencite[][255]{Ball1991}. 
+In terms of Union expenditures, the War and Navy Departments accounted for 76~percent (in~1862) to 61~percent (in~1865) of the expenditures.
+Most of the remaining expenditure was debt financing, 20~(1862) to 36~(1865) percent, the majority of which had been originally incurred to pay for war expenditures.
+\footnote{See also \textcite[][14]{Godfrey1976}.} %
+The budgetary effect of the war is clear when looking comparing estimates of the U.S. budget for fiscal year 1866 made before and after the war had ended.
+In \textit{The Annual Report of the Treasury} on December 6, 1864 the forecast ed deficit of the fiscal year ending June 30, 1866 was \$470 million,  with 1,168 million in expenditures  \parencite[13][]{Treasury1864}.
+In the next annual report in December 1865, after the conclusion of the war, the Treasury estimated a surplus of \$112~million, with expenditures of only \$396~million dollars \parencite{Treasury1865}.
+In fact, for fiscal year 1866, there was a surplus of \$132~million \parencite[2][]{Treasury1865}.
+Since beliefs in a longer or more costly war almost directly imply a higher debt level and thus a higher default probability, an expectations of a longer or costlier war are associated with a fall in the bond price.
+
+However, the war could also influence the resources that the Union would have to repay the debt in the future.
+All other things equal, a Union victory that included a Union with southern states would have larger population and wealth from which it could repay the debt.
+
+% TODO: flesh this out. add stats.
+
+Given the data used here it is not possible to disentangle these possibly cross-cutting effects of the expected war costs and outcome on bond prices.
+However, it is likely that expectations of the cost of the war are more important than expectations of the outcome of the war in determining the present value of the bonds.
+\textcite{elder1863debt} in a contemporary analysis of the ability of the U.S. to repay its debt reprinted in the \textit{Bankers' Magazine} claimed ``The Rebellion leaves our capital in real and personal property just where it was before the secession. ... So far now this is only a loss of that which we have not had, and at best or worst, a very small one in any time of need'' (p. 19).
+Not only was the wealth of the southern states relatively small compared to the northern states, the longer the war lasted the less of it there would be.
+The war caused extensive physical damage to the southern states; \textcite{GoldinLewis1975} estimated that GDP per capita in the southern states did not return to its pre-war trend level until 1909.
+This also points to the likely primacy of the expected cost of the war in determining the bond price.
+
+\section{Price Data}
+\label{sec:price-data}
+
+This work uses a price series of long-term six percent bonds issued by the Union that span the entire war.%
+\footnote{
+  The price data, including many price series not used in this paper,  used in this paper has been released as a data package available at \url{https://github.com/jrnold/civil_war_era_findata}.
+}%
+\footnote{
+  See \textcite{ustreasury1900} and \textcite{united1882national} for a complete list of U.S. loans during this period.
+}
+The price series uses data from two similar bonds: the Sixes of 1868 and the Sixes of 1881.%
+Both of these bonds were coupon bonds that paid six percent interest semiannually in January and July and only differed in their maturity date.%
+\footnote{
+  The Sixes of 1868 and 1881 each consist of bonds issued under two acts.
+  The Sixes of 1868 include two issues: the Loan of 1847 (Act of January 28, 1847), and the Loan of 1848 (Act of March, 1847) \parencites[72-73,145-148]{united1882national}[72-74]{ustreasury1900}.
+  The Sixes of 1881 include two issues: the Loan of February 1881 (Act February 8, 1861) issued before the war to fill a normal budget deficit, and the Loan of July and August, 1881 (Act of July 17 and August 5, 1861) which was the first loan to fund the war \parencites[81]{united1882national}[78-79,81-82,151-153]{ustreasury1900}.
+}
+The data comes from tables in the \textit{Bankers' Magazine and Statistical Registrar} and \textit{Merchants' Magazine and Commercial Review}, the two leading financial journals of that era.
+Both of these journals quoted the prices of these bonds in tables at weekly or tri-monthly (1st, 10th, 20th) frequency.
+
+% TODO: need to distinguish when 1868 and 1881 sixes are used
+% The Sixes of 1868 and 1881 bonds appear to have been treated as similarly by intestors.
+% The \textit{Bankers' Magazine}, one of the data sources, replaced its quotation of the sixes of 1868 with the sixes of 1881.
+% At that time the Sixes of 1868 and 1881 had similar prices; On August 27, 1861, the Sixes of 1868 were quoted at 87.5, while on September 3, 1861, the Sixes of 1881 were quoted at 89.125. % TODO: generate from data
+
+This series of six percent bonds are used because of asset price series that span the entire war, the Sixes are the most liquid.
+Other works that have analyzed financial markets during the American Civil War have relied on price series which do not span the entire war.
+Many works use the price of gold in greenbacks \parencites{McCandless1996,SmithSmith1997,WillardGuinnaneEtAl1996}.
+However, since the U.S. Treasury did not suspend the convertibility of demand notes to gold until January 1, 1862, analyses using greenback prices cannot analyze the first eight months of the war.
+% TODO Knowing what we do now about how long the war lasted, this is only a small portion of the war, but this is longer than XXX 
+\footnote{
+  For 47 percent (42 weeks) of the \textit{Bankers' Magazine} quotes in 1864-65, the quoted price of the Fives of 1874 did not change. 
+  For the Sixes of 1881, only on 9 percent of weeks (8 weeks) did the price not change.
+  Moreover, the \textit{Merchants' Magazine} stops quoting the Fives of 1874 at the end of 1864, while it continues to quote the Sixes of 1881 throughout 1865.
+}
+Substantively, it is unlikely that the choice of the Sixes relative to other Union bonds or notes matter, because the gold prices of all Union bonds and notes are all highly correlated.
+
+The price series that is used in the analysis consists of \AcwSixesNobs{} observations between \AcwSixesStart{} and \AcwSixesEnd{}.
+These dates are respectively the first day with an observed price before the start of the Battle of Fort Sumter on April 12, 1861  and after the surrender of Robert E. Lee at Appomattox Court House on April 9, 1865.
+The price of Sixes in gold dollars is used because the coupons and principal of Sixes were payable in specie.
+The clean price, meaning interest accrued since the last payment is subtracted, is used in order to avoid discontinuities in the price level that are solely to a coupon payment.
+
+% TODO: add narrative of the price changes
+% This data is plotted in Figure \ref{fig:sixes_price}.
+% The Sixes suffer a sharp fall of about XXXX at Fort Sumter.
+% After that, the price is mostly rising until June 1862, around the time of McClellan's failed Peninsula Campaign. 
+% Then the price is falling from June 1862 until February 1863. are mostly rising until 
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{assets/plot-sixes_prices}
+  \caption{Price of sixes (clean, gold, face value = \$100) April, 1861 through April, 1865.}
+  \label{fig:sixes_price}
+\end{figure}
+
+The ability to use changes in the bond price to proxy for changes in the expected war result depends on other expectations not influencing the expected cash flows.
+It is likely that changes in the expected war result was overwhelmingly responsible for the price changes that occurred during the war.
+Figure \ref{fig:sixes_price_all} plots the prices of the Sixes from 1855 through 1865.
+In the years before the American Civil War, the price of Sixes was nearly constant except for a few events: the Panic of 1857 and the election of Abraham Lincoln in November 1860.
+The Panic of 1857, a global financial crisis, appears as a blip compared with the price movements during the American Civil War.
+Given this, it is almost certainly the case that any non-war related effects were minimal to non-existent.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{assets/plot-sixes_prices_all}
+  \caption{Price of sixes from 1855 through 1865. (clean, gold, face value = \$100). 
+  The gray rectangle indicates the American Civil War, which is also shown in more detail in Figure \ref{fig:sixes_price}.}
+  \label{fig:sixes_price_all}
+\end{figure}
+
+% TODO: add yields
+% TODO: narrative of the ups and downs of the market. base off of Mitchell's discussions.
+
+
+\section{Statistical Model}
+\label{sec:model}
+
+The objective of this work is to estimate the effects of events on changes on the difference in prices.
+If there were no missingness in the data, then the first difference in the price would be used as the response variable.
+However, the price data has high amount of missingness at the daily level (\AcwSixesPctMissing{} missing), irregular frequencies of non-missing values (\AcwSixesDayDiffMin{}--\AcwSixesDayDiffMax{} days), and the prices themselves have measurement error.
+Thus, this work does not directly use the first difference as the response variable, but instead estimates the model in its state space form with the price level as the outcome variable.%
+\footnote{See \textcite{DurbinKoopman2001}, among others, for a discussion of ARIMA models in state space form.}
+Let $y_{t}$ bet the logarithm of the price of Sixes at time $t$.
+\begin{align}
+  \label{eq:1}
+  y_{t} &= y^{*}_{t - 1} + \Delta y^{*}_{t} + \varepsilon_{t} & \text{where $y_{t} \neq \emptyset$} \\
+  \label{eq:9}
+  y^{*}_{t - 1} &= y^{*}_{t-2} + \Delta y^{*}_{t-1} \\
+  \label{eq:10}
+  \Delta y^{*}_{t} &= \alpha + \mu_{t} + \nu_{t} \\
+  \label{eq:11}
+  \varepsilon_{t} &\sim \dnorm{0, \xi}  \\
+  \label{eq:12}
+  \xi & \sim \dlnorm{a, b} \\
+  \label{eq:13}
+  \nu_{t} &\sim \dt{4, 0, \sigma} \text{.}
+\end{align}
+$y^{*}_{t}$ and $\Delta y^{*}_{t}$ are latent variables representing the previous level of the price and the first difference in the price respectively.
+The symbol $\emptyset$ is used to represent missing, 
+If there were no missingness or measurement error in $y$, then this would directly estimated using the observed first differences and equations~\eqref{eq:1}--\eqref{eq:10}
+simplify to  $y_{t} - y_{t-1} = \alpha + \mu_{t} + \nu_{t}$.
+The scale of the error term $\varepsilon_{t}$ is given an informative prior derived from other data about the daily range in prices.%
+\footnote{
+  The location $a$ and scale $b$ of the log-normal distribution are matched to the empirical location and scale parameters of daily price ranges of Sixes which come from a small number of articles in \textit{Bankers' Magazine} in which those ranges are quoted.
+}
+
+In this work, $\Delta y^{*}_{t}$, the latent first difference in prices, is the primary parameter of interest.
+Equation \eqref{eq:10} is the model of $\Delta y^{*}_{t}$; it is the equation that would typically be estimated as a regression with the latent first differences replaced by observed first differences.
+The parameter $\alpha_{t}$ is an intercept representing a constant trend, the parameter $\nu_{t}$ is an error term, and $\mu_{t}$ will be used to model events which influence the price of the bond.
+In order to account for the possible large non-battle events that are not directly modeled, $\nu_{t}$ is given a Student-$t$ distribution with a small degrees of freedom parameter.
+
+The parameter $\mu_{t}$ is the sum of battle effects on prices at time $t$. 
+It is defined as,
+\begin{equation}
+  \label{eq:5}
+  \mu_{t} = \sum_{b \in B} w_{b, t} \beta_{b}
+\end{equation}
+where $w_{b, t} \in [0, 1]$ and  $\sum_{t \in 1:T} w_{b,t} = 1$.
+For each battle, $\beta_{b}$ is the total effect of a battle on the price, and $w_{b,t}$ is the share of the effect incorporated into the price at time $t$.
+$w_{b,t}$ is the share of information about the battle effect that reaches the market at time $t$.%
+\footnote{
+  This model does not account for cases in which a battle has effects with different signs at different times.
+  Examples of this were the First Bull Run, which was first reported as a victory, and Chickamagua.
+  Since intra-battle statistics are not available, estimating such a model would require additional information on the signals being received from the battle field at each point in time, such as the content of the newspaper articles, something beyond the scope of the current paper.
+}
+The lag weight $w_{b,t}$ is not estimated, but is derived data on newspaper coverage of the battle, the details of which are discussed in Section \ref{sec:battle-data}.
+
+The individual battle effects, $\beta_{b}$ are modeled as coming from different prior distributions conditional on the outcome of the battle $b$.
+Let $K =\left\{ \mathtt{U}, \mathtt{C}, \mathtt{I} \right\}$ be the set of possible battle outcomes, where \texttt{U} is a Union victory, \texttt{C} is a Confederate victory, and \texttt{I} is an Inconclusive battle.
+Let $k[b] : B \to K$ be the outcome of battle $b$.%
+Then,
+\begin{equation}
+  \label{eq:2}
+  \beta_{b} \sim \dt{4, \gamma_{k[b]}, \sigma \tau_{k[b]}}
+\end{equation}
+The hyperprior distributions are given Student-$t$ distributions with small degrees of freedom in order to avoid shrinking the parameters of battles that may have exceptionally large effects.
+How the outcome of each battle is defined in the data is discussed in Section \ref{sec:battle-data}.
+This model is a generalization of including indicator variables for each battle outcome category.
+As $\tau_{k[b]} \to 0$, the model is equivalent to one with indicator variables for each outcome and coefficients $\gamma_{k}$.
+For easier interpretation of the results, I will use the standard deviation of the distribution of $\beta_{b} | k[b] = k$, which is defined as $\tau^{*}_{k} = \sqrt{2} \sigma \tau_{k}$.
+
+\section{Battle and Battle News Data}
+\label{sec:battle-data}
+
+The set of American Civil War battles used in the data are a set of \AcwBattleNumSigA{} battles selected by \textcite{CWSAC1993} as the most militarily significant battles in the war. 
+The set of battles is listed in Table \ref{tab:battles}.
+The National Park Service in \textcite{CWSAC1993} and \textcite{CWSAC1993b} identified \AcwBattleNum{} battles as the militarily significant battles from the over 10,000 officially recorded engagements in the war.
+They also classified the military significance of each of these battles into four-category ordinal scale.
+This paper only uses those battles in the highest significance level (``A''), which is defined as ``having a decisive influence on a campaign and a direct impact on the course of the war'' \parencite{CWSAC1993}.%
+\footnote{
+  Admittedly, this is selecting a the set of battles based on \textit{ex post} assessment of their military importance.
+  The the battles serve as covariates, so this is not selecting observations on the dependent variable.
+  This is not selecting on the dependent variable any more than any regression analysis only includes covariates that are \textit{a priori} expected to have non-zero effects on the outcome variable.
+  By selecting a small subset of battles for which there is a high prior of a non-zero effect, I am able to estimate individual-level effects for each battle rather than simply average effects.
+  It is worth noting that this subset of the battles is still a relatively large number of battles. It is more than the total number of battles in many wars, and similar in number and composition as the total list of battles of the American Civil War in \textcite{Livermore1900}, \textcite{Bodart1908} and \textcite{cdb90}.
+}
+
+\begin{table}
+  \tiny
+  \input{assets/tab-battles.tex}
+  \caption{List of battles included in the analysis.}
+  \label{tab:battles}
+\end{table}
+
+The outcome of each battle is an ordered categorical variable taking the values: \texttt{U} = ``Union victory'', \texttt{I} = ``Inconclusive'', and \texttt{C} = ``Confederate victory''.
+The source of these classifications is also \textcite{CWSAC1993}. %
+While \textcite{CWSAC1993} does not describe the methodology used for this classification, the classification appears to primarily reflect the tactical result of the battle. %
+\textcite{fox1898regimental} and \textcite{Livermore1900}, which are sources of \textcite{CWSAC1993} and show a high level of agreement with it, define the victorious side of a battle as the side that controls the battlefield at the end of battle.%
+\footnote{\textcite{Bodart1908} and \textcite{cdb90} also code the outcomes of battles and largely agree with the CWSAC classification.} %
+In this set of battles, the Union won battles \AcwBattleSigAOutcomeU{} (\AcwBattleSigAOutcomeUPct{}), the Confederacy won \AcwBattleSigAOutcomeC{} (\AcwBattleSigAOutcomeCPct{}), while only \AcwBattleSigAOutcomeI{} (\AcwBattleSigAOutcomeIPct{}) ended inconclusively.%
+\footnote{The share of Union victories (inconclusive battles) in the ``A'' significance subset is higher (lower) than in the set of all battles --- Union victories: \AcwBattleOutcomeUPct{}, Inconclusive battles: \AcwBattleOutcomeIPct{}, Confederate victories: \AcwBattleOutcomeCPct{}.}
+
+The time which it takes for information to reach the market is measured using the newspaper coverage of the battle in the  \textit{The New York Times}.
+For each battle, the articles in the \textit{The New York Times} appearing in the weeks after the battle are identified.%
+\footnote{
+  The articles come from the \textit{Proquest Historical Newspapers: The New York Times} database.
+  Articles about a battle are identified using a two step procedure. An initial list of potential articles is generated by a keyword (place and commander names) search limited to the period from the first day of the battle to 21 days after the battle.
+  Articles within that list were manually classified as primarily about the battle or not.
+}
+Let $\mathtt{articles}_{t}$ be the number of articles and $\mathtt{pages}_{t}$ is the sum of the pages of articles about the battle at time $t$.
+Then 
+\begin{equation}
+  \label{eq:4}
+  w_{b,t} = \frac{1}{4} \left( \mathtt{articles}_{t} + \mathtt{articles}_{t-1} + \mathtt{pages}_{t} + \mathtt{pages}_{t-1} \right)
+\end{equation}
+This measure accounts for two sources of uncertainty.
+The first is whether the article is about news revealed the day before, in which case the market responded to it the day before, or whether the article is about news revealed that morning or evening after the market closed, in which case the market is responding to it on that day.
+The second is the choice between the number of articles and number of pages as a measure of the amount of news. 
+Note that this measure does not consider the content of the articles, e.g. their sentiment, only their presence.
+
+Although not heavily used in this version, a new dataset of the battles of the American Civil War was created for this project.%
+\footnote{Available at \url{https://github.com/jrnold/acward}.}
+Despite the multiple sources of data on the American Civil War, the individual sources disagrees on the definitions of battles, have incomplete data, and different estimates of concepts like strength and casualties.
+The American Civil War Battle database combines, cleans, cross-references battle data from multiple extant sources, including \textcites{Phister1883}{Livermore1900}{Bodart1908}{dyer1908_war_rebel}{KennedyConservation1998}{CWSAC1993}{cwsac2012} and \href{http://dbpedia.org}{dbpedia.org}.
+The database includes data on force sizes, casualties, commanders, and locations for almost 400 battles.
+
+The posterior distributions of all models are estimated using the No-U-Turn Sampler Hamiltonian Monte Carlo (NUTS-HMC) algorithm implemented in \textsf{Stan} \parencites{Stan2013b}{HoffmanGelman2011}.%
+\footnote{The model was run with 8 chains initialized at starting values drawn from the posterior samples of an initial run that appeared to have converged. 
+Each chain was run for 1,024 iterations, with 256 iterations saved, for a total of 1,024 iterations from all chains.}
+
+\section{Results}
+\label{sec:results}
+
+The substantively interesting parameters of the model in Section \ref{sec:model} are the mean ($\gamma$) and standard deviation ($\tau^*$) parameters of the battle outcome distributions, and the individual battle effects $\beta_{b}$.
+$\gamma$ is an estimate of the average effect of battle outcomes;
+$\tau^{*}$ is an estimate of the spread of the individual battle effects within each battle outcome;
+$\beta$ is an estimate of the individual battles' effects.
+In this section, I discuss the results of each.
+
+\subsection{Battle Effects Population Distribution}
+\label{sec:battle-results}
+
+First, consider $\gamma$, the mean of the battle outcome distribution.
+On average, Confederate battles were associated with decline in the bond price.
+The posterior mean of gamma ($\E p(\gamma_{\mathtt{C}} | y)$) is \AcwGammaMeanC{}.
+Since prices are log transformed, this implies that the average Confederate victory is associated with approximately a \AcwGammaMeanCPct{} decrease in the Sixes price.
+On average, both Union victories and inconclusive battles are associated with small increases in the bond price:
+\AcwGammaMeanUPct{} for Union victories, \AcwGammaMeanIPct{} for Inconclusive battles.
+However, these effects are imprecisely estimated, and only the Confederate posterior distribution of $\gamma_{C}$ has a 95\% credible interval that do not cross zero.
+
+These results suggest an asymmetry between in how the market interpreted Union and Confederate victories.
+The magnitude of the average Confederate victory was likely higher than the magnitude of Union victories, $\Pr(|\gamma_{U}| > |\gamma_{U}|) = \AcwGammaCltUAbs{}$, suggesting that each Confederate victory had a larger impact on expectations of the war result than Union victories.
+
+\begin{table}[ht]
+  %\input{assets/tab-gamma.tex}
+  \caption{Summary statistics of $p(\gamma|y)$, the location parameter of the battle outcome distributions.}
+  \label{tab:gamma}
+\end{table}
+
+\begin{figure}[ht]
+  %\includegraphics[width=\textwidth]{assets/plot-gamma}
+  \caption{Density of $p(\gamma|y)$, the location parameter of the battle outcome distributions.}
+  \label{fig:gamma}
+\end{figure}
+
+Next, consider $\tau^{*}$, the standard deviation of the battle outcome distributions., are between 0.009 and and 0.014.
+The Confederate victory distribution have the smallest standard deviation, with a posterior median of 0.010; 
+the inconclusive battles distribution has the largest standard deviation with a posterior median of 0.016.
+While the posterior median of the standard deviation of the Union victory distribution is higher than than of the Confederate victory distribution, the difference is not statistically significant, $\Pr(\tau^{*}_{U} > \tau^{*}_{C} | y) = \AcwTauCltU{}$.
+
+\begin{table}[ht]
+  \centering
+  %\input{assets/tab-tau_star.tex}
+  \caption{Summary statistics of $p(\tau^{*}|y)$, the standard deviation of the battle outcome distributions.}
+  \label{tab:tau_star}
+\end{table}
+
+\begin{figure}[ht]
+  %\includegraphics[width=\textwidth]{assets/plot-tau_star}
+  \caption{Density of $p(\tau^{*}|y)$, the standard deviation of the battle outcome distributions.}
+  \label{fig:tau_star}
+\end{figure}
+
+\subsection{Battle-Level Results}
+
+Figure \ref{fig:battle_effects} plots the posterior distribution of the battle effects $\beta_{b}$ for all battles.
+Table \ref{tab:battle_effects} displays summary statistics of the battle effects.
+Unfortunately, most the posterior distributions of the battle-level effects have wide credible intervals.
+Thus, I will only discuss posterior means while noting that these results are subject to high levels of uncertainty.
+Section \ref{sec:conclusion} discusses several methods which may be able to provide more precise parameter estimates.
+
+Given the results of the prior distributions in Section \ref{sec:battle-results}, it is unsurprising that the battles with the lowest negative effects are all Confederate.
+First Fort Sumter has the largest posterior mean, followed by Gaines' Mill, and Chickamagua.
+Gaines' Mill is one of the Seven Days Battle, which \textcite{Fuller1956} considered, along with Vicksburg, as one of the turning points of the war.
+
+In terms of the battles with the largest positive effects, the battle with the largest posterior mean is the Battle of Gettysburg, which needs no explanation. 
+In the Battle of Opequon in which Philip Sheridan decisively defeated Jubal Early in September 1864 and gained control of the Shenandoah Valley.
+The Battle of Forts Jackson and St. Philip, in April 1862, opened up New Orleans for Union capture.
+The Siege of Port Hudson followed the Battle of Vicksburg and secured Union control of the Mississippi.
+
+The rank ordering of the inconclusive battles by their posterior means has face validity.
+The Battle of Antietam has a positive posterior mean.
+In the battle, McClellan stopped Lee's advance into Maryland, and while tactically inconclusive, is generally considered a Union victory.
+The estimated positive effect for Antietam contrasts \textcite{WillardGuinnaneEtAl1996} estimate of a negative structural break at Antietam.
+This suggests that it was the Emancipation Proclamation, which exacerbated the commitment problem in the war \textcite{Reiter2009}, not the Battle of Antietam, that increased expectations about the cost of the war.
+At the Battle of the Wilderness, Grant took heavy casualties, but Lee retreated after three days and the Union Overland campaign continued.
+However, The Battle of Spotsylvania Courthouse, which immediately followed the Battle of the Wilderness, has a negative posterior mean.
+That battle was also bloody, but it took 13 days.
+Although the Overland Campaign towards Richmond continued, the stalemate at Spotsylvania Court House may have been an indicator of the cost and time it would take to take Richmond.
+
+\begin{figure}[htpb]
+  %\includegraphics{assets/plot-battle_effects}
+  \caption{Summary of posterior distributions of $\beta_{b}$ for all battles.
+    The point is the posterior mean, the colored inner line is the 25th to 75th quantile, and the gray outer line is the 2.5th to 97.5th quantile.
+    Battles are colored by their outcome: Union victory, Confederate victory, or Inconclusive.
+  }
+  \label{fig:battle_effects}
+\end{figure}
+
+\begin{table}
+  %\input{assets/tab-battle_effects.tex}
+  \caption{Summary statistics of posterior distribution of battle effects $\beta_b$ for all battles.}
+  \label{tab:battle_effects}
+\end{table}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+First, the posteriors of the parameters reported here are wide.
+Some of this is likely due to the modeling of measurement error and missingness rather than ignoring it.
+However, the missingness could be reduced by using the price series of the Union currency (greenbacks) to gold as the response variable, since observations for that are available for all business days.
+The downside is that all events prior to January 1, 1862, when the specie convertibility was revoked, would be ignored. 
+The greenback price series would both serve as a robustness check and as a way to get more efficient, if slightly biased, estimates.
+
+Second, the model can be improved by including non-battle related covariates.
+However, there are a couple difficulties with this.
+First, financial and economic indicators, beyond the bond prices themselves used in the analysis, are not available at the daily or weekly frequency.
+Second, apart from a few specific sets of events, such as the release of the annual report of the Secretary of the Treasury and bills authorizing debt issues, there would need to be a method to avoid an \textit{ad hoc} selection of non-war events.
+
+Third, currently this paper simply estimates the effects of individual battles. 
+However, it is more interesting why certain battles had larger effects, and that requires including battle level covariates. 
+Since the American Civil War Battle database includes data on many battle characteristics, such as strength and casualties. 
+Earlier models that I ran found that the simple functions of casualties and outcomes, e.g. linear terms and interactions, did not fit the data well. 
+This suggests that more flexible functional forms and interactions should be included, while still penalizing over-fitting.
+
+\newpage
+
+\section{Appendices}
+\label{sec:appendix}
+
+\subsection{Distributions}
+
+$\dt{\nu, \mu, \sigma}$ is the Student-t distribution, with degrees of freedom $\nu$, location $\mu$, and scale $\sigma$,
+\begin{equation}
+  \label{eq:8}
+  y \sim \dt{\nu, \mu, \sigma} = \frac{\Gamma((\nu + 1) / 2)}{\Gamma(\nu / 2)} \frac{1}{\sqrt{\nu \pi} \sigma} 
+  \left(
+    1 + \frac{1}{\nu}
+    \left(
+      \frac{y - \mu}{\sigma}
+    \right)^{2}
+  \right)^{-\frac{\nu + 1}{2}}
+\end{equation}
+$\dlnorm{\mu, \sigma}$ is the log-normal distribution, with location $\mu$, and scale $\sigma$,
+\begin{equation}
+  \label{eq:7}
+  y \sim \dlnorm{\mu, \sigma} = \frac{1}{\sqrt{2 \pi} \sigma} \frac{1}{y} \exp
+  \left(
+    - \frac{1}{2} \frac{\log y - \mu}{\sigma}
+  \right)^{2}
+\end{equation}
+
+\printbibliography{}
+
+\end{document}
+
+%%% Local Variables: 
+%%% coding: utf-8
+%%% mode: latex
+%%% TeX-engine: xetex
+%%% End: 
+
+%  LocalWords:  ceteris parabis von Gartner Fearon FilsonWerner UCDP
+%  LocalWords:  Slantchev SmithStam LeventogluSlantchev Goemans CDB
+%  LocalWords:  LangloisLanglois WolfordReiterCarrubba Reiter Tierney
+%  LocalWords:  SarkeesWayman cdb BiddleLong ACLED ESOC NorthWeingast
+%  LocalWords:  RaleighLinkeHegreEtAl introd FreyKucher sussman revol
+%  LocalWords:  instit Herron eldor finan chensiems Greenstone Schwab
+%  LocalWords:  WolfersZitzewitz ArrowForsytheGorhamEtAl Calomiris th
+%  LocalWords:  WillardGuinnaneEtAl McCandless SmithSmith Weidenmier
+%  LocalWords:  BurdekinLangdana DavisPecquet BrownBurdekin kalyvas
+%  LocalWords:  OosterlinckWeidenmier multimanned MarshallJaggers CBO
+%  LocalWords:  BoltZanden GoldinLewis Poast Livermore dewey Godfrey
+%  LocalWords:  HomerSylla annum ustreasury tri findata github eq HMC
+%  LocalWords:  HoffmanGelman stan mcmcdb MCMC CWSAC ACWARD Phister
+%  LocalWords:  Bodart KennedyConservation cwsac dbpedia Opequon Fons
+%  LocalWords:  superpopulation Spotsylvania Proquest tuple Lau hoc
+%  LocalWords:  macaulay DurbinKoopman Chickamagua ARIMA

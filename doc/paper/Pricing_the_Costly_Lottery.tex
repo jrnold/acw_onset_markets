@@ -182,7 +182,7 @@ Bond prices are a function of expected future cash flows, and war results can ha
 Thus, bond prices provide a method to assess the effects of war events on the expected war result.
 This allows for understanding how events within war influenced the expected war result.
 Assessing the importance of war events on war termination provides another method for researchers to ``open up the black box of war''.
-In this application, initial results suggest that for the Union bonds considered, the average Confederate victory decreased the price by \AcwGammaMeanCPct{} and Union victory increased it by \AcwGammaMeanUPct{}.
+In this application, initial results suggest that for the Union bonds considered, the average Confederate victory decreased the price by XXX and Union victory increased it by XXX.
 \end{abstract}
 
 \end{titlingpage}
@@ -207,8 +207,8 @@ This provides estimates of both the effects of individual battles and the effect
 Since news of battles reaches the market neither instantaneously nor simultaneously, newspaper coverage of each battle in \textit{The New York Times} is used as a proxy for the time it takes news to reach the market.
 
 I find that, on average, Confederate victories were associated with decreases in the bond price and Union victories associated with  increases.
-However, these effects were asymmetric. The average Confederate victory was associated with a \AcwGammaMeanCPct{} decrease in the bond price, while the average Union victory was associated with only a \AcwGammaMeanUPct{} increase.
-The battle-level effects are imprecisely estimated, but the battle with the largest posterior mean was the Battle of Gettysburg (\AcwBetaGettysburg{}), while the battle with the smallest posterior mean was the First Battle of Fort Sumter (\AcwBetaFtSumter{}).
+However, these effects were asymmetric. The average Confederate victory was associated with a XXX decrease in the bond price, while the average Union victory was associated with only a XXX increase.
+The battle-level effects are imprecisely estimated, but the battle with the largest posterior mean was the Battle of Gettysburg (XXX), while the battle with the smallest posterior mean was the First Battle of Fort Sumter (XXX).
 
 Financial market data provides an alternative method with which to analyze the intra-war events, especially in cases where data on intra-war events is only available in a small number of cases.
 Since \textcite{Fearon1995}, the game theoretic literature in international relations has analyzed the relationship between bargaining and fighting within war \parencites{FilsonWerner2002}{Slantchev2003}{SmithStam2004}{Powell2004}{LeventogluSlantchev2007}{LangloisLanglois2009}{WolfordReiterCarrubba2011}.
@@ -413,7 +413,7 @@ The clean price, meaning interest accrued since the last payment is subtracted, 
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{assets/plot-sixes_prices}
+  %\includegraphics{assets/plot-sixes_prices}
   \caption{Price of sixes (clean, gold, face value = \$100) April, 1861 through April, 1865.}
   \label{fig:sixes_price}
 \end{figure}
@@ -427,7 +427,7 @@ Given this, it is almost certainly the case that any non-war related effects wer
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{assets/plot-sixes_prices_all}
+  %\includegraphics{assets/plot-sixes_prices_all}
   \caption{Price of sixes from 1855 through 1865. (clean, gold, face value = \$100). 
   The gray rectangle indicates the American Civil War, which is also shown in more detail in Figure \ref{fig:sixes_price}.}
   \label{fig:sixes_price_all}
@@ -522,7 +522,7 @@ This paper only uses those battles in the highest significance level (``A''), wh
 
 \begin{table}
   \tiny
-  \input{assets/tab-battles.tex}
+  %\input{assets/tab-battles.tex}
   \caption{List of battles included in the analysis.}
   \label{tab:battles}
 \end{table}
@@ -577,14 +577,14 @@ In this section, I discuss the results of each.
 
 First, consider $\gamma$, the mean of the battle outcome distribution.
 On average, Confederate battles were associated with decline in the bond price.
-The posterior mean of gamma ($\E p(\gamma_{\mathtt{C}} | y)$) is \AcwGammaMeanC{}.
-Since prices are log transformed, this implies that the average Confederate victory is associated with approximately a \AcwGammaMeanCPct{} decrease in the Sixes price.
+The posterior mean of gamma ($\E p(\gamma_{\mathtt{C}} | y)$) is XXX.
+Since prices are log transformed, this implies that the average Confederate victory is associated with approximately a XXX decrease in the Sixes price.
 On average, both Union victories and inconclusive battles are associated with small increases in the bond price:
-\AcwGammaMeanUPct{} for Union victories, \AcwGammaMeanIPct{} for Inconclusive battles.
+XXX for Union victories, XXX for Inconclusive battles.
 However, these effects are imprecisely estimated, and only the Confederate posterior distribution of $\gamma_{C}$ has a 95\% credible interval that do not cross zero.
 
 These results suggest an asymmetry between in how the market interpreted Union and Confederate victories.
-The magnitude of the average Confederate victory was likely higher than the magnitude of Union victories, $\Pr(|\gamma_{U}| > |\gamma_{U}|) = \AcwGammaCltUAbs{}$, suggesting that each Confederate victory had a larger impact on expectations of the war result than Union victories.
+The magnitude of the average Confederate victory was likely higher than the magnitude of Union victories, $\Pr(|\gamma_{U}| > |\gamma_{U}|) = XXX$, suggesting that each Confederate victory had a larger impact on expectations of the war result than Union victories.
 
 \begin{table}[ht]
   %\input{assets/tab-gamma.tex}
@@ -601,7 +601,7 @@ The magnitude of the average Confederate victory was likely higher than the magn
 Next, consider $\tau^{*}$, the standard deviation of the battle outcome distributions., are between 0.009 and and 0.014.
 The Confederate victory distribution have the smallest standard deviation, with a posterior median of 0.010; 
 the inconclusive battles distribution has the largest standard deviation with a posterior median of 0.016.
-While the posterior median of the standard deviation of the Union victory distribution is higher than than of the Confederate victory distribution, the difference is not statistically significant, $\Pr(\tau^{*}_{U} > \tau^{*}_{C} | y) = \AcwTauCltU{}$.
+While the posterior median of the standard deviation of the Union victory distribution is higher than than of the Confederate victory distribution, the difference is not statistically significant, $\Pr(\tau^{*}_{U} > \tau^{*}_{C} | y) = XXX$.
 
 \begin{table}[ht]
   \centering

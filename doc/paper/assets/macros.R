@@ -1,8 +1,6 @@
 #' # Create Macros for Use in LaTeX
-#'
 
 #' # Header
-source("conf.R", chdir=TRUE)
 args <- commandArgs(TRUE)
 fileout <- args[1]
 
@@ -105,36 +103,6 @@ local({
   add_macro("AcwSixesDayDiffMin", min(dailyfreq))
   add_macro("AcwSixesDayDiffMax", max(dailyfreq))
 })
-
-#' # Results for model m_sixes_3a
-
-local({
-
-  mod <- RDATA[["m_sixes_3a"]]
-  mod_summary <- RDATA[["m_sixes_3a_summary"]]
-
-  gamma <- mod[["gamma"]]
-  gamma_mean <- apply(gamma, 1, mean)
-  add_macro("AcwGammaMeanC", floatFormat(gamma_mean[1], 3))
-  add_macro("AcwGammaMeanCPct", percent(-1 * gamma_mean[1], 1))
-  add_macro("AcwGammaMeanI", floatFormat(gamma_mean[2], 3))
-  add_macro("AcwGammaMeanIPct", percent(gamma_mean[2], 1))
-  add_macro("AcwGammaMeanU", floatFormat(gamma_mean[3], 3))
-  add_macro("AcwGammaMeanUPct", percent(gamma_mean[3], 1))
-
-
-  add_macro("AcwTauCltU", floatFormat(mod_summary[["tau_confed_lt_union"]], 2))
-  add_macro("AcwGammaCltUAbs", floatFormat(mod_summary[["gamma_confed_lt_union_abs"]], 2))
-
-  btlbeta <- function(x) {
-    subset(RDATA[["m_sixes_3a_summary"]][["beta_summary"]], battle == x)$mean
-  }
-  
-  add_macro("AcwBetaGettysburg", percent(btlbeta("PA002"), 1))
-  add_macro("AcwBetaFtSumter", percent(btlbeta("SC001"), 1))
-  
-})
-
 
 
 #' # Print Macro

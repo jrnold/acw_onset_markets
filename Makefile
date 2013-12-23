@@ -1,4 +1,9 @@
+BIBFILE = $(HOME)/Dropbox/jabref.bib
 R = Rscript
+BIBTEX = biber
+BIBEXT = .bcf
+LATEX = xelatex
+LATEX_OPTS = -interaction=nonstopmode -synctex=1  -file-line-error
 
 FILEHASH_SRC = $(wildcard R/filehashdb_*.R)
 FILEHASH_OBJ = $(FILEHASH_SRC:R/filehashdb_%.R=filehashdb/%)
@@ -9,34 +14,36 @@ TAB_SRC = $(wildcard tab-*.R)
 TAB_OUT = $(TAB_SRC:%.R=%.tex)
 
 all: $(FILEHASH_OBJ)
-	@echo $(R_DEPENDS)
 
-### data 
+### Data
 depends: $(R_DEPENDS)
 
 filehashdb/%: R/filehashdb_%.R
 	$(R) -e 'source("$<");main()' $(patsubst filehashdb_%,%,$(notdir $(basename $<)))
 
-R/%.q: R/%.R
-	$(R) bin/R_dependencies.R $< > $@
+# R/%.q: R/%.R
+# 	$(R) bin/R_dependencies.R $< > $@
 
+### Paper
+PAPER_DIR = doc/paper
+PAPER_SRC = $(PAPER_DIR)/Pricing_the_Costly_Lottery.tex
+PAPER_PDF1 = ${PAPER_SRC:.tex=.pdf}
 
-### Plots
-PLOT_SRC = $(wildcard plot-*.R)
-PLOT_OUT = $(PLOT_SRC:%.R=%.pdf)
+PAPER_ASSETS = $(wildcard assets/tab-*.pdf)
+PAPER_ASSETS += $(wildcard assets/plot-*.pdf)
+PAPER_ASSETS += assets/macros.tex
 
-plots: $(PLOT_OUT)
+PAPER_VERSION = $(shell cat doc/paper/version.txt | sed -e 's/\./_/g')
+PAPER_PDF2 = ${PAPER_PDF1:.tex=.pdf}
 
-tables: $(TAB_OUT)
+$(PAPER_PDF1): $(PAPER_SRC)
+	cd $(PAPER_DIR); \
+	$(LATEX) $(LATEX_OPTS) $(notdir $<); \
+	$(BIBTEX) $(subst .tex,.bcf,$(notdir $<)); \
+	$(LATEX) $(LATEX_OPTS) $(notdir $<); \
+	$(LATEX) $(LATEX_OPTS) $(notdir $<)
 
-macros: macros.tex
-
-figures/%.pdf: plot/%.R
-	$(R) $< $@
-
-tex/%.tex: tex/%.R
-	$(R) $< $@
-
+paper: $(PAPER_PDF1)
 
 .PHONY: all plots macros
 

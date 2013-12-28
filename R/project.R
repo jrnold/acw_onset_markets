@@ -2,6 +2,8 @@ suppressPackageStartupMessages({
     library("filehash")
     library("plyr")
     library("rstan")
+    library("devtools")
+    library("mcmcstats")
 })
 
 ROOT_DIR <- "."
@@ -9,6 +11,10 @@ STAN_MODEL_DIR <- file.path(ROOT_DIR, "stan")
 DATA_DIR <- file.path(ROOT_DIR, "data")
 FILEHASH_DB <- file.path(ROOT_DIR, "filehashdb")
 RDATA <- dbInit(FILEHASH_DB, "RDS")
+
+filehashdb_path <- function(key) {
+    file.path(FILEHASH_DB, key)
+}
 
 filehashdb_key <- function(filename = commandArgs(FALSE)[1]) {
     gsub("filehashdb_", "", tools::file_path_sans_ext(basename(filename)))
@@ -21,8 +27,8 @@ DATAFILE <- function(path) {
   file.path(ROOT_DIR, "data", path)
 }
 
-STAN_MODELS <- function(key) {
-  file.path(STAN_MODEL_DIR, sprintf("%s.stanx", key))
+STAN_MODEL <- function(key) {
+  file.path(STAN_MODEL_DIR, sprintf("%s.stan", key))
 }
 
 INIT_FILE <- function(key) {
@@ -77,67 +83,78 @@ GEN_INIT_2 <- function(model, n = 4, chain_id = NULL, key = NULL) {
 }
 
 
-FINDATA <- list()
-FINDATA[["bond_metadata"]] <-
-  function() {
-    con <- file(get_findata_path("bond_metadata.json"), "r")
-    bond_metadata <- fromJSON(con)
-    close(con)
-    bond_metadata
-  }
-FINDATA[["greenbacks"]] <-
-    function() {
-        mutate(read.csv(get_findata_path("greenbacks.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["greenbacks_fill"]] <-
-    function() {
-        mutate(read.csv(get_findata_path("greenbacks_fill.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["bankers_magazine_govt_state_loans_yields"]] <-
-    function() {
-        mutate(read.csv(get_findata_path("bankers_magazine_govt_state_loans_yields.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["bankers_magazine_govt_state_loans_yields_2"]] <-
-    function() {
-        mutate(read.csv(get_findata_path("bankers_magazine_govt_state_loans_yields_2.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["merchants_magazine_us_paper_yields"]] <-
-    function() {
-        mutate(read.csv(get_findata_path("merchants_magazine_us_paper_yields.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["merchants_magazine_us_paper_yields_2"]] <-
-    function() {
-        mutate(read.csv(get_findata_path("merchants_magazine_us_paper_yields_2.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["bankers_magazine_govt_bonds_quotes_in_text"]] <- 
-    function() {
-        mutate(read.csv(get_findata_path("bankers_magazine_govt_bonds_quotes_in_text.csv")),
-               date = as.Date(date))
-    }
-FINDATA[["events_smith_smith"]] <- 
-    function() {
-        mutate(read.csv(get_findata_path("events_smith_smith.csv")),
-               start_date = as.Date(start_date),
-               end_date = as.Date(end_date))
-    }
-FINDATA[["auction_18610213"]] <-
-    function() read.csv(get_findata_path("auction_18610213.csv"))
-FINDATA[["auction_18610322"]] <-
-    function() read.csv(get_findata_path("auction_18610322.csv"))
-FINDATA[["auction_18610511"]] <-
-    function() read.csv(get_findata_path("auction_18610511.csv"))
-FINDATA[["dewey1918_expenditures_1862_1865"]] <-
-    function() read.csv(get_findata_path("dewey1918_expenditures_1862_1865.csv"))
-FINDATA[["dewey1918_deficit_1862_1865"]] <-
-    function() read.csv(get_findata_path("dewey1918_deficit_1862_1865.csv"))
+FINDATA <- within(list(), {
+    bond_metadata <-
+        function() {
+            con <- file(get_findata_path("bond_metadata.json"), "r")
+            bond_metadata <- fromJSON(con)
+            close(con)
+            bond_metadata
+        }
+    greenbacks <-
+        function() {
+            mutate(read.csv(get_findata_path("greenbacks.csv")),
+                   date = as.Date(date))
+        }
+    greenbacks_fill <-
+        function() {
+            mutate(read.csv(get_findata_path("greenbacks_fill.csv")),
+                   date = as.Date(date))
+        }
 
-
+    bankers_magazine_govt_state_loans <-
+        function() {
+            mutate(read.csv(get_findata_path("bankers_magazine_govt_state_loans.csv")),
+                   date = as.Date(date))
+        }
+    bankers_magazine_govt_state_loans_yields <-
+        function() {
+            mutate(read.csv(get_findata_path("bankers_magazine_govt_state_loans_yields.csv")),
+                   date = as.Date(date))
+        }
+    bankers_magazine_govt_state_loans_yields_2 <-
+        function() {
+            mutate(read.csv(get_findata_path("bankers_magazine_govt_state_loans_yields_2.csv")),
+                   date = as.Date(date))
+        }
+    merchants_magazine_us_paper <-
+        function() {
+            mutate(read.csv(get_findata_path("merchants_magazine_us_paper.csv")),
+                   date = as.Date(date))
+        }
+    merchants_magazine_us_paper_yields <-
+        function() {
+            mutate(read.csv(get_findata_path("merchants_magazine_us_paper_yields.csv")),
+                   date = as.Date(date))
+        }
+    merchants_magazine_us_paper_yields_2 <-
+        function() {
+            mutate(read.csv(get_findata_path("merchants_magazine_us_paper_yields_2.csv")),
+                   date = as.Date(date))
+        }
+    bankers_magazine_govt_bonds_quotes_in_text <- 
+        function() {
+            mutate(read.csv(get_findata_path("bankers_magazine_govt_bonds_quotes_in_text.csv")),
+                   date = as.Date(date))
+        }
+    events_smith_smith <- 
+        function() {
+            mutate(read.csv(get_findata_path("events_smith_smith.csv")),
+                   start_date = as.Date(start_date),
+                   end_date = as.Date(end_date))
+        }
+    auction_18610213 <-
+        function() read.csv(get_findata_path("auction_18610213.csv"))
+    auction_18610322 <-
+        function() read.csv(get_findata_path("auction_18610322.csv"))
+    auction_18610511 <-
+        function() read.csv(get_findata_path("auction_18610511.csv"))
+    dewey1918_expenditures_1862_1865 <-
+        function() read.csv(get_findata_path("dewey1918_expenditures_1862_1865.csv"))
+    dewey1918_deficit_1862_1865 <-
+        function() read.csv(get_findata_path("dewey1918_deficit_1862_1865.csv"))
+})
+                  
 ACW_BATTLES <- function() {
     outcome_factor_3 <- function(x) {
         ordered(x, c("Confederate", "Inconclusive", "Union"))
@@ -165,14 +182,59 @@ ACW_BATTLES <- function() {
            outcome_cdb90 = outcome_factor_2(outcome_cdb90),
            outcome = outcome_factor_3(outcome))
 }
+                  
+                  
 
-WAR_NEWS <- list()
-WAR_NEWS[["battle_news"]] <- function() {
-    mutate(read.csv(DATAFILE("news/data/battle_news.csv")),
-           pubdate = as.Date(pubdate))
+WAR_NEWS <- within(list(), {
+    battle_news <- function() {
+        mutate(read.csv(DATAFILE("news/data/battle_news.csv")),
+               pubdate = as.Date(pubdate))
+    }
+    major_battle_news <- function() {
+        mutate(read.csv(DATAFILE("news/data/major_battle_news.csv")),
+               start_date = as.Date(start_date),
+               end_date = as.Date(end_date))
+    }
+})
+
+# Generated from random.org
+RANDOM <-
+    c(171232, 682784, 338850, 972279, 466199, 615165, 251671, 472549, 
+      382866, 360606, 565704, 359736, 728668, 3494, 152416, 86284, 
+      99250, 175844, 376047, 803853, 49440, 110698, 974699, 149111, 
+      610677, 984849, 377821, 725568, 826107, 818054, 637696, 496283, 
+      654926, 228523, 554869, 909460, 216596, 632569, 297362, 148618, 
+      856393, 474905, 122219, 237773, 290663, 88516, 94585, 825080, 
+      219261, 457069, 724089, 773091, 695544, 311121, 96542, 169690, 
+      957675, 513582, 806737, 45522, 788881, 441525, 748263, 256323, 
+      758178, 408589, 614201, 831229, 341090, 757732, 247350, 443040, 
+      653490, 583285, 630805, 574087, 730085, 895743, 809472, 114400, 
+      254460, 949796, 368255, 512097, 178890, 441026, 540647, 843075, 
+      932254, 294845, 433803, 323333, 564263, 44421, 20577, 220209, 
+      535682, 238598, 226390, 686098)
+
+run_stan <- function(file, ...) {
+    model <- stan_model(file)
+    timing <- system.time(ret <- sampling(model, ...))
+    ret_summary <- summary(ret)
+    list(sfit = ret,
+         summary = ret_summary,
+         timing = timing)
 }
-WAR_NEWS[["major_battle_news"]] <- function() {
-     mutate(read.csv(DATAFILE("news/data/major_battle_news.csv")),
-            start_date = as.Date(start_date),
-            end_date = as.Date(end_date))
+
+
+source_env <- function(file, chdir = FALSE,
+                       keep.source = getOption("keep.source.pkgs"), ...) {
+    e <- new.env(...)
+    sys.source(file, envir = e, chdir = chdir, keep.source = keep.source)
+    e
+}
+
+source_list <- function(file, ...) {
+    as.list(source_env(file, ...))
+}
+
+fill_na <- function(x, fill=0) {
+    x[is.na(x)] <- fill
+    x
 }

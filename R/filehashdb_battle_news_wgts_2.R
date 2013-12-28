@@ -1,35 +1,53 @@
-#' Battle News
-#' ==========================
+#' Weights for news from battles; all news days.
 #'
+#' Returns
+#' -----------
+#'
+#' ``data.frame``
+#'
+#' - ``battle``
+#' - ``date``
+#' - ``wgt``
+#' - ``lagwgt``
+#' - ``wgt2``:  A smoothed weight. ``0.5 * lagwgt + 0.5 * wgt``. Some articles report things that happened the
+#'   day before that the market responded to; other articles report things that were known after the market closed.
+#'   The weights are arbitrary. A better model would estimate them.
 library("plyr")
+library("sp")
+
+.DEPENDENCIES <-
+    c(DATAFILE("news/data/battle_news.csv"),
+      file.path(DATA_DIR, "acw_battles", "data", "battles.csv"))
+
+GEO_NEW_YORK <- c(long=75, lat=43)
+
+battles <- function() {
+    battles <- ACW_BATTLES()[ , c("battle", "start_date", "end_date", "theater", "lat", "long")]
+    battles$dist_ny <- spDistsN1(as.matrix(battles[ , c("long", "lat")]), GEO_NEW_YORK, longlat = TRUE)
+    battles
+}
 
 main <- function() {
-    battles <- ACW_BATTLES()
+    lagp <- 0.5
     
     battle_news <-
         mutate(WAR_NEWS[["battle_news"]]()[ , c("battle", "pubdate", "startPage")],
                wgt = 1 / startPage)
     
     battle_news <-
-        mutate(merge(battles[ , c('battle', 'start_date', 'end_date')],
-                     ddply(rbind(battle_news, mutate(battle_news, pubdate = pubdate - 1)),
-                           c("battle", "pubdate"),
-                           summarise, wgt = sum(wgt) * 0.5)),
-               lag = as.integer(pubdate - end_date))
-    
-    battle_news_lags <-
-        ddply(battle_news, "battle",
+        ddply(ddply(battle_news, c("battle", "pubdate"),
+                    summarise, wgt = sum(wgt)),
+              c("battle"),
               function(x) {
-                  x <- subset(x, lag > 0)
-                  wgt <- x$wgt / sum(x$wgt)
-                  xmean <- sum(x$lag * wgt)
-                  xvar <- sum(wgt * (x$lag - xmean)^2)
-                  data.frame(mean = xmean, var = xvar)
+                  x1 <- data.frame(date = x$pubdate,
+                                   wgt = x$wgt / sum(x$wgt))
+                  x2 <- rename(mutate(x1, date = date - 1L),
+                               c("wgt" = "lagwgt"))
+                  mutate(merge(x1, x2, all = TRUE),
+                         wgt = fill_na(wgt),
+                         lagwgt = fill_na(lagwgt),
+                         wgt2 = (1 - lagp) * wgt + lagp * lagwgt)
               })
-    
-    battle_news_theater <-
-        ddply(merge(battle_news_lags, battles[ , c("battle", "theater")]),
-              "theater", summarise, lag_mean = mean(mean), lag_sd = sd(mean), var = mean(var))
 
-    RDATA[[commandArgs(TRUE)[1]]] <- battle_news
+    RDATA[["battle_news_wgts_2"]] <- battle_news
 }

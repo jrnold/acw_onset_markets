@@ -1,11 +1,27 @@
 PackratFormat: 1.1
 PackratVersion: 0.1.0
 RVersion: 3.0.2
-Repos: http://cran.rstudio.com
+Repos: http://cran.rstudio.com,
+  http://wiki.rstan-repo.googlecode.com/git/,
+  http://wiki.rstan-repo.googlecode.com/git/
+
+Package: bitops
+Source: CRAN
+Version: 1.0-6
+
+Package: coda
+Source: CRAN
+Version: 0.16-1
+Requires: lattice
 
 Package: colorspace
 Source: CRAN
 Version: 1.2-4
+
+Package: devtools
+Source: CRAN
+Version: 1.4.1
+Requires: httr, RCurl, memoise, whisker, evaluate, digest
 
 Package: dichromat
 Source: CRAN
@@ -14,6 +30,11 @@ Version: 2.0-0
 Package: digest
 Source: CRAN
 Version: 0.6.4
+
+Package: evaluate
+Source: CRAN
+Version: 0.5.1
+Requires: stringr
 
 Package: filehash
 Source: CRAN
@@ -27,6 +48,11 @@ Requires: plyr, digest, gtable, reshape2, scales, proto, MASS
 Package: gtable
 Source: CRAN
 Version: 0.1.2
+
+Package: httr
+Source: CRAN
+Version: 0.2
+Requires: RCurl, stringr, digest
 
 Package: inline
 Source: CRAN
@@ -48,6 +74,19 @@ Requires: plyr, stringr, memoise
 Package: MASS
 Source: CRAN
 Version: 7.3-29
+
+Package: mcmcse
+Source: CRAN
+Version: 1.0-1
+
+Package: mcmcstats
+Source: github
+Version: 0.3.0
+Requires: mcmcse, plyr, coda
+GithubRepo: mcmcstats
+GithubUsername: jrnold
+GithubRef: master
+GithubSha1: 9b4f326f75f697cbad1dde600221583d435b6bb2
 
 Package: memoise
 Source: CRAN
@@ -83,6 +122,11 @@ Package: Rcpp
 Source: CRAN
 Version: 0.10.6
 
+Package: RCurl
+Source: CRAN
+Version: 1.95-4.1
+Requires: bitops
+
 Package: reshape2
 Source: CRAN
 Version: 1.2.2
@@ -94,18 +138,31 @@ Version: 1.0-3
 
 Package: rstan
 Source: source
-Version: 2.0.1
+Version: 2.1.0
 Requires: Rcpp, inline
-SourcePath: /home/jrnold/Downloads/rstan
+SourcePath: /home/jrnold/local/rstan/2.1.0
 
 Package: scales
 Source: CRAN
 Version: 0.2.3
 Requires: RColorBrewer, stringr, dichromat, munsell, plyr, labeling
 
+Package: sp
+Source: CRAN
+Version: 1.0-14
+Requires: lattice
+
 Package: stringr
 Source: CRAN
 Version: 0.6.2
+
+Package: whisker
+Source: CRAN
+Version: 0.3-2
+
+Package: xtable
+Source: CRAN
+Version: 1.7-1
 
 Package: yaml
 Source: CRAN

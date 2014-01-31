@@ -18,6 +18,7 @@ sixes_0 <- source_env("R/filehashdb_model_sixes_0.R")
 
 START_DATE <- sixes_0$START_DATE
 END_DATE <- sixes_0$END_DATE
+SIXES_1881_START <- as.Date("1861-9-3")
 
 standata <- function() {
     sixes <- sixes_0$gen_sixes()

@@ -1,9 +1,7 @@
 PackratFormat: 1.1
 PackratVersion: 0.1.0
 RVersion: 3.0.2
-Repos: http://cran.rstudio.com,
-  http://wiki.rstan-repo.googlecode.com/git/,
-  http://wiki.rstan-repo.googlecode.com/git/
+Repos: http://cran.rstudio.com
 
 Package: bitops
 Source: CRAN
@@ -40,6 +38,10 @@ Package: filehash
 Source: CRAN
 Version: 2.2-1
 
+Package: Formula
+Source: CRAN
+Version: 1.1-1
+
 Package: ggplot2
 Source: CRAN
 Version: 0.9.3.1
@@ -66,9 +68,14 @@ Package: lattice
 Source: CRAN
 Version: 0.20-24
 
+Package: latticeExtra
+Source: CRAN
+Version: 0.6-26
+Requires: RColorBrewer, lattice
+
 Package: lubridate
 Source: CRAN
-Version: 1.3.2
+Version: 1.3.3
 Requires: plyr, stringr, memoise
 
 Package: MASS
@@ -140,7 +147,6 @@ Package: rstan
 Source: source
 Version: 2.1.0
 Requires: Rcpp, inline
-SourcePath: /home/jrnold/local/rstan/2.1.0
 
 Package: scales
 Source: CRAN
@@ -156,6 +162,10 @@ Package: stringr
 Source: CRAN
 Version: 0.6.2
 
+Package: survival
+Source: CRAN
+Version: 2.37-7
+
 Package: whisker
 Source: CRAN
 Version: 0.3-2
@@ -166,4 +176,4 @@ Version: 1.7-1
 
 Package: yaml
 Source: CRAN
-Version: 2.1.8
+Version: 2.1.10

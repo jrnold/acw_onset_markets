@@ -25,7 +25,7 @@ gen_sixes <- function() {
                                        & date <= END_DATE),
                                 "date",
                                 summarise,
-                                logyield = mean(log(yield))),
+                                logyield = mean(yield)),
                           time = as.integer(date - START_DATE) + 1,
                           diff = c(1, as.integer(diff(date)))),
                    all.x = TRUE)

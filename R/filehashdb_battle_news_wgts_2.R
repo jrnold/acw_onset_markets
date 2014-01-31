@@ -46,7 +46,9 @@ main <- function() {
                   mutate(merge(x1, x2, all = TRUE),
                          wgt = fill_na(wgt),
                          lagwgt = fill_na(lagwgt),
-                         wgt2 = (1 - lagp) * wgt + lagp * lagwgt)
+                         wgt2 = (1 - lagp) * wgt + lagp * lagwgt,
+                         lag_start = as.integer(date - start_date),
+                         lag_end = as.integer(date - end_date))
               })
 
     RDATA[["battle_news_wgts_2"]] <- battle_news

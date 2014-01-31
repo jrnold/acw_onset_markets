@@ -101,7 +101,6 @@ FINDATA <- within(list(), {
             mutate(read.csv(get_findata_path("greenbacks_fill.csv")),
                    date = as.Date(date))
         }
-
     bankers_magazine_govt_state_loans <-
         function() {
             mutate(read.csv(get_findata_path("bankers_magazine_govt_state_loans.csv")),

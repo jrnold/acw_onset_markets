@@ -153,7 +153,7 @@
 \begin{abstract}
 \footnotesize
 This paper estimates the effects of major battles in the American Civil War on the price of Union bonds.
-Bond prices are a function of expected future cash flows, and war results can have a large influence on the the expectation of the timely payment of those cash flows.
+Bond prices are a function of expected future cash flows, and war results can have a large influence on the expectation of the timely payment of those cash flows.
 Thus, bond prices provide a method to assess the effects of war events on the expected war result.
 This allows for understanding how events within war influenced the expected war result.
 Assessing the importance of war events on war termination provides another method for researchers to ``open up the black box of war''.
@@ -209,18 +209,19 @@ In terms of its battle data, the American Civil War is one of the best documente
 However, although there are multiple sources of American Civil War battle data, there has previously not been a comprehensive database suitable for quantitative analysis. 
 Thus, this paper introduces a new dataset of American Civil War battles, which includes casualty, force size, and other data for the battles of the American Civil War.
 
-The American Civil War is also relevant to modern war.
-It is considered the first modern war, having introduced many of the technologies used in World War I \parencite[89][]{Fuller1956a}.%
+The American Civil War is an interesting case in two regards with respect to modern war.
+First, it is considered the first ``modern war'', having introduced many of the technologies later used in World War I and thereafter \parencite[89][]{Fuller1956a}.%
 \footnote{
   \begin{quotation}
     The Civil War was the first in which railroads were extensively used for the transportation of troops, aerial reconnaissance was effectively used, command and control was exercised through the electric telegraph, ironclad naval vessels engaged in combat, a multimanned submarine sank a naval vessel, rifled artillery came into general use, wire entanglements were used in field fortifications, and the repeating rifle was used by large troop units. \parencite[760]{Weiss1966}
   \end{quotation}
 }
+In some respects, it is also quite similar to many current intra-state wars.
 Like half of post-Cold War civil wars, the American Civil War was a conventional conflict \parencite[423]{kalyvas2010inter}.%
 \footnote{
   \textcite{kalyvas2010inter} notes that there is a ``striking decline [in] irregular wars following the end of the Cold War''.
 }
-The income levels of the Union and Confederacy in 1860 place them as lower-middle income countries today---approximately the income levels of Pakistan and Iraq respectively.%
+And although the United States was one of the more wealthy international states in the late nineteenth century, the income levels of the Union and Confederacy in 1860 would classify it as lower-middle income country today---approximately the income levels of Pakistan and Iraq respectively.%
 \footnote{%
   The GDP per capita of the US in 1860 was \$2,241 in 1990 GK international dollars. %
   In 2010, Cambodia had a GDP per capita of \$2,450, Pakistan \$2,494, and Ghana \$1,922 \parencite{BoltZanden2013}. %
@@ -230,11 +231,11 @@ The income levels of the Union and Confederacy in 1860 place them as lower-middl
   In 2010, the following countries had approximately the same real GDP per capita: Angola \$1,600, Iraq \$1,610, and Senegal \$1,507 \parencite{BoltZanden2013}. %
 }
 
-The American Civil War is also an interesting case for study in its own right. 
+Second, the American Civil War is also an interesting case for study in its own right. 
 Its importance to American history is obvious.
-But, surprisingly, given the voluminous literature on the subject, it is understudied in two regards. %
-First, the international relations literature has largely ignored the conflict since inter-state war scholars consider it a civil war and intra-state war scholars focus on the post-1945 era \parencites[140-141]{Reiter2009}[2]{Poast2012}. %
-Second, almost none of the existing work on the American Civil War, including the few examples in international relations, use any form of quantitative analysis.%
+But, surprisingly, given the voluminous literature on the subject, there is surprisingly little literature on it in two areas. %
+The international relations literature has largely ignored the conflict since inter-state war scholars consider it a civil war and intra-state war scholars focus on the post-1945 era \parencites[140-141]{Reiter2009}[2]{Poast2012}. %
+Furthermore, almost none of the existing work on the American Civil War, including the few examples in international relations, use any form of quantitative analysis.%
 \footnote{
   Consider, for example, that until \textcite{hacker2011census}, no historian had reanalyzed the total  number killed in the American Civil War since  \textcite{Livermore1900}. 
   See \textcite{Weiss1966} for a quantitative analysis of the American Civil War battles.
@@ -318,19 +319,17 @@ The rise in debt was almost completely due to the need to cover war expenditures
 During the war, the sources of Union revenue were: 66~percent loans
 (interest-bearing debt), 20~percent taxes, and 14~percent currency (non-interest bearing debt) \parencite[][255]{Ball1991}. 
 In terms of Union expenditures, the War and Navy Departments accounted for 76~percent (in~1862) to 61~percent (in~1865) of the expenditures.
-Most of the remaining expenditure was debt financing, 20~(1862) to 36~(1865) percent, the majority of which had been originally incurred to pay for war expenditures.
+Most of the remaining expenditure was debt financing, 20~(1862) to 36~(1865) percent, the majority of which had been originally incurred to pay for war expenditures.%
 \footnote{See also \textcite[][14]{Godfrey1976}.} %
 The budgetary effect of the war is clear when looking comparing estimates of the U.S. budget for fiscal year 1866 made before and after the war had ended.
-In \textit{The Annual Report of the Treasury} on December 6, 1864 the forecast ed deficit of the fiscal year ending June 30, 1866 was \$470 million,  with 1,168 million in expenditures  \parencite[13][]{Treasury1864}.
+In \textit{The Annual Report of the Treasury} on December 6, 1864 the forecasted deficit of the fiscal year ending June 30, 1866 was \$470 million,  with 1,168 million in expenditures  \parencite[13][]{Treasury1864}.
 In the next annual report in December 1865, after the conclusion of the war, the Treasury estimated a surplus of \$112~million, with expenditures of only \$396~million dollars \parencite{Treasury1865}.
 In fact, for fiscal year 1866, there was a surplus of \$132~million \parencite[2][]{Treasury1865}.
-Since beliefs in a longer or more costly war almost directly imply a higher debt level and thus a higher default probability, an expectations of a longer or costlier war are associated with a fall in the bond price.
+Thus, a belief in a longer or more costly war implies a belief in increased military spending which would almost certainly have to be paid for with debt issues, which increases the probability of future default.
+In this manner, a beliefs in a longer or more costly war are associated with decreases fall in the bond price.
 
 However, the war could also influence the resources that the Union would have to repay the debt in the future.
 All other things equal, a Union victory that included a Union with southern states would have larger population and wealth from which it could repay the debt.
-
-% TODO: flesh this out. add stats.
-
 Given the data used here it is not possible to disentangle these possibly cross-cutting effects of the expected war costs and outcome on bond prices.
 However, it is likely that expectations of the cost of the war are more important than expectations of the outcome of the war in determining the present value of the bonds.
 \textcite{elder1863debt} in a contemporary analysis of the ability of the U.S. to repay its debt reprinted in the \textit{Bankers' Magazine} claimed ``The Rebellion leaves our capital in real and personal property just where it was before the secession. ... So far now this is only a loss of that which we have not had, and at best or worst, a very small one in any time of need'' (p. 19).
@@ -344,35 +343,32 @@ This also points to the likely primacy of the expected cost of the war in determ
 This work uses a price series of long-term six percent bonds issued by the Union that span the entire war.%
 \footnote{
   The price data, including many price series not used in this paper,  used in this paper has been released as a data package available at \url{https://github.com/jrnold/civil_war_era_findata}.
-}%
-\footnote{
   See \textcite{ustreasury1900} and \textcite{united1882national} for a complete list of U.S. loans during this period.
 }
-The price series uses data from two similar bonds: the Sixes of 1868 and the Sixes of 1881.%
+The price series uses data from two similar bonds: the Sixes of 1868 and the Sixes of 1881.
 Both of these bonds were coupon bonds that paid six percent interest semiannually in January and July and only differed in their maturity date.%
 \footnote{
   The Sixes of 1868 and 1881 each consist of bonds issued under two acts.
-  The Sixes of 1868 include two issues: the Loan of 1847 (Act of January 28, 1847), and the Loan of 1848 (Act of March, 1847) \parencites[72-73,145-148]{united1882national}[72-74]{ustreasury1900}.
+  The Sixes of 1868 include two issues: the Loan of 1847 (Act of January 28, 1847), and the Loan of 1848 (Act of March, 1847) \parencites[72-73,145-148]{united1882national}[72-74]{ustreasury1900}.Bont o
   The Sixes of 1881 include two issues: the Loan of February 1881 (Act February 8, 1861) issued before the war to fill a normal budget deficit, and the Loan of July and August, 1881 (Act of July 17 and August 5, 1861) which was the first loan to fund the war \parencites[81]{united1882national}[78-79,81-82,151-153]{ustreasury1900}.
+The Sixes of 1868 are used for dates less than September 1st, 1861 and the Sixes of 1881 are used thereafter.
+The Sixes of 1868 and 1881 bonds appear to have been treated as similarly by intestors.
+The \textit{Bankers' Magazine}, one of the data sources, replaced its quotation of the sixes of 1868 with the sixes of 1881.
+At that time the Sixes of 1868 and 1881 had similar prices; On August 27, 1861, the Sixes of 1868 were quoted at 87.5, while on September 3, 1861, the Sixes of 1881 were quoted at 89.125.
 }
-The data comes from tables in the \textit{Bankers' Magazine and Statistical Registrar} and \textit{Merchants' Magazine and Commercial Review}, the two leading financial journals of that era.
+The data comes from tables in the \textit{Bankers' Magazine and Statistical Registrar} and \textit{Merchants' Magazine and Commercial Review}, the two leading financial journals of that era. %
 Both of these journals quoted the prices of these bonds in tables at weekly or tri-monthly (1st, 10th, 20th) frequency.
 
-% TODO: need to distinguish when 1868 and 1881 sixes are used
-% The Sixes of 1868 and 1881 bonds appear to have been treated as similarly by intestors.
-% The \textit{Bankers' Magazine}, one of the data sources, replaced its quotation of the sixes of 1868 with the sixes of 1881.
-% At that time the Sixes of 1868 and 1881 had similar prices; On August 27, 1861, the Sixes of 1868 were quoted at 87.5, while on September 3, 1861, the Sixes of 1881 were quoted at 89.125. % TODO: generate from data
-
-This series of six percent bonds are used because of asset price series that span the entire war, the Sixes are the most liquid.
-Other works that have analyzed financial markets during the American Civil War have relied on price series which do not span the entire war.
-Many works use the price of gold in greenbacks \parencites{McCandless1996,SmithSmith1997,WillardGuinnaneEtAl1996}.
-However, since the U.S. Treasury did not suspend the convertibility of demand notes to gold until January 1, 1862, analyses using greenback prices cannot analyze the first eight months of the war.
-% TODO Knowing what we do now about how long the war lasted, this is only a small portion of the war, but this is longer than XXX 
+This series of six percent bonds are used because of asset price series that span the entire war, the Sixes are the most liquid.%
 \footnote{
   For 47 percent (42 weeks) of the \textit{Bankers' Magazine} quotes in 1864-65, the quoted price of the Fives of 1874 did not change. 
   For the Sixes of 1881, only on 9 percent of weeks (8 weeks) did the price not change.
   Moreover, the \textit{Merchants' Magazine} stops quoting the Fives of 1874 at the end of 1864, while it continues to quote the Sixes of 1881 throughout 1865.
 }
+Other works that have analyzed financial markets during the American Civil War have relied on price series which do not span the entire war.
+Many works use the price of gold in greenbacks \parencites{McCandless1996,SmithSmith1997,WillardGuinnaneEtAl1996}.
+However, since the U.S. Treasury did not suspend the convertibility of demand notes to gold until January 1, 1862, analyses using greenback prices cannot analyze the first eight months of the war.
+In retrospect this is only a small portion of the war, but this is longer than many wars (ADD STATS).
 Substantively, it is unlikely that the choice of the Sixes relative to other Union bonds or notes matter, because the gold prices of all Union bonds and notes are all highly correlated.
 
 The price series that is used in the analysis consists of XXXX observations between XXXX and XXXX.
@@ -523,10 +519,16 @@ Then
   \label{eq:4}
   w_{b,t} = \frac{1}{4} \left( \mathtt{articles}_{t} + \mathtt{articles}_{t-1} + \mathtt{pages}_{t} + \mathtt{pages}_{t-1} \right)
 \end{equation}
-This measure accounts for two sources of uncertainty.
-The first is whether the article is about news revealed the day before, in which case the market responded to it the day before, or whether the article is about news revealed that morning or evening after the market closed, in which case the market is responding to it on that day.
-The second is the choice between the number of articles and number of pages as a measure of the amount of news. 
-Note that this measure does not consider the content of the articles, e.g. their sentiment, only their presence.
+This measure accounts for two sources of measurement uncertainty.
+The first source of uncertainty is how the timing of the article relates to when the news was known to the market. 
+If the article is reporting on events that were learned during market hours on the previous day or after market hours.
+If the later, the news would be incorporated by the market on the day before the article; if the later, the market would respond on the same day as the article.
+The second source of measurement uncertainty is how to quantify the quantity and importance of information about the event revealed.
+TODO: Need to rewrite because my measures are now number of articles weighted by the page on which they appear.
+\footnote{
+Note, that this measure does not consider the content of the articles, e.g. their sentiment, only their existence.
+Only the market response through price changes is used to infer whether the overall news about the battle was positive or negative.
+}
 
 Although not heavily used in this version, a new dataset of the battles of the American Civil War was created for this project.%
 \footnote{Available at \url{https://github.com/jrnold/acward}.}
@@ -636,6 +638,11 @@ Although the Overland Campaign towards Richmond continued, the stalemate at Spot
 \section{Conclusion}
 \label{sec:conclusion}
 
+This paper added ...
+
+This paper did ...
+
+This paper found ...
 
 
 \newpage

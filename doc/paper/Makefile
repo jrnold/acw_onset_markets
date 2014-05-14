@@ -7,36 +7,25 @@ BIBTEX = biber
 LATEX = xelatex
 LATEX_OPTS = -interaction=nonstopmode -synctex=1  -file-line-error
 
-assetfiles = $(wildcard assets/tab-*.pdf)
-assetfiles += $(wildcard assets/plot-*.pdf)
-assetfiles += assets/macros.tex
+texfile = $(SRC:%.Rnw=%.tex)
+auxfile = $(texfile:%.tex=%.bcf)
+pdffile = $(texfile:%.tex=%.pdf)
 
-version = $(shell cat version.txt | sed -e 's/\./_/g')
+all: $(pdffile)
 
-auxfile = $(SRC:%.tex=%.bcf)
-pdffile = $(SRC:%.tex=%.pdf)
-obj = $(pdffile:%.pdf=%_v_$(version).pdf)
+%.tex: %.Rnw
+	$(RSCRIPT) -e 'library(knitr);knit("$<",output="$@")'
 
-
-all: $(obj)
-	@echo $(version) $(objname)
-
-version.tex: version.txt
-	sed -e 's/\(.*\)/\\newcommand{\\version}{\1}/g' > $@  < $^
-
-$(pdffile): $(SRC) assets $(assetfiles) version.tex
-	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
+$(pdffile): $(texfile)
+	$(LATEX) $(LATEX_OPTS) $<
 	$(BIBTEX) $(auxfile)
-	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
-	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
+	$(LATEX) $(LATEX_OPTS) $<
+	$(LATEX) $(LATEX_OPTS) $<
 
-$(obj): $(pdffile)
-	cp $< $@
-
-assets:
-	make -C assets
-
-clean: 
+clean:
 	-rm $(obj) *.aux *.bbl *-blx.bib *.log *.out *.run.xml *.blg *.bcf
 
-.PHONY: assets
+clean-all: clean
+	-rm $(pdffile) $(texfile)
+
+.PRECIOUS: %.tex

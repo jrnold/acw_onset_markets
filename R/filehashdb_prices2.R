@@ -7,9 +7,10 @@
 #' - ``prior_sd``: ``list`` with prior standard deviation of each variable
 #' - ``prior_mean``: ``list`` with prior mean of each variable
 #' 
-PRE_WAR_START <- as.Date("1861-4-13")
-POST_WAR_START <- as.Date("1861-4-20")
+PRE_WAR_START <- as.Date("1861-4-1")
+POST_WAR_START <- as.Date("1861-4-27")
 END_WAR <- as.Date("1865-4-13")
+SD_MULT <- 5/3
 
 sd2 <- function(x) {
     if (length(x) > 1) {
@@ -81,16 +82,17 @@ greenbacks <- function() {
 main <- function() {
     bonddata <- bonds()
     greenbackdata <- greenbacks()
-    prices <- rbind.fill(bonddata, greenbackdata)
+    prices <- mutate(rbind.fill(bonddata, greenbackdata),
+                     date = as.Date(date))
 
     prior_sd <- 
-        summarise(subset(bonddata,
-                         series == "US_6pct_1868"
-                         & date %in% c(PRE_WAR_START, POST_WAR_START)),
-                  yield = 2 * abs(diff(yield)) / sqrt(12),
-                  log_yield = 2 * abs(diff(log_yield)) / sqrt(12),
-                  price = 2 * abs(diff(price)) / sqrt(12),
-                  log_price = 2 * abs(diff(log_price)) / sqrt(12))
+           summarise(subset(bonddata,
+                            date >= as.Date("1861-4-1")
+                            & date <= as.Date("1861-5-1")),
+                     yield = sd(yield) * SD_MULT,
+                     log_yield = sd(log_yield) * SD_MULT,
+                     price = sd(price) * SD_MULT,
+                     log_price = sd(log_price) * SD_MULT)
 
     prior_mean <-
         summarise(subset(bonddata, date == POST_WAR_START),
@@ -99,7 +101,7 @@ main <- function() {
                   price = mean(price),
                   log_price = mean(log_price))
 
-    list(data = prices,
-         prior_sd = as.list(prior_sd),
-         prior_mean = as.list(prior_mean))
+    RDATA[["prices2"]] <- list(data = prices,
+                               prior_sd = as.list(prior_sd),
+                               prior_mean = as.list(prior_mean))
 }

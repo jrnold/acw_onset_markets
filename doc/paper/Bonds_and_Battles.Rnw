@@ -58,8 +58,7 @@
 \DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
 \AtEveryBibitem{\clearlist{language}}
 
-%\addbibresource{acw_markets_2.bib}
-\bibliography{default.bib}
+\addbibresource{default.bib}
 
 \newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
 

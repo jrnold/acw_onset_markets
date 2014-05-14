@@ -1,4 +1,4 @@
-SRC = Pricing_the_Costly_Lottery.tex
+SRC = Bonds_and_Battles.Rnw
 BIBFILE = $(HOME)/Dropbox/jabref.bib
 
 RSCRIPT = Rscript
@@ -7,36 +7,22 @@ BIBTEX = biber
 LATEX = xelatex
 LATEX_OPTS = -interaction=nonstopmode -synctex=1  -file-line-error
 
-assetfiles = $(wildcard assets/tab-*.pdf)
-assetfiles += $(wildcard assets/plot-*.pdf)
-assetfiles += assets/macros.tex
-
-version = $(shell cat version.txt | sed -e 's/\./_/g')
-
-auxfile = $(SRC:%.tex=%.bcf)
-pdffile = $(SRC:%.tex=%.pdf)
-obj = $(pdffile:%.pdf=%_v_$(version).pdf)
-
+texfile = $(SRC:%.Rnw=%.tex)
+pdffile = $(texfile:%.tex=%.pdf)
+pdffile = $(texfile:%.tex=%.pdf)
+obj = $(pdffile)
 
 all: $(obj)
-	@echo $(version) $(objname)
 
-version.tex: version.txt
-	sed -e 's/\(.*\)/\\newcommand{\\version}{\1}/g' > $@  < $^
+$(texfile): $(rnwfile)
+	cd ../../; \
+	$(RSCRIPT) -e 'library(knitr);knit($(abspath $<),output="$(abspath $@)")'
 
-$(pdffile): $(SRC) assets $(assetfiles) version.tex
+$(pdffile): $(SRC)
 	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
 	$(BIBTEX) $(auxfile)
 	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
 	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
 
-$(obj): $(pdffile)
-	cp $< $@
-
-assets:
-	make -C assets
-
-clean: 
-	-rm $(obj) *.aux *.bbl *-blx.bib *.log *.out *.run.xml *.blg *.bcf
 
 .PHONY: assets

@@ -13,7 +13,7 @@ R_DEPENDS = $(R_SRC:.R=.q)
 TAB_SRC = $(wildcard tab-*.R)
 TAB_OUT = $(TAB_SRC:%.R=%.tex)
 
-all: $(FILEHASH_OBJ)
+all: paper
 
 ### Data
 depends: $(R_DEPENDS)
@@ -24,26 +24,24 @@ filehashdb/%: R/filehashdb_%.R
 # R/%.q: R/%.R
 # 	$(R) bin/R_dependencies.R $< > $@
 
-### Paper
-PAPER_DIR = doc/paper
-PAPER_SRC = $(PAPER_DIR)/Pricing_the_Costly_Lottery.tex
-PAPER_PDF1 = ${PAPER_SRC:.tex=.pdf}
+# ### Paper
+# PAPER_DIR = doc/paper
+# PAPER_RNW = $(PAPER_DIR)/Pricing_the_Costly_Lottery.Rnw
+# PAPER_TEX = ${PAPER_RNW:.Rnw=.tex}
+# PAPER_PDF = ${PAPER_TEX:.tex=.pdf}
 
-PAPER_ASSETS = $(wildcard assets/tab-*.pdf)
-PAPER_ASSETS += $(wildcard assets/plot-*.pdf)
-PAPER_ASSETS += assets/macros.tex
+# $(PAPER_TEX): $(PAPER_RNW)
+# 	cd $(PAPER_DIR); \
+# 	Rscript -e 'library(knitr);knit("$<",output="$@")'
 
-PAPER_VERSION = $(shell cat doc/paper/version.txt | sed -e 's/\./_/g')
-PAPER_PDF2 = ${PAPER_PDF1:.tex=.pdf}
+# $(PAPER_PDF): $(PAPER_TEX)
+# 	cd $(PAPER_DIR); \
+# 	$(LATEX) $(LATEX_OPTS) $(notdir $<); \
+# 	$(BIBTEX) $(subst .tex,.bcf,$(notdir $<)); \
+# 	$(LATEX) $(LATEX_OPTS) $(notdir $<); \
+# 	$(LATEX) $(LATEX_OPTS) $(notdir $<)
 
-$(PAPER_PDF1): $(PAPER_SRC)
-	cd $(PAPER_DIR); \
-	$(LATEX) $(LATEX_OPTS) $(notdir $<); \
-	$(BIBTEX) $(subst .tex,.bcf,$(notdir $<)); \
-	$(LATEX) $(LATEX_OPTS) $(notdir $<); \
-	$(LATEX) $(LATEX_OPTS) $(notdir $<)
-
-paper: $(PAPER_PDF1)
+# paper: $(PAPER_PDF)
 
 .PHONY: all plots macros
 

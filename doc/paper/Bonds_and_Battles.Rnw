@@ -45,20 +45,20 @@
 
 \titleformat{\subsubsection}[runin]{\normalsize\bfseries}{\addfontfeatures{Numbers=OldStyle}\thesubsubsection}{1em}{}[:]
 
-\usepackage[authordate, doi=false, isbn=false, backend=biber,
-            backref=true, maxbibnames=10, hyperref=true,
-            dateabbrev=false, uniquename=false, backend=biber]{biblatex-chicago}
-\ExecuteBibliographyOptions{url=false}
-\ExecuteBibliographyOptions{doi=false}
-\newbibmacro{string+url}[1]{%
- \iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
-\DeclareFieldFormat{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
-\DeclareFieldFormat[article]{title}{\usebibmacro{string+url}{\mkbibquote{#1}}}
-\DeclareFieldFormat[misc]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
-\DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
-\AtEveryBibitem{\clearlist{language}}
+\usepackage[style=authoryear,doi=false,isbn=false,backend=biber,%
+            backref=true,maxbibnames=10,hyperref=true,%
+            dateabbrev=false,uniquename=false]{biblatex}
+% \ExecuteBibliographyOptions{url=false}
+% \ExecuteBibliographyOptions{doi=false}
+% \newbibmacro{string+url}[1]{%
+%  \iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+% \DeclareFieldFormat{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+% \DeclareFieldFormat[article]{title}{\usebibmacro{string+url}{\mkbibquote{#1}}}
+% \DeclareFieldFormat[misc]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+% \DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+% \AtEveryBibitem{\clearlist{language}}
 
-\addbibresource{default.bib}
+\addbibresource{local.bib}
 
 \newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
 
@@ -107,6 +107,7 @@
 \usepackage[colorlinks]{hyperref}
 % %% HYPERREF
 
+
 \hypersetup{
   pdftitle={Bonds and Battles: Financial Market Reactions to Battlefield Events in the American Civil War},
   pdfauthor={Jeffrey B. Arnold},
@@ -120,29 +121,8 @@
 }
 
 
-\newcommand{\thanksnote}{
-  \scriptsize
-  Check \url{http://jrnold.me/research.html} for the most current version of this paper.
-  % Thanks to
-  % Randall Stone,
-  % Hein Goemans,
-  % Tom Dolan,
-  % Curtis Signorino,
-  % Michael Peress,
-  % Shawn Ling Ramirez,
-  % Ian Sulam,
-  % Jeremy Kedziora,
-  % Patrick Kuhn,
-  % Jeffrey Marshall,
-  % Jonathan Olmsted,
-  % Tyson Chatagnier,
-  % Trung Dang,
-  % Miguel R. Rueda
-  % and the members of the University of Rochester Political Science Department and Emory University Political Science Department
-  % for their helpful comments and discussions.
-  % This paper has been presented in significantly different versions at 2011 APSA, 2012 Peace Science, 2013 Peace Science, and 2013 MPSA conferences.
-}
-\newcommand{\affiliations}{\footnotesize Instructor of Political Science, Emory University; Ph.D. Candidate in Political Science, University of Rochester}
+\newcommand{\thanksnote}{$thanksnote$}
+\newcommand{\affiliations}{\footnotesize $affilitions$}
 \author{Jeffrey B. Arnold \thanks{\affiliations}}
 \date{\today{}}
 \newcommand{\draftstatus}{DRAFT}
@@ -196,7 +176,7 @@ Thus, events associated with large changes in the price of Union bonds can be us
 
 Specifically, this paper models the prices of six percent coupon bonds, ``Sixes'', issued by the Union before and during the American Civil War.
 Importantly, and unlike many other price series of this era, this price series spans the entire war.
-The effects of \AcwBattleNumSigA{} militarily significant battles on the returns of Sixes are estimated.
+The effects of XXXX militarily significant battles on the returns of Sixes are estimated.
 These battle-level effects are modeled hierarchically by battle outcome (Confederate victory, Union victory, inconclusive).
 This provides estimates of both the effects of individual battles and the effects of the average battle outcome.
 Since news of battles reaches the market neither instantaneously nor simultaneously, newspaper coverage of each battle in \textit{The New York Times} is used as a proxy for the time it takes news to reach the market.
@@ -395,7 +375,7 @@ However, since the U.S. Treasury did not suspend the convertibility of demand no
 }
 Substantively, it is unlikely that the choice of the Sixes relative to other Union bonds or notes matter, because the gold prices of all Union bonds and notes are all highly correlated.
 
-The price series that is used in the analysis consists of \AcwSixesNobs{} observations between \AcwSixesStart{} and \AcwSixesEnd{}.
+The price series that is used in the analysis consists of XXXX observations between XXXX and XXXX.
 These dates are respectively the first day with an observed price before the start of the Battle of Fort Sumter on April 12, 1861  and after the surrender of Robert E. Lee at Appomattox Court House on April 9, 1865.
 The price of Sixes in gold dollars is used because the coupons and principal of Sixes were payable in specie.
 The clean price, meaning interest accrued since the last payment is subtracted, is used in order to avoid discontinuities in the price level that are solely to a coupon payment.
@@ -437,7 +417,7 @@ Given this, it is almost certainly the case that any non-war related effects wer
 
 The objective of this work is to estimate the effects of events on changes on the difference in prices.
 If there were no missingness in the data, then the first difference in the price would be used as the response variable.
-However, the price data has high amount of missingness at the daily level (\AcwSixesPctMissing{} missing), irregular frequencies of non-missing values (\AcwSixesDayDiffMin{}--\AcwSixesDayDiffMax{} days), and the prices themselves have measurement error.
+However, the price data has high amount of missingness at the daily level (XXXX missing), irregular frequencies of non-missing values (XXXX--XXXX days), and the prices themselves have measurement error.
 Thus, this work does not directly use the first difference as the response variable, but instead estimates the model in its state space form with the price level as the outcome variable.%
 \footnote{See \textcite{DurbinKoopman2001}, among others, for a discussion of ARIMA models in state space form.}
 Let $y_{t}$ bet the logarithm of the price of Sixes at time $t$.
@@ -502,9 +482,9 @@ For easier interpretation of the results, I will use the standard deviation of t
 \section{Battle and Battle News Data}
 \label{sec:battle-data}
 
-The set of American Civil War battles used in the data are a set of \AcwBattleNumSigA{} battles selected by \textcite{CWSAC1993} as the most militarily significant battles in the war. 
+The set of American Civil War battles used in the data are a set of XXXX battles selected by \textcite{CWSAC1993} as the most militarily significant battles in the war. 
 The set of battles is listed in Table \ref{tab:battles}.
-The National Park Service in \textcite{CWSAC1993} and \textcite{CWSAC1993b} identified \AcwBattleNum{} battles as the militarily significant battles from the over 10,000 officially recorded engagements in the war.
+The National Park Service in \textcite{CWSAC1993} and \textcite{CWSAC1993b} identified XXXX battles as the militarily significant battles from the over 10,000 officially recorded engagements in the war.
 They also classified the military significance of each of these battles into four-category ordinal scale.
 This paper only uses those battles in the highest significance level (``A''), which is defined as ``having a decisive influence on a campaign and a direct impact on the course of the war'' \parencite{CWSAC1993}.%
 \footnote{
@@ -527,8 +507,8 @@ The source of these classifications is also \textcite{CWSAC1993}. %
 While \textcite{CWSAC1993} does not describe the methodology used for this classification, the classification appears to primarily reflect the tactical result of the battle. %
 \textcite{fox1898regimental} and \textcite{Livermore1900}, which are sources of \textcite{CWSAC1993} and show a high level of agreement with it, define the victorious side of a battle as the side that controls the battlefield at the end of battle.%
 \footnote{\textcite{Bodart1908} and \textcite{cdb90} also code the outcomes of battles and largely agree with the CWSAC classification.} %
-In this set of battles, the Union won battles \AcwBattleSigAOutcomeU{} (\AcwBattleSigAOutcomeUPct{}), the Confederacy won \AcwBattleSigAOutcomeC{} (\AcwBattleSigAOutcomeCPct{}), while only \AcwBattleSigAOutcomeI{} (\AcwBattleSigAOutcomeIPct{}) ended inconclusively.%
-\footnote{The share of Union victories (inconclusive battles) in the ``A'' significance subset is higher (lower) than in the set of all battles --- Union victories: \AcwBattleOutcomeUPct{}, Inconclusive battles: \AcwBattleOutcomeIPct{}, Confederate victories: \AcwBattleOutcomeCPct{}.}
+In this set of battles, the Union won battles XXXX (XXXX), the Confederacy won XXXX (XXXX), while only XXXX (XXXX) ended inconclusively.%
+\footnote{The share of Union victories (inconclusive battles) in the ``A'' significance subset is higher (lower) than in the set of all battles --- Union victories: XXXX, Inconclusive battles: XXXX, Confederate victories: XXXX.}
 
 The time which it takes for information to reach the market is measured using the newspaper coverage of the battle in the  \textit{The New York Times}.
 For each battle, the articles in the \textit{The New York Times} appearing in the weeks after the battle are identified.%
@@ -684,6 +664,10 @@ $\dlnorm{\mu, \sigma}$ is the log-normal distribution, with location $\mu$, and 
     - \frac{1}{2} \frac{\log y - \mu}{\sigma}
   \right)^{2}
 \end{equation}
+
+\subsection{}
+
+Let $\log y_{j,t}$ be the logarithm of the price of series $j$
 
 \printbibliography{}
 

@@ -15,14 +15,17 @@ obj = $(pdffile)
 all: $(obj)
 
 $(texfile): $(rnwfile)
-	cd ../../; \
-	$(RSCRIPT) -e 'library(knitr);knit($(abspath $<),output="$(abspath $@)")'
+	$(RSCRIPT) -e 'library(knitr);knit("$<",output="$@")'
 
-$(pdffile): $(SRC)
-	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
+$(pdffile): $(texfile)
+	$(LATEX) $(LATEX_OPTS) $<
 	$(BIBTEX) $(auxfile)
-	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
-	$(LATEX) -job-name=$(objname) $(LATEX_OPTS) $<
+	$(LATEX) $(LATEX_OPTS) $<
+	$(LATEX) $(LATEX_OPTS) $<
+clean:
+	-rm $(obj) *.aux *.bbl *-blx.bib *.log *.out *.run.xml *.blg *.bcf
 
+clean-all: clean
+	-rm $(pdffile) $(texfile)
 
-.PHONY: assets
+.PRECIOUS: %.tex

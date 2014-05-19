@@ -139,5 +139,5 @@ Five Twenties of 1865--Consols of 1865, 1867, and 1868
 - Authorized borrowing $600 mn for the next FY, upon similar terms as previous loans, but no authorization for legal tender or denominations smaller than $50.
   Annual interest limited to 6 percent in coin, or 7.30 in currency, redeemable in not less than 5 or more than 40 year.
 - **limited debate** on the bill. Unsuccessful effor to fix the interest rate at 8 percent currency, and no further issue of treasury notes.
-- Bill becamse law March 3, 1865 (13 Stat 468).
+- Bill became law March 3, 1865 (13 Stat 468).
 

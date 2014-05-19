@@ -6,7 +6,7 @@ R_DEPENDS = $(R_SRC:.R=.q)
 TAB_SRC = $(wildcard tab-*.R)
 TAB_OUT = $(TAB_SRC:%.R=%.tex)
 
-all: $(FILEHASH_OBJ)
+all: paper
 
 ### Data
 depends: $(R_DEPENDS)

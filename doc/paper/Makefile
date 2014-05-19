@@ -9,12 +9,12 @@ LATEX_OPTS = -interaction=nonstopmode -synctex=1  -file-line-error
 
 texfile = $(SRC:%.Rnw=%.tex)
 pdffile = $(texfile:%.tex=%.pdf)
-pdffile = $(texfile:%.tex=%.pdf)
+auxfile = $(texfile:%.tex=%.bcf)
 obj = $(pdffile)
 
 all: $(obj)
 
-$(texfile): $(rnwfile)
+$(texfile): $(SRC)
 	$(RSCRIPT) -e 'library(knitr);knit("$<",output="$@")'
 
 $(pdffile): $(texfile)

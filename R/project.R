@@ -114,3 +114,7 @@ fill_na <- function(x, fill=0) {
     x[is.na(x)] <- fill
     x
 }
+
+unif_var <- function(x) {
+    (1 / 12) * diff(range(x))^2
+}

@@ -190,7 +190,7 @@ Since \textcite{Fearon1995}, the game theoretic literature in international rela
 However, there has been little empirical work that tests the implications of the bargaining theory of war with intra-war data \parencites{Goemans2000}{Ramsay2008}{Reiter2009}{Tierney2011}. 
 One of the reasons for the relative dearth of empirical work in this literature is a lack of intra-war data, e.g. battle data. 
 While there are established datasets of wars, namely, the Correlates of War (COW) \parencite{SarkeesWayman2010} and the Upsalla Conflict Data Program (UCDP), there is nothing remotely equivalent for battle level data.
-The only existing dataset of battles covering a large number of wars is CDB90 \parencite{cdb90}, a dataset collected in the mid-80s which has been criticized for its non-random selection of wars and battles, and the quality of its data \parencite{BiddleLong2004}. %
+The only existing dataset of battles covering a large number of wars is CDB90 \parencite{cdb90}, a dataset collected in the mid-80s which has beenn criticized for its non-random selection of wars and battles, and the quality of its data \parencite{BiddleLong2004}. %
 More recently, there has been massive efforts at collecting intra-war data for civil wars. %
 However, these new datasets, such as ACLED \parencites{RaleighLinkeHegreEtAl2010} and the Empirical Studies of Conflict (\href{http://esoc.princeton.edu/}{ESOC}), only cover a handful of wars.
 Due to the lack of multi-war intra-war data, the preferred approach to the empirical study of the bargaining theory of war with intra-war data has been qualitative case studies \parencites{Reiter2003}[][Chapter 9]{Reiter2009}. 
@@ -241,16 +241,6 @@ Furthermore, almost none of the existing work on the American Civil War, includi
   See \textcite{Weiss1966} for a quantitative analysis of the American Civil War battles.
 } %
 In applying international relations theory and quantitative methods to the study of this war, this work contributes to the larger literature on the American Civil War.
-
-An outline of the paper follows.
-Section \ref{sec:risky-bond-pricing} presents a model of bond valuation.
-Section \ref{sec:war-prob-union} discusses the relationship between the expected war result and Union bond prices.
-Section \ref{sec:price-data} describes the bond price data used in the analysis.
-Section \ref{sec:model} presents a statistical model of the bond prices.
-Section \ref{sec:battle-data} discusses the battle data used in the model.
-Section \ref{sec:estimation} discusses the estimation techniques used.
-Section \ref{sec:results} presents and discusses the results of the model.
-Section \ref{sec:conclusion} concludes.
 
 % This paper builds on a large and growing literature which measures impact or identifies important political events using financial \parencites{NorthWeingast1989}{north2000introd}{FreyKucher2000}{sussman2000instit}{wells2000revol}{Herron2000}{eldor2004finan}{chensiems2004}{Greenstone2007} or prediction markets \parencites{WolfersZitzewitz2004}{ArrowForsytheGorhamEtAl2008}{WolfersZitzewitz2009}.
 
@@ -406,7 +396,6 @@ Given this, it is almost certainly the case that any non-war related effects wer
 
 % TODO: add yields
 % TODO: narrative of the ups and downs of the market. base off of Mitchell's discussions.
-
 
 \section{Statistical Model}
 \label{sec:model}
@@ -676,14 +665,46 @@ $\dlnorm{\mu, \sigma}$ is the log-normal distribution, with location $\mu$, and 
 
 Let $\log y_{j,t}$ be the logarithm of the price of series $j$
 
-\subsection{}
+\subsection{When does news about battles reach the market?}
 
-The weight assigned to the effect of each battle on each day is based on the number of articles and the pages on which those articles appeared.
-Let $w_{t}$ be the news about a battle on day $t$, $n_{t}$ be the number of articles about that battle, and $\mathtt{page}_{i}$ be the page on which article $i$ appeared. 
-The news of a battle depends both on articles on that day and the previous day. 
-\begin{equation*}
-  w_{t} = \frac{1}{2}\sum_{i = 1}^{n_{t}} \frac{1}{\mathtt{page}_{i}} +  \frac{1}{2} \sum_{i = 1}^{n_{t - 1}} \frac{1}{\mathtt{page}_{j}}
+In order to assess the influence of events the time when news about the event reaches the market must be known. 
+This time at which news about an event reaches the market is not the same as the time at which an event occurs, due to the lag in time for information to reach the market. 
+Although the news about battles reached New York relatively quickly, a few days, it was heterogenous, depending on the distance of battles from New York.%
+\footnote{Some papers <INCLUDE CITES> use European prices. 
+In this case, the lag between event and news reaching the market is large.
+The Transatlantic telegraph cable did not operate reliably until after the end of the war, July 1866.
+The fastest traverse of the atlantic by steamship was XXX days. 
+Thus is took approximately two weeks for news to travel in one direction across the Atlantic.
+The difficulty in dealing with these lags and the different information sets in the New York and London markets is one reason why assets trading in European markets were not included, and this paper restricts itself to the New York market.
+ }
+This paper uses the number of news articles in the \textit{New York Times} about about a battle as a measure of the amount of information of a battle reaching the market.
+Suppose the effect of an event on returns is $E$, then the change in returns attributable to an event at time $t$ is 
+\begin{equation}
+  \Delta r_{t} = w_{t} E
 \end{equation*}
+The weight $w_{t}$ is a function of the number of articles and the pages on which those articles appeared.
+Let $n_{t}$ be the number of articles about that battle, and $\mathtt{page}_{i}$ be the page on which article $i$ appeared.
+\begin{equation}
+  \begin{aligned}[t]
+    w'_{t} &= \frac{1}{2}\sum_{i = 1}^{n_{t}} \frac{1}{\mathtt{page}_{i}} +  \frac{1}{2} \sum_{i = 1}^{n_{t - 1}} \frac{1}{\mathtt{page}_{j}} \\
+    w_{t} &= \frac{w'_{t}}{\sum_{j = 1}^{T} w'_{j}}
+  \end{aligned}
+\end{equation}
+The intuition behind this equation is that more articles represent more information about a battle, and that article appearing earlier in the newspaper, namely the front page, represent more new information.%
+\footnote{Measures of the length of the article, e.g. word counts, are not included because \textit{Proquest} does not directly provide that information.}
+The weight for a given day depends on both the articles on its day and the previous day, 
+The news of a battle depends both on articles on that day and the previous day. 
+This is because, since the \textit{New York Times} was a morning newspaper, the news reported on a given day may represent news that reached investors the previous day before the close of the market and thus was incorporated in the previous day's price, or news that reached investors after the close of the market the previous day and would be incorporated into day's price.
+
+EMPIRICAL RESULTS
+
+The newspaper is only a proxy for when news about battles reaches the market. 
+Large investors had some other sources of information 
+To the extent that investors may have had private information earlier than is represented by this measure, it will attenuate the battle effects, since the price will have moved in the same direction of $E$ ahead of when the model codes information as having reached the market.
+
+In Section XXXX, it is noted that there is much missing data. 
+This may actually make the model more robust against mispecification of information about the timing of news.
+If $y_{t}$ and $y_{t+s}$, only the sum of the information weights $\sum_{t' = t+1}^{t + s} w_{t'}$ matters.
 
 \printbibliography{}
 

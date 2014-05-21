@@ -3,7 +3,8 @@
 ```{r}
 library("Quandl")
 library("dplyr")
-Quandl.auth("RkWfsnfSzp3DsqgFEViG")
+
+getwd()
 
 bonds <- FINDATA[["merchants_magazine_us_paper_yields_2"]]()
 railroad <- Quandl("FRED/M13019USM156NNBR")
@@ -11,14 +12,22 @@ railroad <-
   filter(mutate(plyr::rename(railroad, c(Date = "date", Value = "ytm")),
                 series = "railroad",
                 ytm = ytm / 100, date = as.Date(date)),
-                date <= as.Date("1865-1-1"))
+                date <= as.Date("1866-1-1"))
 
 municipal <- Quandl("FRED/Q13020USQ156NNBR")
 municipal <- 
   filter(mutate(plyr::rename(municipal, c(Date = "date", Value = "ytm")),
                 series = "municipal",
-                ytm = ytm / 100, date = as.Date(date)),
-                date <= as.Date("1865-1-1") & date >= as.Date("1862-1-1"))
+                ytm = ytm / 100, date = as.Date(date))e,
+                date <= as.Date("1866-1-1") & date >= as.Date("1862-1-1"))
+
+
+municipal <- Quandl("FRED/Q13020USQ156NNBR")
+municipal <- 
+  filter(mutate(plyr::rename(municipal, c(Date = "date", Value = "ytm")),
+                series = "municipal",
+                ytm = ytm / 100, date = as.Date(date))e,
+                date <= as.Date("1866-1-1") & date >= as.Date("1862-1-1"))
 
 bonds <- plyr::rbind.fill(bonds, railroad, municipal)
 

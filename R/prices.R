@@ -2,6 +2,8 @@ PRE_WAR_START <- as.Date("1861-4-13")
 POST_WAR_START <- as.Date("1861-4-20")
 END_WAR <- as.Date("1865-4-13")
 
+BANKERS_FILE <- 
+
 sd2 <- function(x) {
     if (length(x) > 1) {
         sd(x)

@@ -1,12 +1,20 @@
 suppressPackageStartupMessages({
     library("filehash")
     library("plyr")
-    library("rstan")
     library("devtools")
-    library("mcmcstats")
 })
 
-ROOT_DIR <- "."
+Project <-
+  setRefClass("Project", fields = list(rootdir = "character"),
+              methods = list(
+              initialize = function(rootdir = ".") {
+                rootdir <<- rootdir
+              },
+              stan_model_dir = function() {
+                file.path(rootdir, "stan")
+              })
+              )
+
 STAN_MODEL_DIR <- file.path(ROOT_DIR, "stan")
 DATA_DIR <- file.path(ROOT_DIR, "data")
 FILEHASH_DB <- file.path(ROOT_DIR, "filehashdb")
@@ -212,14 +220,14 @@ RANDOM <-
       932254, 294845, 433803, 323333, 564263, 44421, 20577, 220209, 
       535682, 238598, 226390, 686098)
 
-run_stan <- function(file, ...) {
-    model <- stan_model(file)
-    timing <- system.time(ret <- sampling(model, ...))
-    ret_summary <- summary(ret)
-    list(sfit = ret,
-         summary = ret_summary,
-         timing = timing)
-}
+## run_stan <- function(file, ...) {
+##     model <- stan_model(file)
+##     timing <- system.time(ret <- sampling(model, ...))
+##     ret_summary <- summary(ret)
+##     list(sfit = ret,
+##          summary = ret_summary,
+##          timing = timing)
+## }
 
 
 source_env <- function(file, chdir = FALSE,

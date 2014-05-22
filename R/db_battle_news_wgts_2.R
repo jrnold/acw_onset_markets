@@ -16,8 +16,8 @@ library("plyr")
 library("sp")
 
 .DEPENDENCIES <-
-    c(DATAFILE("news/data/battle_news.csv"),
-      file.path(DATA_DIR, "acw_battles", "data", "battles.csv"))
+    c("data/news/data/battle_news.csv",
+      "data/acw_battles/data/battles.csv")
 
 GEO_NEW_YORK <- c(long=75, lat=43)
 

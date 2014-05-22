@@ -1,4 +1,5 @@
-ACW_BATTLES <- function(project) {
+#' Pre-process dataset of American Civil War Battles
+acw_battles <- function(project) {
     outcome_factor_3 <- function(x) {
         ordered(x, c("Confederate", "Inconclusive", "Union"))
     }

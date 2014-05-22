@@ -11,8 +11,9 @@ all: paper
 ### Data
 depends: $(R_DEPENDS)
 
-filehashdb/%: R/filehashdb_%.R
-	$(R) -e 'source("$<");main()' $(patsubst filehashdb_%,%,$(notdir $(basename $<)))
+# Only use lower-case names for files
+filehashdb/%: R/db_%.R
+	$(R) -e 'source("$<");main()' $(patsubst db_%,%,$(notdir $(basename $<)))
 
 R/%.q: R/%.R
 	bin/R_dependencies.R $< > $@

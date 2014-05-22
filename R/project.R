@@ -16,7 +16,7 @@ Project <-
                   filehashdb_dir = function() path("filehashdb"),
                   initdb = function() dbInit(filehashdb_dir(), "RDS"),
                   filehashdb_key = function(key) {
-                      file.path(filehashdb_dir, key),
+                      file.path(filehashdb_dir, key)
                   },
                   civil_war_findata = function() {
                       file.path(rootdir, "submodules/civil_war_era_findata")
@@ -40,7 +40,7 @@ Project <-
                       } else {
                           NULL
                       }
-                  }
+                  },
                   gen_init = function(model, n = 4, chain_id = NULL, key = NULL) {
                       pars <- grep("__$", model@model_pars, value=TRUE, invert=TRUE)
                       samples <- llply(iters,
@@ -64,8 +64,7 @@ Project <-
                       if (!is.null(key)) {
                           saveRDS(samples, file=INIT_FILE(key))
                       }
-                  },
-                  
+                  }
                   )
               )
 
@@ -97,7 +96,6 @@ RANDOM <-
 ##          summary = ret_summary,
 ##          timing = timing)
 ## }
-
 
 source_env <- function(file, chdir = FALSE,
                        keep.source = getOption("keep.source.pkgs"), ...) {

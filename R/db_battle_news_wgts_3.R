@@ -6,7 +6,6 @@ battle_news_wgts_3 <- source_env("R/filehashdb_battle_news_wgts_2.R")
 
 .DEPENDENCIES <- c("R/filehashdb_battle_news_wgts_2.R")
 
-
 main <- function() {
     battles <- merge(RDATA[["battle_news_wgts_2"]],
                      battle_news_wgts_3$battles())

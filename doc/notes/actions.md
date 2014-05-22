@@ -237,6 +237,24 @@ From Smith and Smith, p. 706
 
 # Mitchell
 
+Possible factors
+
+1. Gold supply
+2. Speculation
+3. Amount of debt
+4. Financial events
+
+   - condition of the treasury
+   - Ability of the government to borrow
+   - Changes in the Treasury Department Secretary
+   
+7. War News
+8. Political changes. "less frequent occurence ..  played a less prominent role inthe gold market than financial and military affairs"
+9. Foreign relations. "overshadowed during the war by domestic affairs, they exercised some influence upon the value of the paper money"
+
+   - change of foreign intervention
+   - French occupation of Mexico
+
 1. January to April 1862
 
 - (-) 1st half of february slowness of Congress in framing tax bills 
@@ -334,9 +352,210 @@ From Smith and Smith, p. 706
 
 - Rise from March to August 1863
 
-  - March
+    - March
 
-      - (-) no decisive mil ops: Grant at Vicksburg and Farragut at Port Hudson
-	  - (+) Congress passed supplementary internal revenue act, nat banking act, and 900 million loan act
+        - (-) no decisive mil ops: Grant at Vicksburg and Farragut at Port Hudson
+	    - (+) Congress passed supplementary internal revenue act, nat banking act, and 900 million loan act.
+	      According to Sec. Chase, enactment of laws followed "by an immediate revival of public credit.",
+		  *Report of the Sec. of the Treasury*, Dec 1863, p. 2.
+
+	- April
+
+        - (+) Jay Cooke organization of 5-20 loan is well organized; receiving subscriptions
+		- (-) unsuccessful bombardment of forts in Charleston
+		- (+) Banks successful operations along Bayou Teche in Louisiana
+		- (+) Grant moves forces South of Vicksburg and prepares to attack
+		- (+) Hooker executed a well planned movement across the Rappahannock and Lee seemed at disadvantage
+
+	- May
+  
+	    - (-) Batlte of Chancellorsville
+		- (+) Grant's cavalry reaches Baton Rouge, main army forces Pemberton back into Vicksburg
+		- (+) Banks closed in on Port Hudson
+
+	- June
+
+	    - "striking example of an appreciation of the currency --- small, to be sure --- despite military reverses". Ability of govt to borrow overwhelms the positive effect.
+		- After Chancellorsville, Army of VA reinforced with conscriptions
+		- (-) Lee at Winchester, captures 4,000 prisoners and proceeds up Shenandoah valley to Chambersburg in PA
+		- Lincoln calls for 100,000 militia to repel invasion
+		- Grant and Banks continue sieges, but repulsed and no significant gains
+		- C.L. Vallandinham, who had been arrested for treasonous speach, nominated for Gov Ohio
+		- New York "great Peace meeting"
+		- U.S. receiving 1.5 to 2.5 million a day for government bonds.
+
+	- July
+
+        - Major military victories
+		- Vicksburg
+		- Port Hudson
+		- Gettysburg
+		- Sherman expels Johnson from Jackson
+		- Confederates repulsed at Helena
+		- capture of Morgan's raiders in ohio
+		- draft riot in NYC (overshadowed)
+
+	- August: continued good times
+
+	    - military events were few: Grant, Meade and Lee resting troops
+		- Rosecrans begins advance against Bragg at Chattanooga
+		- Burnside moves on Knowxville
+		- vigorous pushing of the siege in Charleston (*New York Times*, money articles, July 15, July 17, and Aug 25, 1863)
+		- Draft completed in NYC
+		- Elections in Ky, VT, and CA were favorable to the admin candidate.
+
+- Fall from Sept 1863 August 1864
+
+	- Sept
+
+	    - "Many expected after the great victories of July that the end of the rebellion was at hand"
+		- (-) Disappointment that Lee escaped with army intact
+		- (-) Chickamagua
+
+	- Oct-Dec
+
+	    - slow, steady depreciation
+		- Lowest point 63.80 (Oct 15): rumors of another forward movement by Lee
+		- Op in VA less important that op in TN
+		- Grant relieves Rosecrans who had allowed himself to be trapped in Chattanooga
+		- Lowest prices (Nov 21, 23) - due to investment of Burnsides forces in Knoxville
+		- highest prices (Nov 27) - Grants victory at Chattanooga
+		- (+) treasury report was "rather cherrful tenor", despite Chase asking to borrow an additional 900 million
+
+    - Jan-March
+
+        - During 1st 3 months of 1864, the slow decline continued.
+		- Jan: armies "lay nearly still both east and west"
+		- Feb 1st: draft ordered for 1.5 milliion men to serve 3 years or the war.
+		- Gen. Butler sallied from Fort. Monroe in an attempt to take Richmond, but failed.
+		- Kilpatrick's cavalry got through 1st and 2nd lines of defense to Richmond, but thwarted by the third.
+		- Loss at Olustree
+		- Sherman destroyed Meridian and cut line of railway from Mobile to the North
+		- "hoped-for destruction of Pope's army not accomplished"
+		- In March, failed Red River expedition starts (Banks and Taylor)
+		- Forrest defeats W.S. Smith at Okalona, recaptures Jackson, repulsed at Paducah
+		- "Most important in its effect upon the gold market", Congress slow to pass the finance bills.
+		  *New York Tribune*: "A Congress fit to exist, would have matured and perfected *some* sort of finance
+		  system before the close of its fourth month." (Editorial, March 29, 1864)
+
+	- April
+
+	    - "Congress still passed no revenue laws, and the war news was unfavorable"
+		- (-) massacre of Fort Pillow
+		- (-) failure of Red River expedition
+		- (-) Steel retreats from Arkansas
+		- (-) Confederates capture Ft. Williams
+		- (-) Confederates capture Plymouth, N.C.
+		- (+) slight successes in Texas
+		- (+) Grant prepares for advance
+		- (+) Union gains in elections in CT, RI, MO, NJ
+		- "successes could not counterbalance these disasters and the inactivity of Congress"
+
+	- May
+
+	    - "In the first half of May there was a rise"
+		- (+) Sherman sets out from Chattanooa, forces Johnson back from Dalton, Resaca, and Allatoona Pass
+		- (+) Grant crossed Rapidan, Battles of Wilderness and Spottsylvania Court House.
+	      "Every rumor from the field caused a rise or fall of the currency, but despite Grant's enormous
+		  losses, he was believed to have the advantage, so that the general trend of the fluctuations was
+		  upward until near the middle of the month." (*New York Times*, money article, May 12, 1864)
+		- (-) 10th, Merrill's cavalry was defeated by Stuart
+		- (-) 15th Siegl routed at Newmarket
+		- (-) 16th Beauregard forced Butler back at Bermuda Hundred
+		- (-) Lee forstalled Grant at North Anna
+		- (-) Congress failed to pass tax bills
+		- After 10th currency fell and by the 17th back to the opening value of the month back lower than in April
+
+	- Gold Bills
+
+	    - during 1st five months of 1864 depreciation of less than $2 month due to lack fo progress in rebellion and
+		  slowness in voting tax bill
+	    - During June-July the depreciation accelerated in part due to the gold bill.
 
 
+- Rise from Aug 1864 to May 1865
+
+	- Aug
+
+	    - "slow but tolerably steady appreciation in the value of the currency, due to the improving military prospect"
+		- (+) Sheridan takes command in Shenandoah - fear of capture of Washington removed
+		- (+) Grant resumes offensive vs. Lee, seizes Weldon railway
+		- (+) Sherman continues flanking movements vs. Atlanta
+		- (+) Farragut captures Confed vessels in Mobile Bay
+		- (-) "rate of advance, however, was checked by the condition of the finances". Unpaid requisitions reach 130 mn.
+
+	- Sep
+
+	    - (+) capture of Atlanta
+		- (+) Sheridan defeats Early at Opequan and Fisher's Hill
+		- (-) Meeting of Dem convention in Chicago at end of Aug - "reaction, but this was overcome by the good news from the front"
+
+	- Oct
+
+	    - (-) Kautz cavalry defeated on the 7th
+		- (+) Hood's advance into Tennessee stopped at Allatoona Pass
+		- (+) Sheridan defeats Early at Cedar Creek
+		- (+) Albemarle sunk, cruiser "Florida" captured
+
+	- Nov
+
+	    - "curious reaction, due manly to the presidential election. Mr. Lincoln's triump was taken to mean an indefinite continuation of the war, and so depressed the value of currency"
+
+		- most important military event: Sherman cuts connections with the North and marches to the Sea
+		- Hood presses North
+		- Schofield's withdrawl from Franklin "construed as a defeat"
+
+	- Dec
+
+	    - "interupted rise recommenced in Dec"
+		- Sherman reached Savannah
+		- Thomas defeats Hood at Nashville
+		- (-) disappointing Finance Report
+		- (-) bill introduced into House by Thaddeus Stevens: penalties for anyone pay more than face value for gold coin, or less than full value for paper money
+		- (-) Butler fails to take Ft. Fisher
+
+	- Jan
+
+	    - (+) Terry captures Ft. Fisher
+		- (+) Sherman prepares for march north from Savannah
+		- (+) 23rd, attept to destroy Grant's shipping on the James failed
+
+	- Feb
+
+	    - (-) Grant's attempt to turn the Confederate lines at Hatcher's Run was unsucessful
+		- (+) Sherman captures Charleston and Wilmington
+		- (-) failure of "peace conference" at Hampton roads
+
+	- March
+
+	    - "very slow rate of appreciation became very rapid, because of the opening of the spring campaign"
+		- March 14, news Sherman had reaced Laurel Hill, NC. Sherman had not been heard from since early Feb.
+		- Sherman's victories at Averysboro and Bentonville
+		- Sheridan joins Grant before Petersburg
+		- Lee's position "desparate", made last assault on encompassing lines.
+		- Grant beings advance
+		- Lincoln's second inauguation
+		- Fessenden replaced by McCulloch as Sec of Treas.
+
+	- April
+
+	    - victory at Five Forks
+		- capture of Petersburg and Richmond
+		- Lee's surrencer
+		- Sherman takes Raleigh and Johnston surrenders
+		- President Lincoln's dath was the "one untoward event"
+
+	- May
+
+	    - Further advance of above the average for April
+		- Armed resitance ceased, Davis captured, war over
+		- Success in selling 7.30 notes to pay the army
+
+
+- Decline from June to Dec 1865
+
+	- gold market calm "Great fluctuations gave place to slight variations from day to day"
+	- May 11 was 77.82 followed by a slow decline
+	- 7.30 notes well received, but sill increased debt.
+	- danger of war with France because of Maximilian in Mex.
+	- In Dec, slight reaction to McCulloch finance report recommending a speedy resumption of specie payments and indorsement of this policy by the House of Rep.

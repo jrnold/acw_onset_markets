@@ -1,0 +1,24 @@
+#!/usr/bin/env Rscript
+args <- commandArgs(TRUE)
+outfile <- file(args[1], 'w')
+
+R_DIR <- 'R'
+R_PATTERN <- 'db_.*\\.R$'
+DBDIR <- "filehashdb"
+
+rdata_key_path <- function(key) {
+    file.path(DBDIR, key)
+}
+
+cat("robjects = \n\n", file = outfile)
+filelist <- dir(R_DIR, pattern = R_PATTERN, full.names = TRUE)
+for (file in filelist) {
+    cat(file, "\n")
+    envir <- suppressPackageStartupMessages({source_env(file)})
+    key <- gsub("^db_", "", basename(tools::file_path_sans_ext(file)))
+    keypath <- sprintf('%s/%s', DBDIR, key)
+    cat(sprintf("robjects += %s\n\n", keypath), file = outfile)
+    cat(sprintf("%s : %s\n\n", keypath, paste(envir$.DEPENDENCIES, collapse = " ")),
+        file = outfile)
+}
+close(outfile)

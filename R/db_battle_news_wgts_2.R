@@ -1,7 +1,12 @@
+#' ---
+#' dependencies:
+#'  - "data/news/data/battle_news.csv"
+#'  - "data/acw_battles/data/battles.csv"
+#' ---
+#' 
 #' Weights for news from battles; all news days.
 #'
-#' Returns
-#' -----------
+#' # Returns
 #'
 #' ``data.frame``
 #'
@@ -15,11 +20,13 @@
 library("plyr")
 library("sp")
 
-.DEPENDENCIES <-
-    c("data/news/data/battle_news.csv",
-      "data/acw_battles/data/battles.csv")
+BATTLE_NEWS <- "data/news/data/battle_news.csv"
+BATTLES <- "data/acw_battles/data/battles.csv"
 
+.DEPENDENCIES <- c(BATTLE_NEWS, BATTLES)
+      
 GEO_NEW_YORK <- c(long=75, lat=43)
+LAGP <- 0.5
 
 battles <- function() {
     battles <- ACW_BATTLES()[ , c("battle", "start_date", "end_date", "theater", "lat", "long")]
@@ -28,7 +35,6 @@ battles <- function() {
 }
 
 main <- function() {
-    lagp <- 0.5
     
     battle_news <-
         mutate(WAR_NEWS[["battle_news"]]()[ , c("battle", "pubdate", "startPage")],
@@ -50,6 +56,4 @@ main <- function() {
                          lag_start = as.integer(date - start_date),
                          lag_end = as.integer(date - end_date))
               })
-
-    RDATA[["battle_news_wgts_2"]] <- battle_news
 }

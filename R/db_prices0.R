@@ -44,54 +44,53 @@ BOND_GROUPS <-
       "US_ten_forty" = "Union",
       "greenbacks" = "Union")
 
-bankers <- function() {
-    bankers <- read.csv(
-    bankers <-
-        subset(bankers_magazine_govt_state_loans_yields_2"]](),
-               ! is.na(price_gold_dirty))
-    bankers$src <- "Bankers'"
-    bankers$series <- as.character(bankers$series)
-    bankers
-}
+## bankers <- function() {
+##     bankers <- read.csv(
+##     bankers <-
+##         subset(bankers_magazine_govt_state_loans_yields_2"]](),
+##                ! is.na(price_gold_dirty))
+##     bankers$src <- "Bankers'"
+##     bankers$series <- as.character(bankers$series)
+##     bankers
+## }
 
-merchants <- function() {
-    merchants <-
-        subset(FINDATA[["merchants_magazine_us_paper_yields_2"]](),
-               ! series %in% c("five_twenty_reg",
-                               "sixes_1881_reg")
-               & ! is.na(price_gold_dirty))
-    merchants$src <- "Merchants'"
-    merchants$series <- as.character(merchants$series)
-    merchants[["series"]] <-
-        revalue(merchants[["series"]],
-                 c("fives_1874"="US_5pct_1874",
-                   "five_twenty_coup"="US_five_twenty",
-                   "oneyr_new"="US_oneyr_new",
-                   "oneyr_old"="US_oneyr_old",
-                   "seven_thirties"="US_seven_thirty",
-                   "sixes_1881_coup"="US_6pct_1881",
-                   "ten_forty"="US_ten_forty"))
-    merchants
-}
+## merchants <- function() {
+##     merchants <-
+##         subset(FINDATA[["merchants_magazine_us_paper_yields_2"]](),
+##                ! series %in% c("five_twenty_reg",
+##                                "sixes_1881_reg")
+##                & ! is.na(price_gold_dirty))
+##     merchants$src <- "Merchants'"
+##     merchants$series <- as.character(merchants$series)
+##     merchants[["series"]] <-
+##         revalue(merchants[["series"]],
+##                  c("fives_1874"="US_5pct_1874",
+##                    "five_twenty_coup"="US_five_twenty",
+##                    "oneyr_new"="US_oneyr_new",
+##                    "oneyr_old"="US_oneyr_old",
+##                    "seven_thirties"="US_seven_thirty",
+##                    "sixes_1881_coup"="US_6pct_1881",
+##                    "ten_forty"="US_ten_forty"))
+##     merchants
+## }
 
-greenbacks <- function() {
-  vars <- c(paste0("price_gold_", c("clean", "dirty")),
-            paste0("price_paper_", c("clean", "dirty")),
-            "yield", "src", "date", "series")
-  mutate(subset(FINDATA[["greenbacks"]](), ! is.na(low)),
-         price_gold_clean = exp(0.5 * (log(high) + log(low))),
-         price_gold_dirty = price_gold_clean,
-         price_paper_clean = 100,
-         price_paper_dirty = price_paper_clean,
-         yield = -log(price_gold_clean / 100), # Calculated assuming 1 year redemption
-         duration = -log(price_gold_clean / 100) / 0.05, # Unlike bonds, bonds ! = duration
-         series = "greenbacks",
-         src = "Mitchell")[ , vars]
-}
+## greenbacks <- function() {
+##   vars <- c(paste0("price_gold_", c("clean", "dirty")),
+##             paste0("price_paper_", c("clean", "dirty")),
+##             "yield", "src", "date", "series")
+##   mutate(subset(FINDATA[["greenbacks"]](), ! is.na(low)),
+##          price_gold_clean = exp(0.5 * (log(high) + log(low))),
+##          price_gold_dirty = price_gold_clean,
+##          price_paper_clean = 100,
+##          price_paper_dirty = price_paper_clean,
+##          yield = -log(price_gold_clean / 100), # Calculated assuming 1 year redemption
+##          duration = -log(price_gold_clean / 100) / 0.05, # Unlike bonds, bonds ! = duration
+##          series = "greenbacks",
+##          src = "Mitchell")[ , vars]
+## }
 
 main <- function() {
   ret <- rbind.fill(bankers(), merchants(), greenbacks())
   ret$series <- factor(ret$series)
   ret$group <- BOND_GROUPS[as.character(ret$series)]
-  RDATA[["prices"]] <- ret
 }

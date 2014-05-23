@@ -6,13 +6,21 @@
 #' - ``data``: ``data.frame`` with data for prices
 #' - ``prior_sd``: ``list`` with prior standard deviation of each variable
 #' - ``prior_mean``: ``list`` with prior mean of each variable
-#' 
+#'
+library("dplyr")
+
 PRE_WAR_START <- as.Date("1861-4-1")
 POST_WAR_START <- as.Date("1861-4-27")
 END_WAR <- as.Date("1865-4-13")
 SD_MULT <- 5/3
 
- <- "submodules/civil_war_era/findata/merchants_magazine_us_paper_yields_2.csv"
+MERCHANTS_FILE <- "submodules/civil_war_era/data/merchants_magazine_us_paper_yields_2.csv"
+BANKERS_FILE <- "submodules/civil_war_era/data/bankers_magazine_govt_state_loans_yields_2.csv"
+GREENBACKS_FILE <- "submodules/civil_war_era/data/greenbacks.csv"
+
+.DEPENDENCIES <- c(MERCHANTS_FILE,
+                   BANKERS_FILE,
+                   GREENBACKS_FILE)
 
 sd2 <- function(x) {
     if (length(x) > 1) {
@@ -24,13 +32,13 @@ sd2 <- function(x) {
 
 bonds <- function() {
     bonds <-
-        rbind(subset(FINDATA[["bankers_magazine_govt_state_loans_yields"]](),
+        rbind(filter(read.csv(BANKERS_FILE),
                      series %in% c("US_6pct_1881", "US_6pct_1868", "US_5pct_1874")
                      & ! is.na(price_gold_dirty)),
-              mutate(subset(FINDATA[["merchants_magazine_us_paper_yields"]](),
+              mutate(filter(read.csv(MERCHANTS_FILE),
                             series %in% c("sixes_1881_coup", "fives_1874",
-                                          "ten_forty", "five_twenty_coup")
-                            & ! is.na(price_gold_dirty)),
+                                          "ten_forty", "five_twenty_coup"),
+                            ! is.na(price_gold_dirty)),
                      series = revalue(series,
                      c("sixes_1881_coup" = "US_6pct_1881",
                        "fives_1874" = "US_5pct_1874",
@@ -61,8 +69,7 @@ bonds <- function() {
 }
 
 greenbacks <- function() {
-    foo <- mutate(subset(FINDATA[["greenbacks"]](),
-                         ! is.na(low)),
+    foo <- mutate(filter(GREENBACKS_FILE, ! is.na(low)),
                   price = (low + high) / 2,
                   price_sd = (high - low) / sqrt(12),
                   log_price = (log(low) + log(high)) / 2,
@@ -88,21 +95,21 @@ main <- function() {
                      date = as.Date(date))
 
     prior_sd <- 
-           summarise(subset(bonddata,
-                            date >= as.Date("1861-4-1")
-                            & date <= as.Date("1861-5-1")),
+           summarise(filer(bonddata,
+                           date >= as.Date("1861-4-1"),
+                           date <= as.Date("1861-5-1")),
                      yield = sd(yield) * SD_MULT,
                      log_yield = sd(log_yield) * SD_MULT,
                      price = sd(price) * SD_MULT,
                      log_price = sd(log_price) * SD_MULT)
 
     prior_mean <-
-        summarise(subset(bonddata, date == POST_WAR_START),
+        summarise(filter(bonddata, date == POST_WAR_START),
                   yield = mean(yield),
                   log_yield = mean(log_yield),
                   price = mean(price),
                   log_price = mean(log_price))
-
+    
     RDATA[["prices2"]] <- list(data = prices,
                                prior_sd = as.list(prior_sd),
                                prior_mean = as.list(prior_mean))

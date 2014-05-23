@@ -1,23 +1,28 @@
 FILEHASH_SRC = $(wildcard R/filehashdb_*.R)
 FILEHASH_OBJ = $(FILEHASH_SRC:R/filehashdb_%.R=filehashdb/%)
 R_SRC = $(wildcard R/*.R)
-R_DEPENDS = $(R_SRC:.R=.q)
 
 TAB_SRC = $(wildcard tab-*.R)
 TAB_OUT = $(TAB_SRC:%.R=%.tex)
 
-all: paper
+all: $(robjects)
+	@echo $(robjects)
+
+touchdb:
+	for i in filehashdb/*; do \
+	touch $${i}; done 
+
+depends: rdepends.inc
 
 ### Data
-depends: $(R_DEPENDS)
+rdepends.inc:
+	bin/make_R_dependencies $@
 
 # Only use lower-case names for files
 filehashdb/%: R/db_%.R
-	$(R) -e 'source("$<");main()' $(patsubst db_%,%,$(notdir $(basename $<)))
+	runR $<
 
-R/%.q: R/%.R
-	bin/R_dependencies.R $< > $@
+-include rdepends.inc
 
-.phony: all depends
+.PHONY: all
 
--include $(R_DEPENDS)

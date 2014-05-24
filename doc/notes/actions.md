@@ -470,8 +470,24 @@ Possible factors
 
 	    - during 1st five months of 1864 depreciation of less than $2 month due to lack fo progress in rebellion and
 		  slowness in voting tax bill
-	    - During June-July the depreciation accelerated in part due to the gold bill.
-
+		- During June-July the depreciation accelerated in part due to the gold bill.
+		- March 3, 1863 - stamp act upon time sales of gold. 0.5 percent of the moutn plus interest at 6 percent per annum, and forbade loans on the pledge of coin in excess of its par value. Followed by advance from 58.22 on 3 March to 66.67 on 6th, but by the 10th had fallen agin to 61.35
+		- While the currency advanced March - Aug 1863, less concern about speculation.
+		- Concern about speculation grew as the currency depreciated. Bills introduced and killed.
+		- The govt was receiving excess gold from customs duties. Act passed that sold the excess gold. Currency appreciated from 59.61 on Mar 9 when it was expected to be defeated to 62.06 on 17th, when it passed.
+		- importers allowed to deposit paper currency with subtreasury, and receive ceertifactes of deposite of gold at a rate slightly below the current premium. Announcement: 169.75 on 26th to 165.75 on the 29th of March.
+		- This did not work, and the government followed the market rather than leading it. On April 13, the Chase stopped the sale of certificates after the 16th.
+		- April 13th, Chase orders another gold sale. PRice falls from 177.25 on the 14th to 166.875 on the 21st. Price returns to original on the 2th.
+		- Chase: "I see that gold is again going up. This is not unexpected. Military success is indispensalbe to its permanent decline, or, in the absence of military success, taation sufficient upon state bank issues and state bank credits to secure .... an exclusive national currency; and sufficient, also, to defay so large a proportion of current expenditures as to reduce the necessity for borrowing to the minimum." Letter of April 26, 1864, Warden, Life of Chase, p. 582.
+		- Sold exchange upon London at a rate below market. Gold was 181.675 on May 19 to 181 on May 20th. Gold rose, and on the 24th the Treasury admitted defeat.
+		- Bill to prohibt all contracts for sale of gold for future delivery and forbade sale of gold by a broker outside his own office. Sent by Chase to Senate Comm. on Finance and reported by shaerman on April 14th.
+		- Gold bill passed by Senate on April 16th.
+		- Gold bill delayed in House. Taken up on June 7th. A week later, a Very close vote. Required speaker's vote to secure consideration and passed 76 to 62. Signed by Lincoln on June 17.
+		- Gold opened June at 190, rose to 197.5 on June 14.
+		- Businesses petition government to repeal the act.
+		- Chase resigns on June 29, Lincoln accepts the resignation on the 30th.
+		- Governor David Tod of Ohio declines.
+		- Repeal of act: introduced in the Senate on June 22; Jul 1 passed Senate and House with little debate; signed by Lincoln on Jul 2; on  Jul 5, the gold room reopens.
 
 - Rise from Aug 1864 to May 1865
 

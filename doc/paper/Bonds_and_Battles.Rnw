@@ -681,7 +681,7 @@ This paper uses the number of news articles in the \textit{New York Times} about
 Suppose the effect of an event on returns is $E$, then the change in returns attributable to an event at time $t$ is 
 \begin{equation}
   \Delta r_{t} = w_{t} E
-\end{equation*}
+\end{equation}
 The weight $w_{t}$ is a function of the number of articles and the pages on which those articles appeared.
 Let $n_{t}$ be the number of articles about that battle, and $\mathtt{page}_{i}$ be the page on which article $i$ appeared.
 \begin{equation}

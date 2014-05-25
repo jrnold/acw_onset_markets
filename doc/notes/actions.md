@@ -8,7 +8,7 @@ Ideas for important events
 - Secretary of Treasury
 - Secretary of Defense Changes
 - General in Chief
-- Habeas corpus suspension Act 1863 (12 Stat 75) ?  
+- Habeas corpus suspension Act 1863 (12 Stat 75)
 
 # Emancipation Proclamation
 
@@ -237,120 +237,175 @@ From Smith and Smith, p. 706
 
 # Mitchell
 
-Possible factors
+From @Mitchell1903.
 
-1. Gold supply
-2. Speculation
-3. Amount of debt
-4. Financial events
+## Factors
 
-   - condition of the treasury
-   - Ability of the government to borrow
-   - Changes in the Treasury Department Secretary
-   
-7. War News
-8. Political changes. "less frequent occurence ..  played a less prominent role inthe gold market than financial and military affairs"
-9. Foreign relations. "overshadowed during the war by domestic affairs, they exercised some influence upon the value of the paper money"
 
-   - change of foreign intervention
-   - French occupation of Mexico
+The amount of debt. "The amount of the demand debt made made speedy repayment more doubtful.
+Hense the effect of every suggestion of an increase in the amount of the paper currency was to decrease the value of the greenbacks already in circulation." (p. 199)
+
+- Second Legal Tender Act:
+
+	- Sec. Treas requested Congress to authorize 2nd issue of U.S. Notes. June 11, 1862: 96.22; June 12: 94.96. See NYT, June 12, 1862.
+	- Fall continues to the final vote, the currency is 89.79
+
+- Third Legal Tender Act:
+
+	- Rumor that annual finance report would recomend anouther issue of US notes. Dec 1, 1862: 76.94; Dec 4, 1862: 74.63. Bankers, Vol XVII, p. 560.
+	- Denial, reaction to 76.63.
+	- Dec 8, Thaddeus Stevens intro a bill to issue \$200 mn, relapse to 75.19.
+	- Dec 9, Thaddeus Stevents admits no chance of passage. *Congressional Globe*, 37 Cong. 3d Sess. pp. 23, 145. NYT, Dec 9, 1862.
+	- Jan 8, Committee of Ways and Means submitted measure authorize increase fo 300 mn. Fall to 72.99
+	- Jan 14, House passes joint res for issue of 100 mn to pay army and navy.  Fall to 67.57.
+	- Acquiescence of the Senate causes "slight further decline"
+	- Ways and Means bill passed and sent to Senate, notes to 65.90 (Jan 26)
+	- Three weeks later: Senate ammendment reduces new issue from 300 mn to 150 mn.
+	- House refuses ammendment. Drop of 1.46.
+	- Next two days, thought Senate would yield, decline of 60.98.
+	- Feb 26, House yields and passes bill. Fell to 57.97.
+	- Slight reaction to 58.48 on day bill became law. Mar 3, 1863.
+	
+- Financial condition of the Treasury department
+
+	- "annual reports of the secretary of the treasury was narrowly watched by the gold market. For example, the annual reports of the secretary of the treasury were anxiously awaited each December and their appearance caused a rise or fall of the currency according as the condition of the finances presented seemed hopeful or gloomy.
+
+	- 1862. Day before report circulates, rumor that another issue of greenbacks would be proposed. Currency fell 76.34 to 74.63, rose when report issued and recommends a national bank currency rather than govt notes. 
+	- 1863: slight declien. Declared explicitly against an increase of greenbacks, estimated expenditures exceeded receipts, and obliged to ask for a loan of 900 mn.
+	- 1864. fall, disappointing (editiorial *New York Tribune* Dec 8, 1864; money article Dec 7, 1864)
+	- 1865. McCulloch recommends a speedy resumption of specie payments. Rise from 67.33 on the 5th to 68.14 on the 6th. (papers on Dec 6, *Hunt's Merchants' Magazine*, Vol LIV, p. 77)
+
+- Ability of the government to borrow. "for the fate of a loan indicated public confidence or distrust, and success provided a means for continuing the war without the issue of more legal-tender notes."
+
+	- Jay Cook's success in obtaining subscriptiosn for 5-20s. prior to Mar 23, 1863: 65, Mar 25: 71.68.
+	- Report that foreign loan obtainted. Oct 21, 1863: 68.49; Oct 22: 70.05. Rumor Discredited, Oct 23: 68.26.
+	- Sept 1864. Loan of of $32.5 million subscribed twice over with premium of 4 percent. Sept 9, 1864: 42.37; Sept 10: 45.87. (*Merchants' Magazine*, Vol LI, p. 292; *Rep of Sec Treas*, Dec 1864, p. 21)
+
+- Changes in officials at the Treasury Department
+
+	- Resignation of Assistant treasurer in NYC. June 1, 1864: 53.05, June 2, 1864: 52.63.
+	- Jul 1, 1864: Sec Chase's resignation. Fall to 40. Few hours later, Fessender's appointment, reaction to 45.05.
+	- McCulloch's nomination. March 7, 1865: 50.25; Mar 8: 51.05.
+
+- Political changes. "Being of less frequence occurence, Political changes played a less prominent role in the gold market than financial and military affairs"
+
+	- Dem party nominated Gen. McClellan on Aug 31. Fall from 42.73 to 41.15.
+	- Penn State election in October "an indication of the probable outcome". First few days, uncertain who had won. October 11, *New York World* claims that the Dem won. Fall from 50.41 to 49.17.
+	- "Curiously, the Republican triumph in November had the same effect upon the currency as this promise of Democratic success had exercised. I seems to have been argued that President Lincoln's re-election meant an indefinite prolongation of the war, and hence destroyed any chance of a speedy redemption of the paper money." Fall on 9th from 40.65 to 38.46; however a reaction quickly followed.
+	- Lincolns assassinaion occurs after regular hours. Fall followed by quick reaction. Market closed for several days. A few days later back to the level it held before the assassination.
+
+- Foreign relations. Overshadowed during the war by domestic affairs. They exercised some influence upon the falue of the paper money. Two matters of concern. Chance of foreign intervention and French occupation of Mexico.
+
+	- Jul 30, 1862. Speech by Lord Palmerston, interpreted to  that Britich govt had no intent to intervence. Currency rose from 85.84 to 87.43. Dispatches to NY papers Jul 31, 1862 and editorials.
+	- Feb 10, 1863. Report of Fra emperor about conf between North and South. Appreciation from 63.90 to 65.57. *NYT* money, Feb 10, 1863.
+	- Jun 19, 1865. Widhdrawl of Brit recognition of Confed. Rise from 68.91 to 71.43. *NY Herald*, money, June 19, 1865.
+	- May 3, 1864. Publication in *Le Moniteur* assuring stay of French troops in Mex. Depcreciate from 56.50 to 55.63. *NYT*, money article, May 3, 1864.
+	- June 5, 1865: Napoleon had been urged to withdraw his troops. Decline from 73.94 to 73.13. *NY Herald*, money article, June 5, 1865.
+	- Summer, complications on the Rio Grande. *Merchants' Magazine*, Vol LIII, p. 133.
+	- Nov 7, 1865. Cabinet would notify France that sending further troops "would meet with the disapprobation of the United States." "Little fear of serious complication", *NY Herald*, money article, Nov 7, 1865.
+
+- quantity of money. p 207-209
+- speculation. p. 209-210. "there seems to be more danger of exaggerating than of minimizing its importance as an independent factor in the gold market."
+	
+
+## History of Price Movements
 
 1. January to April 1862
 
-- (-) 1st half of february slowness of Congress in framing tax bills 
-- (+) Gran's capture of Fort Donelson
-- (+) 1st legal tender act
-- (+) Battle of Pea Ridge
-- (+) Monitor and merrimac
-- (+) McClellan advanced into Western Virginia
-- (+) Shield defeated Stonewall Jackson at Wincester on March 23.
-- End of February "confidence in the speedy enf of the war was high"
-- In April, Adjutant general issued an order to stop recruiting
-- Stalemate at Shiloh
-- (+) Island No. 10 surrendered
-- (+) Fort Pulaski fell (news 15th)
-- (+) New Orleans falls
+	- (-) 1st half of february slowness of Congress in framing tax bills 
+	- (+) Gran's capture of Fort Donelson
+	- (+) 1st legal tender act
+	- (+) Battle of Pea Ridge
+	- (+) Monitor and merrimac
+	- (+) McClellan advanced into Western Virginia
+	- (+) Shield defeated Stonewall Jackson at Wincester on March 23.
+	- End of February "confidence in the speedy end of the war was high"
+	- In April, Adjutant general issued an order to stop recruiting
+	- Stalemate at Shiloh
+	- (+) Island No. 10 surrendered
+	- (+) Fort Pulaski fell (news 15th)
+	- (+) New Orleans falls
 
 2. May 1862 to February 1863
 
-- May; mil ops turn versus north
+	- May; mil ops turn versus north
 
-   - (-) Yorktown
-   - (+) Faragut took Natchez
-   - (-) Jacksons ops in the Shenandoah valley: Front Royal, Cross Keys, Port Republic
+	   - (-) Yorktown
+	   - (+) Faragut took Natchez
+	   - (-) Jacksons ops in the Shenandoah valley: Front Royal, Cross Keys, Port Republic
 
-- Fall of 2.90 in June
+	- Fall of 2.90 in June
 
-   - (+) Hanover Courthouse, Seven Pines, and Fair Oaks slight rise
-   - (-) 12th Chase's request for 2nd issue of greenbacks announced
-   - (-) Stuart rode around McClellan
+	   - (+) Hanover Courthouse, Seven Pines, and Fair Oaks slight rise
+	   - (-) 12th Chase's request for 2nd issue of greenbacks announced
+	   - (-) Stuart rode around McClellan
 
-- July
+	- July
 
-   - (-) Peninsula ends in loss
-   - (-) President issue call of 300,000 volunteers
-   - (-) Morgan raiding in Kentucky
-   - (-) Congress passes 2nd legal tender act
+	   - (-) Peninsula ends in loss
+	   - (-) President issue call of 300,000 volunteers
+	   - (-) Morgan raiding in Kentucky
+	   - (-) Congress passes 2nd legal tender act
 
-- Auust
+	- August
 
-   - (+) Halleck  appointed general in chief
-   - (+) Report of House of Commons; British no intention of intervening
-   - (-) Lee forces Pope to Washingotn
-   - (-) Bragg northward movements in Kentucky
-   - (-) Sioux Indians commence outrages in Minnesota
+	   - (+) Halleck  appointed general in chief
+	   - (+) Report of House of Commons; British no intention of intervening
+	   - (-) Lee forces Pope to Washingotn
+	   - (-) Bragg northward movements in Kentucky
+	   - (-) Sioux Indians commence outrages in Minnesota
 
-- September
+	- September
 
-   - (-) Lee's advance cause fears of safety for Baltimore, Harrisburg, Philadelpha
-   - (-) Bragg and Kirby threaten Louisville and Cincinnati
-   - (+) South Mountain (14th)
-   - (+) Antietam (17th)
-   - (-) Jackson's capture of Harper's Ferry
-   - (-) McClellan failed to follow up; Lee crosses Potomac in safety
-   - (-) Rosecrans victory at Iuka
+	   - (-) Lee's advance cause fears of safety for Baltimore, Harrisburg, Philadelpha
+	   - (-) Bragg and Kirby threaten Louisville and Cincinnati
+	   - (+) South Mountain (14th)
+	   - (+) Antietam (17th)
+	   - (-) Jackson's capture of Harper's Ferry
+	   - (-) McClellan failed to follow up; Lee crosses Potomac in safety
+	   - (-) Rosecrans victory at Iuka
 
-- October
+	- October
 
-   - (-) McClellan inactive
-   - (-) Stuart raid around McClellan's army
-   - (+) Rosecrans stops attempt to recapture Corinth
-   - (+) Brag retreats from Kentucky; Battle of Perryville
-   - (-) Elections: Maine, Michigan; Wisconsin
+	   - (-) McClellan inactive
+	   - (-) Stuart raid around McClellan's army
+	   - (+) Rosecrans stops attempt to recapture Corinth
+	   - (+) Brag retreats from Kentucky; Battle of Perryville
+	   - (-) Elections: Maine, Michigan; Wisconsin
 
-- November
+	- November
 
-   - (-) Order relieving McClellan published on Nov 10th, 1862
+	   - (-) Order relieving McClellan published on Nov 10th, 1862
 
-- December
+	- December
 
-   - (-) Chase report. Expenses increasing; no suggestion for increased taxation
-   - (-) Army in arrears
-   - (-) 3rd issue of US notes foreshadowed
-   - (-) Admin attacked for suspension of habeas corpus and emancipation
-   - (-) Sec state and treasury resign; Lincoln convinces them to stay
-   - (-) Burnside repulsed with a loss of 14,000 men
+	   - (-) Chase report. Expenses increasing; no suggestion for increased taxation
+	   - (-) Army in arrears
+	   - (-) 3rd issue of US notes foreshadowed
+	   - (-) Admin attacked for suspension of habeas corpus and emancipation
+	   - (-) Sec state and treasury resign; Lincoln convinces them to stay
+	   - (-) Burnside repulsed with a loss of 14,000 men
 
-- January / February
+	- January / February
 
-   - (-) Framing of the 3rd legal tender act
-   - Hooker succeeded Burnside
-   - (-) Grant's first campaign against Vicksburg by destruction depot at Holly Springs and Sherman's repulse at Chickasaw Bayou.
-   - (-) Monitor foundered
-   - (+) Forrest's confed cavalry beaten at Parker's Cross Roads
-   - (-) Magruder recaptured Galveston
-   - (+) Sherman captured Arkansas post
-   - (-) Fed attack on Ft McAllister in Ga repulsed
-   - (+) Confed attack on Ft Donelson in Tenn repulsed
-   - dominating influence in the last half of the month was the 3rd legal tender act
+	   - (-) Framing of the 3rd legal tender act
+	   - Hooker succeeded Burnside
+	   - (-) Grant's first campaign against Vicksburg by destruction depot at Holly Springs and Sherman's repulse at Chickasaw Bayou.
+	   - (-) Monitor foundered
+	   - (+) Forrest's confed cavalry beaten at Parker's Cross Roads
+	   - (-) Magruder recaptured Galveston
+	   - (+) Sherman captured Arkansas post
+	   - (-) Fed attack on Ft McAllister in Ga repulsed
+	   - (+) Confed attack on Ft Donelson in Tenn repulsed
+	   - dominating influence in the last half of the month was the 3rd legal tender act
 
-- Overview
+	- Overview
 
-   - commenced with depreciation of 2 percent, ended with 42 percent
-   - May-Nov: dominating casuses were military disaster and 2nd issue of greenbacks
-   - jan-feb: legislation pending in congress.
+	   - commenced with depreciation of 2 percent, ended with 42 percent
+	   - May-Nov: dominating casuses were military disaster and 2nd issue of greenbacks
+	   - jan-feb: legislation pending in congress.
 
-- Rise from March to August 1863
+3. Rise from March to August 1863
 
     - March
 
@@ -404,7 +459,7 @@ Possible factors
 		- Draft completed in NYC
 		- Elections in Ky, VT, and CA were favorable to the admin candidate.
 
-- Fall from Sept 1863 August 1864
+4. Fall from Sept 1863 August 1864
 
 	- Sept
 
@@ -426,7 +481,7 @@ Possible factors
 
         - During 1st 3 months of 1864, the slow decline continued.
 		- Jan: armies "lay nearly still both east and west"
-		- Feb 1st: draft ordered for 1.5 milliion men to serve 3 years or the war.
+		- Feb 1st: draft ordered for 1.5 million men to serve 3 years or the war.
 		- Gen. Butler sallied from Fort. Monroe in an attempt to take Richmond, but failed.
 		- Kilpatrick's cavalry got through 1st and 2nd lines of defense to Richmond, but thwarted by the third.
 		- Loss at Olustree
@@ -489,7 +544,7 @@ Possible factors
 		- Governor David Tod of Ohio declines.
 		- Repeal of act: introduced in the Senate on June 22; Jul 1 passed Senate and House with little debate; signed by Lincoln on Jul 2; on  Jul 5, the gold room reopens.
 
-- Rise from Aug 1864 to May 1865
+5. Rise from Aug 1864 to May 1865
 
 	- Aug
 
@@ -567,8 +622,7 @@ Possible factors
 		- Armed resitance ceased, Davis captured, war over
 		- Success in selling 7.30 notes to pay the army
 
-
-- Decline from June to Dec 1865
+6. Decline from June to Dec 1865
 
 	- gold market calm "Great fluctuations gave place to slight variations from day to day"
 	- May 11 was 77.82 followed by a slow decline

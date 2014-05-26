@@ -43,17 +43,17 @@ create_battle_news <- function() {
           battles, all.x = TRUE)
 
   .data2 <- (group_by(.data, battle, date)
-   %.% summarise(wgt = sum(wgt))
-   %.% group_by(battle)
-   %.% mutate(wgt = 1 / sum(wgt))
-   %.% select(battle, date, wgt)
+   %>% summarise(wgt = sum(wgt))
+   %>% group_by(battle)
+   %>% mutate(wgt = 1 / sum(wgt))
+   %>% select(battle, date, wgt)
   )
   
   .lagdata2 <- 
     (mutate(.data2, 
             date = date - 1L,
             lagwgt = wgt)
-     %.% select(battle, date, lagwgt))
+     %>% select(battle, date, lagwgt))
   
   .data3 <- 
     mutate(merge(.data2, .lagdata2,

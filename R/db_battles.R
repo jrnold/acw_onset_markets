@@ -11,9 +11,7 @@ BATTLES_FILE <- "data/acw_battles/data/battles.csv"
 GEO_NY <- c(long = 75, lat = 43)
 
 create_battles <- function() {
-  battles <- 
-    (read.csv(BATTLES_FILE)
-     %.% select(-X))
+  battles <- read.csv(BATTLES_FILE)
   battles[["dist_ny"]] <-
     spDistsN1(as.matrix(battles[ , c("long", "lat")]), GEO_NY, longlat = TRUE)
   for (i in c(paste0("start_date", c("", "_1", "_2")),

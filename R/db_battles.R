@@ -19,7 +19,8 @@ create_battles <- function() {
   for (i in c(paste0("start_date", c("", "_1", "_2")),
               paste0("end_date", c("", "_1", "_2")))) {
     battles[[i]] <- as.Date(battles[[i]])
-  }  
+  }
+  battles
 }
 
 main <- function() {

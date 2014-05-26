@@ -1,28 +1,40 @@
-FILEHASH_SRC = $(wildcard R/filehashdb_*.R)
-FILEHASH_OBJ = $(FILEHASH_SRC:R/filehashdb_%.R=filehashdb/%)
-R_SRC = $(wildcard R/*.R)
+export PATH := .:./bin:$(PATH)
+
+RSCRIPT = Rscript
+
+FILEHASHDB_DIR = filehashdb
+
+ANALYSIS_DIR = doc/analysis
+analysis_src = $(wildcard $(ANALYSIS_DIR)/*.Rmd)
+analysis_html = $(analysis_src:%.Rmd=%.html)
 
 TAB_SRC = $(wildcard tab-*.R)
 TAB_OUT = $(TAB_SRC:%.R=%.tex)
 
-all: $(robjects)
+-include filehashdb.inc
+
+all: $(robjects) $(analysis_html)
 	@echo $(robjects)
 
+db: $(robjects)
+
 touchdb:
-	for i in filehashdb/*; do \
+	for i in $(FILEHASHDB_DIR)/*; do \
 	touch $${i}; done 
 
-depends: rdepends.inc
+depends: filehashdb.inc
 
 ### Data
-rdepends.inc:
+filehashdb.inc:
 	bin/make_R_dependencies $@
 
 # Only use lower-case names for files
 filehashdb/%: R/db_%.R
-	runR $<
+	save_to_filehash $<  $(FILEHASHDB_DIR)
 
--include rdepends.inc
+doc/analysis/%.html: doc/analysis/%.Rmd
+	$(RSCRIPT) -e 'library(knitr);knit("$<",output="$@")'
 
 .PHONY: all
 
+.DEFAULT_GOAL := all

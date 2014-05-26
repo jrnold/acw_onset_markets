@@ -5,19 +5,15 @@ suppressPackageStartupMessages({
 })
 
 Project <-
-  setRefClass("Project", fields = list(rootdir = "character"),
+  setRefClass("Project", fields = list(rootdir = "character", db = "filehashRDS"),
               methods = list(
                   initialize = function(rootdir = ".") {
                       rootdir <<- rootdir
+                      db <<- dbInit(file.path(rootdir, "filehashdb"), "RDS")
                   },
                   path = function(...) file.path(rootdir, ...),
                   stan_model_dir = function() path("stan"),
                   data_dir = function() path("data"),
-                  filehashdb_dir = function() path("filehashdb"),
-                  initdb = function() dbInit(filehashdb_dir(), "RDS"),
-                  filehashdb_key = function(key) {
-                      file.path(filehashdb_dir, key)
-                  },
                   civil_war_findata = function() {
                       file.path(rootdir, "submodules/civil_war_era_findata")
                   },

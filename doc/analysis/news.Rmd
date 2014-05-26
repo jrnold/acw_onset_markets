@@ -1,6 +1,21 @@
+# News
+
 ```{r}
-ROOT_DIR = "../../"
-source("../../R/project.R")
+suppressPackageStartupMessages({
+  library("ggplot2")
+})
+```
+
+# NEWS1
+
+```{r}
+PROJ <- Project()
+battle_news_wgts_1 <- PROJ$db[["battle_news_wgts_1"]]
+battle_news_wgts_2 <- PROJ$db[["battle_news_wgts_2"]]
+```
+
+```{r}
+
 ```
 
 

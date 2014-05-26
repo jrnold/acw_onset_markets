@@ -1,6 +1,10 @@
 #! /usr/bin/env Rscript
 library("stringr")
+library("filehash")
 file <- commandArgs(TRUE)[1]
+dbpath <- commandArgs(TRUE)[2]
 envir <- suppressPackageStartupMessages(source_env(file))
 key <- gsub("^db_", "", basename(tools::file_path_sans_ext(file)))
+
+RDATA <- dbInit(dbpath, "RDS")
 RDATA[[key]] <- envir$main()

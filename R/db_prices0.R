@@ -11,38 +11,38 @@
 #' ``data.frame`` with prices and yields for bonds and greenbacks.
 library("plyr")
 
-BANKERS_FILE <- "submodules/civil_war_era/findata/bankers_magazine_govt_state_loans_yields_2.csv"
-MERCHANTS_FILE <- "submodules/civil_war_era/findata/merchants_magazine_us_paper_yields_2.csv"
+MERCHANTS_FILE <- "submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv"
+BANKERS_FILE <- "submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv"
 GREENBACKS_FILE <- "submodules/civil_war_era_findata/data/greenbacks.csv"
 
 .DEPENDENCIES <- c(BANKERS_FILE,
                    MERCHANTS_FILE,
                    GREENBACKS_FILE)
 
-BOND_GROUPS <-
-    c("california_7pct_1870" = "North",
-      "california_7pct_1877" = "North",
-      "georgia_6pct" = "South",
-      "indiana_5pct" = "North",
-      "indiana_6pct" = "North",
-      "kentucky_6pct" = "Border",
-      "louisiana_6pct" = "South",
-      "missouri_6pct" = "Border",
-      "north_carolina_6pct" = "South",
-      "ohio_6pct_1874" = "North",
-      "ohio_6pct_1886" = "North",
-      "pennsylvania_6pct" = "North",
-      "tennessee_6pct" = "South",
-      "US_5pct_1874" = "Union",
-      "US_6pct_1868" = "Union",
-      "US_6pct_1881" = "Union",
-      "virginia_6pct" = "South",
-      "US_five_twenty" = "Union",
-      "US_oneyr_new" = "Union",
-      "US_oneyr_old" = "Union",
-      "US_seven_thirty" = "Union",
-      "US_ten_forty" = "Union",
-      "greenbacks" = "Union")
+## BOND_GROUPS <-
+##     c("california_7pct_1870" = "North",
+##       "california_7pct_1877" = "North",
+##       "georgia_6pct" = "South",
+##       "indiana_5pct" = "North",
+##       "indiana_6pct" = "North",
+##       "kentucky_6pct" = "Border",
+##       "louisiana_6pct" = "South",
+##       "missouri_6pct" = "Border",
+##       "north_carolina_6pct" = "South",
+##       "ohio_6pct_1874" = "North",
+##       "ohio_6pct_1886" = "North",
+##       "pennsylvania_6pct" = "North",
+##       "tennessee_6pct" = "South",
+##       "US_5pct_1874" = "Union",
+##       "US_6pct_1868" = "Union",
+##       "US_6pct_1881" = "Union",
+##       "virginia_6pct" = "South",
+##       "US_five_twenty" = "Union",
+##       "US_oneyr_new" = "Union",
+##       "US_oneyr_old" = "Union",
+##       "US_seven_thirty" = "Union",
+##       "US_ten_forty" = "Union",
+##       "greenbacks" = "Union")
 
 ## bankers <- function() {
 ##     bankers <- read.csv(
@@ -90,7 +90,7 @@ BOND_GROUPS <-
 ## }
 
 main <- function() {
-  ret <- rbind.fill(bankers(), merchants(), greenbacks())
-  ret$series <- factor(ret$series)
-  ret$group <- BOND_GROUPS[as.character(ret$series)]
+  ## ret <- rbind.fill(bankers(), merchants(), greenbacks())
+  ## ret$series <- factor(ret$series)
+  ## ret$group <- BOND_GROUPS[as.character(ret$series)]
 }

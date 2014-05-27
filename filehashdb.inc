@@ -12,11 +12,23 @@ robjects += filehashdb/battles
 
 filehashdb/battles : data/acw_battles/data/battles.csv
 
+robjects += filehashdb/macaulay
+
+filehashdb/macaulay : data/quandl/macaulay.json
+
+robjects += filehashdb/m_spreads_0
+
+filehashdb/m_spreads_0 : /home/jrnold/Documents/research/bonds_and_battles/filehashdb/prices1 /home/jrnold/Documents/research/bonds_and_battles/filehashdb/riskfree stan/m0.stan data/init/m_spreads_0.rds
+
 robjects += filehashdb/prices0
 
-filehashdb/prices0 : submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv submodules/civil_war_era_findata/data/greenbacks.csv
+filehashdb/prices0 : submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv
 
 robjects += filehashdb/prices1
 
-filehashdb/prices1 : submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv submodules/civil_war_era_findata/data/greenbacks.csv
+filehashdb/prices1 : /home/jrnold/Documents/research/bonds_and_battles/filehashdb/prices0
+
+robjects += filehashdb/riskfree
+
+filehashdb/riskfree : /home/jrnold/Documents/research/bonds_and_battles/filehashdb/macaulay
 

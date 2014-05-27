@@ -9,7 +9,7 @@
 *~
 .Rproj.user
 /.Rhistory
-/R/*.q
+/.RData
 /doc/analysis/*.html
 /doc/analysis/*.md
 /doc/analysis/*.pdf
@@ -21,3 +21,5 @@
 /library
 /rdepends.inc
 auto/
+/figure/*
+/doc/analysis/news.html

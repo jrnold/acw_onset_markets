@@ -11,6 +11,9 @@ Project <-
                       rootdir <<- rootdir
                       db <<- dbInit(file.path(rootdir, "filehashdb"), "RDS")
                   },
+                  dbpath = function(key) {
+                      file.path(db@dir, key)
+                  },
                   path = function(...) file.path(rootdir, ...),
                   stan_model_dir = function() path("stan"),
                   data_dir = function() path("data"),
@@ -23,46 +26,47 @@ Project <-
                   datafile = function(...) {
                       file.path(rootdir, "data", ...)
                   },
-                  stan_model = function(key) {
-                      file.path(stan_model_dir(), sprintf("%s.stan", key))
-                  },
                   init_file = function(key) {
-                      datafile("model_init/%s.stan", key)
+                      datafile(sprintf("init/%s.rds", key))
                   },
-                  get_init = function(key) {
-                      filename <- INIT_FILE(key)
+                  read_init = function(key) {
+                      filename <- init_file(key)
                       if (file.exists(filename)) {
                           readRDS(filename)
                       } else {
                           NULL
                       }
                   },
-                  gen_init = function(model, n = 4, chain_id = NULL, key = NULL) {
-                      pars <- grep("__$", model@model_pars, value=TRUE, invert=TRUE)
-                      samples <- llply(iters,
-                                       function(i) {
-                                           x <- llply(pars,
-                                                      function(parname) {
-                                                          x <- extract(model, parname)[[1]]
-                                                          d <- dim(x)
-                                                          ndim <- length(d)
-                                                          dlist <- list(i)
-                                                          if (ndim > 1) {
-                                                              for (j in 2:ndim) {
-                                                                  dlist[[j]] <- seq_len(d[j])
-                                                              }
-                                                          }
-                                                          do.call(`[`, c(list(x), dlist))
-                                                      })
-                                           names(x) <- pars
-                                           x
-                                       })
-                      if (!is.null(key)) {
-                          saveRDS(samples, file=INIT_FILE(key))
-                      }
+                  save_init = function(key, model, n = 4) {
+                      samples <- generate_init(model, n)
+                      saveRDS(samples, file=init_file(key))
                   }
                   )
               )
+
+generate_init <- function(model, n = 4) {
+    n_kept <- model@sim$n_save  - model@sim$warmup2
+    iters <- sample.int(n_kept, n, replace = FALSE)
+    pars <- grep("__$", model@model_pars, value=TRUE, invert=TRUE)
+    samples <- plyr::llply(iters,
+                           function(i) {
+                               x <- plyr::llply(pars,
+                                                function(parname) {
+                                                    x <- extract(model, parname)[[1]]
+                                                    d <- dim(x)
+                                                    ndim <- length(d)
+                                                    dlist <- list(i)
+                                                    if (ndim > 1) {
+                                                        for (j in 2:ndim) {
+                                                            dlist[[j]] <- seq_len(d[j])
+                                                        }
+                                                    }
+                                                    do.call(`[`, c(list(x), dlist))
+                                                })
+                               names(x) <- pars
+                               x
+                           })
+}
 
 make_filehashdb_key <- function(filename = commandArgs(FALSE)[1]) {
     gsub("filehashdb_", "", tools::file_path_sans_ext(basename(filename)))

@@ -1,15 +1,13 @@
 # News
 
+Analysis of the two datasets about how long it takes for news to reach the m
+
 ```{r}
 suppressPackageStartupMessages({
   library("ggplot2")
   library("dplyr")
 })
-```
 
-# NEWS1
-
-```{r}
 PROJ <- Project()
 battle_news_wgts_1 <- PROJ$db[["battle_news_wgts_1"]]
 battle_news_wgts_2 <- PROJ$db[["battle_news_wgts_2"]]
@@ -25,7 +23,7 @@ news1 <-
   (merge(select(filter(battles, significance == "A"),
               battle, battle_name_short, end_date, start_date, theater),
        battle_news_wgts_1)
- %.% mutate(lag = as.integer(date - end_date))
+ %>% mutate(lag = as.integer(date - end_date))
  )
 ```
 
@@ -40,14 +38,14 @@ news1 <-
 Summary of Lag data
 
 ```{r}
-news1_mean <- group_by(news1, battle, theater) %.% summarise(lag = sum(wgt * lag))
+news1_mean <- group_by(news1, battle, theater) %>% summarise(lag = sum(wgt * lag))
 summary(news1_mean)
 
 ```
 
 Summary of Lag data by theater
 ```{r}
-group_by(tbl_df(news1_mean), theater) %.% summarise(mean = mean(lag), median = median(lag), min = min(lag), max = max(lag))
+group_by(tbl_df(news1_mean), theater) %>% summarise(mean = mean(lag), median = median(lag), min = min(lag), max = max(lag))
 
 ```
 
@@ -60,7 +58,7 @@ news2 <-
   (merge(select(filter(battles, significance == "A"),
               battle, battle_name_short, end_date, start_date, theater),
        battle_news_wgts_2)
- %.% mutate(lag = as.integer(date - end_date))
+ %>% mutate(lag = as.integer(date - end_date))
  )
 ```
 
@@ -75,14 +73,14 @@ news2 <-
 Summary of Lag data
 
 ```{r}
-news2_mean <- group_by(news2, battle, theater) %.% summarise(lag = sum(wgt2 * lag))
+news2_mean <- group_by(news2, battle, theater) %>% summarise(lag = sum(wgt2 * lag))
 summary(news2_mean)
 
 ```
 
 Summary of Lag data by theater
 ```{r}
-group_by(tbl_df(news2_mean), theater) %.% summarise(mean = mean(lag), median = median(lag), min = min(lag), max = max(lag))
+group_by(tbl_df(news2_mean), theater) %>% summarise(mean = mean(lag), median = median(lag), min = min(lag), max = max(lag))
 
 ```
   

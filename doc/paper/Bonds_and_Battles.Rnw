@@ -293,6 +293,8 @@ Then,
 \end{equation}
 The important feature of equation \eqref{eq:14} is that as the expected probability of default increases, the price of the bond decreases.
 
+If $y$ is the yield of a bond, and $r$ is the yield of a risk-free bond with the same cashflows, then the spread $s = y - r$ is approximately the probability of default, under risk neutrality and with no redemption \parencite{HullWhite2005}.
+
 \section{Union Bond Prices and War Termination}
 \label{sec:war-prob-union}
 

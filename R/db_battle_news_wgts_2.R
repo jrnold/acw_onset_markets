@@ -57,12 +57,12 @@ create_battle_news <- function() {
   
   .data3 <- 
     mutate(merge(.data2, .lagdata2,
-               by = c("battle", "date"), all = TRUE),
-         wgt = fill_na(wgt),
-         lagwgt = fill_na(lagwgt),
-         wgt2 = (1 - LAGP) * wgt + LAGP * lagwgt)
+                 by = c("battle", "date"),
+                 all = TRUE),
+           wgt = fill_na(wgt),
+           lagwgt = fill_na(lagwgt),
+           wgt2 = (1 - LAGP) * wgt + LAGP * lagwgt)
   .data3
-  
 }
 
 main <- function() {

@@ -42,8 +42,9 @@ gen_prices <- function() {
 standata <- function() {
     prices <- gen_prices()
     list(y = prices$spread,
+         nu_mult = 1 / sqrt(prices$n),
          nobs = nrow(prices),
-         N = as.integer(END_DATE - START_DATE + 1L),
+         N = as.integer(END_DATE - START_DATE) + 1L,
          time = as.integer(prices$date - START_DATE) + 1L,
          r = length(levels(prices$series)),
          variable = as.integer(prices$series),

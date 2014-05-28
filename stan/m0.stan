@@ -20,6 +20,8 @@ data {
   int<lower=1> r;
   int<lower=1, upper=r> variable[nobs];
 
+  vector<lower=0.0>[nobs] nu_mult;  
+
   real theta0_loc;
   real<lower=0.0> theta0_scale;
 
@@ -42,7 +44,7 @@ transformed parameters {
   }
   for (i in 1:nobs) {
     mu[i] <- gamma[variable[i]] + theta[time[i] + 1];
-    tau_vec[i] <- tau[variable[i]];
+    tau_vec[i] <- tau[variable[i]] * nu_mult[i];
   }
 }
 model {

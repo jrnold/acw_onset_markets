@@ -20,6 +20,10 @@ robjects += filehashdb/m_spreads_0
 
 filehashdb/m_spreads_0 : /home/jrnold/Documents/research/bonds_and_battles/filehashdb/prices1 /home/jrnold/Documents/research/bonds_and_battles/filehashdb/riskfree stan/m0.stan data/init/m_spreads_0.rds
 
+robjects += filehashdb/m_spreads_1
+
+filehashdb/m_spreads_1 : stan/m1.stan /home/jrnold/Documents/research/bonds_and_battles/filehashdb/battle_news_wgts_2 /home/jrnold/Documents/research/bonds_and_battles/filehashdb/battles R/db_m_spreads_0.R
+
 robjects += filehashdb/prices0
 
 filehashdb/prices0 : submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv

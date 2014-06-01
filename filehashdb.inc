@@ -18,7 +18,11 @@ filehashdb/greenbacks_1 : submodules/civil_war_era_findata/data/greenbacks.csv
 
 robjects += filehashdb/m_greenbacks_1
 
-filehashdb/m_greenbacks_1 : stan/m2.stan R/db_m_spreads_1.R
+filehashdb/m_greenbacks_1 : stan/m2.stan /home/jrnold/Documents/research/bonds_and_battles/filehashdb/m_greenbacks_1 R/db_m_spreads_1.R
+
+robjects += filehashdb/m_greenbacks_2
+
+filehashdb/m_greenbacks_2 : stan/m2.stan /home/jrnold/Documents/research/bonds_and_battles/filehashdb/m_greenbacks_1 R/db_m_spreads_2.R
 
 robjects += filehashdb/m_spreads_0
 
@@ -43,6 +47,10 @@ filehashdb/prices0 : submodules/civil_war_era_findata/data/bankers_magazine_govt
 robjects += filehashdb/prices1
 
 filehashdb/prices1 : /home/jrnold/Documents/research/bonds_and_battles/filehashdb/prices0
+
+robjects += filehashdb/prwar1
+
+filehashdb/prwar1 : stan/prwar.stan ./submodules/civil_war_era_findata/data/bond_metadata.json ./submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv
 
 robjects += filehashdb/riskfree
 

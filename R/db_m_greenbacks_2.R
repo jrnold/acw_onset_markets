@@ -14,7 +14,7 @@ MODEL_FILE <- "stan/m2.stan"
 m_spreads_2 <- source_env("R/db_m_spreads_2.R")
 
 START_DATE <- as.Date("1862-1-1")
-END_DATE <- m_spreads_1$END_DATE
+END_DATE <- m_spreads_2$END_DATE
 
 #' MCMC parameters
 ITER <- 2^11

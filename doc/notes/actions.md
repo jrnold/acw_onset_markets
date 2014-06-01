@@ -256,7 +256,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 	- Denial, reaction to 76.63.
 	- Dec 8, Thaddeus Stevens intro a bill to issue \$200 mn, relapse to 75.19.
 	- Dec 9, Thaddeus Stevents admits no chance of passage. *Congressional Globe*, 37 Cong. 3d Sess. pp. 23, 145. NYT, Dec 9, 1862.
-	- Jan 8, Committee of Ways and Means submitted measure authorize increase fo 300 mn. Fall to 72.99
+	- Jan 8, Committee of Ways and Means submitted measure authorize increase of 300 mn. Fall to 72.99
 	- Jan 14, House passes joint res for issue of 100 mn to pay army and navy.  Fall to 67.57.
 	- Acquiescence of the Senate causes "slight further decline"
 	- Ways and Means bill passed and sent to Senate, notes to 65.90 (Jan 26)
@@ -292,7 +292,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 	- Dem party nominated Gen. McClellan on Aug 31. Fall from 42.73 to 41.15.
 	- Penn State election in October "an indication of the probable outcome". First few days, uncertain who had won. October 11, *New York World* claims that the Dem won. Fall from 50.41 to 49.17.
 	- "Curiously, the Republican triumph in November had the same effect upon the currency as this promise of Democratic success had exercised. I seems to have been argued that President Lincoln's re-election meant an indefinite prolongation of the war, and hence destroyed any chance of a speedy redemption of the paper money." Fall on 9th from 40.65 to 38.46; however a reaction quickly followed.
-	- Lincolns assassinaion occurs after regular hours. Fall followed by quick reaction. Market closed for several days. A few days later back to the level it held before the assassination.
+	- Lincolns assassination occurs after regular hours. Fall followed by quick reaction. Market closed for several days. A few days later back to the level it held before the assassination.
 
 - Foreign relations. Overshadowed during the war by domestic affairs. They exercised some influence upon the falue of the paper money. Two matters of concern. Chance of foreign intervention and French occupation of Mexico.
 
@@ -310,10 +310,12 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 
 ## History of Price Movements
 
-1. January to April 1862
+This is a summary of Part ..., Chapter III, Section III ([p. 210ff.](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA210))
+
+1. January to April 1862 ([p. 212-213](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA212))
 
 	- (-) 1st half of february slowness of Congress in framing tax bills 
-	- (+) Gran's capture of Fort Donelson
+	- (+) Grants capture of Fort Donelson
 	- (+) 1st legal tender act
 	- (+) Battle of Pea Ridge
 	- (+) Monitor and merrimac
@@ -326,7 +328,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 	- (+) Fort Pulaski fell (news 15th)
 	- (+) New Orleans falls
 
-2. May 1862 to February 1863
+2. May 1862 to February 1863 ([p. 213-217](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA213))
 
 	- May; mil ops turn versus north
 
@@ -405,7 +407,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 	   - May-Nov: dominating casuses were military disaster and 2nd issue of greenbacks
 	   - jan-feb: legislation pending in congress.
 
-3. Rise from March to August 1863
+3. Rise from March to August 1863 ([p. 217-220](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA217))
 
     - March
 
@@ -459,7 +461,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 		- Draft completed in NYC
 		- Elections in Ky, VT, and CA were favorable to the admin candidate.
 
-4. Fall from Sept 1863 August 1864
+4. Fall from Sept 1863 August 1864 ([p. 220-235](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA220))
 
 	- Sept
 
@@ -544,7 +546,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 		- Governor David Tod of Ohio declines.
 		- Repeal of act: introduced in the Senate on June 22; Jul 1 passed Senate and House with little debate; signed by Lincoln on Jul 2; on  Jul 5, the gold room reopens.
 
-5. Rise from Aug 1864 to May 1865
+5. Rise from Aug 1864 to May 1865 ([p. 235-238](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA235))
 
 	- Aug
 
@@ -622,7 +624,7 @@ Hense the effect of every suggestion of an increase in the amount of the paper c
 		- Armed resitance ceased, Davis captured, war over
 		- Success in selling 7.30 notes to pay the army
 
-6. Decline from June to Dec 1865
+6. Decline from June to Dec 1865 ([p. 238](http://books.google.com/books?id=ElAuAAAAYAAJ&pg=PA238))
 
 	- gold market calm "Great fluctuations gave place to slight variations from day to day"
 	- May 11 was 77.82 followed by a slow decline

@@ -6,7 +6,7 @@ MODEL_FILE <- "stan/m1.stan"
 .DEPENDENCIES <-
     c(MODEL_FILE,
       sapply(c("battle_news_wgts_2", "battles"), PROJ$dbpath),
-      "R/db_m_spreads_0.R")
+      "R/db_m_spreads_1.R", "R/db_m_spreads_0.R")
 
 m_spreads_0 <- source_env("R/db_m_spreads_0.R")
 
@@ -24,7 +24,7 @@ THIN <- 1
 SEED <- 535682
 
 get_battles <- function() {
-    major_battle_news <- PROJ$db[["battle_news_wgts_2"]]
+    major_battle_news <- PROJ$db[["battle_news_wgts_1"]]
         
     #' Only use battles in the Major War News dataset
     #' Significanc A with news reported on them.
@@ -34,9 +34,9 @@ get_battles <- function() {
                              significance == "A",
                              ! battle %in% EXCLUDED_BATTLES)
                       %>% select(battle, battle_name_short, outcome)),
-                     by = "battle"),
-               date >= START_DATE & date <= END_DATE)
-    
+                      by = "battle"),
+                date >= START_DATE & date <= END_DATE)
+         
     #' Since there are only two Inconclusive battles, recode their outcomes.
     #' Wilderness == "Union" victory. As per Bodart and my reading of newspapers
     battles[battles$battle == "VA046", "outcome"] <- "Union"
@@ -47,6 +47,7 @@ get_battles <- function() {
     battles$outcome_num <- as.integer(battles$outcome)
 
     #' Time
+    #' START_DATE = 1, ..., END_DATE = T
     battles$time <- as.integer(battles$date - START_DATE) + 1L
 
     #' Integer battles
@@ -61,7 +62,7 @@ standata <- function() {
     .data[["n_battles"]] <- length(levels(.battles$battle))
     .data[["n_outcomes"]] <- 2
     .data[["n_lag_wgts"]] <- nrow(.battles)
-    .data[["lag_wgts"]] <- .battles$wgt2
+    .data[["lag_wgts"]] <- .battles$wgt
     .data[["lag_battle"]] <- .battles$battle_num
     .data[["lag_outcome"]] <- .battles$outcome_num
     .data[["lag_times"]] <- .battles$time

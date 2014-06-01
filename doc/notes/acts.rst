@@ -33,7 +33,7 @@ Temporary Loan
 
 `Bayley, p. 79 <http://books.google.com/books?id=Ce4JAAAAIAAJ&pg=PA79>`__
 
-- Act of Feb 25, 1862 (12 Stat 345) allos issue of temporary loans on deposit for not less than 30 days in sums not less than 100 dollar, paying 5 percent per annum. May be withdrawn after 10 days. Authorizes 25 mn.
+- Act of Feb 25, 1862 (12 Stat 345) allows issue of temporary loans on deposit for not less than 30 days in sums not less than 100 dollar, paying 5 percent per annum. May be withdrawn after 10 days. Authorizes 25 mn.
 - Act of March 17, 1862 (12 Stat 370) increases the authorization to 50 mn.
 - Act of June 11, 1862 (12 Stat 532) increases the authorizeation to 100 mn. 50 mn of the legal tenders authorized by the act reserved for that purpose.
 - Act of June 30, 1864 (13 Stat 219) authorizes a further increase to 150 mn, and increases the interest to 6 percent.
@@ -140,4 +140,5 @@ Five Twenties of 1865--Consols of 1865, 1867, and 1868
   Annual interest limited to 6 percent in coin, or 7.30 in currency, redeemable in not less than 5 or more than 40 year.
 - **limited debate** on the bill. Unsuccessful effor to fix the interest rate at 8 percent currency, and no further issue of treasury notes.
 - Bill became law March 3, 1865 (13 Stat 468).
+    
 

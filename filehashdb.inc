@@ -12,9 +12,13 @@ robjects += filehashdb/battles
 
 filehashdb/battles : data/acw_battles/data/battles.csv
 
-robjects += filehashdb/macaulay
+robjects += filehashdb/greenbacks_1
 
-filehashdb/macaulay : data/quandl/macaulay.json
+filehashdb/greenbacks_1 : submodules/civil_war_era_findata/data/greenbacks.csv
+
+robjects += filehashdb/m_greenbacks_1
+
+filehashdb/m_greenbacks_1 : stan/m2.stan R/db_m_spreads_1.R
 
 robjects += filehashdb/m_spreads_0
 
@@ -23,6 +27,14 @@ filehashdb/m_spreads_0 : /home/jrnold/Documents/research/bonds_and_battles/fileh
 robjects += filehashdb/m_spreads_1
 
 filehashdb/m_spreads_1 : stan/m1.stan /home/jrnold/Documents/research/bonds_and_battles/filehashdb/battle_news_wgts_2 /home/jrnold/Documents/research/bonds_and_battles/filehashdb/battles R/db_m_spreads_0.R
+
+robjects += filehashdb/m_spreads_2
+
+filehashdb/m_spreads_2 : stan/m1.stan /home/jrnold/Documents/research/bonds_and_battles/filehashdb/battle_news_wgts_2 /home/jrnold/Documents/research/bonds_and_battles/filehashdb/battles R/db_m_spreads_1.R R/db_m_spreads_0.R
+
+robjects += filehashdb/macaulay
+
+filehashdb/macaulay : data/quandl/macaulay.json
 
 robjects += filehashdb/prices0
 

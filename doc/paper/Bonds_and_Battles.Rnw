@@ -701,6 +701,50 @@ In Section XXXX, it is noted that there is much missing data.
 This may actually make the model more robust against mispecification of information about the timing of news.
 If $y_{t}$ and $y_{t+s}$, only the sum of the information weights $\sum_{t' = t+1}^{t + s} w_{t'}$ matters.
 
+\section{War Initiation}
+
+The ex ante probability of war could start.
+
+The ideal way is through a prediction market. 
+Example from Iraq.
+
+Without a prediction market, a prices of a relevant financial market asset can still provide information about the risk of war, although eliciting this information may be more difficult.
+Higher yields (lower prices) indicate increased risk. 
+Even after accounting for other factors that may influence the asset risk, increases in yield could indicate either increased risk of war, or increased expectation of the cost of war.
+
+This provides some insight into commitment versus private information theories of war. 
+In a commitment theory of war with perfect information most risk of war should have been priced into the asset price.
+Under private information theories, the predictability of war is much less.
+
+Let $r_{p}$ be the expected yield under peace, and $r_{w}$ be the expected yield under war.
+The price of the bond can be valued as
+\begin{align}
+  p 
+  &= \sum_{i = 1}^{n} c_{i} 
+  \left( 
+    (1 - \Pr(\mathtt{war} \leq t_{i}) e^{-y_{p} t_{i}} 
+    + \Pr(\mathtt{war} \leq t_{i}) e^{-y_{w} t_{i}}
+  \right) \\
+  &= \sum_{i = 1}^{n} c_{i} 
+  \left( 
+    (1 - e^{-\lambda t_{i}}) e^{-y_{p} t_{i}} 
+    + e^{-\lambda t_{i}} e^{-y_{w} t_{i}}
+  \right) \\
+\end{align}
+Assuming a constant probabilility of war (an exponential distribution with rate $\lambda > 0$).
+
+\begin{align}
+  y_{t,j} &= 
+  \sum_{i = 1}^{n_{t,j}} c_{t,j,i}
+  \left( 
+    (1 - e^{-\lambda t_{i}}) e^{-y_{p,j} t_{i}} 
+    + e^{-\lambda t_{i}} e^{-y_{w,j} t_{i}}
+  \right) + \epsilon_{t,j} \\
+  \log \lambda_{t} &\sim N(\log \lambda_{t - 1}, \sigma^{2})
+\end{align}
+
+
+
 \printbibliography{}
 
 \end{document}

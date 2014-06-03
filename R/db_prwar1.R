@@ -11,9 +11,9 @@ MODEL_FILE <- "stan/prwar.stan"
     c(MODEL_FILE, BOND_METADATA_FILE, BANKERS_FILE)
 
 #' MCMC parameters
-ITER <- 2^9
-WARMUP <- 2^8
-SAMPLES <- 2^8
+ITER <- 2^8
+WARMUP <- 2^7
+SAMPLES <- 2^7
 THIN <- 1
 SEED <- 535682
 CHAINS <- 1
@@ -45,6 +45,28 @@ get_bond_yields <- function() {
 
 get_bond_metadata <- function() {
     fromJSON(BOND_METADATA_FILE)
+}
+
+pvbond <- function(rate, effectiveDate, cashflows) {
+    sum((filter(cashflows,
+                date > effectiveDate)
+         %>% mutate(date = as.Date(date),
+                    maturity = as.integer(date - effectiveDate) / 365.25,
+                    dcf = amount * exp(-rate * maturity)))$dcf)
+}
+
+bondpresval <- function(r, x, m, p = 1) {
+    n <- length(x)
+    pv <- numeric(n)
+    for (i in 1:n) {
+        if (i == 1) {
+            mlag <- p * 0 + (1 - p) * m[i]
+        } else {
+            mlag <- p * m[i - 1] + (1 - p) * m[i]
+        }
+        pv[i] <- sum(x[i:n] * exp(- r * (m[i:n] - mlag)))
+    }
+    pv
 }
 
 
@@ -86,20 +108,20 @@ get_data <- function() {
          %>% select(date, series, bond, price)
          %>% mutate(asset_num = as.integer(series))
          )
-    
     datelist <-
         mutate(data.frame(date = sort(unique(bond_data$date))),
                time = seq_along(date),
                tdiff = c(7, as.integer(diff(time))))
-    
     bond_data <- merge(bond_data, datelist[ , c("date", "time")])
-    
     bond_metadata <- get_bond_metadata()
+
+    yields <- get_war_peace_yields()
     
     #' Get cashflows
     cashflows <-
-        plyr::mdply(filter(bond_data, bond %in% BONDSERIES),
-                    function(bond, date, ...) {
+        plyr::mdply(merge(filter(bond_data, bond %in% BONDSERIES),
+                          yields),
+                    function(bond, date, yield_war, ...) {
                         bond <- as.character(bond)
                         date2 <- date
                         cashflows <-
@@ -110,31 +132,41 @@ get_data <- function() {
                              %>% select(maturity, amount)
                              %>% group_by(maturity)
                              %>% summarise(amount = sum(amount))
-                             %>% mutate(i = seq_along(amount))
+                             %>% mutate(i = seq_along(amount),
+                                        lagmaturity = c(0, maturity[-length(maturity)]),
+                                        warpv1 = bondpresval(yield_war, amount, maturity, p = 1),
+                                        warpv2 = bondpresval(yield_war, amount, maturity, p = 0),
+                                        warpv3 = bondpresval(yield_war, amount, maturity, p = 0.5))
                              )
                     })
+
     
     numpayments <-
         (group_by(cashflows, time, series)
          %>% summarise(n = max(i)))
-    
     amounts <- acast(cashflows, time + series ~ i, value.var = "amount",
                      fill = 0)
-    
     maturities <- acast(cashflows, time + series ~ i, value.var = "maturity",
                         fill = 1000)
-
+    maturities_lag <- acast(cashflows, time + series ~ i, value.var = "lagmaturity",
+                            fill = 1000)
+    maturities_mid <- 0.5 * (maturities + maturities_lag)
+    warpv <- acast(cashflows, time + series ~ i, value.var = "warpv1",
+                fill = 0)
     list(prices = bond_data,
          dates = datelist,
          cashflows = cashflows,
          numpayments = numpayments,
          amounts = amounts,
-         maturities = maturities)
+         maturities = maturities,
+         maturities_lag = maturities_lag,
+         maturities_mid = maturities_mid,
+         warpv = warpv,
+         yields = yields)
 }
 
 get_standata <- function() {
     .data <- get_data()
-    yields <- get_war_peace_yields()
     list(nobs = nrow(.data$prices),
          n_times = max(.data$prices$time),
          time = .data$prices$time,
@@ -146,8 +178,9 @@ get_standata <- function() {
          n_payments = .data$numpayments$n,
          payment = .data$amounts,
          maturity = .data$maturities,
-         yield_peace = yields$yield_peace,
-         yield_war = yields$yield_war,
+         maturity_lag = .data$maturities_lag,
+         yield_peace = .data$yields$yield_peace,
+         warpv = .data$warpv,
          # initial state
          loglambda_init_mean = log(0.005),
          loglambda_init_sd = 10)

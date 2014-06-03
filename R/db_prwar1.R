@@ -11,11 +11,11 @@ MODEL_FILE <- "stan/prwar.stan"
     c(MODEL_FILE, BOND_METADATA_FILE, BANKERS_FILE)
 
 #' MCMC parameters
-ITER <- 2^8
-WARMUP <- 2^7
-SAMPLES <- 2^7
+ITER <- 2^9
+WARMUP <- 2^8
+SAMPLES <- 2^8
 THIN <- 1
-SEED <- 535682
+SEED <- 254460
 CHAINS <- 1
 
 PEACE <- as.Date(c("1855-08-24", "1857-10-16"))
@@ -179,11 +179,12 @@ get_standata <- function() {
          payment = .data$amounts,
          maturity = .data$maturities,
          maturity_lag = .data$maturities_lag,
+         yield_war = .data$yields$yield_war,
          yield_peace = .data$yields$yield_peace,
          warpv = .data$warpv,
          # initial state
-         loglambda_init_mean = log(0.005),
-         loglambda_init_sd = 10)
+         logbeta_init_mean = log(0.005),
+         logbeta_init_sd = 10)
 }
 
 main <- function() {

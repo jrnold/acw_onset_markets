@@ -149,6 +149,19 @@
 \begin{titlingpage}
 \maketitle{}
 
+<<results='hide',echo=FALSE>>=
+knitr::opts_chunk[["set"]](error = FALSE,
+                      echo = FALSE)
+suppressPackageStartupMessages({
+    library("ggplot2")
+    library("scales")
+})
+source("../../.Rprofile", chdir=TRUE)
+
+theme_local <- function(...) theme_gray(...)
+
+@
+
 % Don't say anything about results until i'm confident in them.
 \begin{abstract}
 \footnotesize
@@ -408,15 +421,15 @@ However, the price data has high amount of missingness at the daily level (XXXX 
 Thus, this work does not directly use the first difference as the response variable, but instead estimates the model in its state space form with the price level as the outcome variable.%
 \footnote{See \textcite{DurbinKoopman2001}, among others, for a discussion of ARIMA models in state space form.}
 Let $y_{t}$ bet the logarithm of the price of Sixes at time $t$.
-\begin{equation}
+\begin{align}
   \label{eq:1}
-  y_{jt} &= \gamma_{j} + \theta_{t} + \epsilon_{jt} & \text{where $y_{t}$ not missing.} \\
-\end{equation}
+  y_{jt} &= \gamma_{j} + \theta_{t} + \epsilon_{jt} & \text{where $y_{t}$ not missing.}
+\end{align}
 where $\theta_{t}$ is the latent interest rate, and $\epsilon_{jt} \sim N(0, \tau_{j})$.
 The latent interest rate $\theta_{t}$ follows an AR(1) process,
 \begin{equation}
   \label{eq:10}
-  \theta_{t} &= \bar \theta + \rho \theta_{t-1} + \partial \theta_{t}
+  \theta_{t} = \bar \theta + \rho \theta_{t-1} + \partial \theta_{t}
 \end{equation}
 The parameter $\partial \theta_{t}$ represents the change in the interest rate at time $t$.
 The latent interest rate is the parameter of interest.
@@ -517,6 +530,53 @@ Since many of the sources had missing or different values of force sizes and cas
 The posterior distributions of all models are estimated using the No-U-Turn Sampler Hamiltonian Monte Carlo (NUTS-HMC) algorithm implemented in \textsf{Stan} \parencites{Stan2013b}{HoffmanGelman2011}.%
 \footnote{The model was run with 8 chains initialized at starting values drawn from the posterior samples of an initial run that appeared to have converged. 
 Each chain was run for 1,024 iterations, with 256 iterations saved, for a total of 1,024 iterations from all chains.}
+
+\section{Ex Ante Risk of War}
+
+There 
+
+
+An approximation of the default risk based on bond yields \parencite{Hull2004},
+\begin{equation}
+  \label{eq:4}
+  \Pr(default) = \frac{y - r}{1 - R}
+\end{equation}
+where $y$ is the yield of the risky bond, $r$ is the yield of a riskless bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond.
+For the purposes of this, the ``default'' event is war. 
+For the ``riskless'' yield, the yield of the bond during a period in which peace is assumed is used. 
+
+The recovery in the event of war is assumed to be the present value of the bond assuming the yield of the bond observed at the start of the war.
+
+For each bond implied probability of war is calculated using equation~\eqref{eq:4}.
+The implied probabilities are plotted in Figure~\ref{fig:prwar}.
+For the southern state bonds, the implied probability of war is approximately zero, meaning that the yields on the bonds during these periods was the same as, or in many cases, less than the yields during the benchmark period.
+
+The implied probabilities of war do not move much above zero until November 1860, with Lincoln's election.
+For the most of the bonds, the implied probabilities of war leading up to Fort Sumter is only between 2.5 and 5 percent.
+The U.S. bonds have the highest implied probability of war, with the 5's of 1874 implying almost a 10 percent probability of war and the 6's of 1868 implying a 20-25 percent.
+
+Thus, although the market responded to the increasing risk of war, it did not respond until the election of Lincoln and even after the election generally discounted the risk of war.
+
+
+\begin{figure}
+  \centering
+<<>>=
+(ggplot(mutate(PROJ[["db"]][["prwar1"]],
+               date = as.Date(date)), 
+        aes(x = date, y = prwar3))
+ + geom_line()
+ + facet_wrap(~ series)
+ + scale_x_date(breaks = date_breaks("year"),
+                labels = date_format("%Y"))
+ + theme_local()
+ )
+
+@ 
+  \caption{Implied probabilities of the initiation of war calculated from U.S. government and southern state bonds}
+  \label{fig:prwar}
+\end{figure}
+
+
 
 \section{Results}
 \label{sec:results}

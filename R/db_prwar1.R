@@ -18,10 +18,9 @@ library("jsonlite")
 
 BOND_METADATA_FILE <- "./submodules/civil_war_era_findata/data/bond_metadata.json"
 BANKERS_FILE <- "./submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv"
-MODEL_FILE <- "stan/prwar.stan"
     
 .DEPENDENCIES <-
-    c(MODEL_FILE, BOND_METADATA_FILE, BANKERS_FILE)
+    c(BOND_METADATA_FILE, BANKERS_FILE)
 
 PEACE <- as.Date(c("1855-08-24", "1857-10-16"))
 WAR <- as.Date(c("1861-04-15", "1861-05-18"))
@@ -71,8 +70,10 @@ get_war_peace_yields <- function() {
         (group_by(bond_yields, series)
          %>% filter(date >= PEACE[1] & date <= PEACE[2])
          %>% summarise(yield_peace = mean(ytm),
+                       yield_peace_min = min(ytm),
                        yield_peace_sd = sd(ytm),
                        price_peace = mean(price),
+                       price_peace_min = min(price),                       
                        price_peace_sd = sd(price))
          )
     
@@ -80,9 +81,12 @@ get_war_peace_yields <- function() {
         (group_by(bond_yields, series)
          %>% filter(date >= WAR[1] & date <= WAR[2])
          %>% summarise(yield_war = mean(ytm),
+                       yield_war_min = min(ytm),
                        yield_war_sd = sd(ytm),
                        price_war = mean(price),
+                       price_war_min = min(price),
                        price_war_sd = sd(price))
+                       
          )
     
     wp_yields <- merge(war_yields, peace_yields, all=TRUE)
@@ -148,7 +152,9 @@ get_data <- function() {
     .data[["cashflows"]] <- NULL
     (mutate(.data,
             prwar2 = (ytm - yield_peace) / (1 - price_war / 100),
-            prwar3 = (ytm - yield_peace) / (1 - pv_yield_war / 100))
+            prwar3 = (ytm - yield_peace) / (1 - pv_yield_war / 100),
+            prwar4 = (ytm - yield_peace_min) / (1 - price_war / 100),
+            prwar5 = (ytm - yield_peace_min) / (1 - pv_yield_war / 100))
      %>% select(-wgt))
 }
 

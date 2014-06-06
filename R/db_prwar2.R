@@ -66,7 +66,7 @@ get_data <- function() {
                              %>% group_by(maturity)
                              %>% summarise(amount = sum(amount))
                              %>% mutate(i = seq_along(amount),
-                                        warpv1 = 
+                                        warpv1 = bondpresval(yield_war, amount, maturity, p = 1),
                                         warpv2 = bondpresval(yield_war, amount, maturity, p = 0),
                                         warpv3 = bondpresval(yield_war, amount, maturity, p = 0.5))
                              )

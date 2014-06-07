@@ -155,6 +155,7 @@ knitr::opts_chunk[["set"]](error = FALSE,
 suppressPackageStartupMessages({
     library("ggplot2")
     library("scales")
+    library("dplyr")
 })
 source("../../.Rprofile", chdir=TRUE)
 
@@ -533,22 +534,72 @@ Each chain was run for 1,024 iterations, with 256 iterations saved, for a total 
 
 \section{Ex Ante Risk of War}
 
-There 
+There were many events which lead to the American Civil war, many of which are obvious \textit{ex post}.
+Markets provide a way to assess the ex ante perceived risk of the war.
+
+Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
+From 1855 through mid-1860, the yields were largely stable.
+Even before the civil war, southern state bonds were generally more risky than the Northern bonds, with yields of 6--8 percent compared to 5--7 percent.
+Government bonds had the lowest yields of a little above 4 percent, but rising up to 5 percent by 1860.
+The sharp rise in interest rates from late August 1857 through December 1857 was due to the Panic of 1857, a financial crisis.
+
+After the election of 1860, yields of southern states and the government rose.
+The election of 1860 prompted a small financial crisis.
 
 
-An approximation of the default risk based on bond yields \parencite{Hull2004},
+\begin{figure}
+  \centering
+<<>>=
+local({
+    prices0 <- filter(PROJ[["db"]][["prices0"]],
+                      src == "Bankers",
+                      date >= as.Date("1860-9-1") & date <= as.Date("1861-1-1"),
+                      ! grepl("california", series))
+    prices0[prices0$series == "missouri_6pct", "group"] <- "South"
+    prices0[prices0$series == "kentucky_6pct", "group"] <- "North"
+    prices0[["group"]] <- 
+        factor(mapvalues(prices0[["group"]],
+                         c("South", "North", "Union"),
+                         c("Southern states", "Northern states", "Government")),
+               levels = c("Southern states", "Northern states", "Government"))
+    (ggplot(prices0, 
+            aes(x = date, y = ytm, group = series, color = group))
+     + geom_line()
+     )
+    
+})
+
+@
+\caption{Yields of northern, southern, and government bonds 1855-1865}
+\label{fig:yields1855-1865}
+\end{figure}
+
+\subsection{Ex Ante Probability of War}
+
+The \textit{ex ante} probability of war can be calculated by treating the war as a default event.
+A common approximation of the probability of the default risk of a bond is
 \begin{equation}
   \label{eq:4}
-  \Pr(default) = \frac{y - r}{1 - R}
+  \Pr(\text{default}) = \frac{y - r}{1 - R}
 \end{equation}
-where $y$ is the yield of the risky bond, $r$ is the yield of a riskless bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond.
-For the purposes of this, the ``default'' event is war. 
-For the ``riskless'' yield, the yield of the bond during a period in which peace is assumed is used. 
+where $y$ is the yield of the risky bond, $r$ is the yield of a riskless bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond \parencite{Hull2004}.
 
+Equation~\eqref{eq:4} can be used to estimate the probability of war.
+In this case $y$ is the yield of the bond. 
+In this case instead $r$ being the yield of a risk free bond, $r$ is the yield of the bond if there was no risk of war.
+In other words, $r$ may still have risk due to other factors, but not the risk due to war.
+The estimate of this war riskless yield will be to use the average yield for an earlier period in which the risk of war closer to zero.
+In this case the 
+
+The recovery rate $R$ is the value or price of the bond if the war occurs.
+Since the war did occur, the payment in the event of war is known and can used in the equation.
 The recovery in the event of war is assumed to be the present value of the bond assuming the yield of the bond observed at the start of the war.
+Let $y_{w}$ be the average yield of the asset in the month after the war started, this is the yield that incorporates the risk associated with expectations of that war at the start of the war.
+Then $R$ is the present value of the bond at time $t$ assuming an interest rate of $y_{w}$.
 
-For each bond implied probability of war is calculated using equation~\eqref{eq:4}.
-The implied probabilities are plotted in Figure~\ref{fig:prwar}.
+For these calculations, only government and southern state bonds were used; northern state bonds do not react much to the start of the war.
+
+For each bond, the implied probability of war is calculated using equation~\eqref{eq:4} and plotted in Figure~\ref{fig:prwar}.
 For the southern state bonds, the implied probability of war is approximately zero, meaning that the yields on the bonds during these periods was the same as, or in many cases, less than the yields during the benchmark period.
 
 The implied probabilities of war do not move much above zero until November 1860, with Lincoln's election.
@@ -556,7 +607,6 @@ For the most of the bonds, the implied probabilities of war leading up to Fort S
 The U.S. bonds have the highest implied probability of war, with the 5's of 1874 implying almost a 10 percent probability of war and the 6's of 1868 implying a 20-25 percent.
 
 Thus, although the market responded to the increasing risk of war, it did not respond until the election of Lincoln and even after the election generally discounted the risk of war.
-
 
 \begin{figure}
   \centering
@@ -576,6 +626,7 @@ Thus, although the market responded to the increasing risk of war, it did not re
   \label{fig:prwar}
 \end{figure}
 
+\section{}
 
 
 \section{Results}

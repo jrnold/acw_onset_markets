@@ -169,6 +169,7 @@ prwar1 <- PROJ$db[["prwar1"]]
 prices_pre_war <- filter(PROJ$db[["prices0"]], 
                          src == "Bankers")
 
+
 @
 
 % Don't say anything about results until i'm confident in them.

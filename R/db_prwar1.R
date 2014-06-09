@@ -18,6 +18,9 @@ library("jsonlite")
 
 BOND_METADATA_FILE <- PROJ$path("./submodules/civil_war_era_findata/data/bond_metadata.json")
 BANKERS_FILE <- PROJ$path("./submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv")
+PRICES0 <- PROJ$dbpath("prices0")
+
+prices0 <- PROJ$db[["prices0"]]
     
 .DEPENDENCIES <-
     c(BOND_METADATA_FILE, BANKERS_FILE)
@@ -27,15 +30,15 @@ WAR <- as.Date(c("1861-04-15", "1861-05-18"))
 RANGE <- as.Date(c("1858-1-1", "1861-4-10"))
 
 #' Only use the U.S. Government, confederate and border states.
-BONDSERIES <- c("georgia_6pct" = "georgia_6pct_1872",
-                "kentucky_6pct" = "kentucky_6pct_1871",
-                "louisiana_6pct" = "louisiana_6pct_1881",
-                "missouri_6pct" = "missouri_6pct_1872",
-                "north_carolina_6pct" = "north_carolina_1873",
-                "tennessee_6pct" = "tennessee_6pct_1889",
-                "US_6pct_1868" = "us_6pct_1868_jul",
-                "US_5pct_1874" = "us_5pct_1874",
-                "virginia_6pct" = "virginia_6pct_1888"
+BONDSERIES <- c("Georgia 6s" = "georgia_6pct_1872",
+                "Kentucky 6s" = "kentucky_6pct_1871",
+                "Louisiana 6s" = "louisiana_6pct_1881",
+                "Missouri 6s" = "missouri_6pct_1872",
+                "North Carolina 6s" = "north_carolina_1873",
+                "Tennessee 6s" = "tennessee_6pct_1889",
+                "U.S. 6s, 1868" = "us_6pct_1868_jul",
+                "U.S. 5s, 1874" = "us_5pct_1874",
+                "Virginia 6s" = "virginia_6pct_1888"
                 )
 
 
@@ -44,7 +47,7 @@ get_bond_yields <- function() {
     (mutate(read.csv(BANKERS_FILE),
             date = as.Date(date))
      %>% filter(bond %in% unname(BONDSERIES))
-     %>% mutate(series = factor(series),
+     %>% mutate(series = unname(attr(prices0, "rename_bankers")[series]),
                 bond = factor(bond))
      )
 }
@@ -93,15 +96,15 @@ get_war_peace_yields <- function() {
     
     alt_yields <- data.frame(
         series = 
-        c("georgia_6pct",
-          "kentucky_6pct",
-          "louisiana_6pct",
-          "missouri_6pct",
-          "north_carolina_6pct",
-          "tennessee_6pct",
-          "US_6pct_1868",
-          "US_5pct_1874",
-          "virginia_6pct"),
+        c("Georgia 6s",
+          "Kentucky 6s",
+          "Louisiana 6s",
+          "Missouri 6s",
+          "North Carolina 6s",
+          "Tennessee 6s",
+          "U.S. 6s, 1868",
+          "U.S. 5s, 1874",
+          "Virginia 6s"),
         yield_peace_2 =
         c(6, 6, 6, 6, 6, 6, 5, 5, 6) / 100
         )

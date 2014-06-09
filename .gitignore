@@ -26,3 +26,4 @@ auto/
 /doc/paper/figure/
 /filehashdb.inc
 cache/
+_region_.*

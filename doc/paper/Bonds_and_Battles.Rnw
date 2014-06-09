@@ -552,7 +552,7 @@ PREWAR_END_FMT <- format(PREWAR_END, "%B %d, %Y")
 <<>>=
 (ggplot(filter(prices_pre_war,
                group != "North",
-               ! grepl("california", series),
+               ! grepl("California", series),
                date >= as.Date("1861-3-1"),
                date < prwar1[["war_dates"]][2]),
         aes(x = date, y = ytm, color = series))
@@ -573,7 +573,7 @@ PREWAR_END_FMT <- format(PREWAR_END, "%B %d, %Y")
 local({
     prices <- filter(prices_pre_war,
                      group != "North",
-                     ! grepl("california", series),
+                     ! grepl("California", series),
                      date >= as.Date("1861-3-1"),
                      date < prwar1[["war_dates"]][2])
     prewar <- 

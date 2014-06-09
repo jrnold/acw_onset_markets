@@ -1,6 +1,6 @@
 library("dplyr")
 
-WAR_NEWS_FILE <- "data/news/data/major_battle_news.csv"
+WAR_NEWS_FILE <- PROJ$path("data/news/data/major_battle_news.csv")
 
 .DEPENDENCIES <- WAR_NEWS_FILE
     

@@ -6,7 +6,7 @@ MODEL_FILE <- "stan/m1.stan"
 .DEPENDENCIES <-
     c(MODEL_FILE,
       sapply(c("battle_news_wgts_2", "battles"), PROJ$dbpath),
-      "R/db_m_spreads_1.R", "R/db_m_spreads_0.R")
+      sapply(c("R/db_m_spreads_1.R", "R/db_m_spreads_0.R"), PROJ$path))
 
 m_spreads_0 <- source_env("R/db_m_spreads_0.R")
 

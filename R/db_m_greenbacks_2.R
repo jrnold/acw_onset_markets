@@ -9,7 +9,7 @@ MODEL_FILE <- "stan/m2.stan"
 .DEPENDENCIES <-
     c(MODEL_FILE,
       PROJ$dbpath("m_greenbacks_1"),
-      "R/db_m_spreads_2.R")
+      PROJ$path("R/db_m_spreads_2.R"))
 
 m_spreads_2 <- source_env("R/db_m_spreads_2.R")
 

@@ -1,0 +1,8 @@
+Assume funded at 6 percent.
+
+$$
+n = \ln \left\[ \left( 1 - \frac{PV(r)}{P}   \right)^{-1} \right\] / \ln ( 1 + r)
+$$
+```{r}
+	
+```

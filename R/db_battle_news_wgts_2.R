@@ -20,8 +20,8 @@
 library("dplyr")
 library("sp")
 
-BATTLE_NEWS <- "data/news/data/battle_news.csv"
-BATTLES <- "data/acw_battles/data/battles.csv"
+BATTLE_NEWS <- PROJ$path("data/news/data/battle_news.csv")
+BATTLES <- PROJ$path("data/acw_battles/data/battles.csv")
 
 .DEPENDENCIES <- c(BATTLE_NEWS, BATTLES)
 LAGP <- 0.5

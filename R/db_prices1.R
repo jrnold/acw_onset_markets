@@ -1,4 +1,3 @@
-#'
 #' Another price data set.
 #'
 #' ``list`` with the following elements:

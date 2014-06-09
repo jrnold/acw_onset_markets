@@ -4,7 +4,7 @@ library("jsonlite")
 library("dplyr")
 library("reshape2")
 
-PRWAR1_FILE <- "R/db_prwar1.R"
+PRWAR1_FILE <- PROJ$path("R/db_prwar1.R")
     
 .DEPENDENCIES <-
     c(BOND_METADATA_FILE, BANKERS_FILE, PRWAR1_FILE)

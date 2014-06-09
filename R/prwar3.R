@@ -3,9 +3,9 @@ library("jsonlite")
 library("dplyr")
 library("reshape2")
 
-BOND_METADATA_FILE <- "./submodules/civil_war_era_findata/data/bond_metadata.json"
-BANKERS_FILE <- "./submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv"
-MODEL_FILE <- "stan/prwar.stan"
+BOND_METADATA_FILE <- PROJ$path("submodules/civil_war_era_findata/data/bond_metadata.json")
+BANKERS_FILE <- PROJ$path("submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv")
+MODEL_FILE <- PROJ$path("stan/prwar.stan")
     
 .DEPENDENCIES <-
     c(MODEL_FILE, BOND_METADATA_FILE, BANKERS_FILE)

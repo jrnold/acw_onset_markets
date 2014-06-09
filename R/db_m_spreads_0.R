@@ -4,8 +4,8 @@
 library("dplyr")
 library("rstan")
 
-MODEL_FILE <- "stan/m0.stan"
-INIT_FILE <- "data/init/m_spreads_0.rds"
+MODEL_FILE <- PROJ$path("stan/m0.stan")
+INIT_FILE <- PROJ$path("data/init/m_spreads_0.rds")
 
 .DEPENDENCIES <-
     c(PROJ$dbpath(c("prices1", "riskfree")),

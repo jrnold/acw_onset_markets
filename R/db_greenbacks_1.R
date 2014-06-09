@@ -2,7 +2,7 @@
 #'
 library("dplyr")
 
-GREENBACKS_FILE <- "submodules/civil_war_era_findata/data/greenbacks.csv"
+GREENBACKS_FILE <- PROJ$path("submodules/civil_war_era_findata/data/greenbacks.csv")
 
 .DEPENDENCIES <- c(GREENBACKS_FILE)
 

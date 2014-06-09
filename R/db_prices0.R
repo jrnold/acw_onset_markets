@@ -12,8 +12,8 @@
 library("dplyr")
 # library("plyr")
 
-MERCHANTS_FILE <- "submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv"
-BANKERS_FILE <- "submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv"
+MERCHANTS_FILE <- PROJ$path("submodules/civil_war_era_findata/data/merchants_magazine_us_paper_yields_2.csv")
+BANKERS_FILE <- PROJ$path("submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields_2.csv")
 
 .DEPENDENCIES <- c(BANKERS_FILE,
                    MERCHANTS_FILE)
@@ -28,9 +28,9 @@ BOND_GROUPS <-
       "louisiana_6pct" = "South",
       "missouri_6pct" = "Border",
       "north_carolina_6pct" = "South",
-      "ohio_6pct_1874" = "North",
+      "ohio_6pct_1875" = "North",
       "ohio_6pct_1886" = "North",
-      "pennsylvania_6pct" = "North",
+      "pennsylvania_5pct" = "North",
       "tennessee_6pct" = "South",
       "US_5pct_1874" = "Union",
       "US_6pct_1868" = "Union",

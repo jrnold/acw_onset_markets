@@ -16,8 +16,8 @@
 library("dplyr")
 library("jsonlite")
 
-BOND_METADATA_FILE <- "./submodules/civil_war_era_findata/data/bond_metadata.json"
-BANKERS_FILE <- "./submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv"
+BOND_METADATA_FILE <- PROJ$path("./submodules/civil_war_era_findata/data/bond_metadata.json")
+BANKERS_FILE <- PROJ$path("./submodules/civil_war_era_findata/data/bankers_magazine_govt_state_loans_yields.csv")
     
 .DEPENDENCIES <-
     c(BOND_METADATA_FILE, BANKERS_FILE)
@@ -37,6 +37,8 @@ BONDSERIES <- c("georgia_6pct" = "georgia_6pct_1872",
                 "US_5pct_1874" = "us_5pct_1874",
                 "virginia_6pct" = "virginia_6pct_1888"
                 )
+
+
 
 get_bond_yields <- function() {
     (mutate(read.csv(BANKERS_FILE),
@@ -67,8 +69,8 @@ get_war_peace_yields <- function() {
     bond_yields <- get_bond_yields()
 
     peace_yields <-
-        (group_by(bond_yields, series)
-         %>% filter(date >= PEACE[1] & date <= PEACE[2])
+        (filter(bond_yields, date >= PEACE[1] & date <= PEACE[2])
+         %>% group_by(series)
          %>% summarise(yield_peace = mean(ytm),
                        yield_peace_min = min(ytm),
                        yield_peace_sd = sd(ytm),
@@ -89,12 +91,27 @@ get_war_peace_yields <- function() {
                        
          )
     
+    alt_yields <- data.frame(
+        series = 
+        c("georgia_6pct",
+          "kentucky_6pct",
+          "louisiana_6pct",
+          "missouri_6pct",
+          "north_carolina_6pct",
+          "tennessee_6pct",
+          "US_6pct_1868",
+          "US_5pct_1874",
+          "virginia_6pct"),
+        yield_peace_2 =
+        c(6, 6, 6, 6, 6, 6, 5, 5, 6) / 100
+        )
+    
     wp_yields <- merge(war_yields, peace_yields, all=TRUE)
+    wp_yields <- merge(wp_yields, alt_yields)
     wp_yields[wp_yields$series == "US_5pct_1874", c("yield_peace", "yield_peace_sd")] <-
         wp_yields[wp_yields$series == "US_6pct_1868", c("yield_peace", "yield_peace_sd")]
     wp_yields
 }
-
 
 get_data <- function() {
     #' Keep only dates in the relevant range
@@ -103,10 +120,9 @@ get_data <- function() {
         filter(get_bond_yields(),
                date >= RANGE[1] & date <= RANGE[2])
     yields <- get_war_peace_yields()
-    .data <- (merge(bond_data, yields)
-              %>% mutate(prwar = pmax(0, (ytm - yield_peace) / (yield_war - yield_peace)))
-              )
-    .data[["cashflows"]] <- lapply(as.character(.data$bond), function(i) metadata[[i]][["cashflows"]])
+    .data <- merge(bond_data, yields)
+    .data[["cashflows"]] <-
+        lapply(as.character(.data$bond), function(i) metadata[[i]][["cashflows"]])
     .data[["pv_yield_peace"]] <-
         sapply(seq_len(nrow(.data)),
                function(i) {
@@ -150,12 +166,19 @@ get_data <- function() {
                           .data[["cashflows"]][i][[1]])
                })
     .data[["cashflows"]] <- NULL
-    (mutate(.data,
-            prwar2 = (ytm - yield_peace) / (1 - price_war / 100),
-            prwar3 = (ytm - yield_peace) / (1 - pv_yield_war / 100),
-            prwar4 = (ytm - yield_peace_min) / (1 - price_war / 100),
-            prwar5 = (ytm - yield_peace_min) / (1 - pv_yield_war / 100))
-     %>% select(-wgt))
+    ret <- (mutate(.data,
+                  prwar1 = (ytm - yield_peace) / (1 - price_war / 100),
+                  prwar2 = (ytm - yield_peace) / (1 - pv_yield_war / 100),
+                  prwar3 = (ytm - yield_peace_min) / (1 - price_war / 100),
+                  prwar4 = (ytm - yield_peace_min) / (1 - pv_yield_war / 100),
+                  prwar5 = (ytm - yield_peace_2) / (1 - price_war / 100),
+                  prwar6 = (ytm - yield_peace_2) / (1 - pv_yield_war / 100)
+                  )
+           %>% select(-wgt))
+    list(prwar = ret,
+         yields = yields,
+         peace_dates = PEACE,
+         war_dates = WAR)
 }
 
 main <- get_data

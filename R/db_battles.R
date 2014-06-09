@@ -4,7 +4,7 @@
 library("dplyr")
 library("sp")
 
-BATTLES_FILE <- "data/acw_battles/data/battles.csv"
+BATTLES_FILE <- PROJ$path("data/acw_battles/data/battles.csv")
 
 .DEPENDENCIES <- c(BATTLES_FILE)
 

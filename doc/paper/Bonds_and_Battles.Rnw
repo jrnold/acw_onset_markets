@@ -152,7 +152,8 @@
 <<results='hide',echo=FALSE,error=FALSE>>=
 knitr::opts_chunk[["set"]](error = FALSE, 
                            echo = FALSE,
-                           cache = FALSE)
+                           cache = FALSE,
+                           warning = FALSE)
 suppressPackageStartupMessages({
     library("ggplot2")
     library("scales")
@@ -203,7 +204,7 @@ These battle-level effects are modeled hierarchically by battle outcome (Confede
 This provides estimates of both the effects of individual battles and the effects of the average battle outcome.
 Since news of battles reaches the market neither instantaneously nor simultaneously, newspaper coverage of each battle in \textit{The New York Times} is used as a proxy for the time it takes news to reach the market.
 
-I find that, on average, Confederate victories were associated with decreases in the bond price and Union victories associated with  increases.
+I find that, on average, Confederate victories were associated with decreases in the bond price and Union victories associated with  incnreases.
 However, these effects were asymmetric. The average Confederate victory was associated with a XXX decrease in the bond price, while the average Union victory was associated with only a XXX increase.
 The battle-level effects are imprecisely estimated, but the battle with the largest posterior mean was the Battle of Gettysburg (XXX), while the battle with the smallest posterior mean was the First Battle of Fort Sumter (XXX).
 
@@ -614,7 +615,9 @@ local({
           floating=FALSE)
 
 })
+
 @ 
+
 \caption{Yields of Southern and U.S. Government bonds before and after the Battle of Fort Sumter.
   Pre-war yields are the mean yield between \Sexpr{PREWAR_START_FMT} and \Sexpr{PREWAR_END_FMT};
   Post-war yields are the mean yield between \Sexpr{PREWAR_END_FMT} and \Sexpr{PREWAR_END_FMT};
@@ -622,37 +625,26 @@ local({
 \label{tab:yields_pre_post_war}
 \end{table}
 
-There were many events which lead to the American Civil war, many of which are obvious \textit{ex post}.
-However, markets provide a way to assess the \textit{ex ante} perceived probability of war.
-Based on
- tw
- 
-Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
-From 1855 through mid-1860, the yields were largely stable.
-Even before the civil war, southern state bonds were generally more risky than the Northern bonds, with yields of 6--8 percent compared to 5--7 percent.
-Government bonds had the lowest yields of a little above 4 percent, but rising up to 5 percent by 1860.
-The sharp rise in interest rates from late August 1857 through December 1857 was due to the Panic of 1857, a financial crisis.
+To what extent did financial markets anticipate the start of the American civil war? 
+How did the markets' assesment of war risk change leading up to the war? 
+And which events were most important in changing the markets' risk assessment the most?
+Using the prices and yields of ante-bellum U.S. government and state bonds, this section addresses these issues with three methods: the overall yields of these bonds, the spread between northern and southern state bond yields, and by calculated the implied probability of war using methods for calculating the probability of default.
+The overall story from these analyses is that the market prices imply a negligable risk of war prior to Lincoln's election in November 1860, and although they responded to the increased risk of war between Lincoln's election and Fort Sumter, the implied risk of war was still quite low.
 
-After the election of 1860, yields of southern states and the government rose.
-The election of 1860 prompted a small financial crisis.
-The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city. 
-The latter stocks are declining so fast that it is almost impossible to give a correct comparison.'' \parencite[919]{BankersMagazine1861}.
-
-
-\begin{table}
-  \centering
-<<results='asis'>>=
-local({
-    x <-  prwar1[["yields"]][ , c("series", "yield_peace", "price_war")]
-    names(x) <- c("", "Avg. yield (1855-1857)", "Price war")
-    print(xtable(x), include.rownames = FALSE,
-          floating = FALSE)
-})
-
-@ 
-\caption{For each southern state and U.S. government bond: peace yields (average yield from \Sexpr{PEACE_START} to \Sexpr{PEACE_END}), and the war price (average price from \Sexpr{WAR_START} to \Sexpr{WAR_END}).}
-\label{ref:yieldswp}
-\end{table}
+To assess the financial market beliefs about the American Civil War, this paper uses the prices and yields of U.S. government and state, both northern and southern, bonds traded in New York City from 1855-1861.
+The data consist of bonds from ten states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and 2 bonds issued by the US Government (6s of 1868, 5s of 1874).
+All of these bonds are coupon bonds (5-6 percent coupons paid semi-annually) with longer maturities; the U.S. bonds matured in 1868 and 1874 respectively, while the state bonds variously matured between 1869 and 1892.
+The set of bonds included here are those with regular, weekly quotations in the \texttt{Bankers' Magazine}, one of the leading trade magazines of that era.
+The 6s of 1868 and the 5s of 1874 were the two major bond issues of the U.S. prior to the civil war. 
+Between the War of 1812 and the Civil War, the U.S. government only periodically issued debt and thus there were few regularly traded government bonds.
+ADD CITATION
+The state bonds included here are mostly southern and midwestern states which issued debt to fund infrastructure project, e.g. railroads and canals. 
+During the ante-bellum period, most New England states did not issue debt, Massachusetts was the notable exception.
+\footnote{
+  Prior to 1860, only Massachusetts, Maine and Vermont had public debt, and the amount of debt of the later two was quite small. \parencite[86]{Martin1871}.
+  Massachusetts bonds were the closest to a risk-free American asset during that period \parencites{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}, ``never failing to pay principal and interest in coin, ..., commanding higher prices than those of any other State in the Union.''  \parencite[86]{Martin1871}
+}
+Although state bonds were generally considered safer assets than corporate bonds during this period, they were still seen as risky due to defaults of state bonds in the 1840s (CITE).
 
 \begin{figure}
   \centering
@@ -685,6 +677,33 @@ local({
 \caption{Yields of U.S. government and state bonds, 1855-1865.}
 \label{fig:yields1855-1865}
 \end{figure}
+
+Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
+\begin{itemize}
+\item From 1855-late 1857
+\item From October-1857 to January 1858, the Panic of 1857.
+\item From January 1858 - October 1860
+\item From November 1860 to ...
+\item After Sumter ...
+The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.'' \parencite[919]{BankersMagazine1861}.
+\end{itemize}
+
+Since the price of the bond incorporates expectations about future payoffs and war would certainly affect those payoffs, the extreme drop in the prices of bonds after Fort Sumter imply that the market had not fully priced in the probability of war.
+
+\begin{table}
+  \centering
+<<results='asis'>>=
+local({
+    x <-  prwar1[["yields"]][ , c("series", "yield_peace", "price_war")]
+    names(x) <- c("", "Avg. yield (1855-1857)", "Price war")
+    print(xtable(x), include.rownames = FALSE,
+          floating = FALSE)
+})
+
+@ 
+\caption{For each southern state and U.S. government bond: peace yields (average yield from \Sexpr{PEACE_START} to \Sexpr{PEACE_END}), and the war price (average price from \Sexpr{WAR_START} to \Sexpr{WAR_END}).}
+\label{ref:yieldswp}
+\end{table}
 
 \begin{figure}
   \centering
@@ -720,8 +739,6 @@ local({
 \label{fig:yields1855-1865}
 \end{figure}
 
-
-The sharp movements in yields due to the start of hostilities implies
 The market's belief of the probability of war can be inferred from bond price data by treating war as a default event and using methods for extracting the probability of default from bond prices or yields.
 A common approximation of the probability of the default risk of a bond is
 \begin{equation}

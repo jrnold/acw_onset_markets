@@ -152,12 +152,13 @@ sdcast\documentclass[11pt, oneside, article]{memoir}
 <<results='hide',echo=FALSE,error=FALSE>>=
 knitr::opts_chunk[["set"]](error = FALSE, 
                            echo = FALSE,
-                           cache = TRUE)
+                           cache = FALSE)
 suppressPackageStartupMessages({
     library("ggplot2")
     library("scales")
-    library("dplyr")
     library("xtable")
+    library("reshape2")
+    library("dplyr")
 })
 source("../../.Rprofile", chdir = TRUE)
 
@@ -168,7 +169,6 @@ gmean <- function(x, ...) exp(mean(log(x), ...))
 prwar1 <- PROJ$db[["prwar1"]]
 prices_pre_war <- filter(PROJ$db[["prices0"]], 
                          src == "Bankers")
-
 
 @
 

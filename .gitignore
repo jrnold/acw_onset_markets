@@ -8,8 +8,8 @@
 *.blg
 *~
 .Rproj.user
-/.Rhistory
-/.RData
+.Rhistory
+.RData
 /doc/analysis/*.html
 /doc/analysis/*.md
 /doc/analysis/*.pdf

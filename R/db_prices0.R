@@ -47,28 +47,28 @@ RENAME_MERCHANTS <-
       "7 3-10, 3 years" = "U.S. 7-30s")
 
 BOND_GROUPS <-
-    c("California 7's 1870" = "North",
-      "California 7's 1877" = "North",
-      "Georgia 6's" = "South",
-      "Indiana 5's" = "North",
-      "Indiana 6's" = "North",
-      "Kentucky 6's" = "Border",
-      "Louisiana 6's" = "South",
-      "Missouri 6's" = "Border",
-      "North Carolina 6's" = "South",
-      "Ohio 6's, 1875" = "North",
-      "Ohio 6's, 1886" = "North",
-      "Pennsylvania 5's" = "North",
-      "Tennessee 6's" = "South",
-      "US 5's, 1874" = "Union",
-      "US 6's, 1868" = "Union",
-      "US 6's, 1881" = "Union",
-      "Virginia 6's" = "South",
-      "US 5-20's" = "Union",
-      "US 1-year (old)" = "Union",
-      "US 1-year (new)" = "Union",
-      "US 7-30's" = "Union",
-      "US 10-40's" = "Union")
+    c("California 7s, 1870" = "North",
+      "California 7s, 1877" = "North",
+      "Georgia 6s" = "South",
+      "Indiana 5s" = "North",
+      "Indiana 6s" = "North",
+      "Kentucky 6s" = "Border",
+      "Louisiana 6s" = "South",
+      "Missouri 6s" = "Border",
+      "North Carolina 6s" = "South",
+      "Ohio 6s, 1875" = "North",
+      "Ohio 6s, 1886" = "North",
+      "Pennsylvania 5s" = "North",
+      "Tennessee 6s" = "South",
+      "U.S. 5s, 1874" = "Union",
+      "U.S. 6s, 1868" = "Union",
+      "U.S. 6s, 1881" = "Union",
+      "Virginia 6s" = "South",
+      "U.S. 5-20s" = "Union",
+      "U.S. 1-year, 1862" = "Union",
+      "U.S. 1-year, 1863" = "Union",
+      "U.S. 7-30s" = "Union",
+      "U.S. 10-40s" = "Union")
 
 get_bankers <- function() {
   ret <- (read.csv(BANKERS_FILE, stringsAsFactors = FALSE) 
@@ -91,10 +91,12 @@ get_merchants <- function() {
 }
 
 main <- function() {
+    groups <- data.frame(series = names(BOND_GROUPS),
+                         group = unname(BOND_GROUPS))
     ret <- rbind.fill(get_bankers(), get_merchants())
     ret$date <- as.Date(ret$date)
+    ret <- merge(ret, groups, all.x = TRUE)
     ret$series <- factor(ret$series)
-    ret$group <- BOND_GROUPS[as.character(ret$series)]
     attr(ret, "rename_merchants") <- RENAME_MERCHANTS
     attr(ret, "rename_bankers") <- RENAME_BANKERS
     ret

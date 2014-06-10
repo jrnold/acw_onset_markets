@@ -1,4 +1,4 @@
-sdcast\documentclass[11pt, oneside, article]{memoir}
+\documentclass[11pt, oneside, article]{memoir}
 
 \usepackage{graphicx}
 \usepackage{amsmath}
@@ -162,13 +162,12 @@ suppressPackageStartupMessages({
 })
 source("../../.Rprofile", chdir = TRUE)
 
-theme_local <- function(...) theme_gray(...)
+theme_local <- function(...) theme_minimal(...)
 
 gmean <- function(x, ...) exp(mean(log(x), ...))
 
 prwar1 <- PROJ$db[["prwar1"]]
-prices_pre_war <- filter(PROJ$db[["prices0"]], 
-                         src == "Bankers")
+bankers0 <- filter(PROJ$db[["prices0"]], src == "Bankers")
 
 @
 
@@ -551,17 +550,33 @@ PREWAR_END_FMT <- format(PREWAR_END, "%B %d, %Y")
 \begin{figure}
   \centering
 <<>>=
-(ggplot(filter(prices_pre_war,
-               group != "North",
-               ! grepl("California", series),
-               date >= as.Date("1861-3-1"),
-               date < prwar1[["war_dates"]][2]),
-        aes(x = date, y = ytm, color = series))
- + geom_line()
- + geom_point()
- + annotate("text", y = 0.20, x = as.Date("1861-4-9"), label = "Fort Sumter Reported")
- + geom_vline(xintercept = as.numeric(as.Date("1861-4-15")))
- )
+local({
+    .data <- (filter(bankers0,
+                 group != "North",
+                 ! grepl("California", series),
+                 date >= as.Date("1861-3-1"),
+                 date <= as.Date("1861-6-1"))
+          %>% select(date, series, ytm)
+          )
+    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
+        .data[["series_touse"]] <- i
+        .data[["touse"]] <- .data[["series"]] == i
+        .data
+    })
+    (ggplot(.data2, aes(x = date, y = ytm, group = series, color = touse))
+     + geom_line(mappting = aes(color = tosue))
+     + geom_point(mapping = aes(color = touse))
+     + facet_wrap(~ series_touse, ncol = 2)
+     # + annotate("text", y = 0.20, x = as.Date("1861-4-9"), label = "Fort Sumter Reported")
+     + geom_vline(xintercept = as.numeric(as.Date("1861-4-15")))
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_fill_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "months", labels = date_format("%b"))
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
+})
 
 @
 \caption{Yields of Southern State and U.S. Government bonds before and after the Battle of Fort Sumter.}  
@@ -572,7 +587,7 @@ PREWAR_END_FMT <- format(PREWAR_END, "%B %d, %Y")
   \centering
 <<results='asis'>>=
 local({
-    prices <- filter(prices_pre_war,
+    prices <- filter(bankers0,
                      group != "North",
                      ! grepl("California", series),
                      date >= as.Date("1861-3-1"),
@@ -643,29 +658,68 @@ local({
   \centering
 <<>>=
 local({
-    prices0 <- filter(PROJ[["db"]][["prices0"]],
-                      src == "Bankers",
-                      date < prwar1[["war_dates"]][1],
-                      group != "North",
-                      ! grepl("california", series))
-    prices0[prices0$series == "missouri_6pct", "group"] <- "South"
-    prices0[prices0$series == "kentucky_6pct", "group"] <- "North"
-    prices0[["group"]] <- 
-        factor(mapvalues(prices0[["group"]],
-                         c("South", "North", "Union"),
-                         c("Southern states", "Northern states", "Government")),
-               levels = c("Southern states", "Northern states", "Government"))
-    (ggplot(prices0, 
-            aes(x = date, y = ytm, group = series, color = group))
+    .data <- filter(PROJ[["db"]][["prices0"]],
+                    src == "Bankers",
+                    date >= as.Date("1855-7-1"),
+                    date < prwar1[["war_dates"]][1],
+                    ! grepl("California", series))
+    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
+        .data[["i"]] <- i
+        .data[["series_is_i"]] <- .data[["series"]] == i
+        .data
+    })
+    (ggplot(.data2,
+            aes(x = date, y = ytm * 100, group = series, color = series_is_i))
      + geom_line()
+     + facet_wrap(~ i, ncol = 2)
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("yield (%)")
+     + theme_local()
+     + theme(legend.position = "none")
      )
     
 })
 
 @
-\caption{Yields of northern states, southern states, and U.S. government bonds, 1855-1865.}
+\caption{Yields of U.S. government and state bonds, 1855-1865.}
 \label{fig:yields1855-1865}
 \end{figure}
+
+\begin{figure}
+  \centering
+<<>>=
+local({
+    .data <- 
+        (filter(PROJ[["db"]][["prices0"]],
+                src == "Bankers",
+                date >= as.Date("1855-7-1"),
+                date < prwar1[["war_dates"]][1],
+                ! grepl("California", series))
+         )
+    .data[.data[["series"]] == "Kentucky 6s", "group"] <- "North"
+    .data2 <- plyr::ldply(c("North", "South", "Union"), function(i) {
+        .data[["i"]] <- i
+        .data[["group_is_i"]] <- .data[["group"]] == i
+        .data
+    })
+    (ggplot(.data2,
+            aes(x = date, y = ytm, group = series, color = group_is_i))
+     + geom_line()
+     + facet_wrap(~ i, ncol = 1)
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+    
+})
+
+@
+\caption{Yields of U.S. government and state bonds, 1855-1865.}
+\label{fig:yields1855-1865}
+\end{figure}
+
 
 The sharp movements in yields due to the start of hostilities implies
 The market's belief of the probability of war can be inferred from bond price data by treating war as a default event and using methods for extracting the probability of default from bond prices or yields.
@@ -723,15 +777,25 @@ From the \textit{Bankers' Magazine} April issue,
 \begin{figure}
   \centering
 <<>>=
-(ggplot(PROJ[["db"]][["prwar1"]][["prwar"]],
-        aes(x = date, y = pmax(0, prwar2)))
- + geom_line()
- + facet_wrap(~ series)
- + scale_x_date("", breaks = date_breaks("year"),
-                labels = date_format("%Y"))
- + scale_y_continuous("Pr(war)")
- + theme_local()
- )
+local({
+    .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]])
+    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
+        .data[["i"]] <- i
+        .data[["series_is_i"]] <- .data[["series"]] == i
+        .data
+    })
+    (ggplot(.data2,
+            aes(x = date, y = pmax(0, prwar2), group = series, color = series_is_i))
+     + geom_line()
+     + facet_wrap(~ i, ncol = 2)
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("Pr(war)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+    
+})
 
 @ 
   \caption{Implied probabilities of the initiation of war calculated from U.S. government and southern state bonds}
@@ -749,35 +813,34 @@ All of these works provide examples of war onset having large effects on financi
   \centering
 <<>>=
 local({
-    prices <- 
+    ## (ggplot(filter(PROJ[["db"]][["prices0"]],
+    ##               src == "Bankers",
+    ##               date >= as.Date("1855-7-1"),
+    ##                date <= as.Date("1861-7-1"),
+    ##               ! grepl("California", series)),
+    ##        aes(x = date, y = ytm, colour = group, group = series))
+    ##  + geom_line())
+    .data <-
         (filter(PROJ[["db"]][["prices0"]],
                 src == "Bankers",
-                ! grepl("california", series))
-         %>% group_by(group, date)
-         %>% dplyr::summarise(yield_arith = mean(ytm * 100), 
-                              yield_geom = gmean(ytm * 100))
-         )
-    (filter(PROJ[["db"]][["prices0"]],
-            src == "Bankers",
-            date <= as.Date("1860-1-1"),
-            ! grepl("california", series))
-     %>% group_by(series)
-     %>% dplyr::summarise(yield_arith = mean(ytm * 100), 
-                          yield_geom = gmean(ytm * 100))
-     %>% dplyr::arrange(yield_geom)
-     )
-
-    pricesm <- 
-      (dcast(prices, date ~ group, value.var = "yield_arith")
-       %>% mutate(south_north_spread = South - North)
-       %>% filter(! is.na(south_north_spread)))
-        
-    (ggplot(filter(pricesm,
+                date >= as.Date("1855-7-1"),
+                ! grepl("California", series)))
+    .data[.data[["series"]] == "Kentucky 6s", "group"] <- "North"
+    .data <- (group_by(.data, group, date)
+              %>% dplyr::summarise(yield_arith = mean(ytm * 100), 
+                                   yield_geom = gmean(ytm * 100))
+              )
+    .data2 <- 
+        (dcast(.data, date ~ group, value.var = "yield_geom")
+         %>% mutate(south_north_spread = South - North)
+         %>% filter(! is.na(south_north_spread)))
+    (ggplot(filter(.data2,
                    date <= as.Date('1861-7-1')),
                    aes(x = date, y = south_north_spread))
      + geom_line()
      + scale_x_date("", breaks = "years", labels = date_format("%Y"))
      + scale_y_continuous("spread (%)", breaks = 0:10)
+     + theme_local()
      )
     
 })

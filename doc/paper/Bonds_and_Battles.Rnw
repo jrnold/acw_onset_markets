@@ -163,7 +163,11 @@ suppressPackageStartupMessages({
 })
 source("../../.Rprofile", chdir = TRUE)
 
-theme_local <- function(...) theme_minimal(...)
+theme_local <- function(...) {
+    (theme_minimal(...)
+     + theme(panel.grid.minor = element_blank())
+     )
+}
 
 gmean <- function(x, ...) exp(mean(log(x), ...))
 
@@ -549,8 +553,8 @@ PREWAR_END_FMT <- format(PREWAR_END, "%B %d, %Y")
 @ 
 
 \begin{figure}
-  \centering
-<<>>=
+  \centerfloat
+<<fig.height = 8, fig.width = 6>>=  
 local({
     .data <- (filter(bankers0,
                  group != "North",
@@ -584,12 +588,41 @@ local({
 \label{fig:yields_pre_post_war}
 \end{figure}
 
+\begin{figure}
+  \centerfloat
+<<fig.height = 8, fig.width = 6>>=  
+local({
+    .data <- (filter(bankers0,
+                 group != "North",
+                 ! grepl("California", series),
+                 date >= as.Date("1860-9-1"),
+                 date <= as.Date("1861-4-1"))
+          %>% select(date, series, ytm)
+          )
+    (ggplot(.data, aes(x = date, y = ytm))
+     + geom_line()
+     + geom_point()
+     + facet_wrap(~ series, ncol = 2, scales = "free")
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_fill_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "months", labels = date_format("%b"))
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
+})
+
+@
+\caption{Yields of Southern State and U.S. Government bonds before and after the Election of 1860.}
+\label{fig:yields_election}
+\end{figure}
+
+
 \begin{table}
   \centering
 <<results='asis'>>=
 local({
     prices <- filter(bankers0,
-                     group != "North",
                      ! grepl("California", series),
                      date >= as.Date("1861-3-1"),
                      date < prwar1[["war_dates"]][2])
@@ -607,10 +640,13 @@ local({
          %>% dplyr::summarise(yield_post_war = mean(ytm) * 100))
     x <- mutate(merge(prewar, postwar),
                 diff_yield = yield_post_war - yield_pre_war)
+    x <- mutate(merge(x, prwar1[["yields"]][ , c("series", "yield_peace", "price_war")]),
+                yield_peace = yield_peace * 100)
     rownames(x) <- x[["series"]]
     x[["series"]] <- NULL
     colnames(x) <- c("Yield Pre-war", "Yield Post-war",
-                     "$\\Delta$ yield")
+                     "$\\Delta$ yield",
+                     "\\parbox{1.5cm}{Avg. yield \\\\  (1855-1857)}", "Price war")
     print(xtable(x), sanitize.colnames.function = identity,
           floating=FALSE)
 
@@ -621,7 +657,9 @@ local({
 \caption{Yields of Southern and U.S. Government bonds before and after the Battle of Fort Sumter.
   Pre-war yields are the mean yield between \Sexpr{PREWAR_START_FMT} and \Sexpr{PREWAR_END_FMT};
   Post-war yields are the mean yield between \Sexpr{PREWAR_END_FMT} and \Sexpr{PREWAR_END_FMT};
-  $\Delta$ yield is the pre-war yield minus the post-war yield.}
+  $\Delta$ yield is the pre-war yield minus the post-war yield.
+  Peace yields are the average yield from \Sexpr{PEACE_START} to \Sexpr{PEACE_END}.
+  The war price (average price from \Sexpr{WAR_START} to \Sexpr{WAR_END}).}
 \label{tab:yields_pre_post_war}
 \end{table}
 
@@ -647,8 +685,8 @@ During the ante-bellum period, most New England states did not issue debt, Massa
 Although state bonds were generally considered safer assets than corporate bonds during this period, they were still seen as risky due to defaults of state bonds in the 1840s (CITE).
 
 \begin{figure}
-  \centering
-<<>>=
+  \centerfloat
+<<fig.height = 8, fig.width = 6>>=  
 local({
     .data <- filter(PROJ[["db"]][["prices0"]],
                     src == "Bankers",
@@ -680,34 +718,27 @@ local({
 
 Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
 \begin{itemize}
-\item From 1855-late 1857
-\item From October-1857 to January 1858, the Panic of 1857.
-\item From January 1858 - October 1860
-\item From November 1860 to ...
-\item After Sumter ...
-The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.'' \parencite[919]{BankersMagazine1861}.
+\item From 1855 to October 1857, yields were largely stable.
+  The yields of state bonds were between 5--8 percent.
+  The yields of the U.S. 6s of 1868 were stable at ... to ... .
+  This was the lowest yield of U.S. bonds up to that point.
+\item From October 1857 to January 1858, yields of state and government bond spiked.
+  This was due to the Panic of 1857. 
+  DESCRIPTION.
+\item From February 1858 to November 1860, the prices of state bonds recovered to where they were before the Panic of 1857, and in several cases were less than yields during that period.
+\item After Lincoln won the election in November 1860, yields started to increase, although with varying speeds. 
+  Although in many cases the yields after the Panic of 1857 were still lower than those in 1857.
+  The election of Lincoln in 1860 precipitated a financial crisis. 
+  Southern banks withdrew specie from the North.
+  INCLUDE QUOTES.
+\item The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.'' \parencite[919]{BankersMagazine1861}.
 \end{itemize}
 
 Since the price of the bond incorporates expectations about future payoffs and war would certainly affect those payoffs, the extreme drop in the prices of bonds after Fort Sumter imply that the market had not fully priced in the probability of war.
 
-\begin{table}
-  \centering
-<<results='asis'>>=
-local({
-    x <-  prwar1[["yields"]][ , c("series", "yield_peace", "price_war")]
-    names(x) <- c("", "Avg. yield (1855-1857)", "Price war")
-    print(xtable(x), include.rownames = FALSE,
-          floating = FALSE)
-})
-
-@ 
-\caption{For each southern state and U.S. government bond: peace yields (average yield from \Sexpr{PEACE_START} to \Sexpr{PEACE_END}), and the war price (average price from \Sexpr{WAR_START} to \Sexpr{WAR_END}).}
-\label{ref:yieldswp}
-\end{table}
-
 \begin{figure}
-  \centering
-<<>>=
+  \centerfloat
+<<fig.height = 8, fig.width = 6>>=  
 local({
     .data <- 
         (filter(PROJ[["db"]][["prices0"]],
@@ -792,8 +823,8 @@ From the \textit{Bankers' Magazine} April issue,
 
 
 \begin{figure}
-  \centering
-<<>>=
+  \centerfloat
+<<fig.height = 8, fig.width = 6>>=
 local({
     .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]])
     .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
@@ -827,8 +858,8 @@ Shea shows that bond markets respond more heavily to wars expected to be costly.
 All of these works provide examples of war onset having large effects on financial markets, which implies that for many wars, the onset of war was not fully priced in and thus war onset was largely unanticipated.
 
 \begin{figure}
-  \centering
-<<>>=
+  \centerfloat
+<<fig.height = 3, fig.width = 6>>=
 local({
     ## (ggplot(filter(PROJ[["db"]][["prices0"]],
     ##               src == "Bankers",
@@ -871,14 +902,11 @@ local({
 
 Another way to assess the risk of war is the spread between yields on southern and northern state bonds.
 This effectively controls for the overall riskiness of state bonds due to any factors which affect all state bonds.
-Figure \ref{prewarspreads} plots the difference between the average yield of southern state bonds and nothern state bonds.
+Figure \ref{fig:prewarspreads} plots the difference between the average yield of southern state bonds and nothern state bonds.
 
 From 1855 to mid 1860, the spread seems to be relatively stable aound 0.5 percentage points. 
 Then there is a 0.25 percentage point increase in July 1860. 
 After Lincoln's election in November 1860, the spread jumped to a little less than 2 percentage points, and continued to rise to about 2.5 percentage points prior to the start of the war.
-
-
-\section{}
 
 
 \section{Results}

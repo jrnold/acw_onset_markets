@@ -629,6 +629,7 @@ During the ante-bellum period, most New England states did not issue debt, Massa
 }
 Although state bonds were generally considered safer assets than corporate bonds during this period, they were still seen as risky due to defaults of state bonds in the 1840s \parencites{English1996}[320-321]{HomerSylla2005}
 
+
 \begin{figure}
   \centerfloat
 <<fig.height = 8, fig.width = 6>>=  
@@ -712,12 +713,11 @@ After the Panic of 1857, from February 1858 through mid 1860, yields of bonds we
 The yields of bonds recovered to where they were before the Panic of 1857, and in several cases, e.g. Pennsylvania, were less than the yields pre-panic.
 The yields of U.S. government bonds were also largely stable, although approximately 0.5 percentage points higher than they had been before the panic.
 
-After Lincoln won the election in November 1860, yields started to increase, for some bonds, quickly and sharply.
-  The election of Lincoln in 1860 precipitated a financial crisis. 
-  Southern banks withdrew specie from the North.
-  Although in many cases the yields after the Panic of 1857 were still lower than those in 1857.
-
-The election of 1860 was followed by a financial crisis, precipiated by Southern banks denying credit to Northern merchants and investors and withrawing specie from the North.
+After Lincoln's victory in the election of 1860,%
+\footnote{
+  The election was held on November 6, 1860. Although the election was close, Lincoln's victory was known to be likely the next day, and certain by the 8th. CITE NYT ARTICLES.
+  }
+The election of 1860 precipitated a financial crisis, as soon after the election Southern banks began denying credit to Northern merchants and investors and withrew specie from Northern banks.
 \begin{quote}
   In this state of affairs the results of the Presidential election came with a blight upon the market. 
   Threats of disunion caused an alarm to which the banks were the first to give practical effect by curtailing their discounts at the time when the community required expansion. 
@@ -727,20 +727,18 @@ The election of 1860 was followed by a financial crisis, precipiated by Southern
   \parencite[76]{HomansDana1861a}
 \end{quote}
 Over the following months, yields stayed high and were variable \parencites[718]{HuntKettellHomansEtAl1860}[78,198,416,677]{HomansDana1861a}[413,481,669,756,838]{BankersMagazine1861}.
-Although North Carolina, Tennessee, and Virigina did not formally join the Confederacy until after Fort Sumter (May 20, May 7 and April 17, respectively), their bonds increased in yield after the election of 1860.
-However, the yield of the Georgia bonds did not increase until the state seceeded in January.
-\footnote{
-The November 1860 \textit{Bankers' Magazine} wrote,
+%% Although North Carolina, Tennessee, and Virigina did not formally join the Confederacy until after Fort Sumter (May 20, May 7 and April 17, respectively), their bonds increased in yield after the election of 1860.
+%% However, the yield of the Georgia bonds did not increase until the state seceeded in January.
+The increase in yields after the election suggests that either the likelihood of Lincoln's election or the response of the Southern states to the election were uncertain before the election. 
+Prior to the election there was some slight increase in yields,%
+\footnote{``The continued contraction of the banks, and the decrease in the specie reserve, caused some activity in the money market in the beginning of the month...'' \parencite{BankersMagazine1861}
+p}
+but the month before the election the \textit{Bankers' Magazine} wrote,
 \begin{quote}
   The money market has been active and comparatively easy during the past month.
   There have been no serious causes of disturbance in and around Wall street.
-  \parencites{}
+  \parencites{BankersMagazine1861}
 \end{quote}
-There was some 
-\begin{quote}
-  The continued contraction of the banks, and the decrease in the specie reserve, caused some activity in the money market in the beginning of the month...
-\end{quote}
-}
 
 Even on the eve of the war, the market appears to have largely expected some sort of peaceful settlement to the crisis.
 In their April issues, the \textit{Bankers' Magazine} wrote

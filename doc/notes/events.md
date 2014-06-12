@@ -55,3 +55,15 @@ However, this is exactly the sort of event for which markets would have insider 
 
 (12 Stat 345)
 
+
+## Lincoln's election
+
+Election on Nov 6, 1860.
+The next day it was seen as probably that Lincoln won  (Nov 7, 1860):
+
+    Astounding triumph of republicanism. (1860, Nov 07). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91574664?accountid=13567
+
+And by Nov 8, 1860, it was almost certain that Lincoln had won:
+
+    THE ELECTION. (1860, Nov 08). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91581878?accountid=13567
+

@@ -356,66 +356,6 @@ Not only was the wealth of the southern states relatively small compared to the 
 The war caused extensive physical damage to the southern states; \textcite{GoldinLewis1975} estimated that GDP per capita in the southern states did not return to its pre-war trend level until 1909.
 This also points to the likely primacy of the expected cost of the war in determining the bond price.
 
-\section{Price Data}
-\label{sec:price-data}
-
-This work uses a price series of long-term six percent bonds issued by the Union that span the entire war.%
-\footnote{
-  The price data, including many price series not used in this paper,  used in this paper has been released as a data package available at \url{https://github.com/jrnold/civil_war_era_findata}.
-  See \textcite{ustreasury1900} and \textcite{united1882national} for a complete list of U.S. loans during this period.
-}
-The price series uses data from two similar bonds: the Sixes of 1868 and the Sixes of 1881.
-Both of these bonds were coupon bonds that paid six percent interest semiannually in January and July and only differed in their maturity date.%
-The data comes from tables in the \textit{Bankers' Magazine and Statistical Registrar} and \textit{Merchants' Magazine and Commercial Review}, the two leading financial journals of that era. %
-Both of these journals quoted the prices of these bonds in tables at weekly or tri-monthly (1st, 10th, 20th) frequency.
-
-This series of six percent bonds are used because of asset price series that span the entire war, the Sixes are the most liquid.%
-\footnote{
-  For 47 percent (42 weeks) of the \textit{Bankers' Magazine} quotes in 1864-65, the quoted price of the Fives of 1874 did not change. 
-  For the Sixes of 1881, only on 9 percent of weeks (8 weeks) did the price not change.
-  Moreover, the \textit{Merchants' Magazine} stops quoting the Fives of 1874 at the end of 1864, while it continues to quote the Sixes of 1881 throughout 1865.
-}
-Other works that have analyzed financial markets during the American Civil War have relied on price series which do not span the entire war.
-Many works use the price of gold in greenbacks \parencites{McCandless1996,SmithSmith1997,WillardGuinnaneEtAl1996}.
-However, since the U.S. Treasury did not suspend the convertibility of demand notes to gold until January 1, 1862, analyses using greenback prices cannot analyze the first eight months of the war.
-In retrospect this is only a small portion of the war, but this is longer than many wars (ADD STATS).
-Substantively, it is unlikely that the choice of the Sixes relative to other Union bonds or notes matter, because the gold prices of all Union bonds and notes are all highly correlated.
-
-The price series that is used in the analysis consists of XXXX observations between XXXX and XXXX.
-These dates are respectively the first day with an observed price before the start of the Battle of Fort Sumter on April 12, 1861  and after the surrender of Robert E. Lee at Appomattox Court House on April 9, 1865.
-The price of Sixes in gold dollars is used because the coupons and principal of Sixes were payable in specie.
-The clean price, meaning interest accrued since the last payment is subtracted, is used in order to avoid discontinuities in the price level that are solely to a coupon payment.
-
-% TODO: add narrative of the price changes
-% This data is plotted in Figure \ref{fig:sixes_price}.
-% The Sixes suffer a sharp fall of about XXXX at Fort Sumter.
-% After that, the price is mostly rising until June 1862, around the time of McClellan's failed Peninsula Campaign. 
-% Then the price is falling from June 1862 until February 1863. are mostly rising until 
-
-\begin{figure}[htpb]
-  \centering
-  %\includegraphics{assets/plot-sixes_prices}
-  \caption{Price of sixes (clean, gold, face value = \$100) April, 1861 through April, 1865.}
-  \label{fig:sixes_price}
-\end{figure}
-
-The ability to use changes in the bond price to proxy for changes in the expected war result depends on other expectations not influencing the expected cash flows.
-It is likely that changes in the expected war result was overwhelmingly responsible for the price changes that occurred during the war.
-Figure \ref{fig:sixes_price_all} plots the prices of the Sixes from 1855 through 1865.
-In the years before the American Civil War, the price of Sixes was nearly constant except for a few events: the Panic of 1857 and the election of Abraham Lincoln in November 1860.
-The Panic of 1857, a global financial crisis, appears as a blip compared with the price movements during the American Civil War.
-Given this, it is almost certainly the case that any non-war related effects were minimal to non-existent.
-
-\begin{figure}[htpb]
-  \centering
-  %\includegraphics{assets/plot-sixes_prices_all}
-  \caption{Price of sixes from 1855 through 1865. (clean, gold, face value = \$100). 
-  The gray rectangle indicates the American Civil War, which is also shown in more detail in Figure \ref{fig:sixes_price}.}
-  \label{fig:sixes_price_all}
-\end{figure}
-
-% TODO: add yields
-% TODO: narrative of the ups and downs of the market. base off of Mitchell's discussions.
 
 \section{Statistical Model}
 \label{sec:model}
@@ -666,13 +606,18 @@ local({
 To what extent did financial markets anticipate the start of the American civil war? 
 How did the markets' assesment of war risk change leading up to the war? 
 And which events were most important in changing the markets' risk assessment the most?
-Using the prices and yields of ante-bellum U.S. government and state bonds, this section addresses these issues with three methods: the overall yields of these bonds, the spread between northern and southern state bond yields, and by calculated the implied probability of war using methods for calculating the probability of default.
-The overall story from these analyses is that the market prices imply a negligable risk of war prior to Lincoln's election in November 1860, and although they responded to the increased risk of war between Lincoln's election and Fort Sumter, the implied risk of war was still quite low.
+Using the prices and yields of U.S. government and state bonds traded in New York, this section answers these questions using the yields of these bonds, the spread between northern and southern state bond yields, and calculations of the implied probability of war.
+The story that emerges from these analyses are that the market saw no or negligible risk of war prior to the election of Lincoln in November 1860, and although the market recognized and responded to the increased risk of war between Lincoln's election and the start of the war with the battle of Fort Sumter, the implied risk of war was still quite low.
 
 To assess the financial market beliefs about the American Civil War, this paper uses the prices and yields of U.S. government and state, both northern and southern, bonds traded in New York City from 1855-1861.
-The data consist of bonds from ten states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and 2 bonds issued by the US Government (6s of 1868, 5s of 1874).
-All of these bonds are coupon bonds (5-6 percent coupons paid semi-annually) with longer maturities; the U.S. bonds matured in 1868 and 1874 respectively, while the state bonds variously matured between 1869 and 1892.
+The data consist of bonds issued by ten states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and two bonds issued by the US Government (6s of 1868, 5s of 1874).
 The set of bonds included here are those with regular, weekly quotations in the \texttt{Bankers' Magazine}, one of the leading trade magazines of that era.
+All of these bonds are coupon bonds with longer maturities.
+The bonds in the data paid between 5-6 percent per annum semi-annually.
+The U.S. bonds matured in 1868 and 1874 respectively, while the state bonds variously matured between 1869 and 1892.
+%% \footnote{In many cases, the maturity of the bond was unclear; in that case the yield to maturity used is the expected value of the yield to maturity taken over the possible maturities of the bond. 
+%%   See the data documentation for details.
+%% }
 The 6s of 1868 and the 5s of 1874 were the two major bond issues of the U.S. prior to the civil war. 
 Between the War of 1812 and the Civil War, the U.S. government only periodically issued debt and thus there were few regularly traded government bonds.
 ADD CITATION
@@ -712,29 +657,10 @@ local({
 })
 
 @
-\caption{Yields of U.S. government and state bonds, 1855-1865.}
-\label{fig:yields1855-1865}
+\caption{Yields of U.S. government and state bonds, by bond, July 1855 to May 1861.}
+\label{fig:yields_issuer}
 \end{figure}
 
-Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
-\begin{itemize}
-\item From 1855 to October 1857, yields were largely stable.
-  The yields of state bonds were between 5--8 percent.
-  The yields of the U.S. 6s of 1868 were stable at ... to ... .
-  This was the lowest yield of U.S. bonds up to that point.
-\item From October 1857 to January 1858, yields of state and government bond spiked.
-  This was due to the Panic of 1857. 
-  DESCRIPTION.
-\item From February 1858 to November 1860, the prices of state bonds recovered to where they were before the Panic of 1857, and in several cases were less than yields during that period.
-\item After Lincoln won the election in November 1860, yields started to increase, although with varying speeds. 
-  Although in many cases the yields after the Panic of 1857 were still lower than those in 1857.
-  The election of Lincoln in 1860 precipitated a financial crisis. 
-  Southern banks withdrew specie from the North.
-  INCLUDE QUOTES.
-\item The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.'' \parencite[919]{BankersMagazine1861}.
-\end{itemize}
-
-Since the price of the bond incorporates expectations about future payoffs and war would certainly affect those payoffs, the extreme drop in the prices of bonds after Fort Sumter imply that the market had not fully priced in the probability of war.
 
 \begin{figure}
   \centerfloat
@@ -747,7 +673,7 @@ local({
                 date < prwar1[["war_dates"]][1],
                 ! grepl("California", series))
          )
-    .data[.data[["series"]] == "Kentucky 6s", "group"] <- "North"
+    #.data[.data[["series"]] == "Kentucky 6s", "group"] <- "North"
     .data2 <- plyr::ldply(c("North", "South", "Union"), function(i) {
         .data[["i"]] <- i
         .data[["group_is_i"]] <- .data[["group"]] == i
@@ -766,65 +692,231 @@ local({
 })
 
 @
-\caption{Yields of U.S. government and state bonds, 1855-1865.}
-\label{fig:yields1855-1865}
+\caption{Yields of U.S. government and state bonds, by region, July 1855 to May 1861.}
+\label{fig:yields_regions}
 \end{figure}
 
-The market's belief of the probability of war can be inferred from bond price data by treating war as a default event and using methods for extracting the probability of default from bond prices or yields.
-A common approximation of the probability of the default risk of a bond is
+Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
+
+From 1855 to October 1857, yields were largely stable.
+The yields of state bonds were between 5--8 percent.
+The yields of the U.S. 6s of 1868 were stable at ... to ... .
+Note that this represented the lowest yield of U.S. bonds up to that point.
+
+From October 1857 to January 1858, during the Panic of 1857, the yields of state and government bond spiked, in several cases, exceeding 10 percent.
+The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the bankruptcy of several railroads in the west and midwest, and the suspension of specie payments by banks in New York City. 
+The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}
+So although yields increased in the panic, this should not be interpreted as representing an increase in war risk.
+    
+After the Panic of 1857, from February 1858 through mid 1860, yields of bonds were again low and stable.
+The yields of bonds recovered to where they were before the Panic of 1857, and in several cases, e.g. Pennsylvania, were less than the yields pre-panic.
+The yields of U.S. government bonds were also largely stable, although approximately 0.5 percentage points higher than they had been before the panic.
+
+After Lincoln won the election in November 1860, yields started to increase, for some bonds, quickly and sharply.
+  The election of Lincoln in 1860 precipitated a financial crisis. 
+  Southern banks withdrew specie from the North.
+  Although in many cases the yields after the Panic of 1857 were still lower than those in 1857.
+
+The election of 1860 was followed by a financial crisis, precipiated by Southern banks denying credit to Northern merchants and investors and withrawing specie from the North.
+\begin{quote}
+  In this state of affairs the results of the Presidential election came with a blight upon the market. 
+  Threats of disunion caused an alarm to which the banks were the first to give practical effect by curtailing their discounts at the time when the community required expansion. 
+  The banks at the South first refused to discount the usual cotton drafts payable after the 1st of November.
+  The New York banks at once held up their lines of discounts, the money pressure became intense, sterling bills could not be sold, houses under Western drafts were thus heavily embarrassed, and exchange all over the country rose rapidly on New York. 
+  All the wheels of commerce were becoming clogged, and the danger of a general suspension of the merchants was imminent. 
+  \parencite[76]{HomansDana1861a}
+\end{quote}
+Over the following months, yields stayed high and were variable \parencites[718]{HuntKettellHomansEtAl1860}[78,198,416,677]{HomansDana1861a}[413,481,669,756,838]{BankersMagazine1861}.
+Although North Carolina, Tennessee, and Virigina did not formally join the Confederacy until after Fort Sumter (May 20, May 7 and April 17, respectively), their bonds increased in yield after the election of 1860.
+However, the yield of the Georgia bonds did not increase until the state seceeded in January.
+\footnote{
+The November 1860 \textit{Bankers' Magazine} wrote,
+\begin{quote}
+  The money market has been active and comparatively easy during the past month.
+  There have been no serious causes of disturbance in and around Wall street.
+  \parencites{}
+\end{quote}
+There was some 
+\begin{quote}
+  The continued contraction of the banks, and the decrease in the specie reserve, caused some activity in the money market in the beginning of the month...
+\end{quote}
+}
+
+Even on the eve of the war, the market appears to have largely expected some sort of peaceful settlement to the crisis.
+In their April issues, the \textit{Bankers' Magazine} wrote
+\begin{quote}
+   The general condition of commercial and financial affairs still turns upon the uncertain political future.
+   The fears of civil war, that at one time were entertained in certain quarters, have subsided, if not altogether disappeared, under the influence of passing events.\parencite[413]{HomansDana1861a}
+\end{quote}
+and \textit{Merchants' Magazine} wrote
+\begin{quotation}
+  The securities of the Border States fluctuate from day to day as the tone of dispatches from Washington leans toward peace or war. 
+  There is undoubtedly a great want of confidence as to the final course which those States will pursue and it is the strong hope which is entertained of their remaining loyal which alone keeps up their price.\parencite[838]{BankersMagazine1861}
+\end{quotation}
+
+The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.'' \parencite[919]{BankersMagazine1861}.
+
+Since the price of the bond incorporates expectations about future payoffs and war would certainly affect those payoffs, the extreme drop in the prices of bonds after Fort Sumter imply that the market had not fully priced in the probability of war.
+
+<<spreads_data, results = 'hide'>>=
+prices <-
+    (mutate(filter(PROJ[["db"]][["prices0"]],
+                   src == "Bankers",
+                   date >= as.Date("1855-7-1"),
+                   date <= as.Date("1861-5-18"),                       
+                   ! grepl("California", series)),
+            ytm = ytm * 100)
+     )
+#.prices[.prices[["series"]] == "Kentucky 6s", "group"] <- "North"
+prices_north <- 
+    (filter(prices, group == "North")
+     %>% group_by(date)
+     %>% dplyr::summarise(north_mean = mean(ytm),
+                          north_var = var(ytm)))
+prices_south <- 
+    (filter(prices, group == "South")
+     %>% group_by(date)
+     %>% dplyr::summarise(south_mean = mean(ytm),
+                          south_var = var(ytm)))
+prices_by_group <-
+    mutate(merge(prices_north, prices_south),
+           diff_mean = south_mean - north_mean,
+           diff_var = south_var + north_var,
+           diff_lb = diff_mean - 2 * sqrt(diff_var),
+           diff_ub = diff_mean + 2 * sqrt(diff_var))
+
+spread_1855_1857 <-
+    (filter(prices_by_group, date <= as.Date("1857-10-1"))
+     %>% summarise(lb = min(diff_mean),
+                   ub = max(diff_mean)))
+
+spread_1858_1860 <-
+    (filter(prices_by_group, 
+            date >= as.Date("1858-3-1"),
+            date <= as.Date("1860-7-1"))
+     %>% summarise(lb = min(diff_mean),
+                   ub = max(diff_mean)))
+
+spread_1861 <-
+    (filter(prices_by_group, 
+            date >= as.Date("1861-1-1"),
+            date <= as.Date("1861-4-14"))
+     %>% summarise(lb = min(diff_mean),
+                   ub = max(diff_mean)))
+
+@ 
+
+\begin{figure}
+  \centerfloat
+<<north_south_spreads, fig.height = 3, fig.width = 6>>=
+local({
+    ## .all_diff <-
+    ##     plyr::ddply(filter(.prices, group %in% c("North", "South")), "date",
+    ##                 function(x) {
+    ##                     north <- filter(x, group == "North")[["ytm"]]
+    ##                     south <- filter(x, group == "South")[["ytm"]]
+    ##                     ns <- 
+    ##                         mutate(expand.grid(north = north, south = south),
+    ##                                diff = south - north)
+    ##                 })
+    ## .mean_diff <- 
+    ##     (group_by(.all_diff, date)
+    ##      %>% dplyr::summarise(spread = south_north_spread))
+    ## (ggplot()
+    ##  + geom_point(data = .all_diff,
+    ##               mapping = aes(x = date, y = diff), 
+    ##               alpha = 0.15)
+    ##  + geom_line(data = .mean_spread,
+    ##              mapping = aes(x = date, y = south_north_spread),
+    ##              colour = "red")
+    ##  + geom_hline(yintercept = 0)
+    ##  + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+    ##  + scale_y_continuous("spread (%)", breaks = seq(-2, 12, by = 2))
+    ##  + theme_local()
+    ##  )
+    (ggplot()
+     + geom_ribbon(data = prices_by_group,
+                   mapping = aes(x = date, ymin = diff_lb, ymax = diff_ub),
+                   fill = "gray")
+     + geom_line(data = prices_by_group,
+                 mapping = aes(x = date, y = diff_mean),
+                 colour = "black")
+     + geom_hline(yintercept = 0)
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("spread (%)", breaks = seq(-2, 12, by = 2))
+     + theme_local()
+     )
+    
+})
+
+@ 
+\caption{Mean spread between the yields of southern and northern state bonds.
+  The line is $\bar y_{S-N} = \bar y_{S} - \bar y_{N}$ and $\bar y_{i}$ is the sample mean of region $i$.
+  The shaded area is $\bar y_{N} \pm 2 \cdot s_{S - N}$ where $s_{S - N} = \sqrt{s_{S}^{2} + s_{N}^{2}}$ and $s_{i}$ is the sample standard deviation of region $i$. 
+  The northern states are Indiana, Ohio and Pennsylvania; the southern states are Georgia, Louisiana, North Carolina, Tennessee and Virginia. 
+  The border states (Kentucky, Missouri) were excluded.
+  }
+\label{fig:north_south_spreads}
+\end{figure}
+
+An issue with looking at the yields of state and government bonds makes is that is confounds non-war factors influening the yields of the bonds with war risk factors.
+One way to control for some, but not all, of the non-war risk factors is to look at the the spread between northern and and southern state bond yields.
+Using only state bonds controls for shocks to the risk of all state bonds.
+However, the secession of southern states and war would increase the risk of southern bonds relative to the northern bonds.
+Figure \ref{fig:north_south_spread} plots the difference between the mean yields of southern and northern state bonds.
+
+From 1855 to the Panic of 1857, the spread was \Sexpr{format(round(spread_1855_1857[["lb"]],2))} to \Sexpr{format(round(spread_1855_1857[["ub"]], 2))}.
+In the Panic of 1857, the spreads between southern and northern bonds increased only slightly; although the financial crisis increased the yields of all state bonds, see Figure \ref{fig:yields_issuer}, it increased all the yields similarly.
+From the Panic of 1857 until mid 1860, the average spread was stable but slightly higher than period before the Panic (\Sexpr{format(round(spread_1858_1860[["lb"]], 2))} to \Sexpr{format(round(spread_1858_1860[["ub"]], 2))}.
+Although the uncertainty over the spread is less than before the Panic of 1857, the interval sill includes zero.
+The spread starts to increase in the second half of 1860, increasing sharply after the election of Lincoln, and reaching \Sexpr{format(round(spread_1861[["lb"]], 2))} to \Sexpr{format(round(spread_1861[["ub"]], 2))} during January to April 1861.
+Note that this increase in spread is different than the Panic of 1857, in which yields increased but the South-North yield spread did not.
+After Fort Sumter, the spread increased 4 to 6 percentage points.
+Thus, not only did yields sharply increase after Fort Sumter, the spread between southern and northern state bonds increased sharply, as noted by the contemporary financial press, ``The stock market has been variable during the month. The prominent features being an unexpected firmness (events considered) in \dots{} Northern State stocks \dots{}, and a depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city \parencite[919]{BankersMagazine1861}''
+
+
+Although the yields and spread indicate changes in the risk leading up to the war, they are not directly interpretable as the probability of war.%
+However, the market's belief of the probability of war can be inferred from bond prices or yields by treating war as a default event and using methods for extracting the probability of default from bond prices or yields.
+A simple and common approximation for the probability of the default of a risky bond using its yield is,
 \begin{equation}
   \label{eq:4}
-  \Pr(\text{default}) = \frac{y - r}{1 - R}
+  \Pr(\text{default}) = \frac{y - r}{1 - R} \text{,}
 \end{equation}
 where $y$ is the yield of the risky bond, $r$ is the yield of a risk-free bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond \parencite{HullPredescuWhite2004}.
-Equation~\eqref{eq:4} can be used to estimate the probability of war by properly defining $r$ and $R$.
-For the case of estimating the probability of war, the risk-free interest rate $r$ should the yield of the bond if there was no risk of war.
-This means that the yield $r$ will not necessarily be riskless, but should still include any risks not due to war while excluding risks due to war.
-One estimate of this war risk free yield is the the average yield for an earlier period in which the risk of war is approximately zero.%
+Equation~\eqref{eq:4} can be to estimate the probability of war by properly defining $r$ and $R$.
+For the case of estimating the probability of war, the risk-free interest rate $r$ is the yield of a comparable bond with no-risk of war.
+This means that the yield $r$ will not necessarily be risk-free, and should still include any risks not due to war while excluding risks due to war.
+One estimate of this war risk free yield is the the average yield for the same bond for an earlier period in which the risk of war is approximately zero.%
 \footnote{
   The Panic of 1857 (August 1857 through January 1858) is excluded from calculations because the prices of state and government bonds fell sharply during this period, but the causes of this fall can almost completely be attributed to financial reasons and not to an increased probability of war.
+  Additionally, all of the bonds considered here have relatively long maturities during the period considered, and in light of no other information about the yield curve, a flat yield curve is reasonable.
 }
-For each bond considered here, the period mean yield from \Sexpr{PEACE_START} to \Sexpr{PEACE_END}.
+For each bond considered here, $r$ is the mean yield from \Sexpr{PEACE_START} to \Sexpr{PEACE_END}.%
+\footnote{The 5s of 1874 were not issued until 1858, but given the similarity of the yield to the 6s of 1868 the $r$ of the 6s of 1868 is used for the 5s of 1874}
 This is the earliest period for which prices are available and is prior to the Panic of 1857.
 Although there may not have been no risk of war during this period, the risk could not have been large because the yields onU.S. bonds during this in this period was extremely low; At less than 4.5 percent, the yield on U.S. bonds was the lowest in the U.S. up to that point \parencite[282-283]{HomerSylla2005}, and only one percentage point higher than the yield on 3\% British consols, which was considered the safest asset during that period.%
-\footnote{During this era, 3\% British consols yielded 3.22-3.31 percent \parencite[193]{HomerSylla2005}.}
+\footnote{
+  During this era, 3\% British consols yielded 3.22-3.31 percent \parencite[193]{HomerSylla2005}.
+  During this period, state bonds  had higher interest rates due to a series of defaults in the 1840s \parencite[320]{HomerSylla2005}.
+}
 
-\footnote{During this period, state bonds in general had higher interest rates due to a series of defaults in the 1840s \parencite[320]{HomerSylla2005}.}
-
-The recovery rate $R$ is the amount, as a proportion of face value (or future payments), that the investor receives in the event of war.
-Since the American Civil War did occur, $R$ is known; $R$ is the values of the bonds observated at the start of the war.
-This value incorporates expectations about the financial risk posed by expected course of the war.%
+The recovery rate $R$ is the amount, as a proportion of face value (or future payments), should be the amount investor receives in the event of war.
+Since the American Civil War did occur, $R$ is known and the price of the bonds observated at the start of the war can be used.
+The value of $R$ incorporates expectations about the financial risk posed by expected course of the war, which allows these estimates to differentiate the probability of war from risks due to expectations about the costs and outcome of the war conditional on the war occuring.%
 \footnote{
   An implicit assumption in these calculations is that expectations about the costliness of the war were constant prior to the start of the war and only beliefs about the probability of a war was changing in the periods leading up to the war.
   In the case of the American Civil War, this seems like a reasonable assumption.
 }
 
-Using the above calculations, the implied probability of war was calculated for southern and border state bonds (Georgia, Kentucky, Louisiana, Missouri, Tennessee, Virginia) and U.S. government bonds (5's of 1874, 6's of 1868) for the time period \Sexpr{RANGE_START} to \Sexpr{RANGE_END}, after the Panic of 1857 to the Battle of Fort Sumter.%
-\footnote{
-  Northern state bonds were not used because their prices did not not react strongly to the start of the war.
-  From the May 1861 \textit{Bankers' Magazine} ``The stock market has been variable during the month. The prominent
-  features being an unexpected firmness, events considered, in \dots{} Northern State stocks \dots{}'' \parencite[919]{BankersMagazine1861}.
-}
-
-
-Figure~\ref{fig:prwar} displays the implied probabilities of war for each bond.
+Figure~\ref{fig:prwar} displays the implied probabilities of war for southern and border state and U.S. government bonds for the period after the Panic of 1857 to the Battle of Fort Sumter, \Sexpr{RANGE_START} to \Sexpr{RANGE_END}.
 Although there are some differences between the implied probabilities between bonds, they all show almost no probability of war until Lincoln's election in November 1860.
 But even in the months leading up to Fort Sumter, the implied probability of war is low.
 The implied probabilities of war from the state bonds is between 2.5 to 7.5 percent, the U.S. 5's of 1874 is a little less than 10 percent, and the with the U.S. 6's of 1868 is 20--25 percent.
 Moreover, these estimates can be considered high in that they assume that all movements in the yields are completely due  to war risk.
 
-Even on the eve of the war, the market appears to have expected some sort of peaceful settlement to the crisis.
-From the \textit{Bankers' Magazine} April issue,
-\begin{quotation}
-  The securities of the Border States fluctuate from day to day as the tone of dispatches from Washington leans toward peace or war. 
-  There is undoubtedly a great want of confidence as to the final course which those States will pursue and it is the strong hope which is entertained of their remaining loyal which alone keeps up their price.
-  \parencite[838]{BankersMagazine1861}
-\end{quotation}
-
-
 \begin{figure}
   \centerfloat
-<<fig.height = 8, fig.width = 6>>=
+<<prwar, fig.height = 8, fig.width = 6>>=
 local({
     .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]])
     .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
@@ -857,152 +949,7 @@ However, these results are consistent with other cases.
 Shea shows that bond markets respond more heavily to wars expected to be costly.
 All of these works provide examples of war onset having large effects on financial markets, which implies that for many wars, the onset of war was not fully priced in and thus war onset was largely unanticipated.
 
-\begin{figure}
-  \centerfloat
-<<fig.height = 3, fig.width = 6>>=
-local({
-    ## (ggplot(filter(PROJ[["db"]][["prices0"]],
-    ##               src == "Bankers",
-    ##               date >= as.Date("1855-7-1"),
-    ##                date <= as.Date("1861-7-1"),
-    ##               ! grepl("California", series)),
-    ##        aes(x = date, y = ytm, colour = group, group = series))
-    ##  + geom_line())
-    .data <-
-        (filter(PROJ[["db"]][["prices0"]],
-                src == "Bankers",
-                date >= as.Date("1855-7-1"),
-                ! grepl("California", series)))
-    .data[.data[["series"]] == "Kentucky 6s", "group"] <- "North"
-    .data <- (group_by(.data, group, date)
-              %>% dplyr::summarise(yield_arith = mean(ytm * 100), 
-                                   yield_geom = gmean(ytm * 100))
-              )
-    .data2 <- 
-        (dcast(.data, date ~ group, value.var = "yield_geom")
-         %>% mutate(south_north_spread = South - North)
-         %>% filter(! is.na(south_north_spread)))
-    (ggplot(filter(.data2,
-                   date <= as.Date('1861-7-1')),
-                   aes(x = date, y = south_north_spread))
-     + geom_line()
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-     + scale_y_continuous("spread (%)", breaks = 0:10)
-     + theme_local()
-     )
-    
-})
 
-@ 
-\caption{Spread between the yields between Southern and Northern state bonds.
-  The southern state yield is the arithmetic average of ....
-  The northern state yield is the arithmetic average of ....}
-\label{fig:prewarspreads}
-\end{figure}
-
-Another way to assess the risk of war is the spread between yields on southern and northern state bonds.
-This effectively controls for the overall riskiness of state bonds due to any factors which affect all state bonds.
-Figure \ref{fig:prewarspreads} plots the difference between the average yield of southern state bonds and nothern state bonds.
-
-From 1855 to mid 1860, the spread seems to be relatively stable aound 0.5 percentage points. 
-Then there is a 0.25 percentage point increase in July 1860. 
-After Lincoln's election in November 1860, the spread jumped to a little less than 2 percentage points, and continued to rise to about 2.5 percentage points prior to the start of the war.
-
-
-\section{Results}
-\label{sec:results}
-
-The substantively interesting parameters of the model in Section \ref{sec:model} are the mean ($\gamma$) and standard deviation ($\tau^*$) parameters of the battle outcome distributions, and the individual battle effects $\beta_{b}$.
-$\gamma$ is an estimate of the average effect of battle outcomes;
-$\tau^{*}$ is an estimate of the spread of the individual battle effects within each battle outcome;
-$\beta$ is an estimate of the individual battles' effects.
-In this section, I discuss the results of each.
-
-\subsection{Battle Effects Population Distribution}
-\label{sec:battle-results}
-
-First, consider $\gamma$, the mean of the battle outcome distribution.
-On average, Confederate battles were associated with decline in the bond price.
-The posterior mean of gamma ($\E p(\gamma_{\mathtt{C}} | y)$) is XXX.
-Since prices are log transformed, this implies that the average Confederate victory is associated with approximately a XXX decrease in the Sixes price.
-On average, both Union victories and inconclusive battles are associated with small increases in the bond price:
-XXX for Union victories, XXX for Inconclusive battles.
-However, these effects are imprecisely estimated, and only the Confederate posterior distribution of $\gamma_{C}$ has a 95\% credible interval that do not cross zero.
-
-These results suggest an asymmetry between in how the market interpreted Union and Confederate victories.
-The magnitude of the average Confederate victory was likely higher than the magnitude of Union victories, $\Pr(|\gamma_{U}| > |\gamma_{U}|) = XXX$, suggesting that each Confederate victory had a larger impact on expectations of the war result than Union victories.
-
-\begin{table}[ht]
-  %\input{assets/tab-gamma.tex}
-  \caption{Summary statistics of $p(\gamma|y)$, the location parameter of the battle outcome distributions.}
-  \label{tab:gamma}
-\end{table}
-
-\begin{figure}[ht]
-  %\includegraphics[width=\textwidth]{assets/plot-gamma}
-  \caption{Density of $p(\gamma|y)$, the location parameter of the battle outcome distributions.}
-  \label{fig:gamma}
-\end{figure}
-
-Next, consider $\tau^{*}$, the standard deviation of the battle outcome distributions., are between 0.009 and and 0.014.
-The Confederate victory distribution have the smallest standard deviation, with a posterior median of 0.010; 
-the inconclusive battles distribution has the largest standard deviation with a posterior median of 0.016.
-While the posterior median of the standard deviation of the Union victory distribution is higher than than of the Confederate victory distribution, the difference is not statistically significant, $\Pr(\tau^{*}_{U} > \tau^{*}_{C} | y) = XXX$.
-
-\begin{table}[ht]
-  \centering
-  %\input{assets/tab-tau_star.tex}
-  \caption{Summary statistics of $p(\tau^{*}|y)$, the standard deviation of the battle outcome distributions.}
-  \label{tab:tau_star}
-\end{table}
-
-\begin{figure}[ht]
-  %\includegraphics[width=\textwidth]{assets/plot-tau_star}
-  \caption{Density of $p(\tau^{*}|y)$, the standard deviation of the battle outcome distributions.}
-  \label{fig:tau_star}
-\end{figure}
-
-\subsection{Battle-Level Results}
-
-Figure \ref{fig:battle_effects} plots the posterior distribution of the battle effects $\beta_{b}$ for all battles.
-Table \ref{tab:battle_effects} displays summary statistics of the battle effects.
-Unfortunately, most the posterior distributions of the battle-level effects have wide credible intervals.
-Thus, I will only discuss posterior means while noting that these results are subject to high levels of uncertainty.
-Section \ref{sec:conclusion} discusses several methods which may be able to provide more precise parameter estimates.
-
-Given the results of the prior distributions in Section \ref{sec:battle-results}, it is unsurprising that the battles with the lowest negative effects are all Confederate.
-First Fort Sumter has the largest posterior mean, followed by Gaines' Mill, and Chickamagua.
-Gaines' Mill is one of the Seven Days Battle, which \textcite{Fuller1956} considered, along with Vicksburg, as one of the turning points of the war.
-
-In terms of the battles with the largest positive effects, the battle with the largest posterior mean is the Battle of Gettysburg, which needs no explanation. 
-In the Battle of Opequon in which Philip Sheridan decisively defeated Jubal Early in September 1864 and gained control of the Shenandoah Valley.
-The Battle of Forts Jackson and St. Philip, in April 1862, opened up New Orleans for Union capture.
-The Siege of Port Hudson followed the Battle of Vicksburg and secured Union control of the Mississippi.
-
-The rank ordering of the inconclusive battles by their posterior means has face validity.
-The Battle of Antietam has a positive posterior mean.
-In the battle, McClellan stopped Lee's advance into Maryland, and while tactically inconclusive, is generally considered a Union victory.
-The estimated positive effect for Antietam contrasts \textcite{WillardGuinnaneEtAl1996} estimate of a negative structural break at Antietam.
-This suggests that it was the Emancipation Proclamation, which exacerbated the commitment problem in the war \textcite{Reiter2009}, not the Battle of Antietam, that increased expectations about the cost of the war.
-At the Battle of the Wilderness, Grant took heavy casualties, but Lee retreated after three days and the Union Overland campaign continued.
-However, The Battle of Spotsylvania Courthouse, which immediately followed the Battle of the Wilderness, has a negative posterior mean.
-That battle was also bloody, but it took 13 days.
-Although the Overland Campaign towards Richmond continued, the stalemate at Spotsylvania Court House may have been an indicator of the cost and time it would take to take Richmond.
-
-\begin{figure}[htpb]
-  %\includegraphics{assets/plot-battle_effects}
-  \caption{Summary of posterior distributions of $\beta_{b}$ for all battles.
-    The point is the posterior mean, the colored inner line is the 25th to 75th quantile, and the gray outer line is the 2.5th to 97.5th quantile.
-    Battles are colored by their outcome: Union victory, Confederate victory, or Inconclusive.
-  }
-  \label{fig:battle_effects}
-\end{figure}
-
-\begin{table}
-  %\input{assets/tab-battle_effects.tex}
-  \caption{Summary statistics of posterior distribution of battle effects $\beta_b$ for all battles.}
-  \label{tab:battle_effects}
-\end{table}
 
 \section{Conclusion}
 \label{sec:conclusion}

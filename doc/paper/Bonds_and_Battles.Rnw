@@ -627,7 +627,7 @@ During the ante-bellum period, most New England states did not issue debt, Massa
   Prior to 1860, only Massachusetts, Maine and Vermont had public debt, and the amount of debt of the later two was quite small. \parencite[86]{Martin1871}.
   Massachusetts bonds were the closest to a risk-free American asset during that period \parencites{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}, ``never failing to pay principal and interest in coin, ..., commanding higher prices than those of any other State in the Union.''  \parencite[86]{Martin1871}
 }
-Although state bonds were generally considered safer assets than corporate bonds during this period, they were still seen as risky due to defaults of state bonds in the 1840s (CITE).
+Although state bonds were generally considered safer assets than corporate bonds during this period, they were still seen as risky due to defaults of state bonds in the 1840s \parencites{English1996}[320-321]{HomerSylla2005}
 
 \begin{figure}
   \centerfloat

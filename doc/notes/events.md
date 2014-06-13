@@ -67,3 +67,12 @@ And by Nov 8, 1860, it was almost certain that Lincoln had won:
 
     THE ELECTION. (1860, Nov 08). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91581878?accountid=13567
 
+## New York Times Chronological Tables
+
+Each year of the war the New York Times produced a chronological summary of the events of each year
+
+- HISTORY OF THE REBELLION. (1861, Dec 31). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91547816?accountid=13567
+- A YEAR OF WAR. (1862, Dec 31). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91693289?accountid=13567
+- BATTLE RECORD FOR 1863. (1863, Dec 31). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91811410?accountid=13567
+- 1864. (1864, Dec 31). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91862813?accountid=13567
+- EVENTS IN 1865. (1865, Dec 30). New York Times (1857-1922) Retrieved from http://search.proquest.com/docview/91969412?accountid=13567

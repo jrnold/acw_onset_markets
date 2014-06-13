@@ -604,31 +604,32 @@ local({
 \end{table}
 
 To what extent did financial markets anticipate the start of the American civil war? 
-How did the markets' assesment of war risk change leading up to the war? 
-And which events were most important in changing the markets' risk assessment the most?
-Using the prices and yields of U.S. government and state bonds traded in New York, this section answers these questions using the yields of these bonds, the spread between northern and southern state bond yields, and calculations of the implied probability of war.
-The story that emerges from these analyses are that the market saw no or negligible risk of war prior to the election of Lincoln in November 1860, and although the market recognized and responded to the increased risk of war between Lincoln's election and the start of the war with the battle of Fort Sumter, the implied risk of war was still quite low.
+How did the market's assesment of war risk change leading up to the war? 
+Which events were associated with these changes?
+This section answers these questions using the data on the prices and yields of U.S. and state government bonds traded in New York and three analyses: the yields of the bonds, the spread between Southern and  Northern state bonds, and the implied probability of war calculated by treating war as a default event. 
+Based on these analyses, the market considered there to be negligible risk of war prior to the election of Lincoln in November 1860.
+After the election and before Fort Sumter, the market implied a higher risk of war, but the implied risk was still low.
 
-To assess the financial market beliefs about the American Civil War, this paper uses the prices and yields of U.S. government and state, both northern and southern, bonds traded in New York City from 1855-1861.
+To assess financial market beliefs about the \textit{ex ante} risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state, both northern and southern, bonds traded in New York City from 1855-1861.
 The data consist of bonds issued by ten states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and two bonds issued by the US Government (6s of 1868, 5s of 1874).
-The set of bonds included here are those with regular, weekly quotations in the \texttt{Bankers' Magazine}, one of the leading trade magazines of that era.
+The set of bonds included here are those with regular quotations in the \textit{Bankers' Magazine}, one of the leading trade magazines of that era.
+Prices of these bonds are available at an approximately weekly frequency from 1855 through the start of the war in April 1861.
 All of these bonds are coupon bonds with longer maturities.
-The bonds in the data paid between 5-6 percent per annum semi-annually.
+The bonds paid interest of 5--6 percent per annum semi-annually.
 The U.S. bonds matured in 1868 and 1874 respectively, while the state bonds variously matured between 1869 and 1892.
 %% \footnote{In many cases, the maturity of the bond was unclear; in that case the yield to maturity used is the expected value of the yield to maturity taken over the possible maturities of the bond. 
 %%   See the data documentation for details.
 %% }
-The 6s of 1868 and the 5s of 1874 were the two major bond issues of the U.S. prior to the civil war. 
-Between the War of 1812 and the Civil War, the U.S. government only periodically issued debt and thus there were few regularly traded government bonds.
-ADD CITATION
+The two U.S. bonds, the 6s of 1868 and the 5s of 1874, were the only two large bond issues of the U.S. outstanding at the start of the the civil war.%
+\footnote{The terms 5s and 6s refer to bonds paying 5 percent and 6 percent interest, respectively.}
+Between the War of 1812 and the Civil War, the U.S. government only periodically issued debt; the 6s of 1868 were issued in 1848 to pay for the Mexican-American War, while 5s of 1874 were issued in 1858 due to a funding shortfall as a result of a financial crisis, the Panic of 1857.
 The state bonds included here are mostly southern and midwestern states which issued debt to fund infrastructure project, e.g. railroads and canals. 
-During the ante-bellum period, most New England states did not issue debt, Massachusetts was the notable exception.
+During this period most New England states did not issue debt, with the notable exception of Massachusetts.
 \footnote{
   Prior to 1860, only Massachusetts, Maine and Vermont had public debt, and the amount of debt of the later two was quite small. \parencite[86]{Martin1871}.
   Massachusetts bonds were the closest to a risk-free American asset during that period \parencites{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}, ``never failing to pay principal and interest in coin, ..., commanding higher prices than those of any other State in the Union.''  \parencite[86]{Martin1871}
+  However, the Massachusetts bonds were not regularly quoted in the \textit{Bankers' Magazine}.
 }
-Although state bonds were generally considered safer assets than corporate bonds during this period, they were still seen as risky due to defaults of state bonds in the 1840s \parencites{English1996}[320-321]{HomerSylla2005}
-
 
 \begin{figure}
   \centerfloat
@@ -705,7 +706,7 @@ The yields of the U.S. 6s of 1868 were stable at ... to ... .
 Note that this represented the lowest yield of U.S. bonds up to that point.
 
 From October 1857 to January 1858, during the Panic of 1857, the yields of state and government bond spiked, in several cases, exceeding 10 percent.
-The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the bankruptcy of several railroads in the west and midwest, and the suspension of specie payments by banks in New York City. 
+The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the bankruptcy of several railroads, and the suspension of specie payments by banks in New York City. 
 The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}
 So although yields increased in the panic, this should not be interpreted as representing an increase in war risk.
     
@@ -726,7 +727,7 @@ The election of 1860 precipitated a financial crisis, as soon after the election
   All the wheels of commerce were becoming clogged, and the danger of a general suspension of the merchants was imminent. 
   \parencite[76]{HomansDana1861a}
 \end{quote}
-Over the following months, yields stayed high and were variable \parencites[718]{HuntKettellHomansEtAl1860}[78,198,416,677]{HomansDana1861a}[413,481,669,756,838]{BankersMagazine1861}.
+Over the following months, yields stayed high and were variable as news  \parencites[718]{HuntKettellHomansEtAl1860}[78,198,416,677]{HomansDana1861a}[413,481,669,756,838]{BankersMagazine1861}.
 %% Although North Carolina, Tennessee, and Virigina did not formally join the Confederacy until after Fort Sumter (May 20, May 7 and April 17, respectively), their bonds increased in yield after the election of 1860.
 %% However, the yield of the Georgia bonds did not increase until the state seceeded in January.
 The increase in yields after the election suggests that either the likelihood of Lincoln's election or the response of the Southern states to the election were uncertain before the election. 
@@ -740,20 +741,43 @@ but the month before the election the \textit{Bankers' Magazine} wrote,
   \parencites{BankersMagazine1861}
 \end{quote}
 
+\begin{quote}
+   The news was also of a character to affect disastrously American
+   credit, since it showed a decline of 13 per cent iu United States
+   government stocks, solely from fear of disunion, which event would
+   reduce the States to the condition of the bankrupt, "disorderly
+   houses" of South America, and leave the separate States a prey to
+   every spoiler.
+   \textit{Merchants' Magazine, January 1861, p. 78}
+\end{quote}
+
+\begin{quote}
+  The only speck in the horizon is the threat of secession in the
+  South. We would be the last to give countenance to the libel upon the
+  South, that the majority of any one State assented to the proposition
+  of secession. The permanent social, commercial and financial interests
+  of the various sections of the whole country are too strongly
+  identified—too strongly bound together—to induce the loss of any one
+  State; \parencites[417]{BankersMagazine1861}
+\end{quote}
+
+\begin{quote}
+  The fluctuations in market values of State loans have been unusually great owing to the political phases or affairs, \parencite[838]{BankersMagazine1861}
+\end{quote}
+
 Even on the eve of the war, the market appears to have largely expected some sort of peaceful settlement to the crisis.
-In their April issues, the \textit{Bankers' Magazine} wrote
+In their April 1860, \textit{Bankers' Magazine} wrote
 \begin{quote}
    The general condition of commercial and financial affairs still turns upon the uncertain political future.
    The fears of civil war, that at one time were entertained in certain quarters, have subsided, if not altogether disappeared, under the influence of passing events.\parencite[413]{HomansDana1861a}
 \end{quote}
-and \textit{Merchants' Magazine} wrote
+while \textit{Merchants' Magazine} wrote
 \begin{quotation}
   The securities of the Border States fluctuate from day to day as the tone of dispatches from Washington leans toward peace or war. 
   There is undoubtedly a great want of confidence as to the final course which those States will pursue and it is the strong hope which is entertained of their remaining loyal which alone keeps up their price.\parencite[838]{BankersMagazine1861}
 \end{quotation}
 
 The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.'' \parencite[919]{BankersMagazine1861}.
-
 Since the price of the bond incorporates expectations about future payoffs and war would certainly affect those payoffs, the extreme drop in the prices of bonds after Fort Sumter imply that the market had not fully priced in the probability of war.
 
 <<spreads_data, results = 'hide'>>=

@@ -36,14 +36,6 @@ standata <- function() {
     mode(observed) <- "integer"
     y[is.na(y)] <- 0
 
-    ## y1 <- filter(prices,
-                 
-                 
-    ## seriesdf <- (group_by(prices, series)
-    ##              %>% dplyr::summarise(group = group[1])
-    ##              %>% arrange(group, series)
-    ##              %>% mutate(seriesn = seq_along(group)))
-
     factor_names <- c("Market", "States", "South")
     factor_n <- length(factor_names)
 
@@ -87,5 +79,5 @@ standata <- function() {
 main <- function() {
     .standata <- standata()
     mod <- stan_model(PROJ$path("stan/factor1.stan"))
-    ret <- sampling(mod, data = .standata, iter = 200, chains = 1)
+    system.time(ret <- sampling(mod, data = .standata, iter = 200, chains = 1))
 }

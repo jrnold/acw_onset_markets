@@ -58,6 +58,7 @@
 % \DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
 % \AtEveryBibitem{\clearlist{language}}
 
+% \bibliography{local.bib}
 \addbibresource{local.bib}
 
 \newcommand{\email}[1]{\href{mailto:#1}{\normalfont\texttt{#1}}}
@@ -606,29 +607,31 @@ local({
 To what extent did financial markets anticipate the start of the American civil war? 
 How did the market's assesment of war risk change leading up to the war? 
 Which events were associated with these changes?
-This section answers these questions using the data on the prices and yields of U.S. and state government bonds traded in New York and three analyses: the yields of the bonds, the spread between Southern and  Northern state bonds, and the implied probability of war calculated by treating war as a default event. 
-Based on these analyses, the market considered there to be negligible risk of war prior to the election of Lincoln in November 1860.
-After the election and before Fort Sumter, the market implied a higher risk of war, but the implied risk was still low.
+This section answers these questions using data on the prices and yields of U.S. government and state bonds.
+Three measures are used: the bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
+From these data, it appears that market believed there was only a negligible risk of war prior to the election of Lincoln in November 1860.
+After the election and before Fort Sumter, the market assigned a higher risk of war, but it risk of war was still believed to be low right up to the start of the war.
 
-To assess financial market beliefs about the \textit{ex ante} risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state, both northern and southern, bonds traded in New York City from 1855-1861.
-The data consist of bonds issued by ten states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and two bonds issued by the US Government (6s of 1868, 5s of 1874).
+To assess financial market beliefs about the \textit{ex ante} risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state bonds, both northern and southern, traded in New York City from 1855-1861.
+The data consist of bonds issued by nine states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and two bonds issued by the US Government (6s of 1868, 5s of 1874).
+\footnote{In the jargon of that era, 5s and 6s refer to bonds paying 5 percent and 6 percent interest, respectively.}
 The set of bonds included here are those with regular quotations in the \textit{Bankers' Magazine}, one of the leading trade magazines of that era.
-Prices of these bonds are available at an approximately weekly frequency from 1855 through the start of the war in April 1861.
-All of these bonds are coupon bonds with longer maturities.
-The bonds paid interest of 5--6 percent per annum semi-annually.
-The U.S. bonds matured in 1868 and 1874 respectively, while the state bonds variously matured between 1869 and 1892.
-%% \footnote{In many cases, the maturity of the bond was unclear; in that case the yield to maturity used is the expected value of the yield to maturity taken over the possible maturities of the bond. 
-%%   See the data documentation for details.
-%% }
-The two U.S. bonds, the 6s of 1868 and the 5s of 1874, were the only two large bond issues of the U.S. outstanding at the start of the the civil war.%
-\footnote{The terms 5s and 6s refer to bonds paying 5 percent and 6 percent interest, respectively.}
-Between the War of 1812 and the Civil War, the U.S. government only periodically issued debt; the 6s of 1868 were issued in 1848 to pay for the Mexican-American War, while 5s of 1874 were issued in 1858 due to a funding shortfall as a result of a financial crisis, the Panic of 1857.
-The state bonds included here are mostly southern and midwestern states which issued debt to fund infrastructure project, e.g. railroads and canals. 
-During this period most New England states did not issue debt, with the notable exception of Massachusetts.
+Prices of these bonds are available at approximately a weekly frequency from July 1855 through the start of the war in April 1861.
+All of these bonds are coupon bonds paying 5--6 percent per annum semi-annually with longer maturities.
+The U.S. government bonds matured in 1868 and 1874, while the state bonds variously matured between 1869 and 1892.
+\footnote{
+  In the quotations given in the \textit{Bankers' Magazine}, the maturity of most state bond issues was not given. 
+  Other sources were used to find the likely bond issues to which the quotations referred to. 
+  When there was uncertainty or multiple maturities, the yield to maturity was calculated for each maturity, and the average yield over all maturities is used.
+  See the data documentation for details.
+}
+The data consist of only two U.S. government bonds, the 6s of 1868 and the 5s of 1874, because these were the only two large debt issues of the U.S. outstanding at the start of the the civil war.%
+Between the War of 1812 and the Civil War, the U.S. government only infrequently issued debt; the 6s of 1868 were issued in 1848 to pay for the Mexican-American War, while 5s of 1874 were issued in 1858 due to a funding shortfall as a result of a financial crisis, the Panic of 1857  \parencite{HomerSylla2005}.
+The state bonds included here were mostly issued by southern and midwestern states in order fund infrastructure projects, such as railroads or canals (NEED CITATION).
+During this period, most New England states did not issue debt, with the notable exception of Massachusetts, whose bonds were the essentially the risk-free asset of the period, but were not regularly quoted in the \textit{Bankers' Magazine}.
 \footnote{
   Prior to 1860, only Massachusetts, Maine and Vermont had public debt, and the amount of debt of the later two was quite small. \parencite[86]{Martin1871}.
   Massachusetts bonds were the closest to a risk-free American asset during that period \parencites{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}, ``never failing to pay principal and interest in coin, ..., commanding higher prices than those of any other State in the Union.''  \parencite[86]{Martin1871}
-  However, the Massachusetts bonds were not regularly quoted in the \textit{Bankers' Magazine}.
 }
 
 \begin{figure}
@@ -698,26 +701,35 @@ local({
 \label{fig:yields_regions}
 \end{figure}
 
-Figure~\ref{fig:yields1855-1865} plots the yields of bonds issued by northern states (Indiana, Kentucky, Ohio, and Pennsylvania), and southern states (Georgia, Louisiana, Missouri, North Carolina, Tennessee, and Virginia) and two bonds issued by the U.S. government (6's of 1868 and 5's of 1874).
+Figure~\ref{fig:yields1855-1865} plots the yields of all the bonds in the data.
+Informally, the yields during 1855-1861 can be divided into four periods: July 1855 to October 1857,
+November 1857 to January 1858 (the Panic of 1857), February 1858-October 1860, November 1860-April 1861.
 
-From 1855 to October 1857, yields were largely stable.
-The yields of state bonds were between 5--8 percent.
-The yields of the U.S. 6s of 1868 were stable at ... to ... .
-Note that this represented the lowest yield of U.S. bonds up to that point.
+From July 1855 through October 1857, yields were low and stable.
+The yields of the U.S. 6s of 1868 were between ... and ....
+These were the lowest yields on U.S. government bonds since the 1789 \parencite[282-283]{HomerSylla2005}.
+These yields were even lower than the safe Massachusetts and Boston city, and only one percentage point higher than the yield on 3\% British consols, which was considered the safest global asset during that period.%
+State bond yields were also relatively stable, although higher than government bonds.
+State bonds were pereceived to be riskier assets, since several states had defaulted in the 1840s \parencite{English1996}.
+Yet the yields of the state bonds during this period were much lower than in the 1840s, when some states had yields of 
 
-From October 1857 to January 1858, during the Panic of 1857, the yields of state and government bond spiked, in several cases, exceeding 10 percent.
+From October 1857 to January 1858, yields spiked during the Panic of 1857.
 The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the bankruptcy of several railroads, and the suspension of specie payments by banks in New York City. 
-The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}
-So although yields increased in the panic, this should not be interpreted as representing an increase in war risk.
+The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}.
+\footnote{The \textit{Bankers' Magazine} money sections do not mention domestic political issues as a cause of the crisis, attributing it to a decline in foreign trade and bad banking}
+So although yields reached high levels the panic, this should not be interpreted as representing an increase in war risk.
     
-After the Panic of 1857, from February 1858 through mid 1860, yields of bonds were again low and stable.
-The yields of bonds recovered to where they were before the Panic of 1857, and in several cases, e.g. Pennsylvania, were less than the yields pre-panic.
+After the Panic of 1857, from February 1858 through mid 1860, yields of bonds returned to low and stable levels similar to those prior to the panic.
 The yields of U.S. government bonds were also largely stable, although approximately 0.5 percentage points higher than they had been before the panic.
+The yields of southern state bonds were approximately the same as prior to the panic, while the yields of a few northern states, e.g. Pennsylvania, declined.
+Towards the end of this period, July-October 1860, there appears to be a slight and steady increase in yields. ``The continued contraction of the banks, and the decrease in the specie reserve, caused some activity in the money market in the beginning of the month...'' \parencite{BankersMagazine1861}
+The relatively low and stable yields during this period suggest that there was perceived to be little risk for these bonds, or at least risk not much different than the period 1855-1857, let alone war risk.
 
-After Lincoln's victory in the election of 1860,%
+The Lincoln's victory in the election of 1860,
 \footnote{
-  The election was held on November 6, 1860. Although the election was close, Lincoln's victory was known to be likely the next day, and certain by the 8th. CITE NYT ARTICLES.
-  }
+  The election was held on November 6, 1860. 
+  Although the election was close, Lincoln's victory was believed to be extremely likely the next day, and certain by the 8th. CITE NYT ARTICLES.
+}
 The election of 1860 precipitated a financial crisis, as soon after the election Southern banks began denying credit to Northern merchants and investors and withrew specie from Northern banks.
 \begin{quote}
   In this state of affairs the results of the Presidential election came with a blight upon the market. 
@@ -731,10 +743,7 @@ Over the following months, yields stayed high and were variable as news  \parenc
 %% Although North Carolina, Tennessee, and Virigina did not formally join the Confederacy until after Fort Sumter (May 20, May 7 and April 17, respectively), their bonds increased in yield after the election of 1860.
 %% However, the yield of the Georgia bonds did not increase until the state seceeded in January.
 The increase in yields after the election suggests that either the likelihood of Lincoln's election or the response of the Southern states to the election were uncertain before the election. 
-Prior to the election there was some slight increase in yields,%
-\footnote{``The continued contraction of the banks, and the decrease in the specie reserve, caused some activity in the money market in the beginning of the month...'' \parencite{BankersMagazine1861}
-p}
-but the month before the election the \textit{Bankers' Magazine} wrote,
+Prior to the election there was some slight increase in yields, but the month before the election the \textit{Bankers' Magazine} wrote,
 \begin{quote}
   The money market has been active and comparatively easy during the past month.
   There have been no serious causes of disturbance in and around Wall street.

@@ -25,9 +25,9 @@ prices0 <- PROJ$db[["prices0"]]
 .DEPENDENCIES <-
     c(BOND_METADATA_FILE, BANKERS_FILE)
 
-PEACE <- as.Date(c("1855-08-24", "1857-10-16"))
+PEACE <- as.Date(c("1855-03-24", "1857-9-1"))
 WAR <- as.Date(c("1861-04-15", "1861-05-18"))
-RANGE <- as.Date(c("1858-1-1", "1861-4-10"))
+RANGE <- as.Date(c("1858-3-1", "1861-4-10"))
 
 #' Only use the U.S. Government, confederate and border states.
 BONDSERIES <- c("Georgia 6s" = "georgia_6pct_1872",
@@ -170,12 +170,16 @@ get_data <- function() {
                })
     .data[["cashflows"]] <- NULL
     ret <- (mutate(.data,
-                  prwar1 = (ytm - yield_peace) / (1 - price_war / 100),
-                  prwar2 = (ytm - yield_peace) / (1 - pv_yield_war / 100),
-                  prwar3 = (ytm - yield_peace_min) / (1 - price_war / 100),
-                  prwar4 = (ytm - yield_peace_min) / (1 - pv_yield_war / 100),
-                  prwar5 = (ytm - yield_peace_2) / (1 - price_war / 100),
-                  prwar6 = (ytm - yield_peace_2) / (1 - pv_yield_war / 100)
+                   prwar1 = (ytm - yield_peace) / (1 - price_war / 100),
+                   prwar2 = (ytm - yield_peace) / (1 - pv_yield_war / 100),
+                   prwar3 = (ytm - yield_peace_min) / (1 - price_war / 100),
+                   prwar4 = (ytm - yield_peace_min) / (1 - pv_yield_war / 100),
+                   prwar5 = (ytm - yield_peace_2) / (1 - price_war / 100),
+                   prwar6 = (ytm - yield_peace_2) / (1 - pv_yield_war / 100),
+                   ## variation of proportional method proposed by Frey
+                   prwar7 = (ytm - yield_peace) / (yield_war - yield_peace),
+                   prwar8 = (ytm - yield_peace_2) / (yield_war - yield_peace_2),
+                   prwar9 = (ytm - yield_peace_min) / (yield_war - yield_peace_min),                   
                   )
            %>% select(-wgt))
     list(prwar = ret,

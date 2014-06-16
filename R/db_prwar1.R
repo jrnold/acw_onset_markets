@@ -27,7 +27,7 @@ prices0 <- PROJ$db[["prices0"]]
 
 PEACE <- as.Date(c("1855-03-24", "1857-9-1"))
 WAR <- as.Date(c("1861-04-15", "1861-05-18"))
-RANGE <- as.Date(c("1858-3-1", "1861-4-10"))
+RANGE <- as.Date(c("1858-3-1", "1861-4-13"))
 
 #' Only use the U.S. Government, confederate and border states.
 BONDSERIES <- c("Georgia 6s" = "georgia_6pct_1872",
@@ -72,7 +72,9 @@ get_war_peace_yields <- function() {
     bond_yields <- get_bond_yields()
 
     peace_yields <-
-        (filter(bond_yields, date >= PEACE[1] & date <= PEACE[2])
+        (filter(bond_yields,
+                date >= PEACE[1] & date <= PEACE[2],
+                series != "U.S. 5s, 1874")
          %>% group_by(series)
          %>% summarise(yield_peace = mean(ytm),
                        yield_peace_min = min(ytm),
@@ -81,6 +83,10 @@ get_war_peace_yields <- function() {
                        price_peace_min = min(price),                       
                        price_peace_sd = sd(price))
          )
+    peace_yields <-
+        rbind(peace_yields,
+              mutate(filter(peace_yields, series == "U.S. 6s, 1868"),
+                     series = "U.S. 5s, 1874"))
     
     war_yields <-
         (group_by(bond_yields, series)
@@ -93,7 +99,6 @@ get_war_peace_yields <- function() {
                        price_war_sd = sd(price))
                        
          )
-    
     alt_yields <- data.frame(
         series = 
         c("Georgia 6s",
@@ -111,8 +116,6 @@ get_war_peace_yields <- function() {
     
     wp_yields <- merge(war_yields, peace_yields, all=TRUE)
     wp_yields <- merge(wp_yields, alt_yields)
-    wp_yields[wp_yields$series == "US_5pct_1874", c("yield_peace", "yield_peace_sd")] <-
-        wp_yields[wp_yields$series == "US_6pct_1868", c("yield_peace", "yield_peace_sd")]
     wp_yields
 }
 

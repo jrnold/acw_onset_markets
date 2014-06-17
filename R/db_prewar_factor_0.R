@@ -1,5 +1,6 @@
 library("dplyr")
 library("reshape2")
+library("rstan")
 
 .DEPENDENCIES <- c(PROJ$dbpath("prices0"))
 
@@ -16,8 +17,6 @@ standata <- function() {
 
     y <- acast(prices, date ~ series, value.var = "ytm")
     series <- c(
-        "U.S. 6s, 1868", 
-        "U.S. 5s, 1874",
         "Ohio 6s, 1875",
         "Ohio 6s, 1886", 
         "Pennsylvania 5s",
@@ -31,35 +30,32 @@ standata <- function() {
         "Missouri 6s"
         )
     dates <- rownames(y)
-    y <- y[ , ycols] * 100
+    y <- y[ , series] * 100
     observed <- ! is.na(y)
     mode(observed) <- "integer"
     y[is.na(y)] <- 0
 
-    factor_names <- c("Market", "States", "South")
+    factor_names <- c("Mkt", "South")
     factor_n <- length(factor_names)
 
     loadings <- matrix(NA_real_, nrow = length(series), ncol = factor_n)
     rownames(loadings) <- series
     colnames(loadings) <- factor_names
-    for (j in  c("U.S. 6s, 1868", "U.S. 5s, 1874")) {
-        loadings[j, ] <- c(1, 0, 0)
-    }
     for (j in  c("Ohio 6s, 1875", "Ohio 6s, 1886",
                  "Pennsylvania 5s", "Indiana 5s")) {
-        loadings[j, ] <- c(1, 1, 0)
+        loadings[j, ] <- c(1, 0)
     }
     for (j in c("Georgia 6s",
                 "Louisiana 6s", 
                 "North Carolina 6s",
                 "Tennessee 6s",
                 "Virginia 6s")) {
-        loadings[j, ] <- c(1, 1, 1)        
+        loadings[j, ] <- c(1, 1)        
     }
     #' Treat Kentucky as Northern
-    loadings["Kentucky 6s", ] <- c(1, 1, 0)
+    loadings["Kentucky 6s", ] <- c(1, 0)
     #' Treat Missouri as Southern 
-    loadings["Missouri 6s", ] <- c(1, 1, 1)
+    loadings["Missouri 6s", ] <- c(1, 1)
 
     list(y = y,
          observed = observed,

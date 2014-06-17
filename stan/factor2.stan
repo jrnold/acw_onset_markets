@@ -10,40 +10,37 @@ data {
   int<lower = 1, upper = n> y_time[y_nobs];
   // system matrices
   // observation equation
-  matrix[r, p] loadings;
+  vector[p] loadings[r];
   vector[p] theta_init_loc;
-  vector[p] theta_init_scale;
+  vector<lower = 0.0>[p] theta_init_scale;
+  vector<lower = 0.0>[p] tau_scale;
 }
 transformed data {
+  real<lower = 0.0> ysd;
+  ysd <- sd(y);
 }
 parameters {
-  // vector[p] epsilon[n];
-  vector[p] theta[n];
-  vector<lower = 0.0>[p] tau_global;
-  // vector<lower = 0.0>[p] tau_local[n];
   real<lower = 0.0> sigma;
+  vector<lower = 0.0>[p] tau;
+  vector[p] theta[n];
+  vector<lower = 0.0>[p] tau_local[n - 1];
 }
 transformed parameters {
   vector[y_nobs] mu;
-  // for (j in 1:p) {
-  //   theta[1, j] <- theta_init_loc[j] + theta_init_scale[j] * epsilon[1, j];
-  //   for (i in 2:n) {
-  //     theta[i, j] <- (theta[i - 1, j]
-  // 		      + sigma * tau_global[j] * epsilon[i, j]);
-  //   }
-  // }
   for (i in 1:y_nobs) {
-    mu[i] <- dot_product(loadings[y_variable[i]] , theta[y_time[i]]);
+    mu[i] <- dot_product(loadings[y_variable[i]], theta[y_time[i]]);
   }
 }
 model {
-  tau_global ~ cauchy(0, 1);
-  // for (i in 1:n) {
-  //   tau_local[i] ~ cauchy(0, 1);
-  // }
-  for (i in 1:n) {
-    // epsilon[i] ~ normal(0, 1);
-    theta[i] ~ normal(6, 20);
+  // AR(1) errors
+  theta[1] ~ normal(theta_init_loc, theta_init_scale);
+  for (i in 2:n) {
+    theta[i] ~ normal(theta[i - 1], sigma * tau .* tau_local[i - 1]);
+  }
+  sigma ~ cauchy(0.0, ysd);
+  tau ~ cauchy(0.0, tau_scale);
+  for (i in 1:(n - 1)) {
+    tau_local[i] ~ cauchy(0.0, 1.0);
   }
   y ~ normal(mu, sigma);
 }

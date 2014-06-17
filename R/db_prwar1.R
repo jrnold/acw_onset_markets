@@ -81,7 +81,11 @@ get_war_peace_yields <- function() {
                        yield_peace_sd = sd(ytm),
                        price_peace = mean(price),
                        price_peace_min = min(price),                       
-                       price_peace_sd = sd(price))
+                       price_peace_sd = sd(price),
+                       logyield_peace = mean(log(ytm)),
+                       logyield_peace_sd = sd(log(ytm)),
+                       logprice_peace = mean(log(price)),
+                       logprice_peace_sd = sd(log(price)))
          )
     peace_yields <-
         rbind(peace_yields,
@@ -96,7 +100,11 @@ get_war_peace_yields <- function() {
                        yield_war_sd = sd(ytm),
                        price_war = mean(price),
                        price_war_min = min(price),
-                       price_war_sd = sd(price))
+                       price_war_sd = sd(price),
+                       logyield_war = mean(log(ytm)),
+                       logyield_war_sd = sd(log(ytm)),
+                       logprice_war = mean(log(price)),
+                       logprice_war_sd = sd(log(price)))
                        
          )
     alt_yields <- data.frame(

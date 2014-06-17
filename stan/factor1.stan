@@ -111,18 +111,18 @@ model {
   }
 }
 generated quantities {
-  vector[p] theta[n + 1];
-  theta[n + 1] <- multi_normal_rng(m[n + 1], C[n + 1]);
-  for (i in 1:n) {
-    int t;
-    vector[p] h;
-    matrix[p, p] H;
-    matrix[p, p] Rinv;
-    t <- n - i + 1;
-    Rinv <- inverse(R[t]);
-    // sample 
-    h <- m[t] + C[t] * G ' * Rinv * (theta[t + 1] - a[t]);
-    H <- C[t] - C[t] * G ' * Rinv * G * C[t];
-    theta[t] <- multi_normal_rng(h, 0.5 * (H + H '));
-  }
+  // vector[p] theta[n + 1];
+  // theta[n + 1] <- multi_normal_rng(m[n + 1], C[n + 1]);
+  // for (i in 1:n) {
+  //   int t;
+  //   vector[p] h;
+  //   matrix[p, p] H;
+  //   matrix[p, p] Rinv;
+  //   t <- n - i + 1;
+  //   Rinv <- inverse(R[t]);
+  //   // sample 
+  //   h <- m[t] + C[t] * G ' * Rinv * (theta[t + 1] - a[t]);
+  //   H <- C[t] - C[t] * G ' * Rinv * G * C[t];
+  //   theta[t] <- multi_normal_rng(h, 0.5 * (H + H '));
+  // }
 }

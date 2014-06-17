@@ -548,7 +548,7 @@ prices_sumter <-
                         date = format(date, "%b %e, %Y"))
         .data <- mutate(dcast(.data, series ~ date, value.var = "ytm"),
                         `Change` = `Apr 20, 1861` - `Apr 13, 1861`,
-                        `\\% Change` = (`Apr 20, 1861` - `Apr 13, 1861`) / `Apr 20, 1861`)
+                        `\\% Change` = (`Apr 20, 1861` - `Apr 13, 1861`) / `Apr 20, 1861` * 100)
         rownames(.data) <- .data$series
         .data$series <- NULL
         .data
@@ -563,65 +563,38 @@ print(xtable(prices_sumter),
   
 \end{table}
 
-\begin{table}
-  \centering
-<<tab_yields_prewar, results='asis'>>=
-local({
-    yields <- 
-        dcast(filter(prices_prewar_period_bond,
-                     period %in% c("Pre election", "Post election")),
-              series ~ period, value.var = "ytm_mean")
-
-    prwar_param <- 
-        mutate(select(prwar1[["yields"]],
-                      series, yield_peace, price_war),
-               yield_peace = yield_peace * 100)
-    x <- merge(yields, prwar_param)
-
-    rownames(x) <- x[["series"]]
-    x[["series"]] <- NULL
-    colnames(x) <- c("\\parbox{2cm}{Avg. yield \\\\ Feb 1858--\\\\ Nov 1860)}",
-                     "\\parbox{2cm}{Avg. yield \\\\ Nov 1860--\\\\ Apr 1861}",
-                     "\\parbox{2cm}{\\centering Peace yield}",
-                     "\\parbox{2cm}{\\centering Avg. price \\\\ (1861-4-13 \\\\ 1861-5-18)}")
-    print(xtable(x), sanitize.colnames.function = identity,
-          floating=FALSE)
-
-})
-
-@ 
-
-\caption{Summary of data used to calculate probability of war}
-\label{tab:yields_pre_post_war}
-\end{table}
 
 To what extent did financial markets anticipate the start of the American civil war? 
 How did the market's assesment of war risk change leading up to the war? 
 Which events were associated with these changes?
-This section answers these questions using data on the prices and yields of U.S. government and state bonds.
-Three measures are used: the bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
-From these data, it appears that market believed there was only a negligible risk of war prior to the election of Lincoln in November 1860.
-After the election and before Fort Sumter, the market assigned a higher risk of war, but it risk of war was still believed to be low right up to the start of the war.
+This section answers these questions using data on the prices and yields of U.S. government and state bonds between 1855 and the start of the war at the Battle of Fort Sumter in April 1861.
+Three measures are used to assess the market's beliefs about the risk of war: bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
+From these data, up until the the election of Lincoln in November 1860, bond prices implied neglible to no risk of war.
+After the election the markets' beliefs about the risk of war increased. 
+However, although the markets' beliefs about the probability of war had increased, they believed that war would probably not occur.
 
-To assess financial market beliefs about the \textit{ex ante} risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state bonds, both northern and southern, traded in New York City from 1855-1861.
-The data consist of bonds issued by nine states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and two bonds issued by the US Government (6s of 1868, 5s of 1874).%
-\footnote{In the jargon of that era, 5s and 6s refer to bonds paying 5 percent and 6 percent interest, respectively.}
-The set of bonds included here are those with regular quotations in the \textit{Bankers' Magazine}, one of the leading trade magazines of that era.
-Prices of these bonds are available at approximately a weekly frequency from July 1855 through the start of the war in April 1861.
+To assess financial market beliefs about the risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state bonds, both northern and southern, traded in New York City from 1855-1861.%
+\footnote{
+  The data used here is available at \url{https://github.com/jrnold/civil_war_era_findata}.
+  The particular dataset used in this section is \href[bankers_magazine_govt_state_loans_yields_2.csv]{https://github.com/jrnold/civil_war_era_findata/blob/master/data/bankers_magazine_govt_state_loans_yields_2.csv}.
+}
+The data consist of bonds issued by nine states (Georgia, Indiana, Kentucky, Louisiana, Missouri, North Carolina, Ohio, Pennsylvania and Virginia) and two bonds issued by the U.S. Government (6s of 1868, 5s of 1874).%
+\footnote{In the financial jargon of that era, 5s or ``Fives'' refers to coupon bonds paying 5 percent interest, and 6s or ``Sixes'' to bonds paying 6 percent interest.}
+The set of bonds included here are those with regular quotes in the \textit{Bankers' Magazine}, one of the leading trade magazines of that era.
+Prices of these bonds are available at approximately a weekly frequency from \Sexpr{date_bdy(DATE_PRICES_START)} through the start of the war in April 1861.%
+\footnote{The date come from Volumes 10-16, and the full dataset has price data through 1865.}
 All of these bonds are coupon bonds paying 5--6 percent per annum semi-annually with longer maturities.
 The U.S. government bonds matured in 1868 and 1874, while the state bonds variously matured between 1869 and 1892.%
 \footnote{
-  In the quotations given in the \textit{Bankers' Magazine}, the maturity of most state bond issues was not given. 
-  Other sources were used to find the likely bond issues to which the quotations referred to. 
-  When there was uncertainty or multiple maturities, the yield to maturity was calculated for each maturity, and the average yield over all maturities is used.
-  See the data documentation for details.
+  In the price quotes given in the \textit{Bankers' Magazine}, the maturity of most state bond issues was not given.
+  Other sources were used to find the likely bond issues to which the quotes referred.
+  When there were multiple possible maturities of bonds, the yield to maturity was calculated for each maturity, and the average yield over all maturities is used.
 }
-The data consist of only two U.S. government bonds, the 6s of 1868 and the 5s of 1874, because these were the only two large debt issues of the U.S. outstanding at the start of the the civil war.%
-Between the War of 1812 and the Civil War, the U.S. government only infrequently issued debt; the 6s of 1868 were issued in 1848 to pay for the Mexican-American War, while 5s of 1874 were issued in 1858 due to a funding shortfall as a result of a financial crisis, the Panic of 1857  \parencite{HomerSylla2005}.
-The state bonds included here were mostly issued by southern and midwestern states in order fund infrastructure projects, such as railroads or canals (NEED CITATION).
-During this period, most New England states did not issue debt, with the notable exception of Massachusetts, whose bonds were the essentially the risk-free asset of the period, but were not regularly quoted in the \textit{Bankers' Magazine}.%
+The data include only two U.S. government bonds, the 6s of 1868 and the 5s of 1874, because these were the only two large debt issues of the U.S. governemtn outstanding at the start of the the civil war.%
+Between the War of 1812 and the Civil War, the U.S. government only infrequently issued debt. The two bonds used here were only issued in extraordinary circumstances: the 6s of 1868 were issued in 1848 to pay for the Mexican-American War, while 5s of 1874 were issued in 1858 due to a funding shortfall as a result of a financial crisis, the Panic of 1857  \parencite[297-302]{HomerSylla2005}.
+States in that era issued bonds to fund infrastructure projects such as railroads and canals, and debt was primarily issued by midwest and southern states.
+During this period, almost no New England states issued debt, with the notable exception of Massachusetts, whose bonds were the essentially the risk-free asset of the period, but were not regularly quoted in the \textit{Bankers' Magazine} \parencite[86]{Martin1871}.%
 \footnote{
-  Prior to 1860, only Massachusetts, Maine and Vermont had public debt, and the amount of debt of the later two was quite small. \parencite[86]{Martin1871}.
   Massachusetts bonds were the closest to a risk-free American asset during that period \parencites{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}, ``never failing to pay principal and interest in coin, ..., commanding higher prices than those of any other State in the Union.''  \parencite[86]{Martin1871}
 }
 
@@ -717,24 +690,25 @@ local({
 \label{fig:yields_sumter}
 \end{figure}
 
-Figure~\ref{fig:yields_all} plots the yields of all the bonds in the data.
-Informally, the yields during 1855-1861 can be divided into five periods: July 1855 to October 1857,
-November 1857 to January 1858 (the Panic of 1857), February 1858-October 1860, November 1860-April 14, 1861, and after the start of the war with Fort Sumter (April 14, 1861).
+Figure~\ref{fig:yields_all} plots the yields of all the bonds in the data from March 1855 to June 1861.
+Informally, these yields can be divided into five periods: 
+July 1855 to October 1857, November 1857 to January 1858 (the Panic of 1857), February 1858-October 1860, November 1860-April 14, 1861, and after the start of the war with Fort Sumter (April 14, 1861).
 
 From July 1855 through October 1857, yields were low and stable.
-The yields of the U.S. 6s of 1868 ranged between \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_min"], 2)} and \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_max"], 2)}.
-These were the lowest yields on U.S. government bonds since the 1789 \parencite[282-283]{HomerSylla2005}.
-These yields were even lower than the safe Massachusetts and Boston city, and only one percentage point higher than the yield on 3\% British consols, which was considered the safest global asset during that period.%
-State bond yields were also relatively stable, although higher than government bonds, with an average yield of \Sexpr{round(mean(filter(prices_prewar_period_bond, ! grepl("^U\\.S", series))[["ytm_mean"]]), 2)}.
-State bonds were pereceived to be riskier assets, since several states had defaulted in the 1840s \parencite{English1996}.%
+The yields of the U.S. 6s of 1868 were between \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_min"], 2)} and \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_max"], 2)}.
+These were the lowest yields on U.S. government bonds up to that point \parencite[282-283]{HomerSylla2005}.
+These yields were even lower than the safe Massachusetts and Boston city, and only one percentage point higher than the yield on 3\% British consols, which were considered the safest global asset during that period.%
+State bond yields were also relatively stable, although having higher yields than government bonds, with an average yield of \Sexpr{round(mean(filter(prices_prewar_period_bond, ! grepl("^U\\.S", series))[["ytm_mean"]]), 2)}.
+State bonds were pereceived to be riskier assets than government bonds, since several states had defaulted on their debts in the 1840s \parencite{English1996}.%
 \footnote{Of the states with bonds in the data, Indiana, Pennsylvania and Louisiana defaulted in the 1840s \parencite[265]{English1996}.}
-Yet, the yields of the state bonds during this period were much lower than in the 1840s, when some states had yields of above 10 percent and as high as 41 percent \parencite[320]{HomerSylla2005}.
+Yet, the yields of the state bonds during this period were much lower than the previous decade, when some states had yields of above 10 percent and as high as 41 percent \parencite[320]{HomerSylla2005}.
+The relatively low and stable yields suggest that the market did not assign much if any risk to war.
 
 From October 1857 to January 1858, yields spiked during the Panic of 1857.
-The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the bankruptcy of several railroads, and the suspension of specie payments by banks in New York City. 
+The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the bankruptcy of several railroads, and the suspension of specie payments by banks in New York City.
+So although yields reached high levels the panic, this is due to financial reasons and not increased expectations of war.
 The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}.%
-\footnote{The \textit{Bankers' Magazine} money sections do not mention domestic political issues during the Panic of 1857, attributing it to a decline in foreign trade and bad banking}
-So although yields reached high levels the panic, this should not be interpreted as representing an increase in war risk.
+\footnote{The money market sections of the \textit{Bankers' Magazine} do not mention domestic political issues during the Panic of 1857, but attribute it to a decline in foreign trade and bad banking.}
     
 After the Panic of 1857, from February 1858 through mid 1860, yields of bonds returned to low and stable levels similar to those prior to the panic.
 The yields of U.S. government bonds were also largely stable, although approximately 0.5 percentage points higher than they had been before the panic.
@@ -753,7 +727,7 @@ The \textit{Merchants' Magazine} wrote in January 1861,
    The news was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler.
    \textit{Merchants' Magazine, January 1861, p. 78}
 \end{quote}
-and the \textit{Bankers' Magazine} wrote 
+and the \textit{Bankers' Magazine} wrote,
 \begin{quote}
   The only speck in the horizon is the threat of secession in the South. 
   We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
@@ -768,7 +742,7 @@ Over the following months, yields were remained high, but also variable as event
   Oddly, the yields of the Georgia bond did not start increasing until January, 1816, around the date of Georgia's secession, 
   This may be because Georgia bonds were not liquid or traded much; the prices of Georgia bonds were often quoted at the same value for long periods of time.
 }
-Although Louisiana, North Carolina and Tennessee did not seceed and join the Confederacy until after Fort Sumter, the yields on thos bonds increased during this period.
+Although Louisiana, North Carolina and Tennessee did not seceed and join the Confederacy until after Fort Sumter, the yields on those bonds increased during this period.
 
 Although bond yields had risen after the to the risk of war, Fort Sumter was followed by an large jump in yields.
 The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.quantifying uncertainty'' \parencite[919]{BankersMagazine1861}.
@@ -971,6 +945,46 @@ local({
   \caption{Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}.}
   \label{fig:prwar}
 \end{figure}
+
+\begin{table}
+  \centering
+<<tab_yields_prewar, results='asis'>>=
+local({
+    yields <- 
+        dcast(filter(prices_prewar_period_bond,
+                     period %in% c("Pre election", "Post election")),
+              series ~ period, value.var = "ytm_mean")
+
+    prwar_param <- 
+        mutate(select(prwar1[["yields"]],
+                      series, yield_peace, price_war),
+               yield_peace = yield_peace * 100)
+    x <- merge(yields, prwar_param)
+
+    rownames(x) <- x[["series"]]
+    x[["series"]] <- NULL
+    colnames(x) <- c(sprintf("\\parbox{2.5cm}{\\raggedleft Avg. yield \\\\ %s--\\\\%s}", 
+                             date_iso(DATE_PANIC_1857_END),
+                             date_iso(DATE_ELECTION)),
+                     sprintf("\\parbox{2.5cm}{\\raggedleft Avg. yield \\\\ %s--\\\\%s}",
+                             date_iso(DATE_ELECTION),
+                             date_iso(DATE_FORT_SUMTER)),
+                     sprintf("\\parbox{2.5cm}{\\raggedleft $r$\\\\ Avg. yield \\\\ %s--\\\\%s}",
+                             date_iso(prwar1[["peace_dates"]][1]),
+                             date_iso(prwar1[["peace_dates"]][2])),
+                     sprintf("\\parbox{2.5cm}{\\raggedleft $R \\cdot 100$ \\\\ Avg. price \\\\ %s--\\\\%s}",
+                             date_iso(prwar1[["war_dates"]][1]),
+                             date_iso(prwar1[["war_dates"]][2])))
+    print(xtable(x), sanitize.colnames.function = identity,
+          floating=FALSE)
+
+})
+
+@ 
+
+\caption{Summary of data used to calculate probability of war}
+\label{tab:yields_pre_post_war}
+\end{table}
 
 \subsection{Implications}
 

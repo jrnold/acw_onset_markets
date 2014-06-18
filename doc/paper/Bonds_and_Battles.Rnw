@@ -665,7 +665,7 @@ However, the spread is much lower than would be observed after Fort Sumter, impl
 
 \subsection{Probability of War}
 
-While the yields and spread between northern and southern bonds indicates changes in the risk leading up to the war, they are not directly interpretable as the probability of war.%
+While the yields and spread between northern and southern bonds indicates changes in  risk leading up to the war, they are not directly interpretable as the probability of war.%
 The market's beliefs about the probability of war can be inferred from bond prices by treating war as a default event.
 A simple and common approximation for the probability of the default of a risky bond using its yield is,
 \begin{equation}

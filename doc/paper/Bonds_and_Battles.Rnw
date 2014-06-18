@@ -172,8 +172,6 @@ theme_local <- function(...) {
      )
 }
 
-gmean <- function(x, ...) exp(mean(log(x), ...))
-
 prwar1 <- PROJ$db[["prwar1"]]
 
 @
@@ -622,35 +620,53 @@ local({
 \end{figure}
 
 The spread (difference) between the average yields of southern and northern state bonds is another measure of market beliefs about war risk.
-War would, and did, increase the risk of southern bonds relative to northern bonds.
+War would, and did, increase the risk of southern bonds relative to northern bonds.%
+\footnote{
+  The spread between southern and northern bonds can be approximately interpreted as the difference in default risk, where default is complete. 
+  This interpretation is based off the same approximation as equation \ref{eq:4}.
+}
 This was observed after Fort Sumter, in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points (Table \ref{tab:sumter}).
-The rea
 Since war would have a differential effect on the risk of northern and southern state bonds, as war risk increases, the spread between southern and northern state bonds should increase.
-Using this spread rather than the raw yields has the advantage of controlling for factors which have the same influence on all state bonds.
-
-Note that this does not completely isolate war risk, as there are potentially other factors which could have differential effects, but in this period they are less likely and less prominent than war risk.
-As will be noted later, while the Panic of 1857 had a large  had the largest effects in the midwest, yet the yield between northern and southern bonds did not change that much.
-The most immediate differential effect of the war on southern state bond holders in the north was that the states stopped paying interest payments \parencites{}.%
+The most immediate differential effect of the war on southern state bond holders in the north was that the states stopped paying interest payments \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
 \footnote{It seems that after the war, southern states repaid debt issued \textit{before} the war in some manner; though all defaulted on any debts issued while part of the Confederacy, and some defaulted on debt issued by reconstruction governments after the war. }
-Figure \ref{fig:yields_regions} plots the yields of northern and southern bonds and Figure \ref{fig:north_south_spreads} plots the difference between the mean yields of southern and northern state bonds as estimated with the model described in section \ref{sec:model-south-north-yield-spreads}.
+Using this spread rather than raw yields has the advantage of controlling for factors which have the same influence on all state bonds.
+For example, as noted below, yields spiked during the Panic of 1857, but the spread between southern and northern bonds did not spike.
+There may still be fundamental differences between the risks of northern and southern states due to many reasons, but focusing on changes in the spread controls for any of these factors which are constant over the time period considered.
+It is likely that war risk would be the most influential factor influencing the spread.
+
+The data used to calculate the spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia) bonds for the full period.%
+\footnote{The border states of Kentucky and Missouri are not included in these calculations.}
+The model used to estimate spread is described in section \ref{sec:model-south-north-yield-spreads}.
+Figure \ref{fig:yields_regions} plots the yields of northern and southern bonds while Figure \ref{fig:north_south_spreads} plots the difference between the mean yields of southern and northern state bonds as estimated with the model described in section \ref{sec:model-south-north-yield-spreads}.
 
 Over the entire period considered here, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds.
-This difference can be due to a number of fundamental factors rather than risk.%
-\footnote{This is somewhat surprising because two of the three northern state bonds (Indiana, Pennsylvania) had defaulted in the 1840s.}
-To assess the importance of 
+\footnote{That southern bonds have a higher risk premium during this period is somewhat surprising givne the northern bonds; two of the three northern state bonds (Indiana, Pennsylvania) had defaulted in the 1840s.}
 
-Although in the Panic of 1857, yields of state bonds spiked, see Figure \ref{fig:yields_all}, the spread between southern and northern bonds increased only slightly; although the financial crisis increased the yields of all state bonds.
-From the Panic of 1857 until mid 1860, the average spread was stable but slightly higher than period before the Panic (range.
-Although the uncertainty over the spread is less than before the Panic of 1857, the interval still includes zero.
-The spread starts to increase in the second half of 1860, increasing sharply after the election of Lincoln, and reaching ... during January to April 1861.
-Note that this increase in spread is different than the Panic of 1857, in which yields increased but the South-North yield spread did not.
-After Fort Sumter, the spread increased 4 to 6 percentage points.
-Thus, not only did yields sharply increase after Fort Sumter, the spread between southern and northern state bonds increased sharply, as noted by the contemporary financial press, ``The stock market has been variable during the month. The prominent features being an unexpected firmness (events considered) in \dots{} Northern State stocks \dots{}, and a depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city \parencite[919]{BankersMagazine1861}''
+The spread at the start of the data was ...
+The spread jumped ... percentage points in November 1856.
+The reasons for this jump are unclear.
+It corresponds with the election of James Buchanan.
+However, the money market sections of the *Bankers' Magazine* make little mention of any events influencing the market of state bonds.
+From July 1856 to January 1860, the spread was stable, with a median of ....
+
+The spread trended slightly upward during 1860, ...
+In October, 
+The spread jumps after the election of Lincoln.
+From ... to ..., the spread between Southern and Northern bonds increased.
+
+However, immediately before Fort Sumter, the spread was ... percentage points.
+After Fort Sumter, this would increase to ... to ... percentage points.
+
+Thus analysis of the spread between southern and northern bonds have similar implications as the yields.
+There were few changes in war risk prior to the election of 1860.
+The market responded to the election. 
+The spreads suggest that war risk is increasing during the period leading up to Sumter.
+However, the spread is much lower than would be observed after Fort Sumter, implying that the start of the war was unexpected.
 
 \subsection{Probability of War}
 
 While the yields and spread between northern and southern bonds indicates changes in the risk leading up to the war, they are not directly interpretable as the probability of war.%
-However, the market's beliefs about the probability of war can be inferred from bond prices by treating war as a default event.
+The market's beliefs about the probability of war can be inferred from bond prices by treating war as a default event.
 A simple and common approximation for the probability of the default of a risky bond using its yield is,
 \begin{equation}
   \label{eq:4}
@@ -662,7 +678,7 @@ where $y$ is the yield of the risky bond, $r$ is the yield of a risk-free bond w
   \textcite{HaberEtAl2012} use a cashflow method to calculate the probability of victory in wars (Confederate victory in the American Civil War, and government victory in the Chinese Civil War) using a cashflow pricing model of bonds, but assuming a recovery rate of 0.
 }
 Equation~\eqref{eq:4} can be used to estimate the probability of war by properly defining $r$ and $R$.
-To estimate the probability of war, the risk-free interest rate $r$ is the yield of a comparable bond with no-risk of war.
+To estimate the probability of war, the risk-free interest rate $r$ should be the yield of a comparable bond with no-risk of war.
 In this case, $r$ will not necessarily be risk-free, and should still include any risks to the bond not due to war, while excluding risk due to war.
 One estimate of $r$ the yield of the same bond for an earlier period in which the risk of war is approximately zero.
 For each bond considered here, $r$ is the mean yield from \Sexpr{DATEFMT_PEACE_START} to \Sexpr{DATEFMT_PEACE_END}.%

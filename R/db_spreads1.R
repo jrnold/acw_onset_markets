@@ -91,7 +91,6 @@ main <- function() {
                         iter = ITER, warmup = WARMUP, thin = THIN,
                         chains = CHAINS, seed = SEED)
     list(samples = samples,
-         dates = .data$times$dates,
+         times = .data$times,
          series = SERIES)
-    
 }

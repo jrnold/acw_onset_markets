@@ -539,7 +539,7 @@ rownames(prices_prewar_period_bond) <-
 @
 
 \begin{table}
-  \centering
+  \centerfloat
 <<tab_sumter,results='asis'>>=
 prices_sumter <- 
     local({
@@ -974,7 +974,7 @@ local({
 
 
 \begin{table}
-  \centering
+  \centerfloat
 <<tab_yields_prewar, results='asis'>>=
 local({
     yields <- 

@@ -1,5 +1,10 @@
 \documentclass[11pt, oneside, article]{memoir}
 
+\usepackage[]{xcolor}
+\definecolor{light-gray}{gray}{0.66}
+\definecolor{dkred}{rgb}{0.5,0,0}
+\definecolor{dkblue}{rgb}{0,0,0.5}
+
 \usepackage{graphicx}
 \usepackage{amsmath}
 \usepackage{comment}
@@ -21,11 +26,6 @@
 
 \usepackage[section]{placeins}
 
-\usepackage[]{color}
-\definecolor{light-gray}{gray}{0.66}
-\definecolor{dkred}{rgb}{0.5,0,0}
-\definecolor{dkblue}{rgb}{0,0,0.5}
-\definecolor{vermillion}{HTML}{E34234}
 
 \usepackage{fontspec,xltxtra,xunicode}
 \defaultfontfeatures{Mapping=tex-text}
@@ -776,7 +776,7 @@ This may be because Georiga bonds may not have been traded often and were illiqu
 Although bond yields had risen after the election of Lincoln, the formal start Fort Sumter was followed by a large jump in yields.
 The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.quantifying uncertainty'' \parencite[919]{BankersMagazine1861}.
 Unlike the election of 1860, in which bond yields rose over a period of a couple months, prices fell and yields increased immediately after news of Fort Sumter reached the market.
-Table \ref{fig:sumter} shows yields in the week immediately before and after news of the surrender of Fort Sumter reached the New York market. 
+Table \ref{fig:yields_sumter} shows yields in the week immediately before and after news of the surrender of Fort Sumter reached the New York market. 
 Southern state yields fell between 6.1 (Tennessee) and 7.7 (Virginia) percentage points (41 and 45 percent).
 The yields of U.S. sixes also fell, but only by 2.5 percentage points,%
 \footnote{The price of the U.S. 5's of 1874 did not change noticeably until the following week, April 27, 1861}
@@ -966,7 +966,7 @@ local({
 
 @ 
   \caption{
-    Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:model-war-probability}
+    Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:model-probability-war}
     The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
   }
   \label{fig:prwar}

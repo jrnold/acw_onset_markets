@@ -14,15 +14,19 @@ THIN <- 2
 CHAINS <- 1
 SEED <- 122219
 
+SERIES <- c("Georgia 6s", "Kentucky 6s", "Louisiana 6s", "Missouri 6s", 
+            "Tennessee 6s", "Virginia 6s")
+
 get_data <- function() {
     within(list(), {
-        yields <- PROJ$db[["prwar1"]][["yields"]]
-        SERIES <- yields$series
+        yields <- filter(PROJ$db[["prwar1"]][["yields"]],
+                         series %in% SERIES)
         nseries <- nrow(yields)
         rownames(yields) <- SERIES
         
         prices <-
-            mutate(PROJ$db[["prwar1"]][["prwar"]],
+            mutate(filter(PROJ$db[["prwar1"]][["prwar"]],
+                          series %in% SERIES),
                    series = factor(as.character(series), levels = SERIES),
                    seriesn = as.integer(series))
         times <-

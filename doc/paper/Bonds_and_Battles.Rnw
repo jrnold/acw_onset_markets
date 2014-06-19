@@ -718,7 +718,7 @@ A simple approximation for the probability of the default of a risky bond given 
 \end{equation}
 where $y$ is the yield of the risky bond, $r$ is the yield of a risk-free bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond \parencite{HullPredescuWhite2004}.%
 \footnote{\textcite[115]{WaldenstromFrey2008} propose a similar method, that when the war is observed the probability of war is the proportion of the yield after war to the yield prior to war. 
-  That method is not directly derived from a cashflow model and produces higher estimates of the probability of war.
+  That method is not directly derived from a cashflow model and produces higher estimates of the pro*bability of war.
   \textcite{HaberEtAl2012} use a cashflow method to calculate the probability of victory in wars (Confederate victory in the American Civil War, and government victory in the Chinese Civil War) using a cashflow pricing model of bonds, but assuming a recovery rate of 0.
 }
 Equation~\eqref{eq:4} can be used to estimate the probability of war by properly defining $r$ and $R$.

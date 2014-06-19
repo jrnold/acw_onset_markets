@@ -2,17 +2,6 @@
 #'
 #' For all government and state bonds estimates the probability of the initiation of the civil war in the period 1858-1861 using a crude estimate.
 #' For state bonds, only southern and border state bonds are used because they were much more sensitive to the start of the war.
-#' 
-#' Let $p$ be the probability of war, $y_t$ is the yield at time $t$, then the yield at a given time is
-#' $$
-#' y_t = p y_w + (1 - p) y_p
-#' $$
-#' which can be rewritten to solve for $p$,
-#' $$
-#' p = \frac{y_t - y_p}{y_w - y_p}
-#' $$
-#' This is intuitive, but I have not worked out the precise justification of this approximation.
-#' 
 library("dplyr")
 library("jsonlite")
 

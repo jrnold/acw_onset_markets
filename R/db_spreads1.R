@@ -6,7 +6,7 @@ MODEL_FILE <- PROJ$path("stan/spreads1.stan")
 .DEPENDENCIES <- c(PROJ$dbpath("prices0"),
                    MODEL_FILE)
 
-END_DATE <- as.Date("1861-4-15")
+END_DATE <- as.Date("1861-6-1")
 START_DATE <- as.Date("1855-3-23")
 
 SERIES <- c(

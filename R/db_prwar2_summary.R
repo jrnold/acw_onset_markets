@@ -19,8 +19,8 @@ main <- function() {
                               p25 = quantile(value, 0.25),
                               p75 = quantile(value, 0.75),
                               p975 = quantile(value, 0.975))
+         %>% merge(prwar2$times)
          )
-    phi <- merge(phi, prwar2$times)
     list(summary = .summary,
          phi = phi)
 }

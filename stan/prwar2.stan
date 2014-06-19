@@ -14,7 +14,9 @@ transformed data {
   ysd <- sd(y);
 }
 parameters {
-  real<lower = 0.0> sigma;
+  vector<lower = 0.0>[r] sigma;
+  real<lower = 0.0> sigma_alpha;
+  real<lower = 0.0> sigma_beta;
   real<lower = 0.0> tau;
   vector[n] theta;
   vector<lower = 0.0>[n - 1] tau_local;
@@ -32,6 +34,10 @@ transformed parameters {
   }
 }
 model {
+  vector[y_nobs] sigma_vec;
+  for (i in 1:y_nobs) {
+    sigma_vec[i] <- sigma[y_variable[i]];
+  }
   riskfree ~ lognormal(riskfree_mean, riskfree_sd);
   theta ~ normal(0, 10);
   for (i in 2:n) {
@@ -41,11 +47,12 @@ model {
   for (i in 1:(n - 1)) {
     tau_local[i] ~ cauchy(0.0, 1.0);
   }
-  y ~ normal(mu, sigma);
+  sigma ~ gamma(sigma_alpha, sigma_beta);
+  y ~ normal(mu, sigma_vec);
 }
 generated quantities {
   vector[y_nobs] loglik;
   for (i in 1:y_nobs) {
-    loglik[i] <- normal_log(y[i], mu[i], sigma);
+    loglik[i] <- normal_log(y[i], mu[i], sigma[y_variable[i]]);
   }
 }

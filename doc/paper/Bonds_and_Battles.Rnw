@@ -343,7 +343,6 @@ print(xtable(prices_sumter),
   
 \end{table}
 
-
 To what extent did financial markets anticipate the start of the American civil war? 
 How did the market's assesment of war risk change leading up to the war? 
 Which events were associated with these changes?
@@ -581,9 +580,21 @@ SPREAD_18610413 <-
            date == as.Date("1861-04-13"),
            dimension == 2)$value_mean
 
+SPREAD_18610420 <-
+    filter(spreads1_summary$theta,
+           date == as.Date("1861-04-20"),
+           dimension == 2)$value_mean
+
+SPREAD_POSTSUMTER <-
+    summarise(filter(spreads1_summary$theta,
+                     date > as.Date("1861-04-20"),
+                     dimension == 2),
+              mean = mean(value_mean))$mean
+
 SPREAD_DIFF_1860_MEAN <- 
     filter(spreads1_summary$theta_diff_186001_186011,
            dimension == 2)$mean
+
 
 SPREAD_DIFF_1860_PVAL <- 
     filter(spreads1_summary$theta_diff_186001_186011,
@@ -602,6 +613,7 @@ SPREAD_DIFF_1860_1857_MEAN <-
 SPREAD_DIFF_1860_1857_PVAL <- 
     filter(spreads1_summary$theta_diff_1860_1857,
            dimension == 2)$probpos
+
 
 
 
@@ -639,7 +651,8 @@ local({
 <<fig_north_south_spreads, fig.height = 3, fig.width = 6>>=
 local({
     (ggplot(filter(PROJ$db[["spreads1_summary"]][["theta"]],
-                   dimension == 2),
+                   dimension == 2,
+                   date <= as.Date("1861-04-13")),
             aes(x = date))
      + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
@@ -669,42 +682,46 @@ War would, and did, increase the risk of southern bonds relative to northern bon
 }
 This was observed after Fort Sumter, in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points (Table \ref{tab:sumter}).
 Since war would have a differential effect on the risk of northern and southern state bonds, as war risk increases, the spread between southern and northern state bonds should increase.
-The most immediate differential effect of the war on southern state bond holders in the north was that the states stopped paying interest payments \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
-\footnote{It seems that after the war, southern states repaid debt issued \textit{before} the war in some manner; though all defaulted on any debts issued while part of the Confederacy, and some defaulted on debt issued by reconstruction governments after the war. }
-Using this spread rather than raw yields has the advantage of controlling for factors which have the same influence on all state bonds.
-For example, as noted below, yields spiked during the Panic of 1857, but the spread between southern and northern bonds did not spike.
-There may still be fundamental differences between the risks of northern and southern states due to many reasons, but focusing on changes in the spread controls for any of these factors which are constant over the time period considered.
-It is likely that war risk would be the most influential factor influencing the spread.
+The immediate effect of the start of the war to northern holders of southern state bonds, was that the southern state stopped paying interest payments and continued this throughout the war \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
+\footnote{After the war, it appears that southern states repaid debt issued \textit{before} the war.
+  However, all defaulted on debts issued while part of the Confederacy, 
+  and some defaulted on debt issued by reconstruction governments after the war.
+}
+Using the spread rather than directly using the yields of states has the advantage of controlling for factors which have the same influence on all state bonds.
+There may other state-level factors which result in risk differences between northern and southern states.
+Hoever, focusing on changes in the spread rather than the level of the spread controls for any of these factors which are constant over the time period considered.
+During the period considered, it is likely that war risk would be the most influential factor influencing the spread, and certaintly the most plausible factor for sudden changes in the spread.
 
-The data used to calculate the spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia) bonds for the full period.%
-\footnote{The border states of Kentucky and Missouri are not included in these calculations.}
-The model used to estimate spread is described in section \ref{sec:model-south-north-yield-spreads}.
-Figure \ref{fig:yields_regions} plots the yields of northern and southern bonds while Figure \ref{fig:north_south_spreads} plots the difference between the mean yields of southern and northern state bonds as estimated with the model described in section \ref{sec:model-south-north-yield-spreads}.
+The data used to calculate the south-north spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia) state bonds from ... to ... .
+\footnote{The border states of Kentucky and Missouri are not included in these calculations.} 
+Figure \ref{fig:yields_regions} plots the yields of bonds in each group.
+The spread is estimated using a latent factor model described 
+The spread is essentially estimated as the difference between the mean yield of southern and northern bonds, but with a random walk prioron the value of the spread that smooths over time while still allowing for the sharp changes that are observed during key events; the details of the model are described in section \ref{sec:model-south-north-yield-spreads}.
+Figure \ref{fig:north_south_spreads} plots the estimated south-north spread.
 
-Over the entire period considered here, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds.
-\footnote{That southern bonds have a higher risk premium during this period is somewhat surprising givne the northern bonds; two of the three northern state bonds (Indiana, Pennsylvania) had defaulted in the 1840s.}
-
-The spread at the start of the data was \Sexpr{round(SPREAD_1855, 2)}
-The spread jumped approximately 0.25 percentage points in November 1856.
-However, the reasons for this jump are unclear.
-The timing corresponds with the election of James Buchanan.
-However, the money market sections of the \textit{Bankers' Magazine} do not mention any events influencing the market of state bonds.
-From July 1857 to January 1860, the spread had mean of \Sexpr{round(SPREAD_1857_1860, 2)} and was stable;
-the mean difference between the spread in January 1860 and July 1857 was \Sexpr{round(SPREAD_DIFF_1860_1857_MEAN, 2)} ($\Pr(x > 0) = \Sexpr{round(SPREAD_DIFF_1860_1857_PVAL, 3)}$).
-
-The spread trended slightly upward during 1860, reaching \Sexpr{round(SPREAD_18601102, 2)} on November 2, 1860.
-The difference between the spread on November 1860 and January 1860 had a mean \Sexpr{round(SPREAD_DIFF_1860_MEAN, 2)} ($\Pr(x > 0) = 1$).
-The spread jumps at and after the election of Lincoln;
-increasing \Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points from November 2--23, and another \Sexpr{round(SPREAD_DIFF_POSTELEC, 2)} from November 23 to April 13, 1861, reaching a value of \Sexpr{round(SPREAD_18610413, 2)}.
-However, immediately before Fort Sumter, the spread was ... percentage points.
-After Fort Sumter, this would increase to ... to ... percentage points.
+Over the entire period considered here, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds, although this could be due to a number of factors other than war risk.
+\footnote{That southern bonds have a higher risk premium during this period is somewhat surprising given the states included in the northern bonds; two of the three northern state bonds (Indiana, Pennsylvania) had defaulted in the 1840s.}
+The spread at the start of the data was \Sexpr{round(SPREAD_1855, 2)}.
+%% However, the reasons for this jump are unclear.
+%% The timing corresponds with the election of James Buchanan.\Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points from November 2--23
+%% However, the money market sections of the \textit{Bankers' Magazine} do not mention any events influencing the market of state bonds.
+From after the mean to January 1860, the spread had mean of \Sexpr{round(SPREAD_1857_1860, 2)} and was stable;
+the mean difference between the spread in January 1860 and July 1857 is \Sexpr{round(SPREAD_DIFF_1860_1857_MEAN, 2)}.%
+\footnote{The probability the spread is greater than 0 is $\Pr(x > 0) = \Sexpr{round(SPREAD_DIFF_1860_1857_PVAL, 3)}$.}
+The spread trended slightly upward during 1860, reaching \Sexpr{round(SPREAD_18601102, 2)} on November 2, 1860;
+the mean difference between the spread in November 1860 and January 1860 is \Sexpr{round(SPREAD_DIFF_1860_MEAN, 2)}.%
+\footnote{The probability the spread is greater than 0 is $\Pr(x > 0) = \Sexpr{round(SPREAD_DIFF_1860_PVAL, 3)}$.}
+Although market increased its attention to political issues in the October prior to Lincoln's election, the spread shows little change during that month.
+It is not until the election of Lincoln, that the spread jumps increasing \Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points between November 2nd and 23rd.
+The spread continues to increase until the start of the war, rising another \Sexpr{round(SPREAD_DIFF_POSTELEC, 2)} percentage from November 23 to April 13, 1861, reaching \Sexpr{round(SPREAD_18610413, 2)}.
+However, this spread was relatively small compared to the spread after the start of the war.
+The week after Fort Sumter, the spread jumped to \Sexpr{round(SPREAD_18610420, 2)}, before falling back to the still high \Sexpr{round(SPREAD_POSTSUMTER, 2)}.
 
 Thus analysis of the spread between southern and northern state bonds produce similar inferences as those from the yields.
-There were no changes in war risk between 1857 and 1860.
-There are small increase in war risk the election of 1860.
-The market responded to the election. 
-The spreads suggest that war risk is increasing during the period leading up to Sumter.
-However, the spread is much lower than would be observed after Fort Sumter, implying that the start of the war was largely unexpected.
+There was little change in war risk after the Panic in 1857.
+War risk increased minimally in 1860.
+The estimated war risk increased sharply after the Lincoln's victory election of 1860.
+However, the spread increases sharply at Fort Sumter, implying that the start of the war was largely unexpected.
 
 \subsection{Probability of War}
 
@@ -723,20 +740,22 @@ where $y$ is the yield of the risky bond, $r$ is the yield of a risk-free bond w
 }
 Equation~\eqref{eq:4} can be used to estimate the probability of war by properly defining $r$ and $R$.
 To estimate the probability of war, the risk-free interest rate $r$ should be the yield of a comparable bond with no-risk of war.
-In this case, $r$ will not necessarily be risk-free, and should still include any risks to the bond not due to war, while excluding risk due to war.
+In this case, $r$ will not necessarily be risk-free, it should include any risk not due to war, while excluding war risk.
 One estimate of $r$ is the yield of the same bond for an earlier period in which the risk of war is approximately zero.
-For each bond considered here, $r$ is the mean yield from \Sexpr{DATEFMT_PEACE_START} to \Sexpr{DATEFMT_PEACE_END}.%
+
+The recovery rate $R$ is the amount, as a proportion of face value or future payments, that the investor receives in the event of a war.
+If the war does occur, then $R$ is known --- it is the price of the bond observed at the start of the war
+
+The implied probability of war is calculated for all southern and border state bonds (Georgia, Kentucky, Louisana, Misosuri, Tennessee and Virgia)
+For each bond considered here, $r$ is the yield from \Sexpr{DATEFMT_PEACE_START} to \Sexpr{DATEFMT_PEACE_END}.%
 \footnote{
   The Panic of 1857 (August 1857 through January 1858) is excluded from calculations because as discussed earlier in this paper, while the yields increased during this period, it was due to a financial crisis and not war risk.
   The 5s of 1874 were not issued until 1858, but given the similarity of their yields to the 6s of 1868, the peace yield of the 6s of 1868 is used for the 5s of 1874.
 }
 Although there may have been some risk of war during this period, the yields were relatively low, and thus war risk must have been low.
-
-The recovery rate $R$ is the amount, as a proportion of face value (or future payments), that the investor receives in the event of a war.
-Since in this case the war did occur, $R$ is known --- it is the price of the bond observed at the start of the war.
-Fo reach bond, the value of $R$ is the average price \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}. 
+For reach bond, the value of $R$ is the average price \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.%
 Since many bonds spiked immediately after Sumter before falling in the weeks after it, taking the average price over a longer period increases the denominator in equation~\eqref{eq:4}, increasing the estimated probability of war.%
-\footnote{To control for differences in bond prices over time due to changes in maturity, the $R_{t}$ for each bond is the present value of the bond at time $t$ calculated using the average yield to maturity from the period after the start of the war.}
+\footnote{To account for differences in bond prices over time due to changes in maturity, the $R_{t}$ for each bond is the present value of the bond at time $t$ calculated using the average yield to maturity from the period after the start of the war.}
 The value of $R$ incorporates expectations about the financial risk posed by expected course of the war, which allows these estimates to differentiate the probability of war from risks due to expectations about the costs and outcome of the war conditional on the war occuring.%
 \footnote{
   An implicit assumption in these calculations is that expectations about the costliness of the war were constant prior to the start of the war and only beliefs about the probability of a war was changing in the periods leading up to the war.
@@ -744,21 +763,30 @@ The value of $R$ incorporates expectations about the financial risk posed by exp
 }
 
 Equation~\eqref{eq:4} can be used to calculate the probability of war implied by each bond.
-However, better estimates of the probabaility of war can be made by noting that the probability of war is common across all bonds.
-Thus the probability of war can be estimated as,
-\begin{align*}
-  y_{j,t} & \sim \dnorm{(1 - R_{j}) \pi_{t} + r_{j}, \sigma^{2})
-\end{align*}
+However, better estimates of the probability of war can be made by noting that the probability of war must be common across all bonds.
+Thus, by rearranging \eqref{eq:4} and adding uncertainty, the probability of war can be estimated as
+\begin{align}
+  \label{eq:1}
+  y_{j,t} & \sim \dnorm{(1 - R_{j}) \pi_{t} + r_{j}, \sigma^{2}}
+\end{align}
 where $\pi_{t}$ is the probability of war at time $t$.
+Equation~\eqref{eq:1} is a regression model with time-varying coefficients ($\pi_{t}$).
 The details of the statistical model are given in section~\ref{sec:model-probability-war}.
 The estimated values of $\pi_{t}$ are plotted in Figure~\ref{fig:prwar2}.
 
+The probability of war is estimated to be low, less than 1 percent, prior to October 1860. 
+The implied probability of war is steady or decreasing for most of 1860.
+However, it increases in October from ... to ....
+With the election of Lincoln, the probability of war jumps from ... to ...
+After the election, it drops in February, before increasing to ... prior to the start of the war.
+Thus, although the market was aware of potential for war after Lincoln's election, the probability of war implied by the bonds was only 6 percent.
 
 \begin{figure}
   \centerfloat
 <<fig_prwar1, fig.height = 8, fig.width = 6>>=
 local({
-    .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]])
+    .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]],
+                    ! grepl("U\\.S\\.", series))
     .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
         .data[["i"]] <- i
         .data[["series_is_i"]] <- .data[["series"]] == i
@@ -778,7 +806,7 @@ local({
 })
 
 @ 
-  \caption{Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}.}
+  \caption{Implied probabilities of the initiation of war calculated from southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}.}
   \label{fig:prwar1}
 \end{figure}
 
@@ -807,14 +835,14 @@ local({
   \label{fig:prwar}
 \end{figure}
 
-
 \begin{table}
   \centerfloat
 <<tab_yields_prewar, results='asis'>>=
 local({
     yields <- 
         dcast(filter(prices_prewar_period_bond,
-                     period %in% c("Pre election", "Post election")),
+                     period %in% c("Pre election", "Post election"),
+                     ! grepl("U\\.S\\.", series)),
               series ~ period, value.var = "ytm_mean")
 
     prwar_param <- 
@@ -845,7 +873,7 @@ local({
 @ 
 
 \caption{Summary of data used to calculate probability of war}
-\label{tab:yields_pre_post_war}
+\label{tab:prwar1}
 \end{table}
 
 \subsection{Implications}
@@ -887,14 +915,14 @@ This paper found ...
 \subsection{South-North Yield Spreads}
 \label{sec:model-south-north-yield-spreads}
 
-This is a statistical model of bond yields of state bonds.
+This is a statistical model of the bond yields of state bonds.
 Let $y_{j,t}$ be the yield for bond $j$ at time $t$.
 This model was estimated only for state bonds.
 \begin{equation}
   y_{j,t} \sim \dnorm{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma^{2}}
 \end{equation}
 where $\theta_{t}$ is the market yield for all state bonds, $\psi_{t}$ is the spread between southern and northern state bonds, $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
-The parameters $\theta$ and $\psi$ evolve as random walks, but with horseshoe prior \parencite{CarvalhoPolsonScott2010} innovations to allow for large or sparse changes in the level of the factors.
+The parameters $\theta$ and $\psi$ evolve as random walks, but with horseshoe prior \parencite{CarvalhoPolsonScott2010} innovations to allow for large changes (i.e. structural breaks) in the levels of the factors.
 \begin{align*}
   \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}} \\
   \lambda_{\theta,t}^{2} & \sim \dhalfcauchy{0, 1} \\

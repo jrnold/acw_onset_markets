@@ -194,69 +194,16 @@ After the election the markets' beliefs about the risk of war increased.
 However, although the markets' beliefs about the probability of war had increased, they believed that war would probably not occur.
 
 
-1. Provides a cross-sectional estimate of the probability of war 
-
+\begin{itemize}
+\item   
+\item Literature on American Civil War prices
+\item Other war
+\item Initiation of war
+\item Wolfers, Haber et al.  
+\end{itemize}
 
 \section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}
-
-REWRITE
-
-In order to understand the relationship between bond prices and war outcomes, a general model of bond pricing is required.
-A standard method for valuing bonds is that its current price is equal to the discounted sum of the expected future cash flows from that bond.%
-\footnote{This is a simple model of bond prices but sufficient for the purposes of this paper.} %
-Let $V_{t}$ be the price and present value of a bond at time $t$, 
-$T$ be the time at which the bond matures, 
-$C_{j}$ be a payment from the bond at time $j$ for $j > t$, including both coupons and principal at maturity,
-$\Omega_{t}$ be the information available to the market at time $t$,
-$\E(. | \Omega_{t})$ be an expectation with respect to the information available,
-and $r$ be the risk free interest rate.%
-\footnote{The notation used in this section is local to this section and will not be used elsewhere.}
-Then, the current price of the bond is%
-\footnote{See \textcites{Fons1987}{Merrick2001}{Chan-Lau2006}}
-\begin{equation}
-  \label{eq:3}
-  V_{t} = \sum_{j = t + 1}^{T} \frac{\E ( C_{j} | \Omega_{t})}{(r + 1)^{j - t}} \text{.}
-\end{equation}
-
-In Equation \eqref{eq:3}, $C_{j}$ is known.
-Thus, supposing that the risk free interest is known, all changes in the price come from changes in the distribution over which the expectation is taken.
-Suppose that the risk free interest rate $r$ is constant across periods, the one-period difference in the price is
-\begin{align}
-  \label{eq:6}
-  V_{t} - V_{t - 1} =
-  \sum_{j = t + 1}^{T} \frac{\E ( C_{j} | \Omega_{t}) - \E (C_{j} | \Omega_{t - 1})}{(r + 1)^{j - t}}
-  + \left(
-    C_{t} - \E (C_{t} | \Omega_{t - 1}) \text{.}
-  \right)
-\end{align}
-The first term is the change in the expected discounted future cash flows due to new information at time $t$.
-The second term is the difference between the realized and expected cash-flow at time $t$.
-If $V_{t}$ is a  clean price, which excludes accrued interest since the last payment, then $C_{t} - \E(C_{t} | \Omega_{t-1}) \approx 0$. 
-Thus, Equation \eqref{eq:6} implies that the change in the clean price is only due to changes in the information set, i.e. news, at time $t$ that influence expectations about future cash flow.%
-\footnote{Changes due to a payout of the cash-flow in that period are addressed by using the clean price of the bond, which subtracts accrued interest.}
-% TODO: tie to macroeconomic news
-
-Most of these 
-\begin{align}
-  y^{*} = \argmin r d(p, \sum_{i=1}^{n} c_{i} e^{- r t_{i}}
-\end{align}
-
-Since in equation \eqref{eq:3} the bond is discounted by the risk-free interest rate, all the riskiness of a bond is incorporated into the expectation function of the cash flows.
-One way this riskiness can be modeled is as a per-period default probability.
-For simplicity, suppose a constant per-period default probability and let $d_{t}$ be the expected per period default probability given the information available at time $t$.
-Let $R \in [0, 1]$ be the recovery rate, which is the fraction of future cash flows that is received in the event of a default.
-Then,
-\begin{equation}
-  \label{eq:14}
-  V_{t} = \sum_{j = t + 1}^{T} \frac{(1 - d_{t})^{t - j - 1}((1 - d_{t}) + d_{t} R) C_{j}}{(r + 1)^{j - t}} \text{.}
-\end{equation}
-The important feature of equation \eqref{eq:14} is that as the expected probability of default increases, the price of the bond decreases.
-
-If $y$ is the yield of a bond, and $r$ is the yield of a risk-free bond with the same cashflows, then the spread $s = y - r$ is approximately the probability of default, under risk neutrality and with no redemption \parencite{HullWhite2005}.
-
-What were the potential risks 
-
 
 Historically, the U.S. had paid for wars with debt.
 The U.S. notably issued debt to fund the War of 1812, to which the debt issued during the was compared to by investors \parencite[8 pp.]{BankersMagazine1862}.

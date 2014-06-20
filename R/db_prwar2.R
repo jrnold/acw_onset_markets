@@ -14,8 +14,8 @@ THIN <- 2
 CHAINS <- 1
 SEED <- 122219
 
-SERIES <- c("Georgia 6s", "Kentucky 6s", "Louisiana 6s", "Missouri 6s", 
-            "Tennessee 6s", "Virginia 6s")
+SERIES <- c("Georgia 6s", "Kentucky 6s", "Louisiana 6s",
+            "Missouri 6s",  "Tennessee 6s", "Virginia 6s")
 
 get_data <- function() {
     within(list(), {
@@ -61,6 +61,6 @@ main <- function() {
                     chains = CHAINS, seed = SEED)
     list(samples = ret,
          times = .data$times,
-         series = .data$SERIES)
+         series = SERIES)
 
 }

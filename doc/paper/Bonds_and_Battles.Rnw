@@ -111,7 +111,7 @@
 
 
 \hypersetup{
-  pdftitle={Bonds and Battles: Financial Market Reactions to Battlefield Events in the American Civil War},
+  pdftitle={Did the Financial Market Anticipate the Onset of the American Civil War}
   pdfauthor={Jeffrey B. Arnold},
   pdfkeywords={American Civil War, Bargaining, Combat, Bayesian Inference, Battle, United States Note, Demand Note, Union (American Civil War), Confederate States of America Greyback}
   %% Colors from jss.cls (Journal of statistical software)
@@ -129,8 +129,7 @@
 \date{\today{}}
 \newcommand{\draftstatus}{DRAFT}
 
-\title{Bonds and Battles:\thanks{\thanksnote}}
-\newcommand{\subtitle}{Did the Financial Market \\Anticipate the Onset of the American Civil War}
+\title{Did the Financial Market \\Anticipate the Onset of the American Civil War}
 
 \newcommand{\version}{1.6}
 \pretitle{\begin{center}\sffamily\color{dkred}\Huge}
@@ -172,7 +171,6 @@ theme_local <- function(...) {
      )
 }
 
-prwar1 <- PROJ$db[["prwar1"]]
 spreads1_summary <- PROJ$db[["spreads1_summary"]]
 
 @
@@ -186,8 +184,23 @@ spreads1_summary <- PROJ$db[["spreads1_summary"]]
 \section{Introduction}
 \label{sec:introduction}
 
-\section{Bond Pricing}
+To what extent did financial markets anticipate the start of the American civil war? 
+How did the market's assesment of war risk change leading up to the war? 
+Which events were associated with these changes?
+This section answers these questions using data on the prices and yields of U.S. government and state bonds between 1855 and the start of the war at the Battle of Fort Sumter in April 1861.
+Three measures are used to assess the market's beliefs about the risk of war: bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
+From these data, up until the the election of Lincoln in November 1860, bond prices implied neglible to no risk of war.
+After the election the markets' beliefs about the risk of war increased. 
+However, although the markets' beliefs about the probability of war had increased, they believed that war would probably not occur.
+
+
+1. Provides a cross-sectional estimate of the probability of war 
+
+
+\section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}
+
+REWRITE
 
 In order to understand the relationship between bond prices and war outcomes, a general model of bond pricing is required.
 A standard method for valuing bonds is that its current price is equal to the discounted sum of the expected future cash flows from that bond.%
@@ -224,6 +237,11 @@ Thus, Equation \eqref{eq:6} implies that the change in the clean price is only d
 \footnote{Changes due to a payout of the cash-flow in that period are addressed by using the clean price of the bond, which subtracts accrued interest.}
 % TODO: tie to macroeconomic news
 
+Most of these 
+\begin{align}
+  y^{*} = \argmin r d(p, \sum_{i=1}^{n} c_{i} e^{- r t_{i}}
+\end{align}
+
 Since in equation \eqref{eq:3} the bond is discounted by the risk-free interest rate, all the riskiness of a bond is incorporated into the expectation function of the cash flows.
 One way this riskiness can be modeled is as a per-period default probability.
 For simplicity, suppose a constant per-period default probability and let $d_{t}$ be the expected per period default probability given the information available at time $t$.
@@ -237,7 +255,51 @@ The important feature of equation \eqref{eq:14} is that as the expected probabil
 
 If $y$ is the yield of a bond, and $r$ is the yield of a risk-free bond with the same cashflows, then the spread $s = y - r$ is approximately the probability of default, under risk neutrality and with no redemption \parencite{HullWhite2005}.
 
-\section{Markets and War Initiation}
+What were the potential risks 
+
+
+Historically, the U.S. had paid for wars with debt.
+The U.S. notably issued debt to fund the War of 1812, to which the debt issued during the was compared to by investors \parencite[8 pp.]{BankersMagazine1862}.
+And the 6s of 1868, one of the U.S. bonds in the data, were issued during the Mexican-American War (1846--1848).
+
+A war would influence the credit of the issuers of bonds through increased debt, decreased revenue or default, and contemporary investors were aware of these risks.
+
+For holders of U.S. bonds, the war would decrease revenue and increase debt.
+Secession would also decrease the revenue and wealth of the United States.
+The \textit{Merchants' Magazine} wrote in January 1861,
+\begin{quote}
+   The news was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler \parencite[79]{HomansDana1861a}.
+ \end{quote}   
+ The \textit{Bankers' Magazine} wrote in January 1861,
+\begin{quote}
+  The only speck in the horizon is the threat of secession in the South. 
+  We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
+  The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State \parencites[417]{BankersMagazine1861}.
+\end{quote}
+In realization, the American Civil War increased the debt of the United States, but it also increased the ability of the federal government to extract wealth to pay that debt; for example, the institution of the income tax.
+
+For the holders of southern state bonds, the immediate concern was statutory default.
+After the initiation of the war, southern states ceased interest payments to nothern creditors starting with the July 1861 coupon payments \parencite[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
+Investors almost certainly anticipated this as, although the Southern states paid interest on time in January 1861, there was uncertainty about this \parencite[756]{BankersMagazine1861},
+\begin{quote}
+  The currency troubles in the West had undoubtedly an effect in producing the decline [in the price of Virginia, Tennessee and Missouri bonds]  which was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States.
+\end{quote}
+After Fort Sumter, that was the reason cited for southern state decline, ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next'' \parencite[947]{BankersMagazine1861}. 
+By November 1861,  ``...but faint hopes are entertained of their paying their interest for some years to come.'' \parencite[559]{BankersMagazine1862}.
+When the states formally suspended interest payments, the market was not surprised \parencite[159]{BankersMagazine1862}
+Additionally, although at first the ability of the states to pay their debt was not at issue, a war would result in more debt issued and wealth destroyed, which could affect the ability of the states to pay.
+
+After the war, most Southern state repaid the debt issued before the war, although they defaulted on all debt issued during the war and several states defaulted on debt issued by reconstruction governments before 1870 \parencite{Randolph1931}{Ratchford1941}.
+It is unclear what would have happened to this debt if the Confederacy had won the war; at best, the states would return to paying interest and principal on those debts; at worst, they would default on nothern creditors.
+It was almost certain that as long as the war would continue, northern holders of southern state bonds would not receive interest payments.
+Thus, holders of southern state bonds were particularly exposed to war risk, and almost certain to suffer losses immediately at the start of a conflict between the states.
+
+Thus, although U.S. government bonds and state bonds were not direct prediction markets, a war would affect the cashflows of debt issued by states and the government and investors were aware of this. 
+Thus the prices of the bonds leading up to the war should reflect the beliefs of those investors of both the probability of and the additional risk conditional on the war occuring. 
+Section \ref{sec:model-probability-war} statistically disentangles these two effects, but informally, it is unlikely that beliefs about what a war between the northern and southern states would look like are changing before the American Civil War than that beliefs that the probablility that such a war would occur.
+This is n
+
+\section{Bond Yields}
 
 <<war_initiaion, results='hide'>>=
 date_by <- function(x) format(x, "%B, %Y")
@@ -254,12 +316,6 @@ DATE_WAR_START_END <- as.Date("1861-6-1")
 DATE_WEEK_PRE_SUMTER <- as.Date("1861-4-13")
 DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
-DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
-DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
-DATEFMT_WAR_START <- date_bdy(prwar1[["war_dates"]][1])
-DATEFMT_WAR_END <- date_bdy(prwar1[["war_dates"]][2])
-DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
-DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
 
 bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
                    ytm = ytm * 100)
@@ -343,14 +399,6 @@ print(xtable(prices_sumter),
   
 \end{table}
 
-To what extent did financial markets anticipate the start of the American civil war? 
-How did the market's assesment of war risk change leading up to the war? 
-Which events were associated with these changes?
-This section answers these questions using data on the prices and yields of U.S. government and state bonds between 1855 and the start of the war at the Battle of Fort Sumter in April 1861.
-Three measures are used to assess the market's beliefs about the risk of war: bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
-From these data, up until the the election of Lincoln in November 1860, bond prices implied neglible to no risk of war.
-After the election the markets' beliefs about the risk of war increased. 
-However, although the markets' beliefs about the probability of war had increased, they believed that war would probably not occur.
 
 To assess financial market beliefs about the risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state bonds, both northern and southern, traded in New York City from 1855-1861.%
 \footnote{
@@ -510,12 +558,6 @@ The \textit{Merchants' Magazine} wrote in January 1861,
 \begin{quote}
    The news was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler \parencite[79]{HomansDana1861a}.
 \end{quote}
-The \textit{Bankers' Magazine} wrote in January 1861,
-\begin{quote}
-  The only speck in the horizon is the threat of secession in the South. 
-  We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
-  The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State \parencites[417]{BankersMagazine1861}.
-\end{quote}
 and later, in April 1861,
 \begin{quote}
   The fluctuations in market values of State loans have been unusually great owing to the political phases or affairs, \parencite[838]{BankersMagazine1861}
@@ -674,19 +716,19 @@ local({
 \label{fig:north_south_spreads}
 \end{figure}
 
-The spread (difference) between the average yields of southern and northern state bonds is another measure of market beliefs about war risk.
-War would, and did, increase the risk of southern bonds relative to northern bonds.%
+The spread (difference) between the average yield of southern and northern state bonds is another measure of market beliefs of war risk.
+War should, and did, increase the risk of southern bonds relative to northern bonds.%
 \footnote{
   The spread between southern and northern bonds can be approximately interpreted as the difference in default risk, where default is complete. 
   This interpretation is based off the same approximation as equation \ref{eq:4}.
 }
-This was observed after Fort Sumter, in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points (Table \ref{tab:sumter}).
-Since war would have a differential effect on the risk of northern and southern state bonds, as war risk increases, the spread between southern and northern state bonds should increase.
-The immediate effect of the start of the war to northern holders of southern state bonds, was that the southern state stopped paying interest payments and continued this throughout the war \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
+This was observed after Fort Sumter, in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points, see Table \ref{tab:sumter}.
+The immediate financial effect of the start of the war to northern holders of southern state bonds, was that the southern state stopped paying interest payments and continued this throughout the war \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
 \footnote{After the war, it appears that southern states repaid debt issued \textit{before} the war.
   However, all defaulted on debts issued while part of the Confederacy, 
   and some defaulted on debt issued by reconstruction governments after the war.
 }
+Since war would have a differential effect on the risk of northern and southern state bonds, as war risk increases, the spread between southern and northern state bonds should increase.
 Using the spread rather than directly using the yields of states has the advantage of controlling for factors which have the same influence on all state bonds.
 There may other state-level factors which result in risk differences between northern and southern states.
 Hoever, focusing on changes in the spread rather than the level of the spread controls for any of these factors which are constant over the time period considered.
@@ -724,6 +766,35 @@ The estimated war risk increased sharply after the Lincoln's victory election of
 However, the spread increases sharply at Fort Sumter, implying that the start of the war was largely unexpected.
 
 \subsection{Probability of War}
+
+<<>>=
+DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
+DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
+DATEFMT_WAR_START <- date_bdy(prwar1[["war_dates"]][1])
+DATEFMT_WAR_END <- date_bdy(prwar1[["war_dates"]][2])
+DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
+DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
+
+prwar1 <- PROJ$db[["prwar1"]]
+prwar2_summary <- PROJ$db[["prwar2_summary"]]
+
+PRWAR_18600928 <-
+    round(filter(prwar2_summary$phi, date == as.Date("1860-9-28"))$mean, 3)
+
+PRWAR_18601102 <-
+    round(filter(prwar2_summary$phi, date == as.Date("1860-11-02"))$mean, 3)
+
+PRWAR_18601207 <-
+    round(filter(prwar2_summary$phi, date == as.Date("1860-11-16"))$mean, 3)
+
+PRWAR_18610105 <-
+    round(filter(prwar2_summary$phi, date == as.Date("1861-01-05"))$mean, 3)
+
+PRWAR_18610413 <-
+    round(filter(prwar2_summary$phi, date == as.Date("1861-04-13"))$mean, 3)
+
+
+@ 
 
 While the bond yields and spreads between northern and southern bonds can indicate changes in war risk, they are not directly interpretable as the probability of war. 
 However, the market's beliefs about the probability of war can be inferred from bond prices and yields by treating war as a default event.%
@@ -776,10 +847,13 @@ The estimated values of $\pi_{t}$ are plotted in Figure~\ref{fig:prwar2}.
 
 The probability of war is estimated to be low, less than 1 percent, prior to October 1860. 
 The implied probability of war is steady or decreasing for most of 1860.
-However, it increases in October from ... to ....
-With the election of Lincoln, the probability of war jumps from ... to ...
-After the election, it drops in February, before increasing to ... prior to the start of the war.
-Thus, although the market was aware of potential for war after Lincoln's election, the probability of war implied by the bonds was only 6 percent.
+However, in the month before the election it increases from \Sexpr{PRWAR_18600928} to \Sexpr{PRWAR_18601102}.
+With the election of Lincoln and the ensuing financial crisis, the probability of war jumped from \Sexpr{PRWAR_18601123} to \Sexpr{PRWAR_18601207}.%
+\footnote{Some of this estimated increase may be due to the confounding of the political risk after the election and the ensuing financial crisis.  
+  Alternatively, since the financial crisis was caused by southern banks recalling specie, it may itself be viewed as a costly signal by the southern states.
+}
+The probability of war then drops to \Sexpr{PRWAR_18610105} at the beginning of January, before increasing to \Sexpr{PRWAR_18610413} on April 13, 1861 immediately before news of Fort Sumter reaches New York.
+Thus, although the market was responded to the increased risk of war after Lincoln's election, the probability of war implied by the yields of the bonds, relative to what they would be after the war starts, was only around 5 percent right before the war.
 
 \begin{figure}
   \centerfloat
@@ -814,11 +888,12 @@ local({
   \centerfloat
 <<fig_prwar2, fig.height = 4, fig.width = 6>>=
 local({
-    (ggplot(PROJ$db[["prwar2_summary"]][["phi"]],
+    (ggplot(filter(PROJ$db[["prwar2_summary"]][["phi"]]),
             aes(x = date))
      + geom_ribbon(mapping = aes(ymin = p025, ymax = p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = p25, ymax = p75), alpha = 0.5)
      + geom_line(mapping = aes(y = mean))
+     + geom_point(mapping = aes(y = mean))     
      + scale_x_date("", breaks = "years", labels = date_format("%Y"))
      + scale_y_continuous("Pr(war)")
      + theme_local()
@@ -832,7 +907,7 @@ local({
     Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:model-probability-war}
     The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
   }
-  \label{fig:prwar}
+  \label{fig:prwar2}
 \end{figure}
 
 \begin{table}

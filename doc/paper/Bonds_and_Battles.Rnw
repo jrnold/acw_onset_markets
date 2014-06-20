@@ -193,14 +193,19 @@ From these data, up until the the election of Lincoln in November 1860, bond pri
 After the election the markets' beliefs about the risk of war increased. 
 However, although the markets' beliefs about the probability of war had increased, they believed that war would probably not occur.
 
+This paper looks at how soveign bonds can be used to derive the \textit{ex ante} probability of war as well as the 
 
 \begin{itemize}
-\item   
-\item Literature on American Civil War prices
-\item Other war
-\item Initiation of war
-\item Wolfers, Haber et al.  
+\item Several papers have looked at the relationship between battles and the prices of Union and Confederate currency during the American Civil War \cite{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
+  This paper differs from them in that it analyzes war the initiation of the American Civil War and uses different assets, state bonds as opposed to currency.
+\item This paper is most similar \cite{HaberEtAl2012} which uses a cash flows of assets in the American and Chinese Civil Wars to predict the probability of defeat. Probability of war ex ante, tying itto the discussion of theories of war, estimating war initiation instead of war termination, using non-zero recovery rates, and using multiple assets to gain leverage in predicting the probability of war.  
+\item \textcites{LeighWolfersEtAl2003}{WolfersZitzewitz2009} uses prediction markets as a measure of the ex ante probability of the initiation of the Iraq War in 2003.
+\item Other papers have looked at the relationship between prices and political events ...
 \end{itemize}
+
+This paper also discusses how asset prices potentially provide a empirical means for international relations to disentangle rationalist theories of war (bargaining model of war) \cite{Fearon1995}{Reiter2003}{Powell2006}.
+Different theories of war have 
+This paper also contributes a data point towards the understanding the signaling role of markets in war initiation \cite{GartzkeLiEtAl2001a}{GartzkeLi2003}.
 
 \section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}

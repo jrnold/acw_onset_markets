@@ -845,7 +845,7 @@ local({
      + geom_ribbon(mapping = aes(ymin = p025, ymax = p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = p25, ymax = p75), alpha = 0.5)
      + geom_line(mapping = aes(y = mean))
-     + geom_point(mapping = aes(y = mean))     
+     # + geom_point(mapping = aes(y = mean))     
      + scale_x_date("", breaks = "years", labels = date_format("%Y"))
      + scale_y_continuous("Pr(war)")
      + theme_local()
@@ -985,12 +985,6 @@ The value of $r_{j,t}$ is
 \end{align}
 where $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
 $R_{j}$ is the mean clean price, as a proportion of par, for the period \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.
-
-\section{Data}
-
-\subsection{American Civil War Era Financial Data }
-
-See \url{http://github.com/jrnold/civil_war_era_findata}.
 
 \printbibliography{}
 

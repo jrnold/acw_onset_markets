@@ -3,7 +3,7 @@ library("reshape2")
 library("dplyr")
 
 #' Summarize output from db_spreads
-DEPENDENCIES <- c(PROJ$dbpath("prwar2"))
+.DEPENDENCIES <- c(PROJ$dbpath("prwar2"))
 
 main <- function() {
     prwar2 <- PROJ$db[["prwar2"]]

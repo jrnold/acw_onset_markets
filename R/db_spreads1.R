@@ -7,7 +7,7 @@ MODEL_FILE <- PROJ$path("stan/spreads1.stan")
                    MODEL_FILE)
 
 END_DATE <- as.Date("1861-6-1")
-START_DATE <- as.Date("1855-3-23")
+START_DATE <- as.Date("1855-7-1")
 
 SERIES <- c(
     "Ohio 6s, 1875",

@@ -14,7 +14,7 @@ prices0 <- PROJ$db[["prices0"]]
 .DEPENDENCIES <-
     c(BOND_METADATA_FILE, BANKERS_FILE)
 
-PEACE <- as.Date(c("1855-03-24", "1857-9-1"))
+PEACE <- as.Date(c("1855-07-01", "1857-9-1"))
 WAR <- as.Date(c("1861-04-15", "1861-05-18"))
 RANGE <- as.Date(c("1858-3-1", "1861-4-13"))
 

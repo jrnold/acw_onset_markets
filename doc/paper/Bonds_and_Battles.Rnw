@@ -414,8 +414,6 @@ print(xtable(prices_sumter),
   
 \end{table}
 
-\subsection{Yields}
-
 \begin{figure}
   \centerfloat
 <<fig_yields_all, fig.height = 8, fig.width = 6>>=  
@@ -594,7 +592,7 @@ while \textit{Merchants' Magazine} wrote
 That the market had such a large reaction to the news of the start of the conflict implies that the start of the conflict was new information and although not completely surprising, was a large surprise.
 
 
-\subsection{South-North Yield Spread}
+\section{South-North Yield Spread}
 \label{sec:south-north-yield}
 
 <<south_north_spread_data, results = 'hide'>>=
@@ -764,7 +762,7 @@ War risk increased minimally in 1860.
 The estimated war risk increased sharply after the Lincoln's victory election of 1860.
 However, the spread increases sharply at Fort Sumter, implying that the start of the war was largely unexpected.
 
-\subsection{Probability of War}
+\section{Probability of War}
 
 <<>>=
 prwar1 <- PROJ$db[["prwar1"]]
@@ -955,7 +953,14 @@ local({
 \label{tab:prwar1}
 \end{table}
 
-\subsection{Implications}
+\section{Conclusion}
+\label{sec:conclusion}
+
+This work estimates the 
+Although the seeds of the American Civil War were preceeded the start of the war for many years, the onset of war was unexpected by financial markets.
+Financial markets did not respond to war risk until after the election of Lincoln in November 1860, and then only after a financial criss due to southern banks withdrawing specie and discussion of secession became srioues.
+Despite the awareness of the risk of war, yields spiked dramatically after the Battle of Fort Sumter, implying that the event was unanticipated. 
+The implied probability of war based off the southern state bonds was only about 5 percent.
 
 \textit{Ex ante} public information assessments of the probability of war are important because they may provide methods for distinguishing between theories and mechanisms of war.
 The two rationalist theories of war: commitment problems and private information \parencites{Fearon1995,Powell2006}, have different implications as to what the \textit{ex ante} probability of war occuring will be.
@@ -966,20 +971,9 @@ In general, the prevalance of unanticipated wars would provide evidence for the 
 Other more specific theories of war may offer different implications as to what the \textit{ex ante} probability of war would be.
 However, the point remains that market predictions of war probability are both something to be explained by models of war, and a means to assess those models.
 
-
 The low probability of war implied by financial markets is surprising.
 First, the most common political explanations of the American Civil War emphasize that it was due to a commitment problem (Reiter).
 But if that were the case in a full-information setting, than the war should be much less 
-
-\section{Conclusion}
-\label{sec:conclusion}
-
-This work estimates the 
-Although the seeds of the American Civil War were preceeded the start of the war for many years, the onset of war was unexpected by financial markets.
-Financial markets did not respond to war risk until after the election of Lincoln in November 1860, and then only after a financial criss due to southern banks withdrawing specie and discussion of secession became srioues.
-Despite the awareness of the risk of war, yields spiked dramatically after the Battle of Fort Sumter, implying that the event was unanticipated. 
-The implied probability of war based off the southern state bonds was only about 5 percent.
-
 
 The results presented here are specific to the case of the American Civil War, but they are consistent with other work on how financial markets have responded to war initiation.
 \textcite{Ferguson2006} show that although World War I was preceeded by a series of crises, European markets did not anticipate the onset of WWI.
@@ -997,9 +991,9 @@ However, this result contrasts with recent work by ..., which finds that a stati
 \section{Appendices}
 \label{sec:appendix}
 
-\section{Statistical Models}
+\subsection{Statistical Models}
 
-\subsection{South-North Yield Spreads}
+\subsubsection{South-North Yield Spreads}
 \label{sec:model-south-north-yield-spreads}
 
 This is a statistical model of the bond yields of state bonds.
@@ -1017,7 +1011,7 @@ The parameters $\theta$ and $\psi$ evolve as random walks, but with horseshoe pr
   \lambda_{\psi,t}^{2} & \sim \dhalfcauchy{0, 1} \\
 \end{align*}
 
-\subsection{Probability of War}
+\subsubsection{Probability of War}
 \label{sec:model-probability-war}
 
 This is a statistical model of the probability of war impliedy by bond yields on market prices.

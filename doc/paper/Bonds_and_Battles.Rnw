@@ -261,33 +261,24 @@ Since  the debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861}, thi
 By comparison, the debt at the end of the War of 1816 was 127 million \parencite[29]{Elder1863} and the 49 million was issued to fund the Mexican American War.%
 \footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million (Annual Report 1863, p. 42)}
 
-For holders of U.S. bonds, the war would decrease revenue and increase debt.
-Secession would also decrease the revenue and wealth of the United States.
-The \textit{Merchants' Magazine} wrote in January 1861,
-\begin{quote}
-   The news was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler \parencite[79]{HomansDana1861a}.
-\end{quote}
-In realization, the American Civil War increased the debt of the United States, but it also increased the ability of the federal government to extract wealth to pay that debt; for example, the institution of the income tax.
-
-For investors holding southern state bonds, their immediate concern was that southern states would immediately default on interest payments.
-After the initiation of the war, southern states ceased interest payments to northern creditors starting with the July 1861 coupon payments \parencite[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
+For investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
+After the initiation of the war, southern states ceased interest payments to northern creditors starting with the coupon payments due on  July 1st, 1861 \parencite[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
 Investors almost certainly anticipated this as, although the Southern states paid interest on time in January 1861, there was uncertainty about whether they would \parencite[756]{BankersMagazine1861},
 \begin{quote}
  \dots the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States.
 \end{quote}
-When the states formally suspended interest payments, the market was not surprised \parencite[159]{BankersMagazine1862}.
-After Fort Sumter, a failure to pay interest was primary reason cited for the decline in the prices of southern state bonds, ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next'' \parencite[947]{BankersMagazine1861}.
+After Fort Sumter, concern over default on interest payments was primary reason cited for the decline in the prices of southern state bonds: ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next'' \parencite[947]{BankersMagazine1861}.
 It was almost certain that as long as the war would continue, northern holders of southern state bonds would not receive interest payments.
 By November 1861, the \textit{Bankers' Magazine} wrote, ``...but faint hopes are entertained of their [southern states] paying their interest for some years to come.'' \parencite[559]{BankersMagazine1862}. 
 After the war, most Southern states repaid the debt issued before the war, although they defaulted on all debt issued during the war and several states defaulted on debt issued by reconstruction governments before 1870 \parencites{Randolph1931}{Ratchford1941}.
 It is unclear what would have happened to this debt if the Confederacy had won the war; at best, the states would return to paying interest and principal on those debts; at worst, they would completely default on northern creditors.
 That the prices of southern state bonds never went to zero, suggests that investors' beliefs put positive probability on those states being reincorporated into the Union or that they would resume payments on their debt after the war even in the event of a Confederate victory.
-Additionally, although at first the ability of the states to pay their debts was not much in doubt, an extended war would result in both more debt issued by southern states and, if fighting occurred in the South, wealth destroyed, both of which could affect the ability of the states to eventually pay the debt they had issued.
+Additionally, although, at first the ability of the states to pay their debts was not much in doubt, an extended war would result in both more debt issued by southern states and wealth destroyed, both of which could affect the ability of the states to eventually pay the debt they had issued.
 Thus, holders of southern state bonds were particularly exposed to war risk, and almost certain to suffer losses immediately at the start of a conflict between the states for they were certain to receive no payments if a war occurred and as long as the war continued.
 
-Although U.S. government and state bonds were not direct prediction markets of the onset of war, the expected payment of their future cashflows would be heavily influenced by the 
-Thus the prices of the bonds leading up to the war should reflect the beliefs of those investors of both the probability of and the additional risk conditional on the war occuring. 
-Section \ref{sec:model-probability-war} statistically disentangles these two effects, but informally, it is unlikely that beliefs about the cost of a war between the northern and southern states are changing before the American Civil War than that beliefs that the probablility that such a war would occur.
+Although U.S. government and state bonds were not direct prediction markets of the onset of war, since their expected payment of their future cashflows would be heavily influenced by the onset of war, they can be used to make inferences about investors' beliefs about the onset of war.
+%% Thus the prices of the bonds leading up to the war should reflect the beliefs of those investors of both the probability of and the additional risk conditional on the war occuring. 
+%% Section \ref{sec:model-probability-war} statistically disentangles these two effects, but informally, it is unlikely that beliefs about the cost of a war between the northern and southern states are changing before the American Civil War than that beliefs that the probablility that such a war would occur.
 
 \section{Data}
 
@@ -537,11 +528,10 @@ pre_panic_means <-
      %>% select(series, ytm_mean)
      %>% arrange(ytm_mean)
      )
-pre_panic_means_min <- pre_panic_means[1, "ytm_mean"]
+pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 2)
 pre_panic_means_min_name <- pre_panic_means[1, "series"]
-pre_panic_means_max <- pre_panic_means[nrow(pre_panic_means), "ytm_mean"]
+pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
 pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
-
 
 @ 
 
@@ -549,7 +539,7 @@ From July 1855 through October 1857, yields were low and stable.
 The yields of the U.S. 6s of 1868 were between \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_min"], 2)} and \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_max"], 2)} percent.
 These were the lowest yields on U.S. government bonds up to that point \parencite[282-283]{HomerSylla2005}.
 The yields were even lower than the traditionally safe Massachusetts and Boston city bonds, and only one percentage point higher than the yield on 3\% British consols, which were considered the safest global asset during that period.
-State bond yields were also relatively stable, although having higher yields than government bonds; with average yields between \Sexpr{pre_panic_mean_min} (\Sexpr{pre_panic_mean_min_name}) and \Sexpr{pre_panic_mean_max} (\Sexpr{pre_panic_mean_max_name}).
+State bond yields were also relatively stable, although having higher yields than government bonds; with average yields between \Sexpr{pre_panic_means_min} (\Sexpr{pre_panic_means_min_name}) and \Sexpr{pre_panic_means_max} (\Sexpr{pre_panic_means_max_name}).
 State bonds had higher yields than U.S. government because were pereceived to be relatively riskier assets, since there were widescale defaults by states in the 1840s \parencite{English1996}.%
 \footnote{Of the states with bonds in the data, Indiana, Pennsylvania and Louisiana defaulted in the 1840s \parencite[265]{English1996}.}
 Yet, the yields of the state bonds during this period were much lower than the previous decade, when some states had yields of above 10 percent and as high as 41 percent \parencite[320]{HomerSylla2005}.
@@ -773,7 +763,6 @@ local({
 \caption{
   Estimated spread between the yields of southern and northern state bonds.
   The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
-  The spread is estimated using the model described in section \ref{sec:model-south-north-yield-spreads}
 }
 \label{fig:north_south_spreads}
 \end{figure}
@@ -784,6 +773,22 @@ War should, and did, increase the risk of southern bonds relative to northern bo
   The spread between southern and northern bonds can be approximately interpreted as the difference in default risk, where default is complete. 
   This interpretation is based off the same approximation as equation \ref{eq:4}.
 }
+
+This is a statistical model of the bond yields of state bonds.
+Let $y_{j,t}$ be the yield for bond $j$ at time $t$.
+This model was estimated only for state bonds.
+\begin{equation}
+  y_{j,t} \sim \dnorm{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma^{2}}
+\end{equation}
+where $\theta_{t}$ is the market yield for all state bonds, $\psi_{t}$ is the spread between southern and northern state bonds, $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
+The parameters $\theta$ and $\psi$ evolve as random walks, but with horseshoe prior \parencite{CarvalhoPolsonScott2010} innovations to allow for large changes (i.e. structural breaks) in the levels of the factors.
+\begin{align*}
+  \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}} \\
+  \lambda_{\theta,t}^{2} & \sim \dhalfcauchy{0, 1} \\
+  \psi_{t} & \sim \dnorm{\psi_{t-1}, \sigma^{2} \tau_{\psi}^{2} \lambda_{\psi,t}^{2}} \\
+  \lambda_{\psi,t}^{2} & \sim \dhalfcauchy{0, 1} \\
+\end{align*}
+
 This was observed after Fort Sumter, in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points, see Table \ref{tab:sumter}.
 The immediate financial effect of the start of the war to northern holders of southern state bonds, was that the southern state stopped paying interest payments and continued this throughout the war \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
 \footnote{After the war, it appears that southern states repaid debt issued \textit{before} the war.
@@ -800,7 +805,7 @@ The data used to calculate the south-north spread consists of the yields of nort
 \footnote{The border states of Kentucky and Missouri are not included in these calculations.} 
 Figure \ref{fig:yields_regions} plots the yields of bonds in each group.
 The spread is estimated using a latent factor model described 
-The spread is essentially estimated as the difference between the mean yield of southern and northern bonds, but with a random walk prioron the value of the spread that smooths over time while still allowing for the sharp changes that are observed during key events; the details of the model are described in section \ref{sec:model-south-north-yield-spreads}.
+The spread is essentially estimated as the difference between the mean yield of southern and northern bonds, but with a random walk prioron the value of the spread that smooths over time while still allowing for the sharp changes that are observed during key events.
 Figure \ref{fig:north_south_spreads} plots the estimated south-north spread.
 
 Over the entire period considered here, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds, although this could be due to a number of factors other than war risk.
@@ -904,7 +909,32 @@ Thus, by rearranging \eqref{eq:4} and adding uncertainty, the probability of war
 \end{align}
 where $\pi_{t}$ is the probability of war at time $t$.
 Equation~\eqref{eq:1} is a regression model with time-varying coefficients ($\pi_{t}$).
-The details of the statistical model are given in section~\ref{sec:model-probability-war}.
+
+Treating war as a default event, an approximation of the implied probability of default (war) for a bond $j$ at time $t$ is,
+\begin{equation}
+  \label{eq:12}
+  \theta_{t} = \frac{y_{j,t} - r_{j,t}}{1 - R_{j}} 
+\end{equation}
+where $y_{j,t}$ is the yield of bond $j$ at time $t$, $r_{j,t}$ the war-risk free yield of bond $j$ at time $t$, $R_{j}$ is the recovery amount for bond $j$,
+Rearrange equation \ref{eq:12} and add uncertainty,
+\begin{equation}
+  \label{eq:13}
+  y_{j,t} \sim \dnorm{(1 - R_{j}) \theta_{t} + r_{j,t}, \sigma^{2}}
+\end{equation}
+Equation \eqref{eq:13} is essentially a structured single factor model of bond yields.
+The inverse logit transformation of $\theta$ evolves as a random walk with a horseshoe prior on the innovations to allow for structural breaks,
+\begin{align}
+  \phi_{t} &= \logit^{-1}(\theta_{t}) \\
+  \phi_{t} &\sim \dnorm{\phi_{t-1}, \tau \lambda_{t}} \\
+  \lambda_{t} &\sim \dhalfcauchy{0, 1}
+\end{align}
+The value of $r_{j,t}$ is 
+\begin{align}
+  r_{j,t} & \sim \dlnorm{\bar{r}_{j},s_{j}}
+\end{align}
+where $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
+$R_{j}$ is the mean clean price, as a proportion of par, for the period \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.
+
 The estimated values of $\pi_{t}$ are plotted in Figure~\ref{fig:prwar2}.
 
 The probability of war is estimated to be low, less than 1 percent, prior to October 1860. 
@@ -1061,49 +1091,7 @@ However, this result contrasts with recent work by ..., which finds that a stati
 \subsubsection{South-North Yield Spreads}
 \label{sec:model-south-north-yield-spreads}
 
-This is a statistical model of the bond yields of state bonds.
-Let $y_{j,t}$ be the yield for bond $j$ at time $t$.
-This model was estimated only for state bonds.
-\begin{equation}
-  y_{j,t} \sim \dnorm{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma^{2}}
-\end{equation}
-where $\theta_{t}$ is the market yield for all state bonds, $\psi_{t}$ is the spread between southern and northern state bonds, $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
-The parameters $\theta$ and $\psi$ evolve as random walks, but with horseshoe prior \parencite{CarvalhoPolsonScott2010} innovations to allow for large changes (i.e. structural breaks) in the levels of the factors.
-\begin{align*}
-  \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}} \\
-  \lambda_{\theta,t}^{2} & \sim \dhalfcauchy{0, 1} \\
-  \psi_{t} & \sim \dnorm{\psi_{t-1}, \sigma^{2} \tau_{\psi}^{2} \lambda_{\psi,t}^{2}} \\
-  \lambda_{\psi,t}^{2} & \sim \dhalfcauchy{0, 1} \\
-\end{align*}
 
-\subsubsection{Probability of War}
-\label{sec:model-probability-war}
-
-This is a statistical model of the probability of war impliedy by bond yields on market prices.
-Treating war as a default event, an approximation of the implied probability of default (war) for a bond $j$ at time $t$ is,
-\begin{equation}
-  \label{eq:12}
-  \theta_{t} = \frac{y_{j,t} - r_{j,t}}{1 - R_{j}} 
-\end{equation}
-where $y_{j,t}$ is the yield of bond $j$ at time $t$, $r_{j,t}$ the war-risk free yield of bond $j$ at time $t$, $R_{j}$ is the recovery amount for bond $j$,
-Rearrange equation \ref{eq:12} and add uncertainty,
-\begin{equation}
-  \label{eq:13}
-  y_{j,t} \sim \dnorm{(1 - R_{j}) \theta_{t} + r_{j,t}, \sigma^{2}}
-\end{equation}
-Equation \eqref{eq:13} is essentially a structured single factor model of bond yields.
-The inverse logit transformation of $\theta$ evolves as a random walk with a horseshoe prior on the innovations to allow for structural breaks,
-\begin{align}
-  \phi_{t} &= \logit^{-1}(\theta_{t}) \\
-  \phi_{t} &\sim \dnorm{\phi_{t-1}, \tau \lambda_{t}} \\
-  \lambda_{t} &\sim \dhalfcauchy{0, 1}
-\end{align}
-The value of $r_{j,t}$ is 
-\begin{align}
-  r_{j,t} & \sim \dlnorm{\bar{r}_{j},s_{j}}
-\end{align}
-where $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
-$R_{j}$ is the mean clean price, as a proportion of par, for the period \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.
 
 \printbibliography{}
 

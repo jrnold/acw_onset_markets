@@ -127,3 +127,11 @@ $$
 
 In this setup, it is hard to account for changes in prices just due to changes in maturity without explicitly modeling the interst rate factor.
 
+# Misc
+
+## Missouri
+
+Vote for admission of Kansas as a slave state in 1858, cited as important by Weingast.
+
+- S.37 (35th) on Jan 4, 1858: https://www.govtrack.us/congress/bills/35/s100370
+- S.161 (35th) on Feb 18, 1858: https://www.govtrack.us/congress/bills/35/s101610

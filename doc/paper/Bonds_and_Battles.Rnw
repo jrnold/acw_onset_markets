@@ -1,3 +1,4 @@
+% wording - markets or investors
 \documentclass[11pt, oneside, article]{memoir}
 
 \usepackage[]{xcolor}
@@ -223,18 +224,32 @@ I expand on their work by explicitly tying the implications of financial market 
 \section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}
 
-The objective of this paper is to estimate the markets' beliefs about the probability of the American Civil War in the period leading up to the war's initiation.
-The price of bonds is the present discounted value of a stream of expected cash flows.
-So the current price of a bond represents expectations aobut future payments given the information available at the time.
-Changes in the information set on which those expectations are conditioned will change prices and yields.
+The objective of this paper is to estimate the market's beliefs about the probability of the American Civil War in the period leading up to the war's initiation.
+The prices (and yields) of bonds can be used for this purpose, because the price of a bond is the present discounted value of expected cash flows.
+The price of a bond is,
+\begin{equation}
+  p = \sum_{i=1}^{n} E(c_{i} | \Omega) e^{-r_{t_{i}} t_{i}}
+\end{equation}
+where $p$ is the price of a bond (or generic asset) paying $\{c_{i} \}_{i=1}^{n}$ at times $\{t_{i}\}_{i=1}^{n}$ with discount factors $\{r_{t_{i}} \}_{i=1}^{n}$. 
+$E(. | \Omega)$ is an expected value conditioned on the information at the current time.
+This paper will use yields to maturity instead of prices.
+
+For changes in prices to represent changes in the risk of war, the expectations about cashflows must be related to war and other factors which could change expectations about cashflows could controlled for.
+
+EXPAND THIS
+
+- bond prices are expectations
+- yields are the inverse of prices
+- more risk to cashflows, e.g. from default = lower prices, and higher yields.
+- can attribute changes in prices to changes in beliefs about the expected probability of war to price changes if changes in war beliefs are plausibly the most important thing changing in this period: (1) period close to the war, and (2) check business magazines to see what factors are mentioned with respect to the price changes.
 
 To the extent that a war would change investors' expectations about the timely payment of future cashflows of these bonds, changes in the yields of bonds can be used to infer changes in beliefs about the probability of war.
 It is certainly case that war would influence expectations about the cash-flows of the U.S. government and state bonds considered here.
 A war would influence the credit of the issuers by increasing debt, decreasing revenue and possibly leading to default, and contemporary investors were aware of these risks.
 
-For holders of U.S. government bonds war and secession would have two effects that would reduce the ability of U.S. government to pay its debts: that secession would reduce the potential revenue while war would increase its debt.
+For investors holding U.S. government bonds, war and secession would have would reduce the ability of U.S. government to pay its debts by reducing potential revenue with the loss of the southern states and increasing debt to pay war expeditures.
 Southern states accounted for 25 percent of the non-slave wealth of the United States \parencite[11]{Elder1865}.%
-\footnote{GDP was neither nor invented until WWI. Wealth was used as a measure of states' ability to pay their burden.}
+\footnote{GDP was neither nor invented until WWII. During that era, the census estimates of personal and property wealth was used as a measure of the total economy and ability to repay the debt.}
 % However, this was likely an important consideration to investors.
 The \textit{Merchants' Magazine} wrote in January 1861,
 \begin{quote}
@@ -262,7 +277,7 @@ By comparison, the debt at the end of the War of 1816 was 127 million \parencite
 \footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million (Annual Report 1863, p. 42)}
 
 For investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
-After the initiation of the war, southern states ceased interest payments to northern creditors starting with the coupon payments due on  July 1st, 1861 \parencite[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
+After the initiation of the war, southern states ceased interest payments to northern creditors starting with the coupon payments due on  July 1st, 1861 \parencites[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
 Investors almost certainly anticipated this as, although the Southern states paid interest on time in January 1861, there was uncertainty about whether they would \parencite[756]{BankersMagazine1861},
 \begin{quote}
  \dots the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States.
@@ -561,72 +576,58 @@ The relatively low and stable yields during this period suggest that the market 
 
 Lincoln's victory in the presidential election of 1860 (November 6, 1860) precipitated a rise in yields, especially in Southern bonds.
 The yields of bonds before and after the election are plotted in Figure~\ref{fig:yields_election}.
-
-For most bonds, there was a slight increase in yields in October.
-This was due to both to and anticipation of the election result beginning of a recession.%
+For most bonds, there was a slight increase in yields in October before the election.
+This rise was likely due to both a monetary contraction as the economy went into recession, but also the anticipation of a Republican victory in the election and the start of a recession.%
 \footnote{The U.S. was in a slight recession prior to the start of the American Civil War, from October 1860 to June 1861. \url{http://www.nber.org/cycles/cyclesmain.html}.}
-The is accompanied by monetary contraction and a shortage of specie that likley affected bond prices (Oct 25, 1860).
-However, the `
+The start of the recession was marked by a monetary contraction \parencite[413]{BankersMagazine1861}.
+There accompanied by monetary contraction and a shortage of specie that likley affected bond prices \parencite[413]{BankersMagazine1861}.
+The Bankers' Magazine described the market as,
+\begin{quote}
+   The market for Government and State loans during the month has been dull. 
+   Prices hare In most instances tended downward and a material decline is perceptible in some of the most prominent securities.
+   The principal reasons for this seem to be the political excitement  \parencite[414]{BankersMagazine1861}.
+\end{quote}
+The market adjustment appears to have been due to the Republican victory in the Pennsylvania gubernatorial election on October 9,
+\begin{quote}
+  The election in Pennsylvania early in October and the prospect which it gave of the election of the Republican candidate for President in November caused the timid to pause. ...
+  The political complications of the day were the sole cause relied on by the bears and totally ignoring every other element in the market the pressure to sell under the influence of this sudden fear of some dreadful calamity became irresistible. ...
+  The partisan presses aided the decline as far as they could and did their best to make it a panic by spreading abroad the most gloomy picture of the state of feeling at the South and directly prophesying ruin complete and full in the event of Mr Lincoln's election.
+  \parencites[476-77]{BankersMagazine}
+\end{quote}
+The market seemed to ant
 
-   The market for Government and State loans during the month has been
-   dull Prices hare In most instances tended downward and a material
-   decline is perceptible in some of the most prominent securities The
-   principal reasons for this seem to be the political excitement (October 25, 1860 p. 414)   
-
-The market adjustment appears to have ben due to the Republican gubernatorial election in Pennsylvania on October 9.
-
-\footnote{
-  \begin{quote}
-    The election in Pennsylvania early in October and the prospect
-    which it gave of the election of the Republican candidate for
-    President in November caused the timid to pause and towards the
-    middle of the month the market was dull unsettled and declining
-    but the decline for which the month is remarkable did not assume
-    its real proportions until the last week (   
-    
-  \end{quote}
-}
-
-However, the market yield did not move greatly until after the election.
-It is important to note that yields did not rise immediately after Licoln's election victory (as would occur with Fort Sumter), but rose over the cours of the following month, with some variability as to the timing between the different bonds.
+After Lincoln's election, yields increased greatly, especially for southern states.
+This increase did not rise immediately after Licoln's election victory (as would occur with Fort Sumter), but rose over the course of the following month, with some variation between bonds in the timing of the rise.
 However, by the end of January 1861, southern and border state yields had increased 1--3 percentage points, and the yields on U.S. government bonds had increased 1--1.5 percentage points.
-Some of this increase was due to a small financial crisis that started when Southern banks began denying credit to Northern clients and withrew specie from Northern banks \parencite[76]{HomansDana1861a}.
-However, political risk was the primary concern of the market. 
-
-  By the 18th a very unfavorable condition of the market was developed 
-  The political complications in South Carolina had engendered a feeling of distrust in the stability of the present union of the States and public and private credit received a severe shock. (Nov 24, 1860) % http://books.google.com/books?id=KVwmAQAAIAAJ&pg=PA499
-
-   The month has been a most disastrous one in the stock market At the
-   beginning a slight firmness was perceptible in State securities but
-   under the political complications It rapidly disappeared and the
-   growing lightness of money precipitated a movement to sell which
-   has enlarged itself into a regular panic
-
-The \textit{Bankers' Magazine} wrote in January 1861,
+The decline increase was due to a small financial crisis that started when Southern banks started denying credit to Northern clients and withdrew specie from Northern banks \parencite[76]{HomansDana1861a}.
+However, the decline was not merely financial, as political risk was the primary concern of the market.
+\begin{quote}
+  By the 18th a very unfavorable condition of the market was developed.
+  The political complications in South Carolina had engendered a feeling of distrust in the stability of the present union of the States and public and private credit received a severe shock.  \parencite[501]{BankersMagazine1861}
+\end{quote}
+The \textit{Bankers' Magazine} wrote in January 1861 
 \begin{quote}
   The only speck in the horizon is the threat of secession in the South. 
   We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
   The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State \parencites[417]{BankersMagazine1861}.
 \end{quote}
 and later, in April 1861,
-\begin{quote}
-  The fluctuations in market values of State loans have been unusually great owing to the political phases or affairs, \parencite[838]{BankersMagazine1861}
-\end{quote}
 In the months between the election and the start of the war, yields remained high, but also variable as they responded to political events \parencites[718]{HuntKettellHomansEtAl1860}[78,198,416,677]{HomansDana1861a}[413,481,669,756,838]{BankersMagazine1861}.%
 \footnote{
   Oddly, the yields of the Georgia bond did not start increasing until January, 1816, around the date of Georgia's secession, 
   This may be because Georgia bonds were not liquid or traded much; the prices of Georgia bonds were often quoted at the same value for long periods of time.
 }
-The market appeared to have anticipated the formal secession of states. %
+
+Looking at the individual southern state bonds, the market appeared to have treated the slave-holding states similarly, regardless of whether they had formally seceeded prior to the start of the war.
 Although Louisiana did not seceed until January 26, its yield had already peaked near 9 percent at the start of January.
 Virginia, Tennessee and North Carolina did not seceed until after the start of the war, yet, the yields on all of these states rose between November and January.
 \footnote{Georgia is an exception; its yields noticeably increase after the election until January 1861 near is declaration of secession (January 19, 1861). 
 This may be because Georiga bonds may not have been traded often and were illiquid; in the data, there are long sequences in which the price of the Georgia bonds does not change. 
 }
 
-Although bond yields had risen after the election of Lincoln, the formal start Fort Sumter was followed by a large jump in yields.
+Although bond yields had risen after the election of Lincoln as the risk of civil war increased, the formal start Fort Sumter was followed by a jump in yield much larger than had been observed after the election.
 The start of the war resulted in a `` depreciation in Southern State stocks exceeding any decline ever witnessed at the stock board of this city.quantifying uncertainty'' \parencite[919]{BankersMagazine1861}.
-Unlike the election of 1860, in which bond yields rose over a period of a couple months, prices fell and yields increased immediately after news of Fort Sumter reached the market.
+Unlike the election of 1860, in which bond yields rose over a period of weeks, prices fell and yields increased immediately after news of Fort Sumter reached the market.
 Table \ref{fig:yields_sumter} shows yields in the week immediately before and after news of the surrender of Fort Sumter reached the New York market. 
 Southern state yields fell between 6.1 (Tennessee) and 7.7 (Virginia) percentage points (41 and 45 percent).
 The yields of U.S. sixes also fell, but only by 2.5 percentage points,%
@@ -767,46 +768,48 @@ local({
 \label{fig:north_south_spreads}
 \end{figure}
 
-The spread (difference) between the average yield of southern and northern state bonds is another measure of market beliefs of war risk.
+The spread (difference) between the yields of southern and northern state bonds is another measure of market beliefs of war risk.
 War should, and did, increase the risk of southern bonds relative to northern bonds.%
 \footnote{
   The spread between southern and northern bonds can be approximately interpreted as the difference in default risk, where default is complete. 
-  This interpretation is based off the same approximation as equation \ref{eq:4}.
+  This interpretation is based off the same approximation as equation \ref{eq:4}.}
 }
+The realization of the start of the war showed that this was the case; in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points, see Table \ref{tab:sumter}.
+The most immediate difference between northern and southern state bonds for northern investors, is that at the start of the war southern state bonds immediately stopped paying interest 
+Also, the Civil War was largely fought in the southern states, so they suffered much more damage than Nothern states; if the market had any expecation of this, it would also contribute to the southern state bonds being more riksy.
+Since war would have a differential effect on the risk of northern and southern state bonds, as the risk of war increases, the spread between southern and northern state bonds should increase.
 
-This is a statistical model of the bond yields of state bonds.
+Using the spread rather than directly using the yields of states has the advantage of controlling for shocks which influenced both northern and southern state bonds. 
+A reason for analyzing the spread between southern and northern state bonds instead of the spread against U.S. government bonds is that the the state bonds likely have more similar common shocks.
+There may other state-level factors which result in risk differences between northern and southern states.
+Hoever, focusing on changes in the spread rather than the level of the spread controls for any of these regional factors which are constant over the time period considered.
+During the period considered, it is likely that war risk would be the most influential factor influencing the spread, and certainly the most plausible factor for sudden changes in the spread.
+
+Figure \ref{fig:yields_regions} plots the yields of bonds with the yields in each group highlighted.
+The objective is to estimate the 
+The south-north spread is estimated using a statistical model of the yields of the northern andd southern state bonds.
 Let $y_{j,t}$ be the yield for bond $j$ at time $t$.
-This model was estimated only for state bonds.
+The yield is modeled as the sum of the market yield for all state bonds, $\theta$, and the spread between southern and northern state bonds,
 \begin{equation}
   y_{j,t} \sim \dnorm{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma^{2}}
 \end{equation}
-where $\theta_{t}$ is the market yield for all state bonds, $\psi_{t}$ is the spread between southern and northern state bonds, $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
-The parameters $\theta$ and $\psi$ evolve as random walks, but with horseshoe prior \parencite{CarvalhoPolsonScott2010} innovations to allow for large changes (i.e. structural breaks) in the levels of the factors.
-\begin{align*}
+where $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
+The values of the south-north spread $\psi_{t}$ are of primary interest.
+
+Since the number of bonds in each period is relatively small, in order to dampen fluctiuations that may occur by randomness, the parameters $\theta$ and $\psi$ are given random walk priors to pool data over time.
+However, estimation should not over-smooth these parameter, especially since they will be large fluctations in these parameters around events like the election of 1860.
+Thus, for these parameters, a horseshoe prior distribution \parencite{CarvalhoPolsonScott2010} is used for the innovations.
+This is a shrinkage prior, similar to the LASSO, and produce results similar to a change-point model in which the number of changes is estimated from the data,
+\begin{align}
   \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}} \\
   \lambda_{\theta,t}^{2} & \sim \dhalfcauchy{0, 1} \\
   \psi_{t} & \sim \dnorm{\psi_{t-1}, \sigma^{2} \tau_{\psi}^{2} \lambda_{\psi,t}^{2}} \\
   \lambda_{\psi,t}^{2} & \sim \dhalfcauchy{0, 1} \\
-\end{align*}
+\end{align}
 
-This was observed after Fort Sumter, in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points, see Table \ref{tab:sumter}.
-The immediate financial effect of the start of the war to northern holders of southern state bonds, was that the southern state stopped paying interest payments and continued this throughout the war \parencites[974]{BankersMagazine1861}[159,479]{BankersMagazine1862}.%
-\footnote{After the war, it appears that southern states repaid debt issued \textit{before} the war.
-  However, all defaulted on debts issued while part of the Confederacy, 
-  and some defaulted on debt issued by reconstruction governments after the war.
-}
-Since war would have a differential effect on the risk of northern and southern state bonds, as war risk increases, the spread between southern and northern state bonds should increase.
-Using the spread rather than directly using the yields of states has the advantage of controlling for factors which have the same influence on all state bonds.
-There may other state-level factors which result in risk differences between northern and southern states.
-Hoever, focusing on changes in the spread rather than the level of the spread controls for any of these factors which are constant over the time period considered.
-During the period considered, it is likely that war risk would be the most influential factor influencing the spread, and certaintly the most plausible factor for sudden changes in the spread.
-
-The data used to calculate the south-north spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia) state bonds from ... to ... .
-\footnote{The border states of Kentucky and Missouri are not included in these calculations.} 
-Figure \ref{fig:yields_regions} plots the yields of bonds in each group.
-The spread is estimated using a latent factor model described 
-The spread is essentially estimated as the difference between the mean yield of southern and northern bonds, but with a random walk prioron the value of the spread that smooths over time while still allowing for the sharp changes that are observed during key events.
-Figure \ref{fig:north_south_spreads} plots the estimated south-north spread.
+The data used to calculate the south-north spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia) state bonds from July 1st, 1855 to June 1st, 1861.
+\footnote{The border states of Kentucky and Missouri are not included in these calculations.}
+Figure \ref{fig:north_south_spreads} plots the estimated south-north spread ($\psi_{t}$).
 
 Over the entire period considered here, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds, although this could be due to a number of factors other than war risk.
 \footnote{That southern bonds have a higher risk premium during this period is somewhat surprising given the states included in the northern bonds; two of the three northern state bonds (Indiana, Pennsylvania) had defaulted in the 1840s.}
@@ -814,19 +817,19 @@ The spread at the start of the data was \Sexpr{round(SPREAD_1855, 2)}.
 %% However, the reasons for this jump are unclear.
 %% The timing corresponds with the election of James Buchanan.\Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points from November 2--23
 %% However, the money market sections of the \textit{Bankers' Magazine} do not mention any events influencing the market of state bonds.
-From after the mean to January 1860, the spread had mean of \Sexpr{round(SPREAD_1857_1860, 2)} and was stable;
-the mean difference between the spread in January 1860 and July 1857 is \Sexpr{round(SPREAD_DIFF_1860_1857_MEAN, 2)}.%
-\footnote{The probability the spread is greater than 0 is $\Pr(x > 0) = \Sexpr{round(SPREAD_DIFF_1860_1857_PVAL, 3)}$.}
+From after the Panic of 1857 to January 1860, the estimated spread has a mean of \Sexpr{round(SPREAD_1857_1860, 2)}
+and was stable, the mean difference between the spread in January 1860 and July 1857 is \Sexpr{round(SPREAD_DIFF_1860_1857_MEAN, 2)}.%
+\footnote{The probability that the spread is greater than 0 is $\Pr(\Delta \psi > 0) = \Sexpr{round(SPREAD_DIFF_1860_1857_PVAL, 3)}$.}
 The spread trended slightly upward during 1860, reaching \Sexpr{round(SPREAD_18601102, 2)} on November 2, 1860;
 the mean difference between the spread in November 1860 and January 1860 is \Sexpr{round(SPREAD_DIFF_1860_MEAN, 2)}.%
-\footnote{The probability the spread is greater than 0 is $\Pr(x > 0) = \Sexpr{round(SPREAD_DIFF_1860_PVAL, 3)}$.}
-Although market increased its attention to political issues in the October prior to Lincoln's election, the spread shows little change during that month.
-It is not until the election of Lincoln, that the spread jumps increasing \Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points between November 2nd and 23rd.
+\footnote{The probability that the spread is greater than 0 is $\Pr(\Delta \psi > 0) = \Sexpr{round(SPREAD_DIFF_1860_PVAL, 3)}$.}
+Although the market paid increased attention to political issues in the October prior to Lincoln's election, like yields themselves, the spread shows little change during that month.
+It is not until the election of Lincoln, that the spread jumps dramatically, increasing \Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points between November 2nd and 23rd.
 The spread continues to increase until the start of the war, rising another \Sexpr{round(SPREAD_DIFF_POSTELEC, 2)} percentage from November 23 to April 13, 1861, reaching \Sexpr{round(SPREAD_18610413, 2)}.
 However, this spread was relatively small compared to the spread after the start of the war.
 The week after Fort Sumter, the spread jumped to \Sexpr{round(SPREAD_18610420, 2)}, before falling back to the still high \Sexpr{round(SPREAD_POSTSUMTER, 2)}.
 
-Thus analysis of the spread between southern and northern state bonds produce similar inferences as those from the yields.
+Thus, analysis of the spread between southern and northern state bonds produces similar inferences as that from the yields themselves.
 There was little change in war risk after the Panic in 1857.
 War risk increased minimally in 1860.
 The estimated war risk increased sharply after the Lincoln's victory election of 1860.

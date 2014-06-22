@@ -81,7 +81,7 @@
 \newcommand{\dnorm}[1]{\disti{N}{#1}}
 \newcommand{\dmvnorm}[2]{\distiii{N}{#1}{#2}}
 \newcommand{\dlnorm}[1]{\disti{LN}{#1}}
-\newcommand{\dt}[1]{\disti{T}{#1}}
+\newcommand{\dt}[2]{\distiii{T}{#1}{#2}}
 \newcommand{\dcauchy}[1]{\disti{C}{#1}}
 \newcommand{\dhalfcauchy}[1]{\disti{C^+}{#1}}
 \newcommand{\dbeta}[1]{\disti{B}{#1}}
@@ -269,11 +269,10 @@ made necessary. (p. 23)
 }
 Although the war would continue much longer than initial estimates, even the initial estimated costs of war represented a large increase in government debt.
 The amount of expenditures estimated for the fiscal year from July 1, 1861 to June 30, 1862 in the July 4, 1861 \textit{Report of the Secretary of the Treasury} was 319 million \parencite[5]{Treasury1861a}, an increase of 369\% (251 million) over the estimated expenditures from the previous years' report \parencite[6]{Treasury1860}.
-The \textit{Annual Report} estimated that revenue to pay the expecpted expenditures should be: 80 million in taxes, and 240 million by the issue of new loans  \parencite[6]{Treasury1861a}.
-The Act of July 17, 1861 was the first act passed by Congress to fund the war.
-It authorized the issue of \$250 million in debt \parencite[44]{Treasury1863}.
-Since  the debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861}, this represented an increase of 178\%.
-By comparison, the debt at the end of the War of 1816 was 127 million \parencite[29]{Elder1863} and the 49 million was issued to fund the Mexican American War.%
+The \textit{Annual Report} also suggeted that the revenue to pay for expenditures be split as 80 million in taxes, and 240 million in the issue of new loans  \parencite[6]{Treasury1861a}.
+The Act of July 17, 1861, the first act passed by Congress to fund the war, and it authorized the issue of \$250 million in debt \parencite[44]{Treasury1863}.
+Since  the debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861}, this represented an increase in the U.S. debt of 178\%.
+By comparison, the debt at the end of the War of 1816 was 127 million \parencite[29]{Elder1863} and 49 million in debt was issued to fund the Mexican American War.%
 \footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million (Annual Report 1863, p. 42)}
 
 For investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
@@ -296,6 +295,7 @@ Although U.S. government and state bonds were not direct prediction markets of t
 %% Section \ref{sec:model-probability-war} statistically disentangles these two effects, but informally, it is unlikely that beliefs about the cost of a war between the northern and southern states are changing before the American Civil War than that beliefs that the probablility that such a war would occur.
 
 \section{Data}
+\label{sec:data}
 
 To assess financial market beliefs about the risk of the  American Civil War, this paper uses the prices and yields of U.S. government and state bonds, both northern and southern, traded in New York City from 1855-1861.%
 \footnote{
@@ -322,7 +322,7 @@ During this period, almost no New England states issued debt, with the notable e
 %%   Massachusetts bonds were the closest to a risk-free American asset during that period \parencites{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}, ``never failing to pay principal and interest in coin, ..., commanding higher prices than those of any other State in the Union.''  \parencite[86]{Martin1871}
 %% }
 
-The \textit{Bankers' Magazine} quotes the price of bonds, but this work will primarily rely on the yield to maturity of the bonds.
+The \textit{Bankers' Magazine} quotes the price of bonds, but this work will primarily rely on the yield to maturity of the bonds.%
 \footnote{It is unclear whether the prices are bid or ask. In most cases, the prices quoted are dirty (including the next coupon payment). The data were cleaned to account for the inclusion or removal of the coupon price from the data.}
 Yields to maturity are calculated for each bonds using the quoted prices and the maturities and cashflows.
 \footnote{
@@ -335,6 +335,7 @@ Using several sources, the prices are matched to a set of plausible bond issues.
 Yields to maturity are calculated for all issues, and the yield to maturity correspondong to the bond price series is calculated by averaging over the yields for the issues.
 
 \section{Yields of Government and State Bonds March 1855--April 1861}
+\label{sec:yields-governm-state}
 
 <<war_initiaion, results='hide'>>=
 
@@ -652,61 +653,61 @@ That the market had such a large reaction to the news of the start of the confli
 \label{sec:south-north-yield}
 
 <<south_north_spread_data, results = 'hide'>>=
-spreads1_summary <- PROJ$db[["spreads1_summary"]]
+spreads_summary <- PROJ$db[["spreads2_summary"]]
 
 SPREAD_1857_1860 <- 
-    mean(filter(spreads1_summary$theta,
+    mean(filter(spreads_summary$theta,
                 date >= as.Date("1857-7-1"),
                 date <= as.Date("1860-1-1"),
                 dimension == 2)$value_mean)
 
 SPREAD_1855 <- 
-    mean(filter(spreads1_summary$theta,
+    mean(filter(spreads_summary$theta,
                 date <= as.Date("1856-11-1"),
                 dimension == 2)$value_mean)
 
 SPREAD_18601102 <-
-    filter(spreads1_summary$theta,
+    filter(spreads_summary$theta,
            date == as.Date("1860-11-02"),
            dimension == 2)$value_mean
 
 SPREAD_18610413 <-
-    filter(spreads1_summary$theta,
+    filter(spreads_summary$theta,
            date == as.Date("1861-04-13"),
            dimension == 2)$value_mean
 
 SPREAD_18610420 <-
-    filter(spreads1_summary$theta,
+    filter(spreads_summary$theta,
            date == as.Date("1861-04-20"),
            dimension == 2)$value_mean
 
 SPREAD_POSTSUMTER <-
-    summarise(filter(spreads1_summary$theta,
+    summarise(filter(spreads_summary$theta,
                      date > as.Date("1861-04-20"),
                      dimension == 2),
               mean = mean(value_mean))$mean
 
 SPREAD_DIFF_1860_MEAN <- 
-    filter(spreads1_summary$theta_diff_186001_186011,
+    filter(spreads_summary$theta_diff_186001_186011,
            dimension == 2)$mean
 
 
 SPREAD_DIFF_1860_PVAL <- 
-    filter(spreads1_summary$theta_diff_186001_186011,
+    filter(spreads_summary$theta_diff_186001_186011,
            dimension == 2)$probpos
 
 SPREAD_DIFF_ELEC <- 
-    filter(spreads1_summary$theta_diff_elec, dimension == 2)$mean
+    filter(spreads_summary$theta_diff_elec, dimension == 2)$mean
 
 SPREAD_DIFF_POSTELEC <- 
-    filter(spreads1_summary$theta_diff_postelec, dimension == 2)$mean
+    filter(spreads_summary$theta_diff_postelec, dimension == 2)$mean
 
 SPREAD_DIFF_1860_1857_MEAN <- 
-    filter(spreads1_summary$theta_diff_1860_1857,
+    filter(spreads_summary$theta_diff_1860_1857,
            dimension == 2)$mean
 
 SPREAD_DIFF_1860_1857_PVAL <- 
-    filter(spreads1_summary$theta_diff_1860_1857,
+    filter(spreads_summary$theta_diff_1860_1857,
            dimension == 2)$probpos
 
 
@@ -745,7 +746,7 @@ local({
   \centerfloat
 <<fig_north_south_spreads, fig.height = 3, fig.width = 6>>=
 local({
-    (ggplot(filter(PROJ$db[["spreads1_summary"]][["theta"]],
+    (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]],
                    dimension == 2,
                    date <= as.Date("1861-04-13")),
             aes(x = date))
@@ -768,52 +769,49 @@ local({
 \label{fig:north_south_spreads}
 \end{figure}
 
-The spread (difference) between the yields of southern and northern state bonds is another measure of market beliefs of war risk.
-War should, and did, increase the risk of southern bonds relative to northern bonds.%
+The spread (difference) between the yields of southern and northern state bonds is a measure of the market's expectation of war.%
 \footnote{
-  The spread between southern and northern bonds can be approximately interpreted as the difference in default risk, where default is complete. 
-  This interpretation is based off the same approximation as equation \ref{eq:4}.}
+  The spread between southern and northern bonds is approximately the difference in default risk between the bonds, when the recovery rate is 0.
+  This follows from Equation~\eqref{eq:4}.
 }
-The realization of the start of the war showed that this was the case; in which the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points, see Table \ref{tab:sumter}.
-The most immediate difference between northern and southern state bonds for northern investors, is that at the start of the war southern state bonds immediately stopped paying interest 
-Also, the Civil War was largely fought in the southern states, so they suffered much more damage than Nothern states; if the market had any expecation of this, it would also contribute to the southern state bonds being more riksy.
-Since war would have a differential effect on the risk of northern and southern state bonds, as the risk of war increases, the spread between southern and northern state bonds should increase.
+An increased risk of war increases the spread between southern and northern bond yields, because war would make southern state bonds relatively more risky than northern state bonds.
+Although war could increase the riskiness of all state bonds, there are at least two ways in which war would affect the increase the risk of southern bonds relative to northern state bonds.
+First, and most directly, southern states would immediately stop the payment of interest to northern investors at the start of conflict.
+As dicussed in section~\ref{sec:risky-bond-pricing}, the suspension of interest did happen and was anticipated by investors.
+Second, it is likely that a war would be fought primarily in southern states, and thus southern states would incur more destruction that could inhibit their ability to repay debt in the future.
+The differential effect the war to the risk of southern and northern bonds was observed in the changes in the yields of these bonds after Fort Sumter, shown in Table~\ref{tab:sumter}.
+In the week after Fort Sumter, the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points.
+Using the spread rather than simply using yields controls for shocks common to all state bonds.
+This does not eliminate common factors to southern bonds, 
+However, focusing on changes in the spread rather than the level of the spread controls for any of these regional factors which are constant over the time period considered.
+During the period close to the start of the American Civil War, it is likely that war risk would be the most influential factor influencing the spread, and certainly the most plausible factor for sudden changes in the spread.
 
-Using the spread rather than directly using the yields of states has the advantage of controlling for shocks which influenced both northern and southern state bonds. 
-A reason for analyzing the spread between southern and northern state bonds instead of the spread against U.S. government bonds is that the the state bonds likely have more similar common shocks.
-There may other state-level factors which result in risk differences between northern and southern states.
-Hoever, focusing on changes in the spread rather than the level of the spread controls for any of these regional factors which are constant over the time period considered.
-During the period considered, it is likely that war risk would be the most influential factor influencing the spread, and certainly the most plausible factor for sudden changes in the spread.
-
-Figure \ref{fig:yields_regions} plots the yields of bonds with the yields in each group highlighted.
-The objective is to estimate the 
-The south-north spread is estimated using a statistical model of the yields of the northern andd southern state bonds.
-Let $y_{j,t}$ be the yield for bond $j$ at time $t$.
-The yield is modeled as the sum of the market yield for all state bonds, $\theta$, and the spread between southern and northern state bonds,
-\begin{equation}
-  y_{j,t} \sim \dnorm{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma^{2}}
-\end{equation}
-where $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
-The values of the south-north spread $\psi_{t}$ are of primary interest.
-
-Since the number of bonds in each period is relatively small, in order to dampen fluctiuations that may occur by randomness, the parameters $\theta$ and $\psi$ are given random walk priors to pool data over time.
-However, estimation should not over-smooth these parameter, especially since they will be large fluctations in these parameters around events like the election of 1860.
-Thus, for these parameters, a horseshoe prior distribution \parencite{CarvalhoPolsonScott2010} is used for the innovations.
-This is a shrinkage prior, similar to the LASSO, and produce results similar to a change-point model in which the number of changes is estimated from the data,
-\begin{align}
-  \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}} \\
-  \lambda_{\theta,t}^{2} & \sim \dhalfcauchy{0, 1} \\
-  \psi_{t} & \sim \dnorm{\psi_{t-1}, \sigma^{2} \tau_{\psi}^{2} \lambda_{\psi,t}^{2}} \\
-  \lambda_{\psi,t}^{2} & \sim \dhalfcauchy{0, 1} \\
-\end{align}
-
-The data used to calculate the south-north spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia) state bonds from July 1st, 1855 to June 1st, 1861.
+The data used to calculate the south-north yield spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia).
 \footnote{The border states of Kentucky and Missouri are not included in these calculations.}
-Figure \ref{fig:north_south_spreads} plots the estimated south-north spread ($\psi_{t}$).
+Let $y_{j,t}$ be the yield for bond $j$ at time $t$.
+The yield for each bond is modeled as,
+\begin{equation}
+  y_{j,t} \sim \dt{\nu}{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma}
+\end{equation}
+where $\dt{d}{m, s^{2}}$ is the Student's $t$-distribution with degrees of freedom $d$, location $m$ and scale $s$.
+$\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
 
-Over the entire period considered here, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds, although this could be due to a number of factors other than war risk.
+Since the number of bonds in each period is relatively small, the parameters $\theta$ and $\psi$ are given random walk priors.
+However, the estimation should not overly smooth these parameters since one of the purposes of this work is to identify key events.
+Thus, for these parameters, a horseshoe prior distribution is used for the innovations \parencites{CarvalhoPolsonScott2009}{CarvalhoPolsonScott2009}.
+This is a shrinkage prior, similar to the LASSO \parencites{}, and produce results similar to a change-point model in which the number of changes is estimated from the data.
+\begin{align}
+  \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}}
+  & \lambda_{\theta,t} & \sim \dhalfcauchy{0, 1} \\
+  \psi_{t} & \sim \dnorm{\psi_{t-1}, \sigma^{2} \tau_{\psi}^{2} \lambda_{\psi,t}^{2}}
+  & \lambda_{\psi,t} & \sim \dhalfcauchy{0, 1}
+\end{align}
+where $\dhalfcauchy{0, s}$ is the half-Cauchy distribution with scale $s$.%
+
+Figure \ref{fig:north_south_spreads} plots estimates from the posterior distribution of the south-north spread ($\psi_{t}$).
+Over the entire period considered, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds, but this could be due to a number of factors other than war risk.
 \footnote{That southern bonds have a higher risk premium during this period is somewhat surprising given the states included in the northern bonds; two of the three northern state bonds (Indiana, Pennsylvania) had defaulted in the 1840s.}
-The spread at the start of the data was \Sexpr{round(SPREAD_1855, 2)}.
+The spread at the start of the data was \Sexpr{as.character(round(SPREAD_1855, 2))}.
 %% However, the reasons for this jump are unclear.
 %% The timing corresponds with the election of James Buchanan.\Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points from November 2--23
 %% However, the money market sections of the \textit{Bankers' Magazine} do not mention any events influencing the market of state bonds.
@@ -836,10 +834,11 @@ The estimated war risk increased sharply after the Lincoln's victory election of
 However, the spread increases sharply at Fort Sumter, implying that the start of the war was largely unexpected.
 
 \section{Probability of War}
+\label{sec:probability-war}
 
 <<>>=
 prwar1 <- PROJ$db[["prwar1"]]
-prwar2_summary <- PROJ$db[["prwar2_summary"]]
+prwar_summary <- PROJ$db[["prwar3_summary"]]
 
 DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
 DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
@@ -849,19 +848,19 @@ DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
 DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
 
 PRWAR_18600928 <-
-    round(filter(prwar2_summary$phi, date == as.Date("1860-9-28"))$mean, 3)
+    round(filter(prwar_summary$phi, date == as.Date("1860-9-28"))$mean, 3)
 
 PRWAR_18601102 <-
-    round(filter(prwar2_summary$phi, date == as.Date("1860-11-02"))$mean, 3)
+    round(filter(prwar_summary$phi, date == as.Date("1860-11-02"))$mean, 3)
 
 PRWAR_18601207 <-
-    round(filter(prwar2_summary$phi, date == as.Date("1860-12-07"))$mean, 3)
+    round(filter(prwar_summary$phi, date == as.Date("1860-12-07"))$mean, 3)
 
 PRWAR_18610105 <-
-    round(filter(prwar2_summary$phi, date == as.Date("1861-01-05"))$mean, 3)
+    round(filter(prwar_summary$phi, date == as.Date("1861-01-05"))$mean, 3)
 
 PRWAR_18610413 <-
-    round(filter(prwar2_summary$phi, date == as.Date("1861-04-13"))$mean, 3)
+    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$mean, 3)
 
 
 @ 
@@ -905,41 +904,27 @@ The value of $R$ incorporates expectations about the financial risk posed by exp
 
 Equation~\eqref{eq:4} can be used to calculate the probability of war implied by each bond.
 However, better estimates of the probability of war can be made by noting that the probability of war must be common across all bonds.
-Thus, by rearranging \eqref{eq:4} and adding uncertainty, the probability of war can be estimated as
+Thus, by rearranging \eqref{eq:4} and adding uncertainty, the probability of war in each time period can be estimated as
 \begin{align}
   \label{eq:1}
-  y_{j,t} & \sim \dnorm{(1 - R_{j}) \pi_{t} + r_{j}, \sigma^{2}}
+  y_{j,t} & \sim \dt{\nu}{(1 - R_{j}) \pi_{t} + r_{j}, \sigma^{2}}
 \end{align}
 where $\pi_{t}$ is the probability of war at time $t$.
 Equation~\eqref{eq:1} is a regression model with time-varying coefficients ($\pi_{t}$).
-
-Treating war as a default event, an approximation of the implied probability of default (war) for a bond $j$ at time $t$ is,
-\begin{equation}
-  \label{eq:12}
-  \theta_{t} = \frac{y_{j,t} - r_{j,t}}{1 - R_{j}} 
-\end{equation}
-where $y_{j,t}$ is the yield of bond $j$ at time $t$, $r_{j,t}$ the war-risk free yield of bond $j$ at time $t$, $R_{j}$ is the recovery amount for bond $j$,
-Rearrange equation \ref{eq:12} and add uncertainty,
-\begin{equation}
-  \label{eq:13}
-  y_{j,t} \sim \dnorm{(1 - R_{j}) \theta_{t} + r_{j,t}, \sigma^{2}}
-\end{equation}
-Equation \eqref{eq:13} is essentially a structured single factor model of bond yields.
-The inverse logit transformation of $\theta$ evolves as a random walk with a horseshoe prior on the innovations to allow for structural breaks,
+The inverse logit transformation of $\pi$ evolves as a random walk with a horseshoe prior on the innovations to allow for change-points, as in section~\ref{sec:south-north-yield},
 \begin{align}
-  \phi_{t} &= \logit^{-1}(\theta_{t}) \\
-  \phi_{t} &\sim \dnorm{\phi_{t-1}, \tau \lambda_{t}} \\
+  \pi_{t} &= \logit^{-1}(\theta_{t}) \\
+  \phi_{t} &\sim \dnorm{\phi_{t-1}, \tau^{2} \lambda_{t}^{2}} \\
   \lambda_{t} &\sim \dhalfcauchy{0, 1}
 \end{align}
-The value of $r_{j,t}$ is 
+The value of each bond's peace yield is
 \begin{align}
-  r_{j,t} & \sim \dlnorm{\bar{r}_{j},s_{j}}
+  r_{j} & \sim \dlnorm{\bar{r}_{j},s_{j}}
 \end{align}
-where $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
+where $\dlnorm{m, s}$ is the log-normal distribution with location $m$ and scale $s$, $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
 $R_{j}$ is the mean clean price, as a proportion of par, for the period \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.
 
 The estimated values of $\pi_{t}$ are plotted in Figure~\ref{fig:prwar2}.
-
 The probability of war is estimated to be low, less than 1 percent, prior to October 1860. 
 The implied probability of war is steady or decreasing for most of 1860.
 However, in the month before the election it increases from \Sexpr{PRWAR_18600928} to \Sexpr{PRWAR_18601102}.
@@ -985,7 +970,7 @@ local({
 \begin{figure}
   \centerfloat
 <<fig_prwar2, fig.height = 4, fig.width = 6>>=
-(ggplot(filter(PROJ$db[["prwar2_summary"]][["phi"]],
+(ggplot(filter(PROJ$db[["prwar3_summary"]][["phi"]],
                date >= as.Date("1858-7-1")
                ),
         aes(x = date))
@@ -1085,15 +1070,6 @@ This is a emprical puzzle which should be explained by methodological details
 However, this result contrasts with recent work by ..., which finds that a statistical newspaper articles can correctly classify conflicts with a high degree of accuracy.
 
 \newpage
-
-\section{Appendices}
-\label{sec:appendix}
-
-\subsection{Statistical Models}
-
-\subsubsection{South-North Yield Spreads}
-\label{sec:model-south-north-yield-spreads}
-
 
 
 \printbibliography{}

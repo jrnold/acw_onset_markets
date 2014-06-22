@@ -2,7 +2,7 @@
 library("dplyr")
 library("rstan")
 
-MODEL_FILE <- PROJ$path("stan/spreads1.stan")
+MODEL_FILE <- PROJ$path("stan/spreads2.stan")
 .DEPENDENCIES <- c(PROJ$dbpath("prices0"),
                    MODEL_FILE)
 

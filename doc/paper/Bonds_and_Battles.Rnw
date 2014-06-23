@@ -111,7 +111,7 @@
 
 
 \hypersetup{
-  pdftitle={Did the Financial Market Anticipate the Onset of the American Civil War},
+  pdftitle={Did the Financial Market Anticipate the Onset of the American Civil War?},
   pdfauthor={Jeffrey B. Arnold},
   pdfkeywords={American Civil War, Bargaining, Combat, Bayesian Inference, Battle, United States Note, Demand Note, Union (American Civil War), Confederate States of America Greyback}
   %% Colors from jss.cls (Journal of statistical software)
@@ -190,6 +190,16 @@ DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
 \begin{abstract}
 \footnotesize
+
+To what extent did financial markets anticipate the start of the American civil war? 
+How did the market's assessment of war risk change leading up to the war? 
+Which events were associated with these changes?
+This paper answers these questions using the prices and yields of U.S. government and state bonds traded in New York, 1855-61.
+Two measures of war risk are used, the spread between northern and southern bonds and the implied probability of war estimated by treating war as a default event.
+These measures imply little risk of war prior to Lincoln's election in November 1860.
+However, even in April 1860, the risk of war implied by the market was extremely low, and is estimated to be approximatley 5 percent.
+These results have implications for international relations theories: the bargaining theory of war and the capitalist peace.
+
 \end{abstract}
 
 \end{titlingpage}
@@ -771,7 +781,7 @@ local({
      + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
      + geom_line(mapping = aes(y = value_mean))
-     + geom_point(mapping = aes(y = value_mean))
+     # + geom_point(mapping = aes(y = value_mean))
      + scale_x_date("", breaks = "years", labels = date_format("%Y"))
      + scale_y_continuous("spread (%)")
      + theme_local()
@@ -1098,6 +1108,35 @@ However, this result contrasts with recent work by ..., which finds that a stati
 
 
 \printbibliography{}
+
+\begin{figure}
+  \centerfloat
+<<fig_rates, fig.height = 3, fig.width = 6>>=
+local({
+    (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]]
+                   , dimension == 1
+                   , date <= as.Date("1861-4-13")
+                   ),
+            aes(x = date))
+     + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
+     + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
+     + geom_line(mapping = aes(y = value_mean))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("Avg. yield")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+    
+})
+
+@ 
+\caption{
+  Estimated spread between the yields of southern and northern state bonds.
+  The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
+}
+\label{fig:rates}
+\end{figure}
+
 
 \end{document}
 

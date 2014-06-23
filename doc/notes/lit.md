@@ -136,4 +136,84 @@ Vote for admission of Kansas as a slave state in 1858, cited as important by Wei
 - S.37 (35th) on Jan 4, 1858: https://www.govtrack.us/congress/bills/35/s100370
 - S.161 (35th) on Feb 18, 1858: https://www.govtrack.us/congress/bills/35/s101610
 
+## Breaks
+
+### Oct 31, 1856
+
+This is around the time of the presidential election of 1856, but there is no discussion of the election in the Bankers' Magazine: `election <http://books.google.com/books?id=MlkmAQAAIAAJ&pg=PA495#v=snippet&q=election&f=false>`__, `Buchanan <http://books.google.com/books?id=MlkmAQAAIAAJ&pg=PA495#v=snippet&q=buchanan&f=false>`__.
+
+Dicussion of money market.
+
+The main thing cited as affecting the market was large exports of coin to Europe - banks reduce loans, contraction of credit and money
+
+  The transactions at the stock exchange during the last month have
+  reached a larger extent than for several years past during a similar
+  period Although early in the month the scarcity of money and the
+  prevailing high rates have been adverse to speculation the tendency
+  of prices baa been upward and our quotations exhibit a considerable
+  advance
+
+  Holders of Government 6's are firm and only small lots are
+  occasionally offered at our quotations State Blocks have been active
+  and we note large sales of Missouri Virginia and Tennessee 6's the
+  former at higher and Tennessee at unchanged prices Georgia 6's also
+  have met with a better demand than for some time past and California
+  7's have recovered from the depression prevailing in the summer
+
+`Merchants' Magazine <http://books.google.com/books?id=4okoAAAAYAAJ&pg=PA588#v=onepage&q=commercial%20chronicle%20october&f=false>`__ cites tight money and credit.
+
+- `election <http://books.google.com/books?id=4okoAAAAYAAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=onepage&q=election&f=false>`__
+- `Buchanan <http://books.google.com/books?id=4okoAAAAYAAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=snippet&q=buchanan&f=false>`__
+
+
+### March 13, 1857
+
+Possible events
+
+- Mar 4, 1857: James Buchanan
+- Mar 6, 1857: Dred Scott v Sanford
+
+`Dred <http://books.google.com/books?id=MlkmAQAAIAAJ&pg=PA831#v=snippet&q=dred&f=false>`__,
+`pierce <http://books.google.com/books?id=MlkmAQAAIAAJ&pg=PA831#v=snippet&q=pierce&f=false>`__
+`slavery <http://books.google.com/books?id=MlkmAQAAIAAJ&pg=PA831#v=snippet&q=slavery&f=false>`__
+`slave <http://books.google.com/books?id=MlkmAQAAIAAJ&pg=PA831#v=snippet&q=slave&f=false>`__
+
+
+Neither of these are cited in the *Bankers' Magazine*
+
+Large fluctuations in the market. Lots of deamand for state bonds.
+
+   In the slock market there have been during the month numerous
+   fluctuations and a violent yet prevails between the bears and bulls
+   of Wall street as to the ascendancy and the rise or fall in prices
+   In government bonds the rotes are nominal few being offered in the
+   market the Secretary of the Treasury is prepared to pay a premium
+   of 16 per cent on the bonds doe in 1367 8 with the accrued interest
+   of three months equivalent in all to 11 IX per cent Large amounts
+   of these bonds are still held by our Savings Banks and by Trustees
+   the former in consideration of the perfect reliability of the
+   securities in case any emergency should arise wherebv might be
+   necessary to turn them into cash Otherwise o due regard to the
+   Interests of depositors would point to an exchange for the solid
+   and reliable six per cent loans of Missouri Kentucky Virginia North
+   Carolina Georgia Tennessee Louisiana and other States Since our
+   last monthly the sales of Virginia and Missouri bonds have been
+   very large Of the loiter it Is thought several millions will be
+   required this year for banking purposes under the new Isw of that
+   We an iiex fluctuations In market values at the close of the past
+   seven weeks
+
+
+Merchants' magazine
+
+- `election <http://books.google.com/books?id=-qURAAAAYAAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=snippet&q=election&f=false>`__
+- `buchanan <http://books.google.com/books?id=-qURAAAAYAAJ&printsec=frontcover&source=gbs_ge_summary_r&cad=0#v=snippet&q=buchanan&f=false>`__
+
+`Merchants' Magazine <http://books.google.com/books?id=-qURAAAAYAAJ&&pg=PA457>`__
+
+   The stock market has fluctuated more rapidly than usual and with
+   less apparent reason but the bears have the advantage in the
+   struggle and the speculators show but little courage
+
+Mostly cites financial problems, and tight money and credit. 
 

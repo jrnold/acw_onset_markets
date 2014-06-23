@@ -459,6 +459,22 @@ local({
 \label{fig:yields_all}
 \end{figure}
 
+<<>>=
+.data <- filter(prices_prewar,
+                ! series %in% c("U.S. 5s, 1874", "U.S. 6s, 1868", "Missouri 6s", "Kentucky 6s"),
+                date >= as.Date("1856-7-1"),
+                date <= as.Date("1857-1-1")
+                )
+(ggplot(.data,
+        aes(x = date, y = ytm, group = series, color = series))
+ + geom_line()
+ + scale_x_date("", breaks = "months", labels = date_format("%m"))
+ + scale_y_continuous("yield (%)")
+ ## + theme_local()
+ ## + theme(legend.position = "none")
+ )
+
+@ 
 
 \begin{figure}
   \centerfloat
@@ -746,13 +762,16 @@ local({
   \centerfloat
 <<fig_north_south_spreads, fig.height = 3, fig.width = 6>>=
 local({
-    (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]],
-                   dimension == 2,
-                   date <= as.Date("1861-04-13")),
+    (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]]
+                   , dimension == 2
+                   ## , date >= as.Date("1860-9-1")
+                   , date <= as.Date("1861-4-13")
+                   ),
             aes(x = date))
      + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
      + geom_line(mapping = aes(y = value_mean))
+     + geom_point(mapping = aes(y = value_mean))
      + scale_x_date("", breaks = "years", labels = date_format("%Y"))
      + scale_y_continuous("spread (%)")
      + theme_local()
@@ -768,6 +787,12 @@ local({
 }
 \label{fig:north_south_spreads}
 \end{figure}
+
+% Break1 : 1856-10-31 (10-24 to 10-31)
+% Break2 : 1857-3-13
+% Break3 : 1857-10-2
+% Break4:  1857-11-13
+% Break5 : 1860-11-30, but starting at 1860-11-02
 
 The spread (difference) between the yields of southern and northern state bonds is a measure of the market's expectation of war.%
 \footnote{

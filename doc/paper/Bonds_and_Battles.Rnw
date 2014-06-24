@@ -197,9 +197,8 @@ Which events were associated with these changes?
 This paper answers these questions using the prices and yields of U.S. government and state bonds traded in New York, 1855-61.
 Two measures of war risk are used, the spread between northern and southern bonds and the implied probability of war estimated by treating war as a default event.
 These measures imply little risk of war prior to Lincoln's election in November 1860.
-However, even in April 1860, the risk of war implied by the market was extremely low, and is estimated to be approximatley 5 percent.
+However, even in April 1860, the risk of war implied by the market was extremely low, and is estimated to be approximately 5 percent.
 These results have implications for international relations theories: the bargaining theory of war and the capitalist peace.
-
 \end{abstract}
 
 \end{titlingpage}
@@ -215,88 +214,86 @@ Three measures are used to assess the market's beliefs about the risk of war: bo
 The financial market assessed only a minimal probability of war prior to the election of Lincoln in 1860, and only increased its estimate of the probability of war in the months after the election.
 On the financial market largely did not anticipate the conflict; bond prices immediately prior to the start of the war imply a 5 percent probability of war.
 
-This paper builds on and contributes to the literature analyzing political events using financial markets.
-Multiple papers have looked at the relationship between events \textit{within} the American Civil War and the prices of Union and Confederate financial assets \textcites{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
-This paper adds to this work by analyzing the \textit{initiation} of the American Civil War and using state bond prices.
-\textcites{LeighWolfersEtAl2003}{WolfersZitzewitz2009} use prediction markets as a measure of the ex ante probability of the initiation of the Iraq War in 2003.
-Additionally other papers have analyzed the relationship between war events and \textcites{WaldenstromFrey2008}{WaldenstromFrey2008} analyze market reactions to World War II, \textcite{Hall2004} and \textcite{Ferguson2006} to World War I, and \textcite{Bueno1990}.
-\textcite{SchneiderTroeger2006} analyze stock market reactions to major events; \textcite{GuidolinLaFerrara2010} market reactions to MIDs, and Shea.
-
-This paper is most similar to \cite{HaberEtAl2012} which use a cashflow pricing model of bonds to estimate the implied probabilities of the outcome of the American and Chinese Civil Wars. 
+This use methods similar to \cite{HaberEtAl2012} to estimate the implied probabilities of conflict events from bond prices.
 I expand on their work by explicitly tying the implications of financial market estimates to theories of war, estimating war initiation instead of war termination, and extending the analysis to use events with non-zero recovery rates and leverage multiple assets to estimate the probability of war.
+
+This paper contributes to the literature which has analyzed the relationship between events events \textit{within} the American Civil War and financial markets \textcites{Schwab1901}{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
+It also contributes to the literature more broadly analyzing the response of financial markets to wars:  \textcite{Bueno1990}, World War I \textcite{Hall2004} and \textcite{Ferguson2006}, World War II \textcites{WaldenstromFrey2008}{WaldenstromFrey2008}.
+\textcite{SchneiderTroeger2006} analyze stock market reactions to major events; \textcite{GuidolinLaFerrara2010} market reactions to MIDs.
+\textcites{LeighWolfersEtAl2003}{WolfersZitzewitz2009} used prediction markets as a direct estimate of the \textit{ex ante} probability of the initiation of the Iraq War in 2003.
 
 \section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}
 
-The objective of this paper is to estimate the market's beliefs about the probability of the American Civil War in the period leading up to the war's initiation.
-The prices (and yields) of bonds can be used for this purpose, because the price of a bond is the present discounted value of expected cash flows.
-The price of a bond is,
+The objective of this paper is to use the prices and yields of bonds to infer market beliefs about the probability of war. 
+As such it is important to establish the theoretical relationship between the observed market prices and yields and these beliefs about war. 
+The price of generic bond is present discounted value of expected cash flows,
 \begin{equation}
-  p = \sum_{i=1}^{n} E(c_{i} | \Omega) e^{-r_{t_{i}} t_{i}}
+  p_{t} = \sum_{i=1}^{n} E(c_{i} | \Omega) e^{-\E (r_{t_{i}} | \Omega_{t}) t + j_{i}}
 \end{equation}
-where $p$ is the price of a bond (or generic asset) paying $\{c_{i} \}_{i=1}^{n}$ at times $\{t_{i}\}_{i=1}^{n}$ with discount factors $\{r_{t_{i}} \}_{i=1}^{n}$. 
-$E(. | \Omega)$ is an expected value conditioned on the information at the current time.
-This paper will use yields to maturity instead of prices.
+where $p$ is the price of a bond (or generic asset) paying $\{c_{i} \}_{i=1}^{n}$at times $\{t + j_{i}\}_{i=1}^{n}$ with discount factors $\{r_{t_{i}} \}_{i=1}^{n}$. 
+Although the values of the cash flows $c_{i}$ their times $t + j_{i}$ are known, it is now known 
 
-For changes in prices to represent changes in the risk of war, the expectations about cashflows must be related to war and other factors which could change expectations about cashflows could controlled for.
+This paper will use the yield to maturity of bonds, this is the interest rate $r$ such that discounts the 
+\begin{equation}
+  \label{eq:2}
+  r = \argmax_{r'} \sum_{i = 1}^{n} c_{i} e^{- r' t}
+\end{equation}
+The relationship between risk and yields is the inverse of that for prices; higher risk implies a lower price, but a higher yield.
 
-EXPAND THIS
-
-- bond prices are expectations
-- yields are the inverse of prices
-- more risk to cashflows, e.g. from default = lower prices, and higher yields.
-- can attribute changes in prices to changes in beliefs about the expected probability of war to price changes if changes in war beliefs are plausibly the most important thing changing in this period: (1) period close to the war, and (2) check business magazines to see what factors are mentioned with respect to the price changes.
+I can attribute changes in prices to changes in beliefs about the expected probability of war to price changes if changes in war beliefs are plausibly the most important thing changing in this period: (1) period close to the war, and (2) check business magazines to see what factors are mentioned with respect to the price changes.
 
 To the extent that a war would change investors' expectations about the timely payment of future cashflows of these bonds, changes in the yields of bonds can be used to infer changes in beliefs about the probability of war.
 It is certainly case that war would influence expectations about the cash-flows of the U.S. government and state bonds considered here.
 A war would influence the credit of the issuers by increasing debt, decreasing revenue and possibly leading to default, and contemporary investors were aware of these risks.
 
-For investors holding U.S. government bonds, war and secession would have would reduce the ability of U.S. government to pay its debts by reducing potential revenue with the loss of the southern states and increasing debt to pay war expeditures.
-Southern states accounted for 25 percent of the non-slave wealth of the United States \parencite[11]{Elder1865}.%
-\footnote{GDP was neither nor invented until WWII. During that era, the census estimates of personal and property wealth was used as a measure of the total economy and ability to repay the debt.}
-% However, this was likely an important consideration to investors.
+For investors holding U.S. government bonds, secession and war would reduce the ability of the U.S. government to pay its debts both by reducing potential revenue due to the loss of the southern states and increasing debt to pay war expeditures.
+The revenue of the U.S. would be reduced by the secession of southern states due to the loss of tax revenue. In 1860, the southern states accounted for 25 percent of the non-slave wealth of the United States \parencite[11]{Elder1865}.%
+\footnote{GDP was not invented until WWII. 
+  During the civil war era, the census estimates of personal and property wealth were used as a measure of the total economic activity and also explicitly used to assess the ability of the U.S. to repay the debt \parencite{Elder1863}{Elder1865}.
+}
 The \textit{Merchants' Magazine} wrote in January 1861,
 \begin{quote}
    The news [of secession] was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler \parencite[79]{HomansDana1861a}.
 \end{quote}
-A war would also increase the debt of the United States as the increase in government expenditures would almost certainly be funded by debt issue.
+A war would also increase the debt of the United States as military expenses would greatly increase government expenditures, and those additional expenditures would almost certainly be mostly funded by debt.
 While the U.S. government only infrequently issued debt during the 19th century, the exception was to fund wars.
-The U.S. had issued debt to fund the War of 1812 and the Mexican-American War of 1846-1848.
-Later assessments of the ability of the U.S. to pay its debts often compared the current resources and debt levels of the U.S. to those of the U.S. in 1791 and 1816, and Great Britain during the Napoleonic Wars \parencites{Elder1863}[8 pp.]{BankersMagazine1862},
-\footnote{
-  The \textit{Annual Report Dec 1861} makes one of these comparisons,
-  \begin{quote}
-    The amount of the public  debt in the year 1816 was \$127,334,933 74, and in twenty years it was paid off by the people.
-    The country, even if the loyal States only are regarded, can sustain and pay off in thirty years the debt to which rebellion now exposes us with hardly greater proportional contributions from increased and increasing resources than that debt 
-made necessary. (p. 23)
-  \end{quote}
-}
+The U.S. government issued debt to fund the War of 1812 and the Mexican-American War of 1846-1848.
+%% Later assessments of the ability of the U.S. to pay its debts often compared the current resources and debt levels of the U.S. to those of the U.S. in 1791 and 1816, and Great Britain during the Napoleonic Wars \parencites{Elder1863}[8 pp.]{BankersMagazine1862},
+%% \footnote{
+%%   The \textit{Annual Report Dec 1861} makes one of these comparisons,
+%%   \begin{quote}
+%%     The amount of the public  debt in the year 1816 was \$127,334,933 74, and in twenty years it was paid off by the people.
+%%     The country, even if the loyal States only are regarded, can sustain and pay off in thirty years the debt to which rebellion now exposes us with hardly greater proportional contributions from increased and increasing resources than that debt 
+%% made necessary. (p. 23)
+%%   \end{quote}
+%% }
 Although the war would continue much longer than initial estimates, even the initial estimated costs of war represented a large increase in government debt.
 The amount of expenditures estimated for the fiscal year from July 1, 1861 to June 30, 1862 in the July 4, 1861 \textit{Report of the Secretary of the Treasury} was 319 million \parencite[5]{Treasury1861a}, an increase of 369\% (251 million) over the estimated expenditures from the previous years' report \parencite[6]{Treasury1860}.
 The \textit{Annual Report} also suggeted that the revenue to pay for expenditures be split as 80 million in taxes, and 240 million in the issue of new loans  \parencite[6]{Treasury1861a}.
-The Act of July 17, 1861, the first act passed by Congress to fund the war, and it authorized the issue of \$250 million in debt \parencite[44]{Treasury1863}.
-Since  the debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861}, this represented an increase in the U.S. debt of 178\%.
-By comparison, the debt at the end of the War of 1816 was 127 million \parencite[29]{Elder1863} and 49 million in debt was issued to fund the Mexican American War.%
-\footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million (Annual Report 1863, p. 42)}
+The Act of July 17, 1861, the first act passed by Congress to fund the war, and it authorized the issue of \$250 million in debt \parencite[44]{Treasury1863}, an increase of of 178\%.%
+\footnote{The debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861}.}
+By comparison, the debt at the end of the War of 1816 was 127 million \parencite[29]{Elder1863} and only 49 million in debt was issued to fund the Mexican American War.%
+\footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million \parencite[42]{Treasury1863}.}
 
-For investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
-After the initiation of the war, southern states ceased interest payments to northern creditors starting with the coupon payments due on  July 1st, 1861 \parencites[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
-Investors almost certainly anticipated this as, although the Southern states paid interest on time in January 1861, there was uncertainty about whether they would \parencite[756]{BankersMagazine1861},
+For northern investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
+After the initiation of the war, southern states immediately ceased interest payments to northern creditors starting with coupon payments due on July 1st, 1861 \parencites[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
+Investors almost certainly anticipated this as there was concern that the southern states would default on their January 1861 payments,
 \begin{quote}
- \dots the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States.
+ \dots the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States. \parencite[756]{BankersMagazine1861}
 \end{quote}
-After Fort Sumter, concern over default on interest payments was primary reason cited for the decline in the prices of southern state bonds: ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next'' \parencite[947]{BankersMagazine1861}.
-It was almost certain that as long as the war would continue, northern holders of southern state bonds would not receive interest payments.
-By November 1861, the \textit{Bankers' Magazine} wrote, ``...but faint hopes are entertained of their [southern states] paying their interest for some years to come. \parencite[559]{BankersMagazine1862}''
-After the war, most Southern states repaid the debt issued before the war, although they defaulted on all debt issued during the war and several states defaulted on debt issued by reconstruction governments before 1870 \parencites{Randolph1931}{Ratchford1941}.
-It is unclear what would have happened to this debt if the Confederacy had won the war; at best, the states would return to paying interest and principal on those debts; at worst, they would completely default on northern creditors.
+After the initiation of the war, the concern over default on interest payments was the primary reason cited for the decline in the prices of southern state bonds: ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next \parencite[947]{BankersMagazine1861}.''
+After the southern states had stopped paying interest, it was almost certain that as long as the war would continue, northern holders of southern state bonds would not receive interest payments.
+In November 1861, the \textit{Bankers' Magazine} wrote, ``...but faint hopes are entertained of their [southern states] paying their interest for some years to come. \parencite[559]{BankersMagazine1862}''
+After the war, most Southern states repaid the debt issued before the war, but they defaulted on all debt issued while part of the Confederacy and some defaulted on debt issued by reconstruction governments \parencites{Randolph1931}{Ratchford1941}.
+It is unclear how the southern state governments would have handled the repayment of debt if the Confederacy had won the war
+At best, the states would return to paying interest and principal on those debts soon after the end of the war. 
+At worst, they would completely default on their obligations to northern creditors.
 That the prices of southern state bonds never went to zero, suggests that investors' beliefs put positive probability on those states being reincorporated into the Union or that they would resume payments on their debt after the war even in the event of a Confederate victory.
-Additionally, although, at first the ability of the states to pay their debts was not much in doubt, an extended war would result in both more debt issued by southern states and wealth destroyed, both of which could affect the ability of the states to eventually pay the debt they had issued.
+An additional consideration as to the creditworthiness of southern states is, although, at first the ability of the states to pay their debts if they so choose was not much in doubt, an extended war would result in both more debt issued by southern states and wealth destroyed, both of which could affect the ability of the states to eventually pay the debt they had issued.
 Thus, holders of southern state bonds were particularly exposed to war risk, and almost certain to suffer losses immediately at the start of a conflict between the states for they were certain to receive no payments if a war occurred and as long as the war continued.
 
 Although U.S. government and state bonds were not direct prediction markets of the onset of war, since their expected payment of their future cashflows would be heavily influenced by the onset of war, they can be used to make inferences about investors' beliefs about the onset of war.
-%% Thus the prices of the bonds leading up to the war should reflect the beliefs of those investors of both the probability of and the additional risk conditional on the war occuring. 
-%% Section \ref{sec:model-probability-war} statistically disentangles these two effects, but informally, it is unlikely that beliefs about the cost of a war between the northern and southern states are changing before the American Civil War than that beliefs that the probablility that such a war would occur.
 
 \section{Data}
 \label{sec:data}
@@ -469,14 +466,14 @@ local({
                 date >= as.Date("1856-7-1"),
                 date <= as.Date("1857-1-1")
                 )
-(ggplot(.data,
-        aes(x = date, y = ytm, group = series, color = series))
- + geom_line()
- + scale_x_date("", breaks = "months", labels = date_format("%m"))
- + scale_y_continuous("yield (%)")
+## (ggplot(.data,
+##         aes(x = date, y = ytm, group = series, color = series))
+##  + geom_line()
+##  + scale_x_date("", breaks = "months", labels = date_format("%m"))
+##  + scale_y_continuous("yield (%)")
  ## + theme_local()
  ## + theme(legend.position = "none")
- )
+ ## )
 
 @ 
 

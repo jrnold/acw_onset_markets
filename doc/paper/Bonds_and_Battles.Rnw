@@ -234,10 +234,10 @@ The price of generic bond is present discounted value of expected cash flows,
 where $p$ is the price of a bond (or generic asset) paying $\{c_{i} \}_{i=1}^{n}$at times $\{t + j_{i}\}_{i=1}^{n}$ with discount factors $\{r_{t_{i}} \}_{i=1}^{n}$. 
 Although the values of the cash flows $c_{i}$ their times $t + j_{i}$ are known, it is now known 
 
-This paper will use the yield to maturity of bonds, this is the interest rate $r$ such that discounts the 
+This paper will use the yield to maturity of bonds, this is the interest rate $r$ such that 
 \begin{equation}
   \label{eq:2}
-  r = \argmax_{r'} \sum_{i = 1}^{n} c_{i} e^{- r' t}
+  p_{t} = \sum_{i = 1}^{n} c_{i} e^{- r t_{i}}
 \end{equation}
 The relationship between risk and yields is the inverse of that for prices; higher risk implies a lower price, but a higher yield.
 

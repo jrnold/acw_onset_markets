@@ -2,15 +2,15 @@
 library("dplyr")
 library("rstan")
 
-MODEL_FILE <- PROJ$path("stan/prwar2.stan")
+MODEL_FILE <- PROJ$path("stan/prwar3.stan")
 .DEPENDENCIES <- c(PROJ$dbpath("prices0"),
                    PROJ$dbpath("prwar1"),
                    MODEL_FILE)
 
-ITER <- 2^11
-WARMUP <- 2^10
+ITER <- 2^12
+WARMUP <- 2^11
 SAMPLES <- 2^9
-THIN <- 2
+THIN <- 2^2
 CHAINS <- 1
 SEED <- 122218
 
@@ -44,9 +44,9 @@ standata <- function(.data) {
          , y = .data$prices$ytm
          , y_variable = .data$prices$seriesn
          , y_time = .data$prices$time
-         , riskfree_mean = .data$yields$yield_peace
-         , riskfree_sd = .data$yields$yield_peace_sd
          , recovery = .data$prices$pv_yield_war / 100
+         , riskfree = exp(.data$yields$logyield_peace)
+         # logit scaled prob war (0.001, 0.02)
          , theta_init_loc = -5.4
          , theta_init_scale = 0.75
          )
@@ -61,14 +61,13 @@ staninit <- function(.standata, .data) {
                %>% dplyr::summarise(prwar = mean(prwar2)))$prwar,
               0.001)
     ret$epsilon <- c(0, diff(log(p / (1 - p))))
+    # ret$sigma <- rep(0.5 * sd(.standata$y), .standata$r)
     ret$sigma <- 0.5 * sd(.standata$y)
     ret$tau <- 1
     ret$tau_local <- rep(1, .standata$n - 1)
-    ret$riskfree <- exp(.standata$riskfree_mean)
     ret$nu <- 3
     list(ret)
 }
-
 
 main <- function() {
     .data <- get_data()

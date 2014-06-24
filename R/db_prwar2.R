@@ -37,6 +37,22 @@ get_data <- function() {
     })
 }
 
+#' Generate initial values (1 chain only)
+staninit <- function(.standata, .data) {
+    ret <- list()
+    #' intitial values of theta from estimates in prwar1
+    p <- pmax((group_by(.data$prices, time)
+               %>% dplyr::summarise(prwar = mean(prwar2)))$prwar,
+              0.001)
+    ret$theta <- log(p / (1 - p))
+    ret$sigma <- 0.5 * sd(.standata$y)
+    ret$tau <- 1
+    ret$tau_local <- rep(1, .standata$n - 1)
+    ret$riskfree <- exp(.standata$riskfree_mean)
+    ret$nu <- 3
+    list(ret)
+}
+
 standata <- function(.data) {
     list(n = nrow(.data$times)
          , r = .data$nseries
@@ -48,15 +64,15 @@ standata <- function(.data) {
          , riskfree_sd = .data$yields$logyield_peace_sd
          , recovery = .data$prices$pv_yield_war / 100
          )
-    
 }
 
 main <- function() {
     .data <- get_data()
     .standata <- standata(.data)
+    .init <- staninit(.standata, .data)
     mod <- stan_model(MODEL_FILE)
     ret <- sampling(mod,
-                    data = .standata,
+                    data = .standata, init = .init,
                     iter = ITER, warmup = WARMUP, thin = THIN,
                     chains = CHAINS, seed = SEED)
     list(samples = ret,

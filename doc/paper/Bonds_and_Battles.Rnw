@@ -212,14 +212,8 @@ How did the market's assessment of war risk change leading up to the war?
 Which events were associated with these changes?
 This work answers these questions using data on the prices and yields of U.S. government and state bonds between 1855 and the start of the war in April 1861.
 Three measures are used to assess the market's beliefs about the risk of war: bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
-The financial market largely did not anticipate the conflict; bond prices immediately prior to the start of the war imply a 5 percent probability of war.
 The financial market assessed only a minimal probability of war prior to the election of Lincoln in 1860, and only increased its estimate of the probability of war in the months after the election.
-
-% Contributions
-This paper contributes to the empirical analysis of the bargaining theory of war.
-First, asset prices potentially provide a empirical means for international relations to disentangle rationalist theories of war (bargaining model of war) \cite{Fearon1995}{Reiter2003}{Powell2006}.
-
-This paper also contributes a data point towards the understanding the signaling role of markets in war initiation \cite{GartzkeLiEtAl2001a}{GartzkeLi2003}.
+On the financial market largely did not anticipate the conflict; bond prices immediately prior to the start of the war imply a 5 percent probability of war.
 
 This paper builds on and contributes to the literature analyzing political events using financial markets.
 Multiple papers have looked at the relationship between events \textit{within} the American Civil War and the prices of Union and Confederate financial assets \textcites{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
@@ -900,33 +894,37 @@ PRWAR_18610413 <-
 @ 
 
 While the bond yields and spreads between northern and southern bonds can indicate changes in war risk, they are not directly interpretable as the probability of war. 
-However, the market's beliefs about the probability of war can be inferred from bond prices and yields by treating war as a default event.%
-\footnote{See \textcites{Fons1987}{Merrick2001} for deriving default probabilities from bond prices.}
+However, the market's beliefs about the probability of war can be inferred from bond prices and yields by treating war as a default event \parencite{HaberEtAl2012}.%
+\footnote{See \textcites{Fons1987}{Merrick2001}{Chan-Lau2006} for derivations of default probabilities from bond prices.}
 A simple approximation for the probability of the default of a risky bond given its yield is,
 \begin{equation}
   \label{eq:4}
-  \Pr(\text{default}) = \frac{y - r}{1 - R} \text{,}
+  \epsilon = \frac{y - r}{1 - R} \text{,}
 \end{equation}
 where $y$ is the yield of the risky bond, $r$ is the yield of a risk-free bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond \parencite{HullPredescuWhite2004}.%
 \footnote{\textcite[115]{WaldenstromFrey2008} propose a similar method, that when the war is observed the probability of war is the proportion of the yield after war to the yield prior to war. 
   That method is not directly derived from a cashflow model and produces higher estimates of the pro*bability of war.
   \textcite{HaberEtAl2012} use a cashflow method to calculate the probability of victory in wars (Confederate victory in the American Civil War, and government victory in the Chinese Civil War) using a cashflow pricing model of bonds, but assuming a recovery rate of 0.
 }
-Equation~\eqref{eq:4} can be used to estimate the probability of war by properly defining $r$ and $R$.
-To estimate the probability of war, the risk-free interest rate $r$ should be the yield of a comparable bond with no-risk of war.
-In this case, $r$ will not necessarily be risk-free, it should include any risk not due to war, while excluding war risk.
-One estimate of $r$ is the yield of the same bond for an earlier period in which the risk of war is approximately zero.
+Equation~\eqref{eq:4} can be used to estimate the probability of war if $r$ and $R$ are properly defined.
+To estimate the probability of war, the risk-free interest rate $r$ should be the yield of a comparable bond with no risk of war.
+In this case, $r$ will not necessarily be risk-free --- it should include any risk not due to war, but exclude risk due to war.
+One estimate of $r$, that this paper will use, is the yield of the same bond for an earlier period in which the risk of war is approximately zero.
 
-The recovery rate $R$ is the amount, as a proportion of face value or future payments, that the investor receives in the event of a war.
+The recovery rate $R$ is the amount, as a proportion of par value, that the investor receives in the event of a war.
+If war does occur, then the value of $R$ to use is straightforward.
 If the war does occur, then $R$ is known --- it is the price of the bond observed at the start of the war
 
-The implied probability of war is calculated for all southern and border state bonds (Georgia, Kentucky, Louisana, Misosuri, Tennessee and Virgia)
+Using the method The implied probability of war is calculated for all southern and border state bonds (Georgia, Kentucky, Louisana, Misosuri, Tennessee and Virgia)
 For each bond considered here, $r$ is the yield from \Sexpr{DATEFMT_PEACE_START} to \Sexpr{DATEFMT_PEACE_END}.%
 \footnote{
   The Panic of 1857 (August 1857 through January 1858) is excluded from calculations because as discussed earlier in this paper, while the yields increased during this period, it was due to a financial crisis and not war risk.
   The 5s of 1874 were not issued until 1858, but given the similarity of their yields to the 6s of 1868, the peace yield of the 6s of 1868 is used for the 5s of 1874.
 }
 Although there may have been some risk of war during this period, the yields were relatively low, and thus war risk must have been low.
+While this estimate of $r$ accounts for the hetereogeneity in risk between the bonds, a problem with this estimate of $r$ is that it is constant over time. Since it does not account for changes in the war-risk-free rate over time, the estimates of the probability of war it can be confounded by events which increase $r$.
+In order to reduce this possibility, I only consider the period between the of Panic of 1857 and Fort Sumter, when there are no major financial crises and changes in war risk is the likely explanation.
+
 For reach bond, the value of $R$ is the average price \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.%
 Since many bonds spiked immediately after Sumter before falling in the weeks after it, taking the average price over a longer period increases the denominator in equation~\eqref{eq:4}, increasing the estimated probability of war.%
 \footnote{To account for differences in bond prices over time due to the decrease in maturity, the recovery value of the bond is calculated for each time as the present value of the bond at time $t$ calculated using the average yield to maturity from the period after the start of the war.}
@@ -953,9 +951,9 @@ The inverse logit transformation of $\pi$ evolves as a random walk with a horses
 \end{align}
 The value of each bond's peace yield is
 \begin{align}
-  r_{j} & \sim \dlnorm{\bar{r}_{j},s_{j}}
+  r_{j} & \sim \dnorm{\bar{r}_{j},s_{j}}
 \end{align}
-where $\dlnorm{m, s}$ is the log-normal distribution with location $m$ and scale $s$, $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
+where $\bar{r}_{j}$, $s_{j}$ are the mean and standard deviation of the logarithm of yields for bond $j$ for the period, \Sexpr{DATEFMT_PEACE_START}  to \Sexpr{DATEFMT_PEACE_END}.
 $R_{j}$ is the mean clean price, as a proportion of par, for the period \Sexpr{DATEFMT_WAR_START} to \Sexpr{DATEFMT_WAR_END}.
 
 The estimated values of $\pi_{t}$ are plotted in Figure~\ref{fig:prwar2}.
@@ -1004,7 +1002,7 @@ local({
 \begin{figure}
   \centerfloat
 <<fig_prwar2, fig.height = 4, fig.width = 6>>=
-(ggplot(filter(PROJ$db[["prwar3_summary"]][["phi"]],
+(ggplot(filter(PROJ$db[["prwar4_summary"]][["phi"]],
                date >= as.Date("1858-7-1")
                ),
         aes(x = date))
@@ -1022,7 +1020,7 @@ local({
 
 @ 
   \caption{
-    Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:model-probability-war}
+    Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:probability-war}
     The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
     The vectical line is the date of Lincoln's election.
   }
@@ -1079,7 +1077,18 @@ Financial markets did not respond to war risk until after the election of Lincol
 Despite the awareness of the risk of war, yields spiked dramatically after the Battle of Fort Sumter, implying that the event was unanticipated. 
 The implied probability of war based off the southern state bonds was only about 5 percent.
 
-\textit{Ex ante} public information assessments of the probability of war are important because they may provide methods for distinguishing between theories and mechanisms of war.
+The results presented here are specific to the case of the American Civil War, but they are consistent with other work on how financial markets have responded to war initiation.
+\textcite{Ferguson2006} show that although World War I was preceeded by a series of crises, European markets did not anticipate the onset of WWI.
+\textcite{FreyKucher2000} and \textcite{WaldenstromFrey2008} show that Nordic and Swiss markets had large reactions to the start of World War II although this was known.
+\textcite{GuidolinLaFerrara2010} find large abnormal returns at MIDs. 
+Many of those works emphasize the efficiency of markets in responding to political events, or use the size of the market reaction to understand characteristics of the political events.
+However, the presence of strong market reactions to these events it itself interesting, as it is an indication that the onset of hostilities was unexpected.
+Overall, These cases suggest in in many cases financial markets do not effectively price in the the risk of war.
+If markets are efficient and incorporate public information, this suggests that given public information, many wars are not anticipated.
+Alternatively, markets do a poor job of assessing the \textit{ex ante} theory of war.  
+Either of these scenarios have important implications for prominent theories of war.
+
+The \textit{ex ante} public information assessments of the probability of war are important because they may provide methods for distinguishing between theories and mechanisms of war.
 The two rationalist theories of war: commitment problems and private information \parencites{Fearon1995,Powell2006}, have different implications as to what the \textit{ex ante} probability of war occuring will be.
 In the simplest version of war due to a commitment problem, given the conditions, war will either occur or not occur with certainty depending on the parameters of the model.
 However, in a private information model of war, if is is possible for war to occur, it can occur with a probability of less than one.
@@ -1087,21 +1096,15 @@ Not only that, the private information model of war implies that many wars shoul
 In general, the prevalance of unanticipated wars would provide evidence for the prevalence of some sort of private information model.
 Other more specific theories of war may offer different implications as to what the \textit{ex ante} probability of war would be.
 However, the point remains that market predictions of war probability are both something to be explained by models of war, and a means to assess those models.
+In the specific case here, the low probability of war implied by financial markets for the American Civil War is surprising given that several political science  explanations of the American Civil War emphasize commitment problems \parencite{Reiter2009}{Weingast1998}.
 
-The low probability of war implied by financial markets is surprising.
-First, the most common political explanations of the American Civil War emphasize that it was due to a commitment problem (Reiter).
-But if that were the case in a full-information setting, than the war should be much less 
+The second possibility is that financial markets maybe doing a poor job assessing and signaling the risk of war.
+This would pose serious problems for the mechanism in the \textit{capitalist peace}.
 
-The results presented here are specific to the case of the American Civil War, but they are consistent with other work on how financial markets have responded to war initiation.
-\textcite{Ferguson2006} show that although World War I was preceeded by a series of crises, European markets did not anticipate the onset of WWI.
-\textcite{FreyKucher2000} and \textcite{WaldenstromFrey2008} show that Nordic and Swiss markets had large reactions to the start of World War II although this was known.
-\textcite{GuidolinLaFerrara2010} find large abnormal returns at MIDs. 
-Many of those works emphasize the efficiency of markets in responding to political events, or use the size of the market reaction to understand characteristics of the political events.
-However, the presence of strong market reactions to these events it itself interesting, as it is an indication that the onset of hostilities was unexpected.
-Overall, These cases suggest in in many cases financial markets do not price in the the risk of war.
-And to the extent that markets are efficient and incorporate public information, this suggests that given public information, many wars are not anticipated.
-This is a emprical puzzle which should be explained by methodological details
-However, this result contrasts with recent work by ..., which finds that a statistical newspaper articles can correctly classify conflicts with a high degree of accuracy.
+This paper estimates the \textit{ex ante} risk of the American Civil War as implied by financial markets.
+It is a single case, although its results of a low implied probability of war are largely consistent with other work on the reactions of financial markets to war.
+The reactions of financial markets provide another empirical pattern that should be assessed with respect to theories of war.
+In particular, if financial markets can serve as predictions given civil war, they provide a means to assess bargaining theories of war.
 
 \newpage
 

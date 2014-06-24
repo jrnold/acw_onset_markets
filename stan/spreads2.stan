@@ -22,24 +22,27 @@ transformed data {
 parameters {
   real<lower = 0.0> sigma;
   vector<lower = 0.0>[p] tau;
-  vector[p] theta[n];
+  vector[p] epsilon[n];
   vector<lower = 0.0>[p] tau_local[n - 1];
   real<lower = 0.0> nu;
 }
 transformed parameters {
+  vector[p] theta[n];
   vector[y_nobs] mu;
+  theta[1] <- theta_init_loc + theta_init_scale .* epsilon[1];
+  for (i in 2:n) {
+    theta[i] <- theta[i - 1] + sigma * tau .* tau_local[i - 1] .* epsilon[i];
+  }
   for (i in 1:y_nobs) {
     mu[i] <- dot_product(loadings[y_variable[i]], theta[y_time[i]]);
   }
 }
 model {
-  // AR(1) errors
-  theta[1] ~ normal(theta_init_loc, theta_init_scale);
-  for (i in 2:n) {
-    theta[i] ~ normal(theta[i - 1], sigma * tau .* tau_local[i - 1]);
-  }
   sigma ~ cauchy(0.0, ysd);
   tau ~ cauchy(0.0, tau_scale);
+  for (i in 1:n) {
+    epsilon[i] ~ normal(0.0, 1.0);
+  }
   for (i in 1:(n - 1)) {
     tau_local[i] ~ cauchy(0.0, 1.0);
   }

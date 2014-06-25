@@ -74,21 +74,9 @@ main <- function() {
     list(summary = .summary
          , theta = theta
          , tau_local = tau_local
-<<<<<<< HEAD
-         , theta_diff_186001_186011 = diff_summary(as.Date("1859-12-30"),
-               as.Date("1860-11-02"))
-         , theta_diff_elec = diff_summary(as.Date("1860-11-02"),
-               as.Date("1860-11-23"))
-         , theta_diff_postelec = diff_summary(as.Date("1861-04-13"),
-               as.Date("1860-11-23"))
-         , theta_diff_1860_1857 = diff_summary(as.Date("1857-07-03"),
-               as.Date("1859-12-30"))
-=======
          , theta_diff_18550713_18601102 = diff_summary(spreads2, as.Date("1855-07-13"), as.Date("1860-11-02"))
-               
          , theta_diff_elec = diff_summary(spreads2, as.Date("1860-11-02"), as.Date("1860-12-07"))
          , theta_diff_sumter = diff_summary(spreads2, as.Date("1860-04-13"), as.Date("1860-04-20"))
->>>>>>> 8c96875c3c5d3173a9a7cdec1a901fdd878ce3fe
          )
          
 }

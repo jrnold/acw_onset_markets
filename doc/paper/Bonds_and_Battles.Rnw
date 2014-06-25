@@ -254,7 +254,7 @@ The revenue of the U.S. would be reduced by the secession of southern states due
 }
 The \textit{Merchants' Magazine} wrote in January 1861,
 \begin{quote}
-   The news [of secession] was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler \parencite[79]{HomansDana1861a}.
+   The news [of secession] was also of a character to affect disastrously American credit, since it showed a decline of 13 per cent in United States government stocks, solely from fear of disunion, which event would reduce the States to the condition of the bankrupt, ``disorderly houses'' of South America, and leave the separate States a prey to every spoiler. \parencite[79]{HomansDana1861a}
 \end{quote}
 A war would also increase the debt of the United States as military expenses would greatly increase government expenditures, and those additional expenditures would almost certainly be mostly funded by debt.
 While the U.S. government only infrequently issued debt during the 19th century, the exception was to fund wars.
@@ -272,19 +272,16 @@ Although the war would continue much longer than initial estimates, even the ini
 The amount of expenditures estimated for the fiscal year from July 1, 1861 to June 30, 1862 in the July 4, 1861 \textit{Report of the Secretary of the Treasury} was 319 million \parencite[5]{Treasury1861a}, an increase of 369\% (251 million) over the estimated expenditures from the previous years' report \parencite[6]{Treasury1860}.
 The \textit{Annual Report} also suggeted that the revenue to pay for expenditures be split as 80 million in taxes, and 240 million in the issue of new loans  \parencite[6]{Treasury1861a}.
 The Act of July 17, 1861, the first act passed by Congress to fund the war, and it authorized the issue of \$250 million in debt \parencite[44]{Treasury1863}, an increase of of 178\%.%
-\footnote{The debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861}.}
+\footnote{The debt on July 1, 1861 was 90 million \parencite[23]{Treasury1861a}.}
 By comparison, the debt at the end of the War of 1816 was 127 million \parencite[29]{Elder1863} and only 49 million in debt was issued to fund the Mexican American War.%
 \footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million \parencite[42]{Treasury1863}.}
 
 For northern investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
 After the initiation of the war, southern states immediately ceased interest payments to northern creditors starting with coupon payments due on July 1st, 1861 \parencites[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
-Investors almost certainly anticipated this as there was concern that the southern states would default on their January 1861 payments,
-\begin{quote}
- \dots the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States. \parencite[756]{BankersMagazine1861}
-\end{quote}
-After the initiation of the war, the concern over default on interest payments was the primary reason cited for the decline in the prices of southern state bonds: ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next \parencite[947]{BankersMagazine1861}.''
+Investors almost certainly anticipated this as there was concern that the southern states would default on their January 1861 payments: ``the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States.'' \parencite[756]{BankersMagazine1861}
+After the initiation of the war, the concern over default on interest payments was the primary reason cited for the decline in the prices of southern state bonds: ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next.'' \parencite[947]{BankersMagazine1861}
 After the southern states had stopped paying interest, it was almost certain that as long as the war would continue, northern holders of southern state bonds would not receive interest payments.
-In November 1861, the \textit{Bankers' Magazine} wrote, ``...but faint hopes are entertained of their [southern states] paying their interest for some years to come. \parencite[559]{BankersMagazine1862}''
+In November 1861, the \textit{Bankers' Magazine} wrote, ``...but faint hopes are entertained of their [southern states] paying their interest for some years to come.'' \parencite[559]{BankersMagazine1862}
 After the war, most Southern states repaid the debt issued before the war, but they defaulted on all debt issued while part of the Confederacy and some defaulted on debt issued by reconstruction governments \parencites{Randolph1931}{Ratchford1941}.
 It is unclear how the southern state governments would have handled the repayment of debt if the Confederacy had won the war
 At best, the states would return to paying interest and principal on those debts soon after the end of the war. 
@@ -599,7 +596,7 @@ The \textit{Bankers' Magazine} described the market as,
 \begin{quote}
    The market for Government and State loans during the month has been dull. 
    Prices have in most instances tended downward and a material decline is perceptible in some of the most prominent securities.
-   The principal reasons for this seem to be the political excitement  \parencite[414]{BankersMagazine1861}.
+   The principal reasons for this seem to be the political excitement.  \parencite[414]{BankersMagazine1861}
 \end{quote}
 The market adjustment appears to have been due to the Republican victory in the Pennsylvania gubernatorial election on October 9,
 \begin{quote}
@@ -619,13 +616,13 @@ However, political risk remained a concern,
 \begin{quote}
 \item The money market during December recovered somewhat from the worst effects of the panic.
   The action of the banks had been prompt and energetic, and the relief afforded by their largely expanded line of loans and discounts averted the worst consequences of the panic.
-  The want of confidence in the political future prevented however a complete recovery and the results of prostrated credit and destroyed confidence were everywhere discernable \parencite[541]{BankersMagazine1861}.
+  The want of confidence in the political future prevented however a complete recovery and the results of prostrated credit and destroyed confidence were everywhere discernable. \parencite[541]{BankersMagazine1861}
 \end{quote}
 The \textit{Bankers' Magazine} wrote in January 1861,
 \begin{quote}
   The only speck in the horizon is the threat of secession in the South. 
   We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
-  The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State \parencites[417]{BankersMagazine1861}.
+  The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State. \parencites[417]{BankersMagazine1861}
 \end{quote}
 Many of the bond series appear reach peaks near ordinance of secession by South Carolina on December 20, 1860.
 In the months between the election and the start of the war, yields remained high, but also variable as they responded to political events \parencites[718]{HuntKettellHomansEtAl1860}[78,198,416,677]{HomansDana1861a}[413,481,669,756,838]{BankersMagazine1861}.%
@@ -651,15 +648,11 @@ The yields of U.S. sixes also fell, but only by 2.5 percentage points,%
 while northern state bond yields were almost unchanged.
 Since the price of the bond incorporates expectations about future payoffs and war would certainly affect those payoffs, the extreme drop in the prices of bonds after Fort Sumter imply that the market had not priced in the probability of war.
 It is likely that even on the eve of the war, the market anticipated some sort of peaceful settlement to the crisis.
-In their April 1860, \textit{Bankers' Magazine} wrote
-\begin{quote}
-   The general condition of commercial and financial affairs still turns upon the uncertain political future.
-   The fears of civil war, that at one time were entertained in certain quarters, have subsided, if not altogether disappeared, under the influence of passing events.\parencite[413]{HomansDana1861a}
-\end{quote}
+In April 1860, \textit{Bankers' Magazine} wrote, ``The general condition of commercial and financial affairs still turns upon the uncertain political future. The fears of civil war, that at one time were entertained in certain quarters, have subsided, if not altogether disappeared, under the influence of passing events.'' \parencite[413]{HomansDana1861a}
 while \textit{Merchants' Magazine} wrote
 \begin{quotation}
   The securities of the Border States fluctuate from day to day as the tone of dispatches from Washington leans toward peace or war. 
-  There is undoubtedly a great want of confidence as to the final course which those States will pursue and it is the strong hope which is entertained of their remaining loyal which alone keeps up their price.\parencite[838]{BankersMagazine1861}
+  There is undoubtedly a great want of confidence as to the final course which those States will pursue and it is the strong hope which is entertained of their remaining loyal which alone keeps up their price. \parencite[838]{BankersMagazine1861}
 \end{quotation}
 The reaction of yields with response to Fort Sumter implies that the markets' hope that southern states would remain loyal, was in fact, very strong.
 
@@ -829,7 +822,7 @@ Although war could increase the riskiness of all state bonds, there are at least
 First, and most immediately, southern states would immediately stop the payment of interest to northern investors at the start of conflict.
 As dicussed in section~\ref{sec:risky-bond-pricing}, the suspension of interest did happen and was anticipated by investors.
 Second, less immediately, it is likely that a war would be fought primarily in southern states, and thus southern states would incur more destruction that could hinder their ability to repay debt in the future.%
-\footnote{In the estimates of the economic cost of the American Civil War in \textcite{GoldinLewis1975}, physical capital loss was the largest component of the direct cost of the war to the Confederacy \parencite[308]{GoldinLewis}}
+\footnote{In the estimates of the economic cost of the American Civil War in \textcite{GoldinLewis1975}, physical capital loss was the largest component of the direct cost of the war to the Confederacy \parencite[308]{GoldinLewis1975}}
 The differential effect the war on the risk of southern and northern bonds was observed in the changes in the yields of these bonds after the Battle of Fort Sumter, as shown in Table~\ref{tab:sumter}.
 In the week after after Fort Sumter, the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points.
 An advantage of using the spread rather than the yields of each bond, is that it controls for shocks affecting all state bonds as well as averaging over idiosyncratic shocks to individual states.

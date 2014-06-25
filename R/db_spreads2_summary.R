@@ -67,6 +67,7 @@ main <- function() {
 
     list(summary = .summary
          , theta = theta
+         , tau_local = tau_local
          , theta_diff_186001_186011 = diff_summary(as.Date("1859-12-30"),
                as.Date("1860-11-02"))
          , theta_diff_elec = diff_summary(as.Date("1860-11-02"),

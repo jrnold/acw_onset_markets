@@ -775,7 +775,33 @@ local({
      + theme_local()
      + theme(legend.position = "none")
      )
-    
+
+    (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]]
+                   , dimension == 2
+                   , date <= as.Date("1861-4-13")
+                   ),
+            aes(x = date))
+     + geom_ribbon(mapping = aes(ymin = diff_p025, ymax = diff_p975), alpha = 0.2)
+     + geom_ribbon(mapping = aes(ymin = diff_p25, ymax = diff_p75), alpha = 0.5)
+     + geom_line(mapping = aes(y = diff_median))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("spread (%)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
+    (ggplot(filter(PROJ$db[["spreads2_summary"]][["tau_local"]]
+                   , dimension == 2
+                   , date <= as.Date("1861-4-13")
+                   ),
+            aes(x = date))
+     + geom_point(mapping = aes(y = median))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("spread (%)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
 })
 
 @ 

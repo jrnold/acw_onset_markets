@@ -49,11 +49,11 @@ main <- function() {
          %>% merge(spreads2$times)
          )
 
-    diff_summary <- function(start_date, end_date) {
-        (melt(extract(spreads2$samples, "theta")[[1]],
+    diff_summary <- function(x, start_date, end_date) {
+        (melt(extract(x$samples, "theta")[[1]],
               varnames =
               c("iterations", "time", "dimension"))
-         %>% merge(spreads2$times)
+         %>% merge(x$times)
          %>% filter(date %in% c(start_date, end_date))
          %>% arrange(iterations, dimension, date)
          %>% group_by(iterations, dimension)
@@ -61,13 +61,20 @@ main <- function() {
          %>% filter(! is.na(valdiff))
          %>% group_by(dimension, date)
          %>% dplyr::summarise(probpos = mean(valdiff > 0),
-                              mean = mean(valdiff))
+                              mean = mean(valdiff),
+                              sd = sd(valdiff),
+                              median = median(valdiff),
+                              p025 = quantile(valdiff, 0.025),
+                              p25 = quantile(valdiff, 0.25),
+                              p75 = quantile(valdiff, 0.75),
+                              p975 = quantile(value, 0.975))
          )
     }
 
     list(summary = .summary
          , theta = theta
          , tau_local = tau_local
+<<<<<<< HEAD
          , theta_diff_186001_186011 = diff_summary(as.Date("1859-12-30"),
                as.Date("1860-11-02"))
          , theta_diff_elec = diff_summary(as.Date("1860-11-02"),
@@ -76,7 +83,12 @@ main <- function() {
                as.Date("1860-11-23"))
          , theta_diff_1860_1857 = diff_summary(as.Date("1857-07-03"),
                as.Date("1859-12-30"))
+=======
+         , theta_diff_18550713_18601102 = diff_summary(spreads2, as.Date("1855-07-13"), as.Date("1860-11-02"))
+               
+         , theta_diff_elec = diff_summary(spreads2, as.Date("1860-11-02"), as.Date("1860-12-07"))
+         , theta_diff_sumter = diff_summary(spreads2, as.Date("1860-04-13"), as.Date("1860-04-20"))
+>>>>>>> 8c96875c3c5d3173a9a7cdec1a901fdd878ce3fe
          )
-    
          
 }

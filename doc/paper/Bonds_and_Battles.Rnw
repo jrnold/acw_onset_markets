@@ -669,63 +669,72 @@ The reaction of yields with response to Fort Sumter implies that the markets' ho
 <<south_north_spread_data, results = 'hide'>>=
 spreads_summary <- PROJ$db[["spreads2_summary"]]
 
-SPREAD_1857_1860 <- 
-    mean(filter(spreads_summary$theta,
-                date >= as.Date("1857-7-1"),
-                date <= as.Date("1860-1-1"),
-                dimension == 2)$value_mean)
+format_spreads <- function(mean, p025, p975, digits = 2) {
+    sprintf("%s (%s, %s)",
+            round(mean, digits),
+            round(p025, digits),
+            round(p975, digits))
+}    
 
-SPREAD_1855 <- 
-    mean(filter(spreads_summary$theta,
-                date <= as.Date("1856-11-1"),
-                dimension == 2)$value_mean)
-
-SPREAD_18601102 <-
+spreads_1855 <-
+    filter(spreads_summary$theta,
+           date == as.Date("1855-7-13"),
+           dimension == 2)
+spreads_1855_fmt <- format_spreads(spreads_1855$value_mean,
+                                   spreads_1855$value_p025,
+                                   spreads_1855$value_p975)
+spreads_preelec <-
     filter(spreads_summary$theta,
            date == as.Date("1860-11-02"),
-           dimension == 2)$value_mean
+           dimension == 2)
+spreads_preelec_fmt <- format_spreads(spreads_preelec$value_mean,
+                                   spreads_preelec$value_p025,
+                                   spreads_preelec$value_p975)
 
-SPREAD_18610413 <-
+spreads_postelec <-
+    filter(spreads_summary$theta,
+           date == as.Date("1860-12-07"),
+           dimension == 2)
+spreads_postelec_fmt <- format_spreads(spreads_postelec$value_mean,
+                                   spreads_postelec$value_p025,
+                                   spreads_postelec$value_p975)
+spreads_presumter <-
     filter(spreads_summary$theta,
            date == as.Date("1861-04-13"),
-           dimension == 2)$value_mean
+           dimension == 2)
+spreads_presumter_fmt <- format_spreads(spreads_presumter$value_mean,
+                                   spreads_presumter$value_p025,
+                                   spreads_presumter$value_p975)
 
-SPREAD_18610420 <-
+spreads_postsumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-13"),
+           dimension == 2)
+spreads_postsumter_fmt <- format_spreads(spreads_postsumter$value_mean,
+                                         spreads_postsumter$value_p025,
+                                         spreads_postsumter$value_p975)
+
+spreads_diff_1855_elec <-
+    filter(spreads_summary$theta_diff_18550713_18601102,
+           dimension == 2)
+spreads_diff_1855_elec_fmt <- format_spreads(spreads_diff_1855_elec$mean,
+                                             spreads_diff_1855_elec$p025,
+                                             spreads_diff_1855_elec$p975)
+
+spreads_diff_sumter <-
     filter(spreads_summary$theta,
            date == as.Date("1861-04-20"),
-           dimension == 2)$value_mean
+           dimension == 2)
+spreads_diff_sumter_fmt <- format_spreads(spreads_diff_sumter$diff_mean,
+                                          spreads_diff_sumter$diff_p025,
+                                          spreads_diff_sumter$diff_p975)
 
-SPREAD_POSTSUMTER <-
-    summarise(filter(spreads_summary$theta,
-                     date > as.Date("1861-04-20"),
-                     dimension == 2),
-              mean = mean(value_mean))$mean
-
-SPREAD_DIFF_1860_MEAN <- 
-    filter(spreads_summary$theta_diff_186001_186011,
-           dimension == 2)$mean
-
-
-SPREAD_DIFF_1860_PVAL <- 
-    filter(spreads_summary$theta_diff_186001_186011,
-           dimension == 2)$probpos
-
-SPREAD_DIFF_ELEC <- 
-    filter(spreads_summary$theta_diff_elec, dimension == 2)$mean
-
-SPREAD_DIFF_POSTELEC <- 
-    filter(spreads_summary$theta_diff_postelec, dimension == 2)$mean
-
-SPREAD_DIFF_1860_1857_MEAN <- 
-    filter(spreads_summary$theta_diff_1860_1857,
-           dimension == 2)$mean
-
-SPREAD_DIFF_1860_1857_PVAL <- 
-    filter(spreads_summary$theta_diff_1860_1857,
-           dimension == 2)$probpos
-
-
-
+spreads_diff_elec <-
+    filter(spreads_summary$theta_diff_elec,
+           dimension == 2)
+spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
+                                        spreads_diff_elec$p025,
+                                        spreads_diff_elec$p975)
 
 @ 
 
@@ -758,22 +767,20 @@ local({
 
 \begin{figure}
   \centerfloat
-<<fig_north_south_spreads, fig.height = 3, fig.width = 6>>=
+<<fig_north_south_spreads, fig.height = 5, fig.width = 6>>=
 local({
     (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]]
                    , dimension == 2
                    ## , date >= as.Date("1860-9-1")
-                   , date <= as.Date("1861-4-13")
+                   ## , date <= as.Date("1861-4-13")
                    ),
             aes(x = date))
      + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
      + geom_line(mapping = aes(y = value_mean))
-     # + geom_point(mapping = aes(y = value_mean))
      + scale_x_date("", breaks = "years", labels = date_format("%Y"))
      + scale_y_continuous("spread (%)")
      + theme_local()
-     + theme(legend.position = "none")
      )
     
 })
@@ -786,27 +793,21 @@ local({
 \label{fig:north_south_spreads}
 \end{figure}
 
-% Break1 : 1856-10-31 (10-24 to 10-31)
-% Break2 : 1857-3-13
-% Break3 : 1857-10-2
-% Break4:  1857-11-13
-% Break5 : 1860-11-30, but starting at 1860-11-02
-
-For the case of the American Civil War, the spread (difference) between the yields of the southern and northern state bonds is a measure of the market's expectation of war.%
+For the case of the American Civil War, the spread (difference) between the average yield of the southern and northern state bonds is a measure of the market's expectation of war.%
 \footnote{
   The spread between southern and northern bonds is approximately the difference in default risk between the bonds, when the recovery rate is 0.
   This follows from Equation~\eqref{eq:4}.
 }
-This measure relies on the war having a differential impact on risk of northern and southern state bonds. 
 An increased risk of war increases the spread between southern and northern bond yields, because war would make southern state bonds relatively more risky than northern state bonds.
 Although war could increase the riskiness of all state bonds, there are at least two ways in which war would increase the risk of southern bonds relative to northern state bonds.
-First, and most directly, southern states would immediately stop the payment of interest to northern investors at the start of conflict.
+First, and most immediately, southern states would immediately stop the payment of interest to northern investors at the start of conflict.
 As dicussed in section~\ref{sec:risky-bond-pricing}, the suspension of interest did happen and was anticipated by investors.
-Second, it is likely that a war would be fought primarily in southern states, and thus southern states would incur more destruction that could hinder their ability to repay debt in the future (CITE COSTS).
+Second, less immediately, it is likely that a war would be fought primarily in southern states, and thus southern states would incur more destruction that could hinder their ability to repay debt in the future.%
+\footnote{In the estimates of the economic cost of the American Civil War in \textcite{GoldinLewis1975}, physical capital loss was the largest component of the direct cost of the war to the Confederacy \parencite[308]{GoldinLewis}}
 The differential effect the war on the risk of southern and northern bonds was observed in the changes in the yields of these bonds after the Battle of Fort Sumter, as shown in Table~\ref{tab:sumter}.
 In the week after after Fort Sumter, the yields of southern states increased 3--8 percentage points, while the yields of northern states increased only 0.01 to 0.35 percentage points.
-Using the spread rather than the raw yields controls for shocks affecting all state bonds.
-There can still be regional differences in the risk of southern and northern state bonds due to non war risk factors.
+An advantage of using the spread rather than the yields of each bond, is that it controls for shocks affecting all state bonds as well as averaging over idiosyncratic shocks to individual states.
+There can still be regional differences in the risk of southern and northern state bonds due to factors other than war risk.
 However, focusing on changes in the spread rather than the level of the spread controls for any of these regional factors which are constant over the time period considered.
 
 The data used to calculate the south-north yield spread consists of the yields of northern (Indiana, Ohio and Pennsylvania) and southern (Georgia, Louisiana, North Carolina, Tennessee and Virginia).
@@ -816,47 +817,41 @@ The yield for each bond is modeled as,
 \begin{equation}
   y_{j,t} \sim \dt{\nu}{\theta_{t} + \psi_{t} \mathtt{south}_{j}, \sigma}
 \end{equation}
-where $\dt{d}{m, s^{2}}$ is the Student's $t$-distribution with degrees of freedom $d$, location $m$ and scale $s$.
+where $\dt{a}{b, c^{2}}$ is the Student's $t$-distribution with degrees of freedom $a$, location $b$ and scale $c$, and
 $\mathtt{south_{j}}$ is a binary variable indicating whether the bond was issued by a southern state.
 
 Since the number of bonds in each period is relatively small, the parameters $\theta$ and $\psi$ are smoothed over time with random walk priors.
-But the estimation of these parameters should not overly smooth them since one of the purposes of this work is to identify key events.
-In order to achieve behavior similar to a change-point model, but allowing the data to estimate the number of change-points, a horseshoe prior distribution is used \parencites{CarvalhoPolsonScott2009}{CarvalhoPolsonScott2009}.
-This is a shrinkage prior, similar to the LASSO \parencites{Tibshirani1996}{ParkCasella2008}.
-However, in this case, the difference between parameters is shrunk, e.g. $\theta_{t} - \theta_{t-1}$.
-\footnote{This is a Baysian version of the fused lasso using the horseshoe prior distribution rather than a Laplace distribution for the reasons discussed in \parencites{CarvalhoPolsonScott2009}{CarvalhoPolsonScott2009}.}
-\begin{align}
+However, the method used to pool rates over time cannot overly smooth the data since, otherwise the method would obscure the effect of important events on the spread.
+In order to achieve behavior similar to a change-point model, this paper uses a shrinkage prior for the first difference of $\psi$ and $\eta$.
+Shrinkage priors are the Bayesian equivalent to penalized estimate like lasso \parencites{Tibshirani1996}{ParkCasella2008}.
+The particular shrinkage prior employed horseshoe prior distribution is used \parencites{CarvalhoPolsonScott2009}{CarvalhoPolsonScott2009}.
+The horseshoe prior has properties similar to a spike-and-slab prior while being continuous.
+This is similar to estimating change points in the parameter, while estimating the number of changepoints from the data.
+\footnote{This approach is similar to a Baysian version of the fused lasso \textcite{TibshiraniEtAl2005} using the horseshoe prior distribution rather than a Laplace distribution for the reasons discussed in \parencites{CarvalhoPolsonScott2009}{CarvalhoPolsonScott2009}.}
+\uparrow{}\begin{align}
   \theta_{t} & \sim \dnorm{\theta_{t-1}, \sigma^{2} \tau_{\theta}^{2} \lambda_{\theta,t}^{2}}
   & \lambda_{\theta,t} & \sim \dhalfcauchy{0, 1} \\
   \psi_{t} & \sim \dnorm{\psi_{t-1}, \sigma^{2} \tau_{\psi}^{2} \lambda_{\psi,t}^{2}}
   & \lambda_{\psi,t} & \sim \dhalfcauchy{0, 1}
 \end{align}
-where $\dhalfcauchy{0, s}$ is the half-Cauchy distribution with scale $s$.%
+where $\dnorm{N}{a, b^{2}}$ is the normal distribution with mean $a$ and scale $b$, $\dhalfcauchy{0, a}$ is the half-Cauchy distribution with scale $a$.%
 \footnote{Note that variable and parameter names are only unique for this section; variables and parameters with the same name in different sections do not necessarily correspond to the same thing.}
+In summary, this set of priors method attempts to estimate the parameters, e.g. $\theta$, where the first differences, $\theta_{t} - \theta_{t-1}$, are sparse (mostly zero) while not imposing assumptions about the sparsity of the differences.
+The model is estimated using Bayesian methods.
+The posterior distribution is sampled with the No-U-Turn Sampler implemented in Stan \parencites{Stan2014}{HoffmanGelman2013}.
 
 Figure \ref{fig:north_south_spreads} plots estimates from the posterior distribution of the south-north spread ($\psi_{t}$) for all periods.
 For most of the period, the spread was positive, meaning that southern state bonds were riskier on average than northern state bonds.
-The spread at the start of the data was \Sexpr{as.character(round(SPREAD_1855, 2))}.
-%% However, the reasons for this jump are unclear.
-%% The timing corresponds with the election of James Buchanan.\Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points from November 2--23
-%% However, the money market sections of the \textit{Bankers' Magazine} do not mention any events influencing the market of state bonds.
-From after the Panic of 1857 to January 1860, the estimated spread has a mean of \Sexpr{round(SPREAD_1857_1860, 2)}
-and was stable, the mean difference between the spread in January 1860 and July 1857 is \Sexpr{round(SPREAD_DIFF_1860_1857_MEAN, 2)}.%
-\footnote{The probability that the spread is greater than 0 is $\Pr(\Delta \psi > 0) = \Sexpr{round(SPREAD_DIFF_1860_1857_PVAL, 3)}$.}
-The spread trended slightly upward during 1860, reaching \Sexpr{round(SPREAD_18601102, 2)} on November 2, 1860;
-the mean difference between the spread in November 1860 and January 1860 is \Sexpr{round(SPREAD_DIFF_1860_MEAN, 2)}.%
-\footnote{The probability that the spread is greater than 0 is $\Pr(\Delta \psi > 0) = \Sexpr{round(SPREAD_DIFF_1860_PVAL, 3)}$.}
-Although the market paid increased attention to political issues in the October prior to Lincoln's election, like yields themselves, the spread shows little change during that month.
-It is not until the election of Lincoln, that the spread jumps dramatically, increasing \Sexpr{round(SPREAD_DIFF_ELEC, 2)} percentage points between November 2nd and 23rd.
-The spread continues to increase until the start of the war, rising another \Sexpr{round(SPREAD_DIFF_POSTELEC, 2)} percentage from November 23 to April 13, 1861, reaching \Sexpr{round(SPREAD_18610413, 2)}.
-However, this spread was relatively small compared to the spread after the start of the war.
-The week after Fort Sumter, the spread jumped to \Sexpr{round(SPREAD_18610420, 2)}, before falling back to the still high \Sexpr{round(SPREAD_POSTSUMTER, 2)}.
+The spread is increasing over most of the period before settling down immediately before the election.
+Between the start of the period (July 1, 1855) and prior to the election of 1860 (November 2, 1860), the spread increased by \Sexpr{spreads_diff_1855_elec_fmt},
+from \Sexpr{spreads_1855_fmt} to \Sexpr{spreads_preelec_fmt}.
+The spread increased even though the yields of southern bonds remained largely stable or even slightly declined, because the yields of northern bonds, especially Indiana and Pennsylvania, declined much more.
+The Panic of 1857 has some effect on the spread, but less than for the yields, and the uncertainty in the estimated spread increases during that period.
+The spread increases sharply after the election of Lincoln, from November 2, increasing by \Sexpr{spreads_diff_elec_fmt} percentage points to \Sexpr{spreads_postelec_fmt} on December 7, 1860.
+The spread is stable until the the Battle of Fort Sumter, when it increases \Sexpr{spreads_diff_sumter_fmt} percentage points to \Sexpr{spreads_postsumter_fmt}.
 
-Thus, analysis of the spread between southern and northern state bonds produces similar inferences as that from the yields themselves.
-There was little change in war risk after the Panic in 1857.
-War risk increased minimally in 1860.
-The estimated war risk increased sharply after the Lincoln's victory election of 1860.
-However, the spread increases sharply at Fort Sumter, implying that the start of the war was largely unexpected.
+Thus the risk of southern bonds relative to northern bonds was increasing over the period, perhaps due to increasing assessements of the risk of war.
+The markets' beliefs about the risk of war jumps after Lincoln's election, but the jump in spreads is about 5 times smaller than the spread that is observed after war did start.
 
 \section{Probability of War}
 \label{sec:probability-war}

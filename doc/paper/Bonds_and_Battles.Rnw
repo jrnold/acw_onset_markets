@@ -908,7 +908,7 @@ prwar_18610208 <-
     format_prwar(filter(prwar_summary$phi, date == as.Date("1861-02-08")))
 
 prwar_18610413 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-02-08")))
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-04-13")))
 
 @ 
 
@@ -986,7 +986,7 @@ The inverse logit transformation of $\pi$ evolves as a random walk with a horses
 The estimated values of $\pi_{t}$ from the previous are plotted in Figure~\ref{fig:prwar2}.
 The probability of war is estimated to be approximately 0 prior to Lincoln's election.
 After the election, the probability of war rose to \Sexpr{prwar_18610105} percent by January 5, 1861,
-to \Sexpr{prwar_18610208} percent on February 8, and to \Sexpr{prwar_18610413} percent right before news of the Battle of Fort Sumter reached the market.
+to \Sexpr{prwar_18610208} percent on February 8, and to \Sexpr{prwar_18610413} on April 13, days before news of the outcome of the Battle of Fort Sumter reached the market.
 
 These results are largely consistent with the results in section~\ref{sec:south-north-yield}.
 The market estimated that war was almost certainly not likely prior to the election of Lincoln.

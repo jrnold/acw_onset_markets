@@ -229,12 +229,13 @@ This paper adds to the surpisingly small but growing international relations lit
 \section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}
 
-The objective of this paper is to use the prices and yields of bonds to infer market beliefs about the probability of war. 
-As such it is important to establish the theoretical relationship between the observed market prices and yields and these beliefs about war. 
-The price of generic bond is present discounted value of \textit{future} cash flows.
-Since the value of the bond depends on an uncertain future, the current price of a bond is effectively a quantitative summary of investors' beliefs about the future.
-
-To be able to use a bond, or other financial asset, to make inferences about how beliefs about a war are changing over time (1) future payments from that asset must be contingent directly or indirectly on the war, and (2) confounding factors affect the future payments must be controlled for. 
+The objective of this paper is to use the prices and yields of bonds to infer market beliefs about the \textit{ex ante} probability of war in the period leading up to the American Civil War.
+As such, it is important to establish the theoretical relationship between the observed market prices and yields and these beliefs about war. 
+The price of generic bond is the present discounted value of future cash flows.
+Since the timely payment of these cash flows is uncertain, the price is an expectation of receiving these flows given current information.
+Thus the current price of a bond is a quantitative summary of investor's beliefs about the future with regard to payments from the bond.
+Since war, for reasons discussed below, can have large effects on the repayment of some bonds, the prices of those bonds are effectively predictions given current information of the risk of war.
+To be able to use a bond, or other financial asset, to make inferences about the risk of war requires that (1) future payments from that asset must be contingent directly or indirectly on the war, and (2) confounding factors that could affect the future payments are controlled for.
 This section discusses the how the data and methods used in this work address those criteria.
 
 To the extent that a war would change investors' expectations about the timely payment of future cashflows of these bonds, changes in the yields of bonds can be used to infer changes in beliefs about the probability of war.
@@ -244,7 +245,7 @@ A war would influence the credit of the issuers by increasing debt, decreasing r
 For investors holding U.S. government bonds, secession and war would reduce the ability of the U.S. government to pay its debts both by reducing potential revenue due to the loss of the southern states and increasing debt to pay war expeditures.
 The revenue of the U.S. would be reduced by the secession of southern states due to the loss of tax revenue. In 1860, the southern states accounted for 25 percent of the non-slave wealth of the United States \parencite[11]{Elder1865}.%
 \footnote{GDP was not invented until WWII. 
-  During the civil war era, the census estimates of personal and property wealth were used as a measure of the total economic activity and also explicitly used to assess the ability of the U.S. to repay the debt \parencite{Elder1863}{Elder1865}.
+  During the civil war era, the census estimates of personal and property wealth were used as a measure of the total economic activity and also explicitly used to assess the ability of the U.S. to repay the debt \parencites{Elder1863}{Elder1865}.
 }
 The \textit{Merchants' Magazine} wrote in January 1861,
 \begin{quote}
@@ -271,18 +272,28 @@ By comparison, the debt at the end of the War of 1816 was 127 million \parencite
 \footnote{During the Mexican-American War, the Loans of 1846, 1847 and 1848 used to fund the war totaled \$49 million \parencite[42]{Treasury1863}.}
 
 For northern investors holding southern state bonds, the immediate risk was that southern states would would default on interest payments.
-After the initiation of the war, southern states immediately ceased interest payments to northern creditors starting with coupon payments due on July 1st, 1861 \parencites[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
+After the initiation of the war, southern states immediately ceased interest payments to northern creditors, starting with coupon payments due on July 1st, 1861 \parencites[947]{BankersMagazine1861}[159]{BankersMagazine1862}.
 Investors almost certainly anticipated this as there was concern that the southern states would default on their January 1861 payments: ``the decline [in the price of Virginia, Tennessee and Missouri bonds] \dots was further stimulated by the political condition of the country and doubts as to the prompt payment of interest by these States.'' \parencite[756]{BankersMagazine1861}
 After the initiation of the war, the concern over default on interest payments was the primary reason cited for the decline in the prices of southern state bonds: ``These low values [prices of southern state bonds] have partly been caused by the fear that these States will not be disposed to provide for the payment of their semi annual interest in July next.'' \parencite[947]{BankersMagazine1861}
-After the southern states had stopped paying interest, it was almost certain that as long as the war would continue, northern holders of southern state bonds would not receive interest payments.
+After southern states had stopped paying interest, northern finvestors almost certaintly believed that as long as the war would continue, they not receive interest payments.
 In November 1861, the \textit{Bankers' Magazine} wrote, ``...but faint hopes are entertained of their [southern states] paying their interest for some years to come.'' \parencite[559]{BankersMagazine1862}
-After the war, most Southern states repaid the debt issued before the war, but they defaulted on all debt issued while part of the Confederacy and some defaulted on debt issued by reconstruction governments \parencites{Randolph1931}{Ratchford1941}.
-It is unclear how the southern state governments would have handled the repayment of debt if the Confederacy had won the war
-At best, the states would return to paying interest and principal on those debts soon after the end of the war. 
+After the war, most Southern states repaid the debt issued before the war, but defaulted on all debt issued while part of the Confederacy and some defaulted on debt issued by reconstruction governments \parencites{Randolph1931}{Ratchford1941}.
+How the southern state governments would have handled the repayment of debt if the Confederacy had won the war is unclear.
+At best, the southern states would resume paying interest and principal soon after the end of the war, possibly with compensation for missed payments.
 At worst, they would completely default on their obligations to northern creditors.
-That the prices of southern state bonds never went to zero, suggests that investors' beliefs put positive probability on those states being reincorporated into the Union or that they would resume payments on their debt after the war even in the event of a Confederate victory.
-An additional consideration as to the creditworthiness of southern states is, although, at first the ability of the states to pay their debts if they so choose was not much in doubt, an extended war would result in both more debt issued by southern states and wealth destroyed, both of which could affect the ability of the states to eventually pay the debt they had issued.
-Thus, holders of southern state bonds were particularly exposed to war risk, and almost certain to suffer losses immediately at the start of a conflict between the states for they were certain to receive no payments if a war occurred and as long as the war continued.
+That the prices of southern state bonds never came close to zero, suggests that investors' beliefs put positive probability on those states being reincorporated into the Union or that they would resume payments on their debt after the war even in the event of a Confederate victory.
+An additional means by which the war could affect the creditworthiness of southern states is, although, at first the ability of the states to pay their debts if they so choose was not much in doubt, an extended war would result in both more debt issued by southern states and wealth destroyed, both of which would affect the ability of the states to eventually pay the debt they had issued.
+Thus, holders of southern state bonds were particularly exposed to war risk, and almost certain to suffer losses immediately at the onset of a conflict.
+
+In order to be able to confidently make inferences about the risk of war given bond prices, alternative confounding effects need to be controlled for.
+This work accounts for these confounding effects in several ways. 
+First, it focuses on the period close to the start of the war. 
+In prior probability that effects are due to war risk factors is higher in the period close to the start of the American Civil War, than in periods further removed from it.
+For example, a large price change the week before Sumter is more likley to be related to changes in the expectation of war than a price movement in 1849.%
+Second, multiple measures are used: the yield spread between southern and northern state bonds and the implied probability of war from the bond prices.
+Third, within each of those measures multiple bonds prices are used to average over idiosyncratic shocks to bonds.
+Additionally, the south-north yield spread also controls for shocks which effect all bonds.
+Fourth, periods which have probable non-war explanations for changes in bond risk, e.g. the Panic of 1857, are either not included in the analysis, or the changes in bond risk are not attributed to changes in war beliefs.
 
 Although U.S. government and state bonds were not direct prediction markets of the onset of war, since their expected payment of their future cashflows would be heavily influenced by the onset of war, they can be used to make inferences about investors' beliefs about the onset of war.
 

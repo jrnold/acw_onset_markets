@@ -995,7 +995,7 @@ However, even immediately before the war, the probability of war was estimated t
 The results differ in that although both measures show little risk of war prior to the election of Lincoln, the estimates south-north yield spread show an increasing risk of war over time, while the implied probability of war from this section show that risk constant at 0.
 This difference likely arises from the use of a constant war-risk free rate in equation~\eqref{eq:1}.
 \footnote{This could be avoided if a good time-varying estimate of the war-risk free interest rate were available.
-  Currently available data of the risk free interest rate of the era are only available at low frequencies: prior to 1857, the yields of Massachusetts 5s and Boston City bonds are only available at a yearly frequency prior; after 1857, an index of New England state and municipal bonds is avaiable at a quarterly frequency \parencite{Officer2005}.
+  Currently available data of the risk free interest rate of the era are only available at low frequencies: prior to 1857, the yields of Massachusetts 5s and Boston City bonds are only available at a yearly frequency prior; after 1857, an index of New England state and municipal bonds is avaiable at a quarterly frequency \parencite{Officer2003}.
   Using the average of northern state bonds, as in section~\ref{sec:south-north-yield}, is likely inappropriate because they also include some risk of war.
 }
 Nevertheless, the overall pattern between the results is similar.

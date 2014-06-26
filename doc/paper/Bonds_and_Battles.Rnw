@@ -217,31 +217,25 @@ On the financial market largely did not anticipate the conflict; bond prices imm
 This use methods similar to \cite{HaberEtAl2012} to estimate the implied probabilities of conflict events from bond prices.
 I expand on their work by explicitly tying the implications of financial market estimates to theories of war, estimating war initiation instead of war termination, and extending the analysis to use events with non-zero recovery rates and leverage multiple assets to estimate the probability of war.
 
-This paper contributes to the literature which has analyzed the relationship between events events \textit{within} the American Civil War and financial markets \textcites{Schwab1901}{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
-It also contributes to the literature more broadly analyzing the response of financial markets to wars:  \textcite{Bueno1990}, World War I \textcite{Hall2004} and \textcite{Ferguson2006}, World War II \textcites{WaldenstromFrey2008}{WaldenstromFrey2008}.
+This paper contributes to the literature analyzing the relationship between conflict events \textit{within} and prices. 
+THis includes a multiple papers on reactions of the financial markets on both sides and Europep to the American Civil War \textcites{Schwab1901}{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
+Other papers which have analyzed the responses of financial markets to other conflicts include:  \textcite{Bueno1990}, World War I \textcite{Hall2004} and \textcite{Ferguson2006}, World War II \textcites{WaldenstromFrey2008}{WaldenstromFrey2008}.
 \textcite{SchneiderTroeger2006} analyze stock market reactions to major events; \textcite{GuidolinLaFerrara2010} market reactions to MIDs.
 \textcites{LeighWolfersEtAl2003}{WolfersZitzewitz2009} used prediction markets as a direct estimate of the \textit{ex ante} probability of the initiation of the Iraq War in 2003.
+CITE OTHER PAPERS of political events
+This paper adds to the surpisingly small but growing international relations literature that uses the American Civil War as a case \textcite{Reiter2009}.
+
 
 \section{Financial Market Prices and War Initiation}
 \label{sec:risky-bond-pricing}
 
 The objective of this paper is to use the prices and yields of bonds to infer market beliefs about the probability of war. 
 As such it is important to establish the theoretical relationship between the observed market prices and yields and these beliefs about war. 
-The price of generic bond is present discounted value of expected cash flows,
-\begin{equation}
-  p_{t} = \sum_{i=1}^{n} E(c_{i} | \Omega) e^{-\E (r_{t_{i}} | \Omega_{t}) t + j_{i}}
-\end{equation}
-where $p$ is the price of a bond (or generic asset) paying $\{c_{i} \}_{i=1}^{n}$at times $\{t + j_{i}\}_{i=1}^{n}$ with discount factors $\{r_{t_{i}} \}_{i=1}^{n}$. 
-Although the values of the cash flows $c_{i}$ their times $t + j_{i}$ are known, it is now known 
+The price of generic bond is present discounted value of \textit{future} cash flows.
+Since the value of the bond depends on an uncertain future, the current price of a bond is effectively a quantitative summary of investors' beliefs about the future.
 
-This paper will use the yield to maturity of bonds, this is the interest rate $r$ such that 
-\begin{equation}
-  \label{eq:2}
-  p_{t} = \sum_{i = 1}^{n} c_{i} e^{- r t_{i}}
-\end{equation}
-The relationship between risk and yields is the inverse of that for prices; higher risk implies a lower price, but a higher yield.
-
-I can attribute changes in prices to changes in beliefs about the expected probability of war to price changes if changes in war beliefs are plausibly the most important thing changing in this period: (1) period close to the war, and (2) check business magazines to see what factors are mentioned with respect to the price changes.
+To be able to use a bond, or other financial asset, to make inferences about how beliefs about a war are changing over time (1) future payments from that asset must be contingent directly or indirectly on the war, and (2) confounding factors affect the future payments must be controlled for. 
+This section discusses the how the data and methods used in this work address those criteria.
 
 To the extent that a war would change investors' expectations about the timely payment of future cashflows of these bonds, changes in the yields of bonds can be used to infer changes in beliefs about the probability of war.
 It is certainly case that war would influence expectations about the cash-flows of the U.S. government and state bonds considered here.

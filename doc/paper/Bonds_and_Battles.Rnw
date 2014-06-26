@@ -190,15 +190,14 @@ DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
 \begin{abstract}
 \footnotesize
-
 To what extent did financial markets anticipate the start of the American civil war? 
 How did the market's assessment of war risk change leading up to the war? 
 Which events were associated with these changes?
 This paper answers these questions using the prices and yields of U.S. government and state bonds traded in New York, 1855-61.
-Two measures of war risk are used, the spread between northern and southern bonds and the implied probability of war estimated by treating war as a default event.
-These measures imply little risk of war prior to Lincoln's election in November 1860.
-However, even in April 1860, the risk of war implied by the market was extremely low, and is estimated to be approximately 5 percent.
-These results have implications for international relations theories: the bargaining theory of war and the capitalist peace.
+Two measures of war risk are used: the spread between northern and southern bonds and the implied probability of war estimated by treating war as a default event.
+These measures imply that the market believed there was negligible risk of war prior to Lincoln's election in November 1860.
+However, even in April 1860, the market believed the war was highly unlikely.
+The estimated implied probability of war immediately before the Battle of Fort Sumter to be between 2.8 and 4.3 percent.
 \end{abstract}
 
 \end{titlingpage}

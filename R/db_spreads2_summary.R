@@ -75,7 +75,6 @@ main <- function() {
          , theta = theta
          , tau_local = tau_local
          , theta_diff_18550713_18601102 = diff_summary(spreads2, as.Date("1855-07-13"), as.Date("1860-11-02"))
-               
          , theta_diff_elec = diff_summary(spreads2, as.Date("1860-11-02"), as.Date("1860-12-07"))
          , theta_diff_sumter = diff_summary(spreads2, as.Date("1860-04-13"), as.Date("1860-04-20"))
          )

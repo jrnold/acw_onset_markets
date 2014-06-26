@@ -213,16 +213,38 @@ Three measures are used to assess the market's beliefs about the risk of war: bo
 The financial market assessed only a minimal probability of war prior to the election of Lincoln in 1860, and only increased its estimate of the probability of war in the months after the election.
 On the financial market largely did not anticipate the conflict; bond prices immediately prior to the start of the war imply a 5 percent probability of war.
 
-This use methods similar to \cite{HaberEtAl2012} to estimate the implied probabilities of conflict events from bond prices.
-I expand on their work by explicitly tying the implications of financial market estimates to theories of war, estimating war initiation instead of war termination, and extending the analysis to use events with non-zero recovery rates and leverage multiple assets to estimate the probability of war.
+The results in this paper speak to two important international relations theories: the bargaining theory of war \parencite{Fearon1995} and the capitalist peace \parencite{GartzkeLiEtAl2001a}{GartzkeLi2003}.
+In rationalist theories of war, there are two fundamental explanations as to why two parties would fight a costly conflict rather than come to an agreement: private information and commitment problems.
+Although some progress has been made, it has been rather difficult to test these mechanisms \parencite{Reiter2003}.
+Financial markets may allow some progress in differenting theories.
+Prices of certain assets whose payoffs are contingent on war outcomes, e.g. sovereign bonds, can be used as estimates of war initiation or outcome conditional on the public information available at the time; including how probable the occurence is \textit{ex ante}.
+This is important because different theories of war have have different implications as to how uncertain wars are \textit{ex ante}; in particular, in the most basic models of private information and commitment problems, only wars of private information are uncertain \textit{ex ante}.
+In the commitment problem, if the shift in power is sufficiently large to trigger a war, then war occurs with certainty; if it is not, then war does not occur with certainty.
+Other models may imply different ex ante public information probabilities of conflict.
+However, the point is that many models of conflict imply an \textit{ex ante} probability of war, prices of some assets can be used to as a measure of this \textit{ex ante} probability, and thus financial markets may provide a way to test some theories of war.
 
-This paper contributes to the literature analyzing the relationship between conflict events \textit{within} and prices. 
-THis includes a multiple papers on reactions of the financial markets on both sides and Europep to the American Civil War \textcites{Schwab1901}{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
+Capitalist peace.
+
+The American Civil War has often been overlooked in the international relations literature as most work on civil wars focuses on civil wars after 1945.
+This paper adds to the growing international relations literature \textcite{Owen2000}, and \textcite{Reiter2009}.
+
+This employs methods similar to \cite{HaberEtAl2012};
+That work estimates the implied probability of victory by the Confederacy in the American Civil War and the Chinese government in the Chinese Civil War from bond prices by treating defeat of the issuing side as a default.
+The method extends their work by estimating war initiation instead of war termination, using events with non-zero recovery rates, using multiple assets to improve esimates, and explicitly tying the implications of financial market estimates to theories of war.
+
+This paper contributes to an economic history literatue on the reactions of financial markets to events within the American Civil War.
+This includes multiple papers on reactions of the financial markets on both sides and Europep to the American Civil War \textcites{Schwab1901}{Mitchell1903}{WillardGuinnaneEtAl1996}{McCandless1996}{SmithSmith1997}{BrownBurdekin2000}{Weidenmier2002}.
+This paper adds to that literature by analyzing the initiation of the war and by using northern and southern state bond data.
+
+More broadly, this paper adds to the literature analyzing the reactions of financial markets to conflict and political events.
 Other papers which have analyzed the responses of financial markets to other conflicts include:  \textcite{Bueno1990}, World War I \textcite{Hall2004} and \textcite{Ferguson2006}, World War II \textcites{WaldenstromFrey2008}{WaldenstromFrey2008}.
-\textcite{SchneiderTroeger2006} analyze stock market reactions to major events; \textcite{GuidolinLaFerrara2010} market reactions to MIDs.
-\textcites{LeighWolfersEtAl2003}{WolfersZitzewitz2009} used prediction markets as a direct estimate of the \textit{ex ante} probability of the initiation of the Iraq War in 2003.
-CITE OTHER PAPERS of political events
-This paper adds to the surpisingly small but growing international relations literature that uses the American Civil War as a case \textcite{Reiter2009}.
+\textcite{SchneiderTroeger2006} analyze the reactions of major stock market indices to events in Iraq, Israel, and the former Yugoslavia from 1990-2000.
+\textcite{GuidolinLaFerrara2010} market reactions to MIDs.
+Several papers look at reactions of markets to the Iraq War.
+\textcite{RigobonSack2005} analyze the reaction of U.S. financial markets to war risk using a method identification by heteroskedasticity.
+\textcites{LeighWolfersEtAl2003}{WolfersZitzewitz2009} estimate the response of several financial indicators to the probability of war as indicated by prediction markets.
+Other papers estimate response of financial markets to elections or political change \parencites{Jayachandr2006}{Herron2000}.
+
 
 
 \section{Financial Market Prices and War Initiation}
@@ -622,11 +644,11 @@ However, political risk remained a concern:
 \begin{quote}
 \item The money market during December recovered somewhat from the worst effects of the panic.
   The action of the banks had been prompt and energetic, and the relief afforded by their largely expanded line of loans and discounts averted the worst consequences of the panic.
-  The want of confidence in the political future prevented however a complete recovery and the results of prostrated credit and destroyed confidence were everywherfe discernable. \parencite[\textit{Bankers' Magazine, January 1861}][541]{BankersMagazine1861}
+  The want of confidence in the political future prevented however a complete recovery and the results of prostrated credit and destroyed confidence were everywherfe discernable. \parencite[\textit{Bankers' Magazine}, January 1861:][541]{BankersMagazine1861}
   
   The only speck in the horizon is the threat of secession in the South. 
   We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
-  The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State. \parencites{\textit{Bankers' Magazine}, December 1860}[419]{BankersMagazine1861}
+  The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State. \parencites[\textit{Bankers' Magazine}, December 1860:][419]{BankersMagazine1861}
 \end{quote}
 While yields increased during this period, the yields on most bonds were less than their peak during the Panic of 1857.
 

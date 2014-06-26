@@ -132,7 +132,7 @@
 \title{Did the Financial Market Anticipate the Onset of the American Civil War?}
 %\newcommand{\subtitle}{}
 
-\newcommand{\version}{1.6}
+\newcommand{\version}{0.1.0}
 \pretitle{\begin{center}\sffamily\color{dkred}\Huge}
 \posttitle{\end{center}}
 %\renewcommand{\maketitlehookb}{\vspace{-1em}\begin{center}\color{dkred}\sffamily\large\sub\end{center}}

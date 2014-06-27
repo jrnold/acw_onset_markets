@@ -151,7 +151,7 @@
 \begin{titlingpage}
 \maketitle{}
 
-<<knit_opts, results='hide'>>=
+<<knit_opts, results = 'hide', echo = FALSE>>=
 knitr::opts_chunk[["set"]](error = FALSE, 
                            echo = FALSE,
                            cache = TRUE,
@@ -193,7 +193,7 @@ DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
 @
 
-<<war_initiation, results='hide', cache.extra = tools::md5sum(sapply(c("prices0"), PROJ$dbpath))>>=
+<<war_initiation, results='hide', cache.extra = tools::md5sum("filehashdb/prices0")>>=
 
 bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
                    ytm = ytm * 100)
@@ -230,9 +230,6 @@ rownames(prices_prewar_period_bond) <-
     paste(prices_prewar_period_bond$series, 
           prices_prewar_period_bond$period, sep = ":")
 
-@
-
-<<yields_data>>=
 pre_panic_means <-
     (filter(prices_prewar_period_bond,
             ! grepl("^U\\.S\\.", series),
@@ -245,9 +242,10 @@ pre_panic_means_min_name <- pre_panic_means[1, "series"]
 pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
 pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
 
-@ 
+@
 
-<<south_north_spread_data, results = 'hide'>>=
+
+<<south_north_spread_data, results = 'hide', cache.extra = tools::md5sum(file.path("filehashdb", "spreads2_summary"))>>=
 spreads_summary <- PROJ$db[["spreads2_summary"]]
 
 format_spreads <- function(mean, p025, p975, digits = 2) {
@@ -319,7 +317,7 @@ spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
 
 @ 
 
-<<prob_war_data>>=
+<<prob_war_data, cache.extra = tools::md5sum(file.path("filehashdb", c("prwar1", "prwar4_summary")))>>=
 prwar1 <- PROJ$db[["prwar1"]]
 
 PRWAR1_MIN <- round(100 * min(filter(prwar1[["prwar"]], 

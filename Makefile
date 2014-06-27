@@ -34,6 +34,12 @@ filehashdb/%: R/db_%.R
 doc/analysis/%.html: doc/analysis/%.Rmd
 	$(RSCRIPT) -e 'library(knitr);opts_knit$$set(upload.fun=image_uri);knit2html("$<",output="$@")'
 
-.PHONY: all depends
+paper:
+	make -C doc/paper
+
+paper-clean:
+	make -C doc/paper clean-all
+
+.PHONY: all depends paper
 
 .DEFAULT_GOAL := all

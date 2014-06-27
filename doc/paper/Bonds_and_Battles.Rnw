@@ -151,11 +151,16 @@
 \begin{titlingpage}
 \maketitle{}
 
-<<header,results='hide',echo=FALSE,error=FALSE>>=
+<<knit_opts, results='hide'>>=
 knitr::opts_chunk[["set"]](error = FALSE, 
                            echo = FALSE,
-                           cache = FALSE,
+                           cache = TRUE,
+                           cache.comments = FALSE,
+                           autodep = TRUE,
                            warning = FALSE)
+@ 
+
+<<header,results = 'hide',echo = FALSE, error = FALSE, cache.extra = tools::md5sum("../../.Rprofile")>>=
 suppressPackageStartupMessages({
     library("ggplot2")
     library("scales")
@@ -188,6 +193,174 @@ DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
 @
 
+<<war_initiation, results='hide', cache.extra = tools::md5sum(sapply(c("prices0"), PROJ$dbpath))>>=
+
+bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
+                   ytm = ytm * 100)
+prices_prewar <-
+    (filter(bankers0,
+            date >= DATE_PRICES_START,
+            date < DATE_WAR_START_END,
+            ! grepl("California", series))
+     %>% mutate(period =
+                cut(date,
+                    breaks = c(DATE_PRICES_START,
+                        DATE_PANIC_1857_START,
+                        DATE_PANIC_1857_END,
+                        DATE_ELECTION,
+                        DATE_FORT_SUMTER,
+                        DATE_WAR_START_END),
+                    labels = 
+                    c("Pre Panic of 1857",
+                      "Panic of 1857",
+                      "Pre election",
+                      "Post election",
+                      "Post Ft. Sumter"),
+                    right = FALSE)))
+
+prices_prewar_period_bond <-
+    (group_by(prices_prewar, period, series)
+     %>% dplyr::summarise(ytm_mean = mean(ytm),
+                          ytm_max = max(ytm),
+                          ytm_min = min(ytm),
+                          price_mean = mean(price),
+                          price_min = min(price),
+                          price_max = max(price)))
+rownames(prices_prewar_period_bond) <- 
+    paste(prices_prewar_period_bond$series, 
+          prices_prewar_period_bond$period, sep = ":")
+
+@
+
+<<yields_data>>=
+pre_panic_means <-
+    (filter(prices_prewar_period_bond,
+            ! grepl("^U\\.S\\.", series),
+            period == "Pre Panic of 1857")
+     %>% select(series, ytm_mean)
+     %>% arrange(ytm_mean)
+     )
+pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 2)
+pre_panic_means_min_name <- pre_panic_means[1, "series"]
+pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
+pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
+
+@ 
+
+<<south_north_spread_data, results = 'hide'>>=
+spreads_summary <- PROJ$db[["spreads2_summary"]]
+
+format_spreads <- function(mean, p025, p975, digits = 2) {
+    sprintf("%s (%s, %s)",
+            round(mean, digits),
+            round(p025, digits),
+            round(p975, digits))
+}    
+
+spreads_1855 <-
+    filter(spreads_summary$theta,
+           date == as.Date("1855-7-13"),
+           dimension == 2)
+spreads_1855_fmt <- format_spreads(spreads_1855$value_mean,
+                                   spreads_1855$value_p025,
+                                   spreads_1855$value_p975)
+spreads_preelec <-
+    filter(spreads_summary$theta,
+           date == as.Date("1860-11-02"),
+           dimension == 2)
+spreads_preelec_fmt <- format_spreads(spreads_preelec$value_mean,
+                                   spreads_preelec$value_p025,
+                                   spreads_preelec$value_p975)
+
+spreads_postelec <-
+    filter(spreads_summary$theta,
+           date == as.Date("1860-12-07"),
+           dimension == 2)
+spreads_postelec_fmt <- format_spreads(spreads_postelec$value_mean,
+                                   spreads_postelec$value_p025,
+                                   spreads_postelec$value_p975)
+spreads_presumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-13"),
+           dimension == 2)
+spreads_presumter_fmt <- format_spreads(spreads_presumter$value_mean,
+                                   spreads_presumter$value_p025,
+                                   spreads_presumter$value_p975)
+
+spreads_postsumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-13"),
+           dimension == 2)
+spreads_postsumter_fmt <- format_spreads(spreads_postsumter$value_mean,
+                                         spreads_postsumter$value_p025,
+                                         spreads_postsumter$value_p975)
+
+spreads_diff_1855_elec <-
+    filter(spreads_summary$theta_diff_18550713_18601102,
+           dimension == 2)
+spreads_diff_1855_elec_fmt <- format_spreads(spreads_diff_1855_elec$mean,
+                                             spreads_diff_1855_elec$p025,
+                                             spreads_diff_1855_elec$p975)
+
+spreads_diff_sumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-20"),
+           dimension == 2)
+spreads_diff_sumter_fmt <- format_spreads(spreads_diff_sumter$diff_mean,
+                                          spreads_diff_sumter$diff_p025,
+                                          spreads_diff_sumter$diff_p975)
+
+spreads_diff_elec <-
+    filter(spreads_summary$theta_diff_elec,
+           dimension == 2)
+spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
+                                        spreads_diff_elec$p025,
+                                        spreads_diff_elec$p975)
+
+@ 
+
+<<prob_war_data>>=
+prwar1 <- PROJ$db[["prwar1"]]
+
+PRWAR1_MIN <- round(100 * min(filter(prwar1[["prwar"]], 
+                                     date == DATE_WEEK_PRE_SUMTER,
+                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
+PRWAR1_MAX <- round(100 * max(filter(prwar1[["prwar"]], 
+                                     date == DATE_WEEK_PRE_SUMTER,
+                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
+DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
+DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
+DATEFMT_WAR_START <- date_bdy(prwar1[["war_dates"]][1])
+DATEFMT_WAR_END <- date_bdy(prwar1[["war_dates"]][2])
+DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
+DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
+
+prwar_summary <- PROJ$db[["prwar4_summary"]]
+
+format_prwar <- function(x, digits = 2) {
+    sprintf("%s (%s, %s)", round(x$mean * 100, 1), round(x$p025 * 100, 1), round(x$p975 * 100, 1))
+}
+
+## Constants to use with Sexpr
+
+# Probability of war on specific dates
+prwar_18610105 <- 
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-01-05")))
+
+prwar_18610208 <- 
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-02-08")))
+
+prwar_18610413 <- 
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-04-13")))
+
+prwar_18610413_low <- 
+    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$p025 * 100, 1) 
+prwar_18610413_high <- 
+    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$p975 * 100, 1)
+
+@ 
+
+
 \begin{abstract}
 \footnotesize
 To what extent did financial markets anticipate the start of the American civil war? 
@@ -197,7 +370,7 @@ This paper answers these questions using the prices and yields of U.S. governmen
 Two measures of war risk are used: the spread between northern and southern bonds and the implied probability of war estimated by treating war as a default event.
 These measures imply that the market believed there was negligible risk of war prior to Lincoln's election in November 1860.
 However, even in April 1860, the market believed the war was highly unlikely.
-The estimated implied probability of war immediately before the Battle of Fort Sumter to be between 2.8 and 4.3 percent.
+The estimated implied probability of war immediately before the Battle of Fort Sumter to be between \Sexpr{prwar_18610413_low} and \Sexpr{prwar_18610413_high} percent.
 \end{abstract}
 
 \end{titlingpage}
@@ -211,9 +384,10 @@ Which events were associated with these changes?
 This work answers these questions using data on the prices and yields of U.S. government and state bonds between 1855 and the start of the war in April 1861.
 Three measures are used to assess the market's beliefs about the risk of war: bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
 The financial market assessed only a minimal probability of war prior to the election of Lincoln in 1860, and only increased its estimate of the probability of war in the months after the election.
-On the financial market largely did not anticipate the conflict; bond prices immediately prior to the start of the war imply a 5 percent probability of war.
+On the financial market largely did not anticipate the conflict; bond prices immediately prior to the start of the war imply between a \Sexpr{prwar_18610413} probability of war.%
+\footnote{Interpret strings of the form ``\Sexpr{prwar_18610413}'' as ``mean (2.5\% quantile, 97.5\% quantile)''}
 
-The results in this paper speak to two important international relations theories: the bargaining theory of war \parencite{Fearon1995} and the capitalist peace \parencite{GartzkeLiEtAl2001a}{GartzkeLi2003}.
+The results in this paper speak to two important international relations theories: the bargaining theory of war \parencite{Fearon1995} and the capitalist peace \parencites{GartzkeLiEtAl2001a}{GartzkeLi2003}.
 In rationalist theories of war, there are two fundamental explanations as to why two parties would fight a costly conflict rather than come to an agreement: private information and commitment problems.
 Although some progress has been made, it has been rather difficult to test these mechanisms \parencite{Reiter2003}.
 Financial markets may allow some progress in differenting theories.
@@ -310,7 +484,7 @@ In order to be able to confidently make inferences about the risk of war given b
 This work accounts for these confounding effects in several ways. 
 First, it focuses on the period close to the start of the war. 
 In prior probability that effects are due to war risk factors is higher in the period close to the start of the American Civil War, than in periods further removed from it.
-For example, a large price change the week before Sumter is more likley to be related to changes in the expectation of war than a price movement in 1849.%
+For example, a large price change in the week before before Sumter is more likley to be related to changes in the expectation of war than a price movement in 1849, for example.
 Second, multiple measures are used: the yield spread between southern and northern state bonds and the implied probability of war from the bond prices.
 Third, within each of those measures multiple bonds prices are used to average over idiosyncratic shocks to bonds.
 Additionally, the south-north yield spread also controls for shocks which effect all bonds.
@@ -362,44 +536,6 @@ Yields to maturity are calculated for all issues, and the yield to maturity corr
 \section{Yields of Government and State Bonds, March 1855--April 1861}
 \label{sec:yields-governm-state}
 
-<<war_initiaion, results='hide'>>=
-
-bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
-                   ytm = ytm * 100)
-prices_prewar <-
-    (filter(bankers0,
-            date >= DATE_PRICES_START,
-            date < DATE_WAR_START_END,
-            ! grepl("California", series))
-     %>% mutate(period =
-                cut(date,
-                    breaks = c(DATE_PRICES_START,
-                        DATE_PANIC_1857_START,
-                        DATE_PANIC_1857_END,
-                        DATE_ELECTION,
-                        DATE_FORT_SUMTER,
-                        DATE_WAR_START_END),
-                    labels = 
-                    c("Pre Panic of 1857",
-                      "Panic of 1857",
-                      "Pre election",
-                      "Post election",
-                      "Post Ft. Sumter"),
-                    right = FALSE)))
-
-prices_prewar_period_bond <-
-    (group_by(prices_prewar, period, series)
-     %>% dplyr::summarise(ytm_mean = mean(ytm),
-                          ytm_max = max(ytm),
-                          ytm_min = min(ytm),
-                          price_mean = mean(price),
-                          price_min = min(price),
-                          price_max = max(price)))
-rownames(prices_prewar_period_bond) <- 
-    paste(prices_prewar_period_bond$series, 
-          prices_prewar_period_bond$period, sep = ":")
-
-@
 
 \begin{table}
   \centerfloat
@@ -484,22 +620,6 @@ local({
 \label{fig:yields_all}
 \end{figure}
 
-<<>>=
-.data <- filter(prices_prewar,
-                ! series %in% c("U.S. 5s, 1874", "U.S. 6s, 1868", "Missouri 6s", "Kentucky 6s"),
-                date >= as.Date("1856-7-1"),
-                date <= as.Date("1857-1-1")
-                )
-## (ggplot(.data,
-##         aes(x = date, y = ytm, group = series, color = series))
-##  + geom_line()
-##  + scale_x_date("", breaks = "months", labels = date_format("%m"))
-##  + scale_y_continuous("yield (%)")
- ## + theme_local()
- ## + theme(legend.position = "none")
- ## )
-
-@ 
 
 \begin{figure}
   \centerfloat
@@ -577,20 +697,6 @@ February 1858-October 1860,
 November 1860-April 14, 1861,
 and after the start of the war with Fort Sumter (April 14, 1861).
 
-<<>>=
-pre_panic_means <-
-    (filter(prices_prewar_period_bond,
-            ! grepl("^U\\.S\\.", series),
-            period == "Pre Panic of 1857")
-     %>% select(series, ytm_mean)
-     %>% arrange(ytm_mean)
-     )
-pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 2)
-pre_panic_means_min_name <- pre_panic_means[1, "series"]
-pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
-pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
-
-@ 
 
 From July 1855 through October 1857, yields were low and stable.
 The yields of the U.S. 6s of 1868 were between \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_min"], 2)} and \Sexpr{round(prices_prewar_period_bond["U.S. 6s, 1868:Pre Panic of 1857", "ytm_max"], 2)} percent.
@@ -685,81 +791,10 @@ The reaction of the market to the Battle of Fort Sumter also implies that the ma
 \section{South-North Yield Spread}
 \label{sec:south-north-yield}
 
-<<south_north_spread_data, results = 'hide'>>=
-spreads_summary <- PROJ$db[["spreads2_summary"]]
-
-format_spreads <- function(mean, p025, p975, digits = 2) {
-    sprintf("%s (%s, %s)",
-            round(mean, digits),
-            round(p025, digits),
-            round(p975, digits))
-}    
-
-spreads_1855 <-
-    filter(spreads_summary$theta,
-           date == as.Date("1855-7-13"),
-           dimension == 2)
-spreads_1855_fmt <- format_spreads(spreads_1855$value_mean,
-                                   spreads_1855$value_p025,
-                                   spreads_1855$value_p975)
-spreads_preelec <-
-    filter(spreads_summary$theta,
-           date == as.Date("1860-11-02"),
-           dimension == 2)
-spreads_preelec_fmt <- format_spreads(spreads_preelec$value_mean,
-                                   spreads_preelec$value_p025,
-                                   spreads_preelec$value_p975)
-
-spreads_postelec <-
-    filter(spreads_summary$theta,
-           date == as.Date("1860-12-07"),
-           dimension == 2)
-spreads_postelec_fmt <- format_spreads(spreads_postelec$value_mean,
-                                   spreads_postelec$value_p025,
-                                   spreads_postelec$value_p975)
-spreads_presumter <-
-    filter(spreads_summary$theta,
-           date == as.Date("1861-04-13"),
-           dimension == 2)
-spreads_presumter_fmt <- format_spreads(spreads_presumter$value_mean,
-                                   spreads_presumter$value_p025,
-                                   spreads_presumter$value_p975)
-
-spreads_postsumter <-
-    filter(spreads_summary$theta,
-           date == as.Date("1861-04-13"),
-           dimension == 2)
-spreads_postsumter_fmt <- format_spreads(spreads_postsumter$value_mean,
-                                         spreads_postsumter$value_p025,
-                                         spreads_postsumter$value_p975)
-
-spreads_diff_1855_elec <-
-    filter(spreads_summary$theta_diff_18550713_18601102,
-           dimension == 2)
-spreads_diff_1855_elec_fmt <- format_spreads(spreads_diff_1855_elec$mean,
-                                             spreads_diff_1855_elec$p025,
-                                             spreads_diff_1855_elec$p975)
-
-spreads_diff_sumter <-
-    filter(spreads_summary$theta,
-           date == as.Date("1861-04-20"),
-           dimension == 2)
-spreads_diff_sumter_fmt <- format_spreads(spreads_diff_sumter$diff_mean,
-                                          spreads_diff_sumter$diff_p025,
-                                          spreads_diff_sumter$diff_p975)
-
-spreads_diff_elec <-
-    filter(spreads_summary$theta_diff_elec,
-           dimension == 2)
-spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
-                                        spreads_diff_elec$p025,
-                                        spreads_diff_elec$p975)
-
-@ 
 
 \begin{figure}
   \centerfloat
-<<yields_regions, fig.height = 8, fig.width = 6>>=  
+<<fig_yields_regions, fig.height = 8, fig.width = 6>>=  
 local({
     .data <- plyr::ldply(c("North", "South", "Union"), function(i) {
         prices_prewar[["i"]] <- i
@@ -801,32 +836,6 @@ local({
      + scale_y_continuous("spread (%)")
      + theme_local()
      )
-
-    ## (ggplot(filter(PROJ$db[["spreads2_summary"]][["theta"]]
-    ##                , dimension == 2
-    ##                , date <= as.Date("1861-4-13")
-    ##                ),
-    ##         aes(x = date))
-    ##  + geom_ribbon(mapping = aes(ymin = diff_p025, ymax = diff_p975), alpha = 0.2)
-    ##  + geom_ribbon(mapping = aes(ymin = diff_p25, ymax = diff_p75), alpha = 0.5)
-    ##  + geom_line(mapping = aes(y = diff_median))
-    ##  + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-    ##  + scale_y_continuous("spread (%)")
-    ##  + theme_local()
-    ##  + theme(legend.position = "none")
-    ##  )
-
-    ## (ggplot(filter(PROJ$db[["spreads2_summary"]][["tau_local"]]
-    ##                , dimension == 2
-    ##                , date <= as.Date("1861-4-13")
-    ##                ),
-    ##         aes(x = date))
-    ##  + geom_point(mapping = aes(y = median))
-    ##  + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-    ##  + scale_y_continuous("spread (%)")
-    ##  + theme_local()
-    ##  + theme(legend.position = "none")
-    ##  )
 
 })
 
@@ -901,37 +910,6 @@ The markets' beliefs about the risk of war jumps after Lincoln's election, but t
 \section{Probability of War}
 \label{sec:probability-war}
 
-<<>>=
-prwar1 <- PROJ$db[["prwar1"]]
-PRWAR1_MIN <- round(100 * min(filter(prwar1[["prwar"]], 
-                                     date == DATE_WEEK_PRE_SUMTER,
-                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
-PRWAR1_MAX <- round(100 * max(filter(prwar1[["prwar"]], 
-                                     date == DATE_WEEK_PRE_SUMTER,
-                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
-DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
-DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
-DATEFMT_WAR_START <- date_bdy(prwar1[["war_dates"]][1])
-DATEFMT_WAR_END <- date_bdy(prwar1[["war_dates"]][2])
-DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
-DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
-
-prwar_summary <- PROJ$db[["prwar4_summary"]]
-
-format_prwar <- function(x, digits = 2) {
-    sprintf("%s (%s, %s)", round(x$mean * 100, 1), round(x$p025 * 100, 1), round(x$p975 * 100, 1))
-}
-
-prwar_18610105 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-01-05")))
-
-prwar_18610208 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-02-08")))
-
-prwar_18610413 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-04-13")))
-
-@ 
 
 While the bond yields and spreads between northern and southern bonds can indicate changes in war risk, they are not directly interpretable as the probability of war. 
 However, the market's beliefs about the probability of war can be inferred from bond prices and yields by treating war as a default event \parencite{HaberEtAl2012}.%

@@ -29,3 +29,5 @@ auto/
 /filehashdb.inc
 cache/
 _region_.*
+*_cache
+/doc/paper/bibliographypath.tex

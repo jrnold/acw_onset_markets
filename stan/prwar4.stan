@@ -12,7 +12,7 @@ data {
 }
 transformed data {
   real<lower = 0.0> ysd;
-  ysd <- sd(y);
+  ysd <- sd(log(y));
 }
 parameters {
   vector<lower = 0.0>[r] sigma;
@@ -24,6 +24,7 @@ transformed parameters {
   vector[n] theta;
   vector<lower = 0.0, upper = 1.0>[n] phi;
   vector[y_nobs] mu;
+  vector[y_nobs] sigma_vec;
   theta[1] <- theta_init_loc + theta_init_scale * epsilon[1];
   for (i in 2:n) {
     theta[i] <- theta[i - 1] + tau * tau_local[i - 1] * epsilon[i];
@@ -32,24 +33,24 @@ transformed parameters {
     phi[i] <- inv_logit(theta[i]);
   }
   for (i in 1:y_nobs) {
-    mu[i] <- ((1 - recovery[i]) * phi[y_time[i]]
-	      + riskfree[y_variable[i]]);
+    mu[i] <- log(((1 - recovery[i]) * phi[y_time[i]]
+	                 + riskfree[y_variable[i]]));
   }
-}
-model {
-  vector[y_nobs] sigma_vec;
   for (i in 1:y_nobs) {
     sigma_vec[i] <- sigma[y_variable[i]];
   }
+}
+model {
   epsilon ~ normal(0.0, 1.0);
   sigma ~ cauchy(0.0, ysd);
+  // global shrinkage parameter
+  tau ~ cauchy(0.0, 1.0 / n);
   tau_local ~ cauchy(0.0, 1.0);
-  // nu ~ gamma(2, 0.1);
-  y ~ normal(mu, sigma_vec);
+  y ~ lognormal(mu, sigma_vec);
 }
 generated quantities {
   vector[y_nobs] loglik;
   for (i in 1:y_nobs) {
-    loglik[i] <- normal_log(y[i], mu[i], sigma);
+    loglik[i] <- lognormal_log(y[i], mu[i], sigma_vec[i]);
   }
 }

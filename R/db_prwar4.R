@@ -2,7 +2,7 @@
 library("dplyr")
 library("rstan")
 
-MODEL_FILE <- PROJ$path("stan/prwar3.stan")
+MODEL_FILE <- PROJ$path("stan/prwar4.stan")
 .DEPENDENCIES <- c(PROJ$dbpath("prices0"),
                    PROJ$dbpath("prwar1"),
                    MODEL_FILE)
@@ -61,11 +61,10 @@ staninit <- function(.standata, .data) {
                %>% dplyr::summarise(prwar = mean(prwar2)))$prwar,
               0.001)
     ret$epsilon <- c(0, diff(log(p / (1 - p))))
-    # ret$sigma <- rep(0.5 * sd(.standata$y), .standata$r)
-    ret$sigma <- 0.5 * sd(.standata$y)
+    ret$sigma <- rep(0.5 * sd(.standata$y), .standata$r)
+    #ret$sigma <- rep(0.5 * sd(.standata$y), 5)
     ret$tau <- 1
     ret$tau_local <- rep(1, .standata$n - 1)
-    ret$nu <- 3
     list(ret)
 }
 

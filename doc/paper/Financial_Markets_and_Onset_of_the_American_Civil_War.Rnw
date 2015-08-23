@@ -49,15 +49,15 @@
 \usepackage[style=authoryear,doi=false,isbn=false,backend=biber,%
             backref=true,maxbibnames=10,hyperref=true,%
             dateabbrev=false,uniquename=false]{biblatex}
-% \ExecuteBibliographyOptions{url=false}
-% \ExecuteBibliographyOptions{doi=false}
-% \newbibmacro{string+url}[1]{%
-%  \iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
-% \DeclareFieldFormat{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
-% \DeclareFieldFormat[article]{title}{\usebibmacro{string+url}{\mkbibquote{#1}}}
-% \DeclareFieldFormat[misc]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
-% \DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
-% \AtEveryBibitem{\clearlist{language}}
+\ExecuteBibliographyOptions{url=false}
+\ExecuteBibliographyOptions{doi=false}
+\newbibmacro{string+url}[1]{%
+ \iffieldundef{doi}{\iffieldundef{url}{#1}{\href{\thefield{url}}{#1}}}{\href{http://dx.doi.org/\thefield{doi}}{#1}}}
+\DeclareFieldFormat{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+\DeclareFieldFormat[article]{title}{\usebibmacro{string+url}{\mkbibquote{#1}}}
+\DeclareFieldFormat[misc]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+\DeclareFieldFormat[book]{title}{\usebibmacro{string+url}{\mkbibemph{#1}}}
+\AtEveryBibitem{\clearlist{language}}
 
 \bibliography{local.bib}
 
@@ -354,7 +354,7 @@ Yields to maturity are calculated for all issues, and the yield to maturity corr
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figues/yields_all}
+  \includegraphics{figures/fig_yields_all-1}
 \caption{Yields to maturity of U.S. government and state bonds, by bond, \Sexpr{date_bdy(DATE_PRICES_START)} to \Sexpr{date_bdy(DATE_WAR_START_END)}.}
 \label{fig:yields_all}
 \end{figure}
@@ -362,7 +362,7 @@ Yields to maturity are calculated for all issues, and the yield to maturity corr
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figures/fig_yields_election}
+  \includegraphics{figures/fig_yields_election-1}
 \caption{Yields to maturity of U.S. government and state bonds before and after the election of 1860.
   The vertical lines indicate the date of the election, November 6, 1860.}
 \label{fig:yields_election}
@@ -370,7 +370,7 @@ Yields to maturity are calculated for all issues, and the yield to maturity corr
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figures/fig_yields_sumter}
+  \includegraphics{figures/fig_yields_sumter-1}
 \caption{Yields to maturity of U.S. government and state bonds before and after the Battle of Fort Sumter. The vertical lines indicate the date when news of the surrender of Fort Sumter reaches New York, April 15, 1861.}
 \label{fig:yields_sumter}
 \end{figure}
@@ -483,14 +483,14 @@ The reaction of the market to the Battle of Fort Sumter also implies that the ma
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figures/fig_yields_regions}
+  \includegraphics{figures/fig_yields_regions-1}
 \caption{Yields of U.S. government and state bonds, by region, \Sexpr{date_bdy(DATE_PRICES_START)} to \Sexpr{date_bdy(DATE_WAR_START_END)}.}
 \label{fig:yields_regions}
 \end{figure}
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figures/fig_yields_spreads}
+  \includegraphics{figures/fig_north_south_spreads-1}
 \caption{
   Estimated spread between the yields of southern and northern state bonds.
   The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
@@ -614,12 +614,12 @@ First, the implied probability of war is approximately 0 for all bonds prior to 
 Second, although the implied probabilities increase to between \Sexpr{PRWAR1_MIN} and \Sexpr{PRWAR1_MAX} percent.
 Third, the implied probabilities largely agree, but there are differences in the probility of war implied by each bond.
 
-By noting that all the implied probability of war should be the same for all bonds, b rearranging \eqref{eq:4} and adding uncertainty, the probability of war in each time period can be estimated as,
+By noting that all the implied probability of war should be the same for all bonds, rearranging \eqref{eq:4} and adding uncertainty, the probability of war in each time period can be estimated as,
 \begin{align}
   \label{eq:1}
-  y_{j,t} & \sim \dt{\nu}{(1 - R_{j}) \pi_{t} + r_{j}, \sigma^{2}}
+  \log y_{j,t} & \sim \dnorm{(1 - R_{j}) \pi_{t} + r_{j}, \sigma^{2}}
 \end{align}
-where $\pi_{t}$ is the probability of war at time $t$.
+where $\pi_{t}$ is the probability of war at time $t$,
 Equation~\eqref{eq:1} is a regression model with time-varying coefficients ($\pi_{t}$).
 The inverse logit transformation of $\pi$ evolves as a random walk with a horseshoe prior on the innovations to allow for change-points, as desribbed  in section~\ref{sec:south-north-yield}:
 \begin{align}
@@ -652,14 +652,14 @@ Nevertheless, the overall pattern between the results is similar.
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figures/fig_prwar1}
+  \includegraphics{figures/fig_prwar1-1}
   \caption{Implied probabilities of the initiation of war calculated from southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}.}
   \label{fig:prwar1}
 \end{figure}
 
 \begin{figure}
   \centerfloat
-  \includegraphics{figures/fig_prwar2}
+  \includegraphics{figures/fig_prwar2-1}
   \caption{
     Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:probability-war}
     The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.

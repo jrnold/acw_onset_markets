@@ -1,4 +1,4 @@
-SRC = Bonds_and_Battles.Rnw
+SRC = Financial_Markets_and_Onset_of_the_American_Civil_War.Rnw
 BIBFILE = $(HOME)/Dropbox/jabref.bib
 
 RSCRIPT = Rscript

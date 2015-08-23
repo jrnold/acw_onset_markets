@@ -151,218 +151,23 @@
 \begin{titlingpage}
 \maketitle{}
 
-<<knit_opts, results = 'hide', echo = FALSE>>=
-knitr::opts_chunk[["set"]](error = FALSE, 
-                           echo = FALSE,
-                           cache = TRUE,
-                           cache.comments = FALSE,
-                           autodep = TRUE,
-                           warning = FALSE)
-@ 
-
-<<header,results = 'hide',echo = FALSE, error = FALSE, cache.extra = tools::md5sum("../../.Rprofile")>>=
-suppressPackageStartupMessages({
-    library("ggplot2")
-    library("scales")
-    library("xtable")
-    library("reshape2")
-    library("zoo")
-    library("dplyr")
-})
-source("../../.Rprofile", chdir = TRUE)
-
-theme_local <- function(...) {
-    (theme_minimal(...)
-     + theme(panel.grid.minor = element_blank())
-     )
-}
-
+<<header,echo = FALSE>>=
+knitr::opts_chunk[["set"]](error = FALSE,
+                           echo = TRUE,
+                           cache = FALSE)
+load("analysis.RData")
 date_by <- function(x) format(x, "%B, %Y")
 date_bdy <- function(x) format(x, "%B %e, %Y")
 date_iso <- function(x) format(x, "%Y-%m-%d")
 
-DATE_PRICES_START <- as.Date("1855-7-1") # First date to use
-DATE_PANIC_1857_START <- as.Date("1857-9-1") 
-DATE_PANIC_1857_END <- as.Date("1858-2-1")
-DATE_ELECTION <- as.Date("1860-11-7")
-DATE_PREWAR <- as.Date("1861-3-1")
-DATE_FORT_SUMTER <- as.Date("1861-4-15")
-DATE_WAR_START_END <- as.Date("1861-6-1")
-DATE_WEEK_PRE_SUMTER <- as.Date("1861-4-13")
-DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
-
 @
 
-<<war_initiation, results='hide', cache.extra = tools::md5sum("filehashdb/prices0")>>=
-
-bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
-                   ytm = ytm * 100)
-prices_prewar <-
-    (filter(bankers0,
-            date >= DATE_PRICES_START,
-            date < DATE_WAR_START_END,
-            ! grepl("California", series))
-     %>% mutate(period =
-                cut(date,
-                    breaks = c(DATE_PRICES_START,
-                        DATE_PANIC_1857_START,
-                        DATE_PANIC_1857_END,
-                        DATE_ELECTION,
-                        DATE_FORT_SUMTER,
-                        DATE_WAR_START_END),
-                    labels = 
-                    c("Pre Panic of 1857",
-                      "Panic of 1857",
-                      "Pre election",
-                      "Post election",
-                      "Post Ft. Sumter"),
-                    right = FALSE)))
-
-prices_prewar_period_bond <-
-    (group_by(prices_prewar, period, series)
-     %>% dplyr::summarise(ytm_mean = mean(ytm),
-                          ytm_max = max(ytm),
-                          ytm_min = min(ytm),
-                          price_mean = mean(price),
-                          price_min = min(price),
-                          price_max = max(price)))
-rownames(prices_prewar_period_bond) <- 
-    paste(prices_prewar_period_bond$series, 
-          prices_prewar_period_bond$period, sep = ":")
-
-pre_panic_means <-
-    (filter(prices_prewar_period_bond,
-            ! grepl("^U\\.S\\.", series),
-            period == "Pre Panic of 1857")
-     %>% select(series, ytm_mean)
-     %>% arrange(ytm_mean)
-     )
-pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 2)
-pre_panic_means_min_name <- pre_panic_means[1, "series"]
-pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
-pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
-
-@
-
-
-<<south_north_spread_data, results = 'hide', cache.extra = tools::md5sum(file.path("filehashdb", "spreads2_summary"))>>=
-spreads_summary <- PROJ$db[["spreads2_summary"]]
-
-format_spreads <- function(mean, p025, p975, digits = 2) {
-    sprintf("%s (%s, %s)",
-            round(mean, digits),
-            round(p025, digits),
-            round(p975, digits))
-}    
-
-spreads_1855 <-
-    filter(spreads_summary$theta,
-           date == as.Date("1855-7-13"),
-           dimension == 2)
-spreads_1855_fmt <- format_spreads(spreads_1855$value_mean,
-                                   spreads_1855$value_p025,
-                                   spreads_1855$value_p975)
-spreads_preelec <-
-    filter(spreads_summary$theta,
-           date == as.Date("1860-11-02"),
-           dimension == 2)
-spreads_preelec_fmt <- format_spreads(spreads_preelec$value_mean,
-                                   spreads_preelec$value_p025,
-                                   spreads_preelec$value_p975)
-
-spreads_postelec <-
-    filter(spreads_summary$theta,
-           date == as.Date("1860-12-07"),
-           dimension == 2)
-spreads_postelec_fmt <- format_spreads(spreads_postelec$value_mean,
-                                   spreads_postelec$value_p025,
-                                   spreads_postelec$value_p975)
-spreads_presumter <-
-    filter(spreads_summary$theta,
-           date == as.Date("1861-04-13"),
-           dimension == 2)
-spreads_presumter_fmt <- format_spreads(spreads_presumter$value_mean,
-                                   spreads_presumter$value_p025,
-                                   spreads_presumter$value_p975)
-
-spreads_postsumter <-
-    filter(spreads_summary$theta,
-           date == as.Date("1861-04-13"),
-           dimension == 2)
-spreads_postsumter_fmt <- format_spreads(spreads_postsumter$value_mean,
-                                         spreads_postsumter$value_p025,
-                                         spreads_postsumter$value_p975)
-
-spreads_diff_1855_elec <-
-    filter(spreads_summary$theta_diff_18550713_18601102,
-           dimension == 2)
-spreads_diff_1855_elec_fmt <- format_spreads(spreads_diff_1855_elec$mean,
-                                             spreads_diff_1855_elec$p025,
-                                             spreads_diff_1855_elec$p975)
-
-spreads_diff_sumter <-
-    filter(spreads_summary$theta,
-           date == as.Date("1861-04-20"),
-           dimension == 2)
-spreads_diff_sumter_fmt <- format_spreads(spreads_diff_sumter$diff_mean,
-                                          spreads_diff_sumter$diff_p025,
-                                          spreads_diff_sumter$diff_p975)
-
-spreads_diff_elec <-
-    filter(spreads_summary$theta_diff_elec,
-           dimension == 2)
-spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
-                                        spreads_diff_elec$p025,
-                                        spreads_diff_elec$p975)
-
-@ 
-
-<<prob_war_data, cache.extra = tools::md5sum(file.path("filehashdb", c("prwar1", "prwar4_summary")))>>=
-prwar1 <- PROJ$db[["prwar1"]]
-
-PRWAR1_MIN <- round(100 * min(filter(prwar1[["prwar"]], 
-                                     date == DATE_WEEK_PRE_SUMTER,
-                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
-PRWAR1_MAX <- round(100 * max(filter(prwar1[["prwar"]], 
-                                     date == DATE_WEEK_PRE_SUMTER,
-                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
-DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
-DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
-DATEFMT_WAR_START <- date_bdy(prwar1[["war_dates"]][1])
-DATEFMT_WAR_END <- date_bdy(prwar1[["war_dates"]][2])
-DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
-DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
-
-prwar_summary <- PROJ$db[["prwar4_summary"]]
-
-format_prwar <- function(x, digits = 2) {
-    sprintf("%s (%s, %s)", round(x$mean * 100, 1), round(x$p025 * 100, 1), round(x$p975 * 100, 1))
-}
-
-## Constants to use with Sexpr
-
-# Probability of war on specific dates
-prwar_18610105 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-01-05")))
-
-prwar_18610208 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-02-08")))
-
-prwar_18610413 <- 
-    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-04-13")))
-
-prwar_18610413_low <- 
-    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$p025 * 100, 1) 
-prwar_18610413_high <- 
-    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$p975 * 100, 1)
-
-@ 
 
 
 \begin{abstract}
 \footnotesize
-To what extent did financial markets anticipate the start of the American civil war? 
-How did the market's assessment of war risk change leading up to the war? 
+To what extent did financial markets anticipate the start of the American civil war?
+How did the market's assessment of war risk change leading up to the war?
 Which events were associated with these changes?
 This paper answers these questions using the prices and yields of U.S. government and state bonds traded in New York, 1855-61.
 Two measures of war risk are used: the spread between northern and southern bonds and the implied probability of war estimated by treating war as a default event.
@@ -376,8 +181,8 @@ The estimated implied probability of war immediately before the Battle of Fort S
 \section{Introduction}
 \label{sec:introduction}
 
-To what extent did financial markets anticipate the start of the American civil war? 
-How did the market's assessment of war risk change leading up to the war? 
+To what extent did financial markets anticipate the start of the American civil war?
+How did the market's assessment of war risk change leading up to the war?
 Which events were associated with these changes?
 This work answers these questions using data on the prices and yields of U.S. government and state bonds between 1855 and the start of the war in April 1861.
 Three measures are used to assess the market's beliefs about the risk of war: bond yields, the spread between northern and southern bonds, and the implied probability of war calculated by treating war as a default event.
@@ -423,7 +228,7 @@ Other papers estimate response of financial markets to elections or political ch
 \label{sec:risky-bond-pricing}
 
 The objective of this paper is to use the prices and yields of bonds to infer market beliefs about the \textit{ex ante} probability of war in the period leading up to the American Civil War.
-As such, it is important to establish the theoretical relationship between the observed market prices and yields and these beliefs about war. 
+As such, it is important to establish the theoretical relationship between the observed market prices and yields and these beliefs about war.
 The price of generic bond is the present discounted value of future cash flows.
 Since the timely payment of these cash flows is uncertain, the price is an expectation of receiving these flows given current information.
 Thus the current price of a bond is a quantitative summary of investor's beliefs about the future with regard to payments from the bond.
@@ -437,7 +242,7 @@ A war would influence the credit of the issuers by increasing debt, decreasing r
 
 For investors holding U.S. government bonds, secession and war would reduce the ability of the U.S. government to pay its debts both by reducing potential revenue due to the loss of the southern states and increasing debt to pay war expeditures.
 The revenue of the U.S. would be reduced by the secession of southern states due to the loss of tax revenue. In 1860, the southern states accounted for 25 percent of the non-slave wealth of the United States \parencite[11]{Elder1865}.%
-\footnote{GDP was not invented until WWII. 
+\footnote{GDP was not invented until WWII.
   During the civil war era, the census estimates of personal and property wealth were used as a measure of the total economic activity and also explicitly used to assess the ability of the U.S. to repay the debt \parencites{Elder1863}{Elder1865}.
 }
 The \textit{Merchants' Magazine} wrote in January 1861,
@@ -452,7 +257,7 @@ The U.S. government issued debt to fund the War of 1812 and the Mexican-American
 %%   The \textit{Annual Report Dec 1861} makes one of these comparisons,
 %%   \begin{quote}
 %%     The amount of the public  debt in the year 1816 was \$127,334,933 74, and in twenty years it was paid off by the people.
-%%     The country, even if the loyal States only are regarded, can sustain and pay off in thirty years the debt to which rebellion now exposes us with hardly greater proportional contributions from increased and increasing resources than that debt 
+%%     The country, even if the loyal States only are regarded, can sustain and pay off in thirty years the debt to which rebellion now exposes us with hardly greater proportional contributions from increased and increasing resources than that debt
 %% made necessary. (p. 23)
 %%   \end{quote}
 %% }
@@ -479,8 +284,8 @@ An additional means by which the war could affect the creditworthiness of southe
 Thus, holders of southern state bonds were particularly exposed to war risk, and almost certain to suffer losses immediately at the onset of a conflict.
 
 In order to be able to confidently make inferences about the risk of war given bond prices, alternative confounding effects need to be controlled for.
-This work accounts for these confounding effects in several ways. 
-First, it focuses on the period close to the start of the war. 
+This work accounts for these confounding effects in several ways.
+First, it focuses on the period close to the start of the war.
 In prior probability that effects are due to war risk factors is higher in the period close to the start of the American Civil War, than in periods further removed from it.
 For example, a large price change in the week before before Sumter is more likley to be related to changes in the expectation of war than a price movement in 1849, for example.
 Second, multiple measures are used: the yield spread between southern and northern state bonds and the implied probability of war from the bond prices.
@@ -502,7 +307,7 @@ The data consist of bonds issued by nine states (Georgia, Indiana, Kentucky, Lou
 \footnote{In the financial jargon of that era, 5s or ``Fives'' refers to coupon bonds paying 5 percent interest, and 6s or ``Sixes'' to bonds paying 6 percent interest.}
 The set of bonds included here are those that were regularly quoted in \textit{The Bankers' Magazine and Statistical Register}, a monthly business magazine.
 \footnote{After constructing this data I became aware that \textcite{DwyerHaferWeber1999} constructed a dataset of state bonds from the source.
-  The data used here expands upon the price data presented in the original source, by matching each quoted price in the source with metadata about the bond(s) it represents. 
+  The data used here expands upon the price data presented in the original source, by matching each quoted price in the source with metadata about the bond(s) it represents.
   This dataset removed discrepencies, converts prices to gold dollars after 1862, includes data on bond cashflows, accrued interest, and calculates yield to maturity and other statistics for each bond.
 }
 Prices of these bonds are available at approximately a weekly frequency from \Sexpr{date_bdy(DATE_PRICES_START)} onward.
@@ -510,7 +315,7 @@ Prices of these bonds are available at approximately a weekly frequency from \Se
 All of these bonds are coupon bonds paying 5--6 percent per annum semi-annually with longer maturities.
 The U.S. government bonds matured in 1868 and 1874, while the state bonds variously matured between 1869 and 1892.%
 The data only include two U.S. government bonds because these were the only two large debt issues of the U.S. governemtn outstanding at the start of the the civil war.%
-Between the War of 1812 and the Civil War, the U.S. government only infrequently issued debt. 
+Between the War of 1812 and the Civil War, the U.S. government only infrequently issued debt.
 The two government bonds  in the data were only issued in extraordinary circumstances: the 6s of 1868 were issued in 1847 and 1848 to pay for the Mexican-American War, while 5s of 1874 were issued in 1858 due to a funding shortfall as a result of a financial crisis, the Panic of 1857  \parencites[297-302]{HomerSylla2005}[72-73,76]{DeKnight1900}
 The state bonds in the data were issued by midwest and southern states which issued debt to fund infrastructure projects such as railroads and canals.
 During this period, almost no New England states issued debt, with the notable exception of Massachusetts, whose bonds were the essentially the risk-free asset of the period, but they were not regularly quoted in the \textit{Bankers' Magazine} \parencites[86]{Martin1871}{HomerSylla2005}{Macaulay1938}[80-85]{Officer2003}.
@@ -537,83 +342,19 @@ Yields to maturity are calculated for all issues, and the yield to maturity corr
 
 \begin{table}
   \centerfloat
-<<tab_sumter,results='asis'>>=
-prices_sumter <- 
-    local({
-        .data <- (rbind((prices_prewar
-                         %>% filter(date %in% c(DATE_WEEK_PRE_SUMTER, 
-                                               DATE_WEEK_POST_SUMTER),
-                                    ! series %in% c("U.S. 5s, 1874"))
-                         %>% select(series, date, ytm)),
-                        (filter(prices_prewar, 
-                                series == "Georgia 6s",
-                                date %in% as.Date(c("1861-04-6", "1861-5-18")))
-                         %>% select(series, date, ytm)
-                         %>% arrange(date)
-                         %>% mutate(date = as.Date(c("1861-4-13", "1861-4-20")))
-                         ),
-                        (filter(prices_prewar, 
-                                series == "Louisiana 6s",
-                                date %in% as.Date(c("1861-04-6", "1861-5-4")))
-                         %>% select(series, date, ytm)
-                         %>% arrange(date)
-                         %>% mutate(date = as.Date(c("1861-4-13", "1861-4-20")))
-                         ),
-                        (filter(prices_prewar, 
-                                series == "U.S. 5s, 1874",
-                                date %in% as.Date(c("1861-04-13", "1861-4-27")))
-                         %>% select(series, date, ytm)
-                         %>% arrange(date)
-                         %>% mutate(date = as.Date(c("1861-4-13", "1861-4-20")))
-                         )
-                        )
-                  %>% mutate(date = format(date, "%b %e, %Y"))
-                  )
-        
-        .data <- mutate(dcast(.data, series ~ date, value.var = "ytm"),
-                        `Change` = `Apr 20, 1861` - `Apr 13, 1861`,
-                        `\\% Change` = (`Apr 20, 1861` - `Apr 13, 1861`) / `Apr 20, 1861` * 100)
-        rownames(.data)[1:2] <- c("Before", "After")
-        rownames(.data) <- .data$series
-        .data$series <- NULL
-        .data
-    })
-print(xtable(prices_sumter),
-      sanitize.colnames.function = identity,
-      floating = FALSE)
-@
+  \input{tex/tab_sumter.tex}
 
 \caption{Yields to maturity of U.S. government and state bonds in the week before and after news of the surrender of Fort Sumter.
   For most bonds the before and after columns correspond to April 13 and April 20, 1861, the last price before and the first price afternews of the surrender of Fort Sumter reached the market.
   Prices for Georgia 6s and Louisiana 6s had missing data around Fort Sumter, so the closest available prices are used.
   The response of the prices of U.S. 5s of 1874 was lagged, so the after column is the price on April 27.}
 \label{tab:sumter}
-  
+
 \end{table}
 
 \begin{figure}
   \centerfloat
-<<fig_yields_all, fig.height = 8, fig.width = 6>>=  
-local({
-    .data <- plyr::ldply(sort(as.character(unique(prices_prewar[["series"]]))), function(i) {
-        prices_prewar[["i"]] <- i
-        prices_prewar[["series_is_i"]] <- prices_prewar[["series"]] == i
-        prices_prewar
-    })
-    (ggplot(.data,
-            aes(x = date, y = ytm, group = series, color = series_is_i))
-     + geom_line()
-     + facet_wrap(~ i, ncol = 2)
-     + scale_color_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-     + scale_y_continuous("yield (%)")
-     + theme_local()
-     + theme(legend.position = "none")
-     )
-    
-})
-
-@
+  \includegraphics{figues/yields_all}
 \caption{Yields to maturity of U.S. government and state bonds, by bond, \Sexpr{date_bdy(DATE_PRICES_START)} to \Sexpr{date_bdy(DATE_WAR_START_END)}.}
 \label{fig:yields_all}
 \end{figure}
@@ -621,29 +362,7 @@ local({
 
 \begin{figure}
   \centerfloat
-<<fig_yields_election,fig.height = 8, fig.width = 6>>=  
-local({
-    .data <- (filter(bankers0
-                     # , group != "North"
-                     , ! grepl("California", series)
-                     , date >= as.Date("1860-9-1")
-                     , date <= as.Date("1861-4-1"))
-          %>% select(date, series, ytm)
-          )
-    (ggplot(.data, aes(x = date, y = ytm))
-     + geom_line()
-     + geom_point()
-     + geom_vline(xintercept = as.numeric(DATE_ELECTION), colour = "gray")
-     + facet_wrap(~ series, ncol = 2, scales = "free")
-     + scale_x_date("1860-61", breaks = "months", labels = date_format("%b"))
-     + scale_y_continuous("yield (%)")
-     + theme_local()
-     + theme(legend.position = "none")
-     )
-
-})
-
-@
+  \includegraphics{figures/fig_yields_election}
 \caption{Yields to maturity of U.S. government and state bonds before and after the election of 1860.
   The vertical lines indicate the date of the election, November 6, 1860.}
 \label{fig:yields_election}
@@ -651,44 +370,16 @@ local({
 
 \begin{figure}
   \centerfloat
-<<fig_yields_sumter,fig.height = 8, fig.width = 6>>=  
-local({
-    .data <- (filter(prices_prewar
-                     , date >= as.Date("1861-3-1")
-                     #group != "North"
-                     )
-              %>% select(date, series, ytm)
-              )
-    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
-        .data[["series_touse"]] <- i
-        .data[["touse"]] <- .data[["series"]] == i
-        .data
-    })
-    (ggplot(.data2, aes(x = date, y = ytm, group = series, color = touse))
-     + geom_line(mappting = aes(color = tosue))
-     + geom_point(mapping = aes(color = touse))
-     + facet_wrap(~ series_touse, ncol = 2)
-     + geom_vline(xintercept = as.numeric(DATE_FORT_SUMTER), colour = "gray")
-     + scale_color_manual(values = alpha("black", c(0.2, 1)))
-     + scale_fill_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("1861", breaks = "months", labels = date_format("%b"))
-     + scale_y_continuous("yield (%)")
-     + theme_local()
-     + theme(legend.position = "none")
-     )
-
-})
-
-@
-\caption{Yields to maturity of U.S. government and state bonds before and after the Battle of Fort Sumter. The vertical lines indicate the date when news of the surrender of Fort Sumter reaches New York, April 15, 1861.}  
+  \includegraphics{figures/fig_yields_sumter}
+\caption{Yields to maturity of U.S. government and state bonds before and after the Battle of Fort Sumter. The vertical lines indicate the date when news of the surrender of Fort Sumter reaches New York, April 15, 1861.}
 \label{fig:yields_sumter}
 \end{figure}
 
-This section discusses the yield data of the U.S. government and state bonds discussed in the previous section. 
+This section discusses the yield data of the U.S. government and state bonds discussed in the previous section.
 The purpose of this section is to provide the reader and understanding of the data and the context to interpret the more specific measures of the risk of war, the spread between southern and northern state bonds and the implied proability of war, which will be presented in the following sections.
 
 Figure~\ref{fig:yields_all} plots the yields of all the bonds in the data from \Sexpr{date_bdy(DATE_PRICES_START)} to \Sexpr{DATE_WAR_START_END}.
-By visual inspection, these time series can be divided into five periods: 
+By visual inspection, these time series can be divided into five periods:
 July 1855 to October 1857,
 November 1857 to January 1858 (the Panic of 1857),
 February 1858-October 1860,
@@ -709,13 +400,13 @@ Overall, the relatively low and stable yields suggest that the market did not as
 % TODO: discuss Missouri. But would need to do structural break analysis.
 
 From October 1857 to January 1858, yields spiked during the Panic of 1857.
-The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the failures of banks and railroads, and the suspension of specie payments by banks in New York City. 
-The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}[337]{BankersMagazine1857}. 
+The Panic of 1857 was a recession and financial crisis that included the failure of a major insurance company, the failures of banks and railroads, and the suspension of specie payments by banks in New York City.
+The causes of the panic were not directly related to political risks of secession or war, but were likely a decline in European demand for U.S. trade or insufficient specie supply to meet demand due to a decline in gold production \parencites[263-265]{Dewey1918}[277,299]{HomerSylla2005}[337]{BankersMagazine1857}.
 The \textit{Bankers' Magazine} ``Notes on the Money Market'' sections of the time do not mention domestic political issues during the Panic of 1857, attributing it to a decline in foreign trade and bad banking \parencite[337]{BankersMagazine1857}.
 Thus, while yields reached high levels the panic, these high yields are almost certainly not attributable to an increase in war risk.
-    
+
 After the Panic of 1857, from February 1858 to November 1860, yields of bonds returned to levels similar to the period prior to the Panic of 1857.
-While the yields of U.S. government bonds were also stable during this period, their yields were approximately 0.5 percentage points higher than they had been before the panic. 
+While the yields of U.S. government bonds were also stable during this period, their yields were approximately 0.5 percentage points higher than they had been before the panic.
 The yields of state bonds were also similar to or in some cases lower than in the period prior to the panic.
 
 Lincoln's victory in the presidential election on November 6, 1860 precipitated a rise in yields, especially for southern state bonds.%
@@ -726,7 +417,7 @@ This rise was partially due to a monetary contraction as the economy went into r
 \footnote{The U.S. was in a slight recession prior to the start of the American Civil War, from October 1860 to June 1861, according to the  \href{http://www.nber.org/cycles/cyclesmain.html}{NBER}.}
 The \textit{Bankers' Magazine} described the market,
 \begin{quote}
-   The market for Government and State loans during the month has been dull. 
+   The market for Government and State loans during the month has been dull.
    Prices have in most instances tended downward and a material decline is perceptible in some of the most prominent securities.
    The principal reasons for this seem to be the political excitement.  \parencite[414]{BankersMagazine1861}
 \end{quote}
@@ -749,9 +440,9 @@ However, political risk remained a concern:
 \item The money market during December recovered somewhat from the worst effects of the panic.
   The action of the banks had been prompt and energetic, and the relief afforded by their largely expanded line of loans and discounts averted the worst consequences of the panic.
   The want of confidence in the political future prevented however a complete recovery and the results of prostrated credit and destroyed confidence were everywherfe discernable. \parencite[\textit{Bankers' Magazine}, January 1861:][541]{BankersMagazine1861}
-  
-  The only speck in the horizon is the threat of secession in the South. 
-  We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession. 
+
+  The only speck in the horizon is the threat of secession in the South.
+  We would be the last to give countenance to the libel upon the South, that the majority of any one State assented to the proposition of secession.
   The permanent social, commercial and financial interest of the various sections of the whole country are too strongly identified---too strongly bound together---to induce the loss of any one State. \parencites[\textit{Bankers' Magazine}, December 1860:][419]{BankersMagazine1861}
 \end{quote}
 While yields increased during this period, the yields on most bonds were less than their peak during the Panic of 1857.
@@ -762,7 +453,7 @@ In the months between the election and the start of the war, yields remained hig
 Comparing the individual series of the southern state bonds, the market appeared to have treated the slave-holding states similarly, regardless of whether they had formally seceeded prior to the start of the war.
 Although Louisiana did not seceed until January 26, its yield had already peaked near 9 percent at the start of January.
 Virginia, Tennessee and North Carolina did not seceed until after the start of the war, yet the yields on all of these states rose between November and January.%
-\footnote{Georgia is an exception; its yields noticeably increase after the election until January 1861 near is declaration of secession (January 19, 1861). 
+\footnote{Georgia is an exception; its yields noticeably increase after the election until January 1861 near is declaration of secession (January 19, 1861).
 This may be because the Georiga 6s were illiquid; in the data, there are long sequences in which the price of the Georgia bonds does not change, and it is often traded in multiples of 5 or 10.
 }
 
@@ -771,7 +462,7 @@ The start of the war resulted in a `` depreciation in Southern State stocks exce
 Unlike the election of 1860, in which bond yields rose over a period of weeks, prices fell and yields increased immediately after news of Fort Sumter reached the market.
 Figure~\ref{fig:yields_sumter} plots the yields around the Battle of Fort Sumter (March--June 1861).
 Table~\ref{fig:yields_sumter} tabulates yields in the week immediately before and after news of the surrender of Fort Sumter reached the New York market.
-Southern state yields rose between 6.1 (Tennessee) and 7.7 (Virginia) percentage points (41 and 45 percent) between April 13th and 20th. 
+Southern state yields rose between 6.1 (Tennessee) and 7.7 (Virginia) percentage points (41 and 45 percent) between April 13th and 20th.
 The yields of U.S. sixes also fell, but only by 2.5 percentage points,
 while northern state bond yields were almost unchanged.%
 \footnote{The price of the U.S. 5's of 1874 did not change noticeably until the following week, April 27, 1861}
@@ -780,11 +471,11 @@ It is likely that even on the eve of the war, the market anticipated some sort o
 In April 1860, \textit{The Bankers' Magazine} wrote, ``The general condition of commercial and financial affairs still turns upon the uncertain political future. The fears of civil war, that at one time were entertained in certain quarters, have subsided, if not altogether disappeared, under the influence of passing events.'' \parencite[413]{HomansDana1861a}
 while \textit{The Merchants' Magazine} wrote,
 \begin{quotation}
-  The securities of the Border States fluctuate from day to day as the tone of dispatches from Washington leans toward peace or war. 
+  The securities of the Border States fluctuate from day to day as the tone of dispatches from Washington leans toward peace or war.
   There is undoubtedly a great want of confidence as to the final course which those States will pursue and it is the strong hope which is entertained of their remaining loyal which alone keeps up their price. \parencite[838]{BankersMagazine1861}
 \end{quotation}
 The magnitute and speed of the reaction of yields with respect to the Battle of Fort Sumter implies that the markets' hope that southern states would remain loyal, must have been very strong.
-The reaction of the market to the Battle of Fort Sumter also implies that the market considered it the start of hostilities, even though large-scale engagements would not occur for months with the First Battle of Bull Run 
+The reaction of the market to the Battle of Fort Sumter also implies that the market considered it the start of hostilities, even though large-scale engagements would not occur for months with the First Battle of Bull Run
 
 \section{South-North Yield Spread}
 \label{sec:south-north-yield}
@@ -792,52 +483,14 @@ The reaction of the market to the Battle of Fort Sumter also implies that the ma
 
 \begin{figure}
   \centerfloat
-<<fig_yields_regions, fig.height = 8, fig.width = 6>>=  
-local({
-    .data <- plyr::ldply(c("North", "South", "Union"), function(i) {
-        prices_prewar[["i"]] <- i
-        prices_prewar[["group_is_i"]] <- prices_prewar[["group"]] == i
-        prices_prewar
-    })
-    (ggplot(.data,
-            aes(x = date, y = ytm, group = series, color = group_is_i))
-     + geom_line()
-     + facet_wrap(~ i, ncol = 1)
-     + scale_color_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-     + scale_y_continuous("yield (%)")
-     + theme_local()
-     + theme(legend.position = "none")
-     )
-    
-})
-
-@
+  \includegraphics{figures/fig_yields_regions}
 \caption{Yields of U.S. government and state bonds, by region, \Sexpr{date_bdy(DATE_PRICES_START)} to \Sexpr{date_bdy(DATE_WAR_START_END)}.}
 \label{fig:yields_regions}
 \end{figure}
 
 \begin{figure}
   \centerfloat
-<<fig_north_south_spreads, fig.height = 5, fig.width = 6>>=
-local({
-    (ggplot(filter(spreads_summary[["theta"]]
-                   , dimension == 2
-                   ## , date >= as.Date("1860-9-1")
-                   ## , date <= as.Date("1861-4-13")
-                   ),
-            aes(x = date))
-     + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
-     + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
-     + geom_line(mapping = aes(y = value_mean))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-     + scale_y_continuous("spread (%)")
-     + theme_local()
-     )
-
-})
-
-@ 
+  \includegraphics{figures/fig_yields_spreads}
 \caption{
   Estimated spread between the yields of southern and northern state bonds.
   The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
@@ -909,7 +562,7 @@ The markets' beliefs about the risk of war jumps after Lincoln's election, but t
 \label{sec:probability-war}
 
 
-While the bond yields and spreads between northern and southern bonds can indicate changes in war risk, they are not directly interpretable as the probability of war. 
+While the bond yields and spreads between northern and southern bonds can indicate changes in war risk, they are not directly interpretable as the probability of war.
 However, the market's beliefs about the probability of war can be inferred from bond prices and yields by treating war as a default event \parencite{HaberEtAl2012}.%
 \footnote{See \textcites{Fons1987}{Merrick2001}{Chan-Lau2006} for derivations of default probabilities from bond prices.}
 A simple approximation for the probability of risk-netural default probability per year of a risky bond given its yield is,
@@ -918,7 +571,7 @@ A simple approximation for the probability of risk-netural default probability p
   \Pr(\text{default}) = \frac{y - r}{1 - R} \text{,}
 \end{equation}
 where $y$ is the yield of the risky bond, $r$ is the yield of a risk-free bond with comparable cashflows, and $R$ is the the recovery value of the bond in the event of the default as a proportion of the face value of the bond \parencite{HullPredescuWhite2004}.%
-\footnote{\textcite[115]{WaldenstromFrey2008} propose a similar method, that when the war is observed the probability of war is the proportion of the yield after war to the yield prior to war. 
+\footnote{\textcite[115]{WaldenstromFrey2008} propose a similar method, that when the war is observed the probability of war is the proportion of the yield after war to the yield prior to war.
   That method is not directly derived from a cashflow model and produces higher estimates of the pro*bability of war.
   \textcite{HaberEtAl2012} use a cashflow method to calculate the probability of victory in wars (Confederate victory in the American Civil War, and government victory in the Chinese Civil War) using a cashflow pricing model of bonds, but assuming a recovery rate of 0.
 }
@@ -999,57 +652,14 @@ Nevertheless, the overall pattern between the results is similar.
 
 \begin{figure}
   \centerfloat
-<<fig_prwar1, fig.height = 8, fig.width = 6>>=
-local({
-    .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]],
-                    ! grepl("(U\\.S\\.|Missouri)", series),
-                    date >= as.Date("1858-7-1")
-                    )
-    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
-        .data[["i"]] <- i
-        .data[["series_is_i"]] <- .data[["series"]] == i
-        .data
-    })
-    (ggplot(.data2,
-            aes(x = date, y = pmax(0, prwar2), group = series, color = series_is_i))
-     + geom_vline(xintercept = as.numeric(DATE_ELECTION), colour = "gray")
-     + geom_line()
-     + facet_wrap(~ i, ncol = 2)
-     + scale_color_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
-     + scale_y_continuous("Pr(war)", breaks = seq(0, 0.08, by = 0.01))
-     + theme_local()
-     + theme(legend.position = "none")
-     )
-
-    
-    
-})
-
-@ 
+  \includegraphics{figures/fig_prwar1}
   \caption{Implied probabilities of the initiation of war calculated from southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}.}
   \label{fig:prwar1}
 \end{figure}
 
 \begin{figure}
   \centerfloat
-<<fig_prwar2, fig.height = 4, fig.width = 6>>=
-(ggplot(filter(prwar_summary[["phi"]],
-               date >= as.Date("1858-7-1")
-               ),
-        aes(x = date))
- + geom_vline(xintercept = as.numeric(DATE_ELECTION), colour = "gray")
- + geom_ribbon(mapping = aes(ymin = p025, ymax = p975), alpha = 0.2)
- + geom_ribbon(mapping = aes(ymin = p25, ymax = p75), alpha = 0.5)
- + geom_line(mapping = aes(y = mean))
- # + geom_point(mapping = aes(y = mean))     
- + scale_x_date("", breaks = "years", minor_breaks = "months", labels = date_format("%Y"))
- + scale_y_continuous("Pr(war)")
- + theme_local()
- + theme(legend.position = "none")
- )
-
-@ 
+  \includegraphics{figures/fig_prwar2}
   \caption{
     Implied probabilities of the initiation of war calculated from U.S. government and southern and border state bonds, \Sexpr{DATEFMT_RANGE_START} to \Sexpr{DATEFMT_RANGE_END}, using the model described in section \ref{sec:probability-war}
     The line is the posterior mean, the dark ribbon is the 50\% credible interval, the light ribbon is the 95\% credible interval.
@@ -1060,41 +670,7 @@ local({
 
 \begin{table}
   \centerfloat
-<<tab_yields_prewar, results='asis'>>=
-local({
-    yields <- 
-        dcast(filter(prices_prewar_period_bond,
-                     period %in% c("Pre election", "Post election"),
-                     ! grepl("(U\\.S\\.|Missouri)", series)),
-              series ~ period, value.var = "ytm_mean")
-
-    prwar_param <- 
-        mutate(select(prwar1[["yields"]],
-                      series, yield_peace, price_war),
-               yield_peace = yield_peace * 100)
-    x <- merge(yields, prwar_param)
-
-    rownames(x) <- x[["series"]]
-    x[["series"]] <- NULL
-    colnames(x) <- c(sprintf("\\parbox{2.5cm}{\\raggedleft Avg. yield \\\\ %s--\\\\%s}", 
-                             date_iso(DATE_PANIC_1857_END),
-                             date_iso(DATE_ELECTION)),
-                     sprintf("\\parbox{2.5cm}{\\raggedleft Avg. yield \\\\ %s--\\\\%s}",
-                             date_iso(DATE_ELECTION),
-                             date_iso(DATE_FORT_SUMTER)),
-                     sprintf("\\parbox{2.5cm}{\\raggedleft $r$\\\\ Avg. yield \\\\ %s--\\\\%s}",
-                             date_iso(prwar1[["peace_dates"]][1]),
-                             date_iso(prwar1[["peace_dates"]][2])),
-                     sprintf("\\parbox{2.5cm}{\\raggedleft $R \\cdot 100$ \\\\ Avg. price \\\\ %s--\\\\%s}",
-                             date_iso(prwar1[["war_dates"]][1]),
-                             date_iso(prwar1[["war_dates"]][2])))
-    print(xtable(x), sanitize.colnames.function = identity,
-          floating=FALSE)
-
-})
-
-@ 
-
+  \input{tex/tab_yields_prewar.tex}
 \caption{Summary of data used to calculate probability of war}
 \label{tab:prwar1}
 \end{table}
@@ -1102,21 +678,21 @@ local({
 \section{Conclusion}
 \label{sec:conclusion}
 
-This work estimates the 
+This work estimates the
 Although the seeds of the American Civil War were preceeded the start of the war for many years, the onset of war was unexpected by financial markets.
 Financial markets did not respond to war risk until after the election of Lincoln in November 1860, and then only after a financial criss due to southern banks withdrawing specie and discussion of secession became srioues.
-Despite the awareness of the risk of war, yields spiked dramatically after the Battle of Fort Sumter, implying that the event was unanticipated. 
+Despite the awareness of the risk of war, yields spiked dramatically after the Battle of Fort Sumter, implying that the event was unanticipated.
 The implied probability of war based off the southern state bonds was only about 5 percent.
 
 The results presented here are specific to the case of the American Civil War, but they are consistent with other work on how financial markets have responded to war initiation.
 \textcite{Ferguson2006} show that although World War I was preceeded by a series of crises, European markets did not anticipate the onset of WWI.
 \textcite{FreyKucher2000} and \textcite{WaldenstromFrey2008} show that Nordic and Swiss markets had large reactions to the start of World War II although this was known.
-\textcite{GuidolinLaFerrara2010} find large abnormal returns at MIDs. 
+\textcite{GuidolinLaFerrara2010} find large abnormal returns at MIDs.
 Many of those works emphasize the efficiency of markets in responding to political events, or use the size of the market reaction to understand characteristics of the political events.
 However, the presence of strong market reactions to these events it itself interesting, as it is an indication that the onset of hostilities was unexpected.
 Overall, These cases suggest in in many cases financial markets do not effectively price in the the risk of war.
 If markets are efficient and incorporate public information, this suggests that given public information, many wars are not anticipated.
-Alternatively, markets do a poor job of assessing the \textit{ex ante} theory of war.  
+Alternatively, markets do a poor job of assessing the \textit{ex ante} theory of war.
 Either of these scenarios have important implications for prominent theories of war.
 
 The \textit{ex ante} public information assessments of the probability of war are important because they may provide methods for distinguishing between theories and mechanisms of war.
@@ -1145,11 +721,11 @@ In particular, if financial markets can serve as predictions given civil war, th
 
 \end{document}
 
-%%% Local Variables: 
+%%% Local Variables:
 %%% coding: utf-8
 %%% mode: latex
 %%% TeX-engine: xetex
-%%% End: 
+%%% End:
 
 %  LocalWords:  ceteris parabis von Gartner Fearon FilsonWerner UCDP
 %  LocalWords:  Slantchev SmithStam LeventogluSlantchev Goemans CDB

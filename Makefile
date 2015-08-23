@@ -29,7 +29,7 @@ depends:
 
 # Only use lower-case names for files
 filehashdb/%: R/db_%.R
-	save_to_filehash $<  $(FILEHASHDB_DIR)
+	bin/save_to_filehash $<  $(FILEHASHDB_DIR)
 
 doc/analysis/%.html: doc/analysis/%.Rmd
 	$(RSCRIPT) -e 'library(knitr);opts_knit$$set(upload.fun=image_uri);knit2html("$<",output="$@")'

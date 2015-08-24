@@ -1,0 +1,447 @@
+---
+title: Analysis for Financial Markets and the Onset of the American Civil War
+---
+
+
+
+
+
+
+
+```r
+bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
+                   ytm = ytm * 100)
+prices_prewar <-
+    (filter(bankers0,
+            date >= dat$DATE_PRICES_START,
+            date < dat$DATE_WAR_START_END,
+            ! grepl("California", series))
+     %>% mutate(period =
+                cut(date,
+                    breaks = c(dat$DATE_PRICES_START,
+                        dat$DATE_PANIC_1857_START,
+                        dat$DATE_PANIC_1857_END,
+                        dat$DATE_ELECTION,
+                        dat$DATE_FORT_SUMTER,
+                        dat$DATE_WAR_START_END),
+                    labels = 
+                    c("Pre Panic of 1857",
+                      "Panic of 1857",
+                      "Pre election",
+                      "Post election",
+                      "Post Ft. Sumter"),
+                    right = FALSE)))
+
+prices_prewar_period_bond <-
+    (group_by(prices_prewar, period, series)
+     %>% dplyr::summarise(ytm_mean = mean(ytm),
+                          ytm_max = max(ytm),
+                          ytm_min = min(ytm),
+                          price_mean = mean(price),
+                          price_min = min(price),
+                          price_max = max(price)))
+rownames(prices_prewar_period_bond) <- 
+    paste(prices_prewar_period_bond$series, 
+          prices_prewar_period_bond$period, sep = ":")
+dat$prices_prewar_period_bond <- prices_prewar_period_bond
+
+pre_panic_means <-
+    (filter(prices_prewar_period_bond,
+            ! grepl("^U\\.S\\.", series),
+            period == "Pre Panic of 1857")
+     %>% select(series, ytm_mean)
+     %>% arrange(ytm_mean)
+     )
+dat$pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 2)
+dat$pre_panic_means_min_name <- pre_panic_means[1, "series"]
+dat$pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
+dat$pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
+```
+
+
+
+```r
+spreads_summary <- PROJ$db[["spreads2_summary"]]
+
+format_spreads <- function(mean, p025, p975, digits = 2) {
+    sprintf("%s (%s, %s)",
+            round(mean, digits),
+            round(p025, digits),
+            round(p975, digits))
+}    
+
+spreads_1855 <-
+    filter(spreads_summary$theta,
+           date == as.Date("1855-7-13"),
+           dimension == 2)
+dat$spreads_1855_fmt <- format_spreads(spreads_1855$value_mean,
+                                   spreads_1855$value_p025,
+                                   spreads_1855$value_p975)
+spreads_preelec <-
+    filter(spreads_summary$theta,
+           date == as.Date("1860-11-02"),
+           dimension == 2)
+dat$spreads_preelec_fmt <- format_spreads(spreads_preelec$value_mean,
+                                   spreads_preelec$value_p025,
+                                   spreads_preelec$value_p975)
+
+spreads_postelec <-
+    filter(spreads_summary$theta,
+           date == as.Date("1860-12-07"),
+           dimension == 2)
+dat$spreads_postelec_fmt <- format_spreads(spreads_postelec$value_mean,
+                                   spreads_postelec$value_p025,
+                                   spreads_postelec$value_p975)
+spreads_presumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-13"),
+           dimension == 2)
+dat$spreads_presumter_fmt <- format_spreads(spreads_presumter$value_mean,
+                                   spreads_presumter$value_p025,
+                                   spreads_presumter$value_p975)
+
+spreads_postsumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-13"),
+           dimension == 2)
+dat$spreads_postsumter_fmt <- format_spreads(spreads_postsumter$value_mean,
+                                         spreads_postsumter$value_p025,
+                                         spreads_postsumter$value_p975)
+
+spreads_diff_1855_elec <-
+    filter(spreads_summary$theta_diff_18550713_18601102,
+           dimension == 2)
+dat$spreads_diff_1855_elec_fmt <- format_spreads(spreads_diff_1855_elec$mean,
+                                             spreads_diff_1855_elec$p025,
+                                             spreads_diff_1855_elec$p975)
+
+spreads_diff_sumter <-
+    filter(spreads_summary$theta,
+           date == as.Date("1861-04-20"),
+           dimension == 2)
+dat$spreads_diff_sumter_fmt <- format_spreads(spreads_diff_sumter$diff_mean,
+                                          spreads_diff_sumter$diff_p025,
+                                          spreads_diff_sumter$diff_p975)
+
+spreads_diff_elec <-
+    filter(spreads_summary$theta_diff_elec,
+           dimension == 2)
+dat$spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
+                                        spreads_diff_elec$p025,
+                                        spreads_diff_elec$p975)
+```
+
+
+```r
+prwar1 <- PROJ$db[["prwar1"]]
+
+dat$PRWAR1_MIN <- round(100 * min(filter(prwar1[["prwar"]], 
+                                     date == dat$DATE_WEEK_PRE_SUMTER,
+                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
+dat$PRWAR1_MAX <- round(100 * max(filter(prwar1[["prwar"]], 
+                                     date == dat$DATE_WEEK_PRE_SUMTER,
+                                     ! grepl("(U\\.S\\.|Missouri)", series))$prwar2))
+dat$DATEFMT_PEACE_START <- date_bdy(prwar1[["peace_dates"]][1])
+dat$DATEFMT_PEACE_END <- date_bdy(prwar1[["peace_dates"]][2])
+dat$DATEFMT_WAR_START <- date_bdy(prwar1[["war_dates"]][1])
+dat$DATEFMT_WAR_END <- date_bdy(prwar1[["war_dates"]][2])
+dat$DATEFMT_RANGE_START <- date_bdy(min(prwar1[["prwar"]][["date"]]))
+dat$DATEFMT_RANGE_END <- date_bdy(max(prwar1[["prwar"]][["date"]]))
+
+prwar_summary <- PROJ$db[["prwar4_summary"]]
+
+format_prwar <- function(x, digits = 2) {
+    sprintf("%s (%s, %s)", round(x$mean * 100, 1), round(x$p025 * 100, 1), round(x$p975 * 100, 1))
+}
+
+## Constants to use with Sexpr
+
+# Probability of war on specific dates
+dat$prwar_18610105 <- 
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-01-05")))
+
+dat$prwar_18610208 <- 
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-02-08")))
+
+dat$prwar_18610413 <- 
+    format_prwar(filter(prwar_summary$phi, date == as.Date("1861-04-13")))
+
+dat$prwar_18610413_low <- 
+    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$p025 * 100, 1) 
+dat$prwar_18610413_high <- 
+    round(filter(prwar_summary$phi, date == as.Date("1861-04-13"))$p975 * 100, 1)
+```
+
+
+
+```r
+prices_sumter <- 
+    local({
+        .data <- (rbind((prices_prewar
+                         %>% filter(date %in% c(dat$DATE_WEEK_PRE_SUMTER, 
+                                               dat$DATE_WEEK_POST_SUMTER),
+                                    ! series %in% c("U.S. 5s, 1874"))
+                         %>% select(series, date, ytm)),
+                        (filter(prices_prewar, 
+                                series == "Georgia 6s",
+                                date %in% as.Date(c("1861-04-6", "1861-5-18")))
+                         %>% select(series, date, ytm)
+                         %>% arrange(date)
+                         %>% mutate(date = as.Date(c("1861-4-13", "1861-4-20")))
+                         ),
+                        (filter(prices_prewar, 
+                                series == "Louisiana 6s",
+                                date %in% as.Date(c("1861-04-6", "1861-5-4")))
+                         %>% select(series, date, ytm)
+                         %>% arrange(date)
+                         %>% mutate(date = as.Date(c("1861-4-13", "1861-4-20")))
+                         ),
+                        (filter(prices_prewar, 
+                                series == "U.S. 5s, 1874",
+                                date %in% as.Date(c("1861-04-13", "1861-4-27")))
+                         %>% select(series, date, ytm)
+                         %>% arrange(date)
+                         %>% mutate(date = as.Date(c("1861-4-13", "1861-4-20")))
+                         )
+                        )
+                  %>% mutate(date = format(date, "%b %e, %Y"))
+                  )
+        
+        .data <- mutate(dcast(.data, series ~ date, value.var = "ytm"),
+                        `Change` = `Apr 20, 1861` - `Apr 13, 1861`,
+                        `\\% Change` = (`Apr 20, 1861` - `Apr 13, 1861`) / `Apr 20, 1861` * 100)
+        rownames(.data)[1:2] <- c("Before", "After")
+        rownames(.data) <- .data$series
+        .data$series <- NULL
+        .data
+    })
+print(xtable(prices_sumter),
+      sanitize.colnames.function = identity,
+      floating = FALSE,
+      file = file.path(tab_path, "tab_sumter.tex"))
+```
+
+
+```r
+local({
+    .data <- plyr::ldply(sort(as.character(unique(prices_prewar[["series"]]))), function(i) {
+        prices_prewar[["i"]] <- i
+        prices_prewar[["series_is_i"]] <- prices_prewar[["series"]] == i
+        prices_prewar
+    })
+    (ggplot(.data,
+            aes(x = date, y = ytm, group = series, color = series_is_i))
+     + geom_line()
+     + facet_wrap(~ i, ncol = 2)
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("")
+     + scale_y_continuous("yield (%)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+    
+})
+```
+
+![plot of chunk fig_yields_all](figures/fig_yields_all-1.pdf) 
+
+
+```r
+local({
+    .data <- (filter(bankers0
+                     # , group != "North"
+                     , ! grepl("California", series)
+                     , date >= as.Date("1860-9-1")
+                     , date <= as.Date("1861-4-1"))
+          %>% select(date, series, ytm)
+          )
+    (ggplot(.data, aes(x = date, y = ytm))
+     + geom_line()
+     + geom_point()
+     + geom_vline(xintercept = as.numeric(dat$DATE_ELECTION), colour = "gray")
+     + facet_wrap(~ series, ncol = 2, scales = "free")
+     #+ scale_x_date("1860-61", breaks = "months", labels = date_format("%b"))
+     + scale_y_continuous("yield (%)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
+})
+```
+
+![plot of chunk fig_yields_election](figures/fig_yields_election-1.pdf) 
+
+
+```r
+local({
+    .data <- (filter(prices_prewar
+                     , date >= as.Date("1861-3-1")
+                     #group != "North"
+                     )
+              %>% select(date, series, ytm)
+              )
+    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
+        .data[["series_touse"]] <- i
+        .data[["touse"]] <- .data[["series"]] == i
+        .data
+    })
+    (ggplot(.data2, aes(x = date, y = ytm, group = series, color = touse))
+     + geom_line(mappting = aes(color = tosue))
+     + geom_point(mapping = aes(color = touse))
+     + facet_wrap(~ series_touse, ncol = 2)
+     + geom_vline(xintercept = as.numeric(dat$DATE_FORT_SUMTER), colour = "gray")
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_fill_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("1861", breaks = "months", labels = date_format("%b"))
+     + scale_y_continuous("yield (%)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
+})
+```
+
+![plot of chunk fig_yields_sumter](figures/fig_yields_sumter-1.pdf) 
+
+
+```r
+local({
+    .data <- plyr::ldply(c("North", "South", "Union"), function(i) {
+        prices_prewar[["i"]] <- i
+        prices_prewar[["group_is_i"]] <- prices_prewar[["group"]] == i
+        prices_prewar
+    })
+    (ggplot(.data,
+            aes(x = date, y = ytm, group = series, color = group_is_i))
+     + geom_line()
+     + facet_wrap(~ i, ncol = 1)
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("yield (%)")
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+    
+})
+```
+
+![plot of chunk fig_yields_regions](figures/fig_yields_regions-1.pdf) 
+
+
+```r
+local({
+    (ggplot(filter(spreads_summary[["theta"]]
+                   , dimension == 2
+                   ## , date >= as.Date("1860-9-1")
+                   ## , date <= as.Date("1861-4-13")
+                   ),
+            aes(x = date))
+     + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
+     + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
+     + geom_line(mapping = aes(y = value_mean))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("spread (%)")
+     + theme_local()
+     )
+
+})
+```
+
+![plot of chunk fig_north_south_spreads](figures/fig_north_south_spreads-1.pdf) 
+
+
+```r
+local({
+    .data <- filter(PROJ[["db"]][["prwar1"]][["prwar"]],
+                    ! grepl("(U\\.S\\.|Missouri)", series),
+                    date >= as.Date("1858-7-1")
+                    )
+    .data2 <- plyr::ldply(sort(as.character(unique(.data[["series"]]))), function(i) {
+        .data[["i"]] <- i
+        .data[["series_is_i"]] <- .data[["series"]] == i
+        .data
+    })
+    (ggplot(.data2,
+            aes(x = date, y = pmax(0, prwar2), group = series, color = series_is_i))
+     + geom_vline(xintercept = as.numeric(dat$DATE_ELECTION), colour = "gray")
+     + geom_line()
+     + facet_wrap(~ i, ncol = 2)
+     + scale_color_manual(values = alpha("black", c(0.2, 1)))
+     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_y_continuous("Pr(war)", breaks = seq(0, 0.08, by = 0.01))
+     + theme_local()
+     + theme(legend.position = "none")
+     )
+
+    
+    
+})
+```
+
+![plot of chunk fig_prwar1](figures/fig_prwar1-1.pdf) 
+
+
+
+```r
+(ggplot(filter(prwar_summary[["phi"]],
+               date >= as.Date("1858-7-1")
+               ),
+        aes(x = date))
+ + geom_vline(xintercept = as.numeric(dat$DATE_ELECTION), colour = "gray")
+ + geom_ribbon(mapping = aes(ymin = p025, ymax = p975), alpha = 0.2)
+ + geom_ribbon(mapping = aes(ymin = p25, ymax = p75), alpha = 0.5)
+ + geom_line(mapping = aes(y = mean))
+ + geom_point(mapping = aes(y = mean))     
+ + scale_x_date("", breaks = "years", minor_breaks = "months", labels = date_format("%Y"))
+ + scale_y_continuous("Pr(war)")
+ + theme_local()
+ + theme(legend.position = "none")
+ )
+```
+
+![plot of chunk fig_prwar2](figures/fig_prwar2-1.pdf) 
+
+
+```r
+local({
+    yields <- 
+        dcast(filter(prices_prewar_period_bond,
+                     period %in% c("Pre election", "Post election"),
+                     ! grepl("(U\\.S\\.|Missouri)", series)),
+              series ~ period, value.var = "ytm_mean")
+
+    prwar_param <- 
+        mutate(select(prwar1[["yields"]],
+                      series, yield_peace, price_war),
+               yield_peace = yield_peace * 100)
+    x <- merge(yields, prwar_param)
+
+    rownames(x) <- x[["series"]]
+    x[["series"]] <- NULL
+    colnames(x) <- c(sprintf("\\parbox{2.5cm}{\\raggedleft Avg. yield \\\\ %s--\\\\%s}", 
+                             date_iso(dat$DATE_PANIC_1857_END),
+                             date_iso(dat$DATE_ELECTION)),
+                     sprintf("\\parbox{2.5cm}{\\raggedleft Avg. yield \\\\ %s--\\\\%s}",
+                             date_iso(dat$DATE_ELECTION),
+                             date_iso(dat$DATE_FORT_SUMTER)),
+                     sprintf("\\parbox{2.5cm}{\\raggedleft $r$\\\\ Avg. yield \\\\ %s--\\\\%s}",
+                             date_iso(prwar1[["peace_dates"]][1]),
+                             date_iso(prwar1[["peace_dates"]][2])),
+                     sprintf("\\parbox{2.5cm}{\\raggedleft $R \\cdot 100$ \\\\ Avg. price \\\\ %s--\\\\%s}",
+                             date_iso(prwar1[["war_dates"]][1]),
+                             date_iso(prwar1[["war_dates"]][2])))
+    print(xtable(x), sanitize.colnames.function = identity,
+          floating=FALSE,
+          file = file.path(tab_path, "tab_yields_prewar.tex"))
+
+})
+```
+
+
+## Save objects
+
+
+```r
+#save.image(file = 'analysis.RData')
+save(list = names(dat), file = 'analysis.RData', envir = as.environment(dat))
+```

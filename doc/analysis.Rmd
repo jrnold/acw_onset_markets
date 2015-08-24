@@ -12,9 +12,11 @@ knitr::opts_chunk[["set"]](error = FALSE,
                            warning = FALSE,
                            fig.path = "figures/",
                            dev = 'pdf')
+
+.RPROFILE <- "../.Rprofile"
 ```
 
-```{r header,results = 'hide',echo = FALSE, error = FALSE, cache.extra = tools::md5sum("../../.Rprofile")}
+```{r header,results = 'hide',echo = FALSE, error = FALSE, cache.extra = tools::md5sum(.RPROFILE)}
 suppressPackageStartupMessages({
     library("ggplot2")
     library("scales")
@@ -23,7 +25,7 @@ suppressPackageStartupMessages({
     library("zoo")
     library("dplyr")
 })
-source("../../.Rprofile", chdir = TRUE)
+source(.RPROFILE, chdir = TRUE)
 
 theme_local <- function(...) {
     (theme_minimal(...)

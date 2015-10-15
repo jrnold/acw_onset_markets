@@ -304,6 +304,28 @@ local({
 
 ```
 
+```{r fig_yields_all_color, fig.height = 3, fig.width = 4.5}  
+local({
+   .dat <-
+    (filter(bankers0,
+            date >= dat$DATE_PRICES_START,
+            date < as.Date("1862-1-1"),
+            ! group %in% "Border",
+            ! grepl("California", series)))
+    (ggplot(.dat,
+            aes(x = date, y = ytm, group = series, color = group))
+     + geom_line()
+     + scale_x_date("")
+     + scale_y_continuous("yield (%)")
+     + theme_local()
+     + scale_color_discrete("")
+     + theme(legend.position = "bottom")
+     )
+    
+})
+
+```
+
 ```{r fig_yields_election,fig.height = 8, fig.width = 6}  
 local({
     .data <- (filter(bankers0

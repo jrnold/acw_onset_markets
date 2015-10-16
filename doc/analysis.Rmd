@@ -321,7 +321,7 @@ local({
      + scale_color_discrete("")
      + theme(legend.position = "bottom")
      )
-    
+      
 })
 
 ```

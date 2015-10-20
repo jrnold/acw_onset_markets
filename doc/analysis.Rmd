@@ -15,10 +15,9 @@ knitr::opts_chunk[["set"]](error = FALSE,
                            fig.width = 6,
                            fig.height = 4)
 
-.RPROFILE <- "../.Rprofile"
 ```
 
-```{r header,results = 'hide',echo = FALSE, error = FALSE, cache.extra = tools::md5sum(.RPROFILE)}
+```{r header,results = 'hide',echo = FALSE, error = FALSE}
 suppressPackageStartupMessages({
     library("ggplot2")
     library("scales")
@@ -27,7 +26,6 @@ suppressPackageStartupMessages({
     library("zoo")
     library("dplyr")
 })
-source(.RPROFILE, chdir = TRUE)
 
 theme_local <- function(...) {
     (theme_minimal(...)
@@ -100,9 +98,6 @@ prices_prewar_period_bond <-
                           price_mean = mean(price),
                           price_min = min(price),
                           price_max = max(price)))
-rownames(prices_prewar_period_bond) <- 
-    paste(prices_prewar_period_bond$series, 
-          prices_prewar_period_bond$period, sep = ":")
 dat$prices_prewar_period_bond <- prices_prewar_period_bond
 
 pre_panic_means <-
@@ -110,12 +105,14 @@ pre_panic_means <-
             ! grepl("^U\\.S\\.", series),
             period == "Pre Panic of 1857")
      %>% select(series, ytm_mean)
+     %>% mutate(series = as.character(series))
      %>% arrange(ytm_mean)
      )
-dat$pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 2)
-dat$pre_panic_means_min_name <- pre_panic_means[1, "series"]
-dat$pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 2)
-dat$pre_panic_means_max_name <- pre_panic_means[nrow(pre_panic_means), "series"]
+dat$pre_panic_means_min <- round(pre_panic_means[1, "ytm_mean"], 1)
+dat$pre_panic_means_min_name <- 
+  as.character(pre_panic_means[1, "series"])
+dat$pre_panic_means_max <- round(pre_panic_means[nrow(pre_panic_means), "ytm_mean"], 1)
+dat$pre_panic_means_max_name <- as.character(pre_panic_means[nrow(pre_panic_means), "series"])
 
 ```
 

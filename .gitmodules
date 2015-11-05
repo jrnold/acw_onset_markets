@@ -1,3 +1,6 @@
 [submodule "submodules/civil_war_era_findata"]
 	path = submodules/civil_war_era_findata
 	url = https://github.com/jrnold/civil_war_era_findata
+[submodule "bib"]
+	path = bib
+	url = git@github.com:jrnold/bib.git

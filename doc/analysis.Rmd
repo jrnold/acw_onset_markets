@@ -66,7 +66,7 @@ dat$DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
 ```
 
-```{r war_initiation, results='hide', cache.extra = tools::md5sum("filehashdb/prices0")}
+```{r war_initiation, results='hide'}
 bankers0 <- mutate(filter(PROJ$db[["prices0"]], src == "Bankers"),
                    ytm = ytm * 100)
 prices_prewar <-
@@ -117,7 +117,7 @@ dat$pre_panic_means_max_name <- as.character(pre_panic_means[nrow(pre_panic_mean
 ```
 
 
-```{r south_north_spread_data, results = 'hide', cache.extra = tools::md5sum(file.path("filehashdb", "spreads2_summary"))}
+```{r south_north_spread_data, results = 'hide'}
 spreads_summary <- PROJ$db[["spreads2_summary"]]
 
 format_spreads <- function(mean, p025, p975, digits = 2) {
@@ -189,7 +189,7 @@ dat$spreads_diff_elec_fmt <- format_spreads(spreads_diff_elec$mean,
 
 ``` 
 
-```{r prob_war_data, cache.extra = tools::md5sum(file.path("filehashdb", c("prwar1", "prwar4_summary")))}
+```{r prob_war_data}
 prwar1 <- PROJ$db[["prwar1"]]
 
 dat$PRWAR1_MIN <- round(100 * min(filter(prwar1[["prwar"]], 
@@ -351,7 +351,6 @@ local({
 local({
     .data <- (filter(prices_prewar
                      , date >= as.Date("1861-3-1")
-                     #group != "North"
                      )
               %>% select(date, series, ytm)
               )
@@ -361,13 +360,13 @@ local({
         .data
     })
     (ggplot(.data2, aes(x = date, y = ytm, group = series, color = touse))
-     + geom_line(mappting = aes(color = tosue))
+     + geom_line(mapping = aes(color = touse))
      + geom_point(mapping = aes(color = touse))
      + facet_wrap(~ series_touse, ncol = 2)
      + geom_vline(xintercept = as.numeric(dat$DATE_FORT_SUMTER), colour = "gray")
      + scale_color_manual(values = alpha("black", c(0.2, 1)))
      + scale_fill_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("1861", breaks = "months", labels = date_format("%b"))
+     + scale_x_date("1861", date_breaks = "1 month", labels = date_format("%b"))
      + scale_y_continuous("yield (%)")
      + theme_local()
      + theme(legend.position = "none")
@@ -389,7 +388,7 @@ local({
      + geom_line()
      + facet_wrap(~ i, ncol = 1)
      + scale_color_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_x_date("", date_breaks = "1 year", labels = date_format("%Y"))
      + scale_y_continuous("yield (%)")
      + theme_local()
      + theme(legend.position = "none")
@@ -410,7 +409,7 @@ local({
      + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
      + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
      + geom_line(mapping = aes(y = value_mean))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_x_date("", date_breaks = "1 year", labels = date_format("%Y"))
      + scale_y_continuous("spread (%)")
      + theme_local()
      )
@@ -430,13 +429,12 @@ local({
         .data[["series_is_i"]] <- .data[["series"]] == i
         .data
     })
-    (ggplot(.data2,
-            aes(x = date, y = pmax(0, prwar2), group = series, color = series_is_i))
+    (ggplot(.data2, aes(x = date, y = pmax(0, prwar2), group = series, color = series_is_i))
      + geom_vline(xintercept = as.numeric(dat$DATE_ELECTION), colour = "gray")
      + geom_line()
      + facet_wrap(~ i, ncol = 2)
      + scale_color_manual(values = alpha("black", c(0.2, 1)))
-     + scale_x_date("", breaks = "years", labels = date_format("%Y"))
+     + scale_x_date("", date_breaks = "1 year", labels = date_format("%Y"))
      + scale_y_continuous("Pr(war)", breaks = seq(0, 0.08, by = 0.01))
      + theme_local()
      + theme(legend.position = "none")
@@ -459,7 +457,7 @@ local({
  + geom_ribbon(mapping = aes(ymin = p25, ymax = p75), alpha = 0.5)
  + geom_line(mapping = aes(y = mean))
  + geom_point(mapping = aes(y = mean))     
- + scale_x_date("", breaks = "years", minor_breaks = "months", labels = date_format("%Y"))
+ + scale_x_date("", date_breaks = "1 year", date_minor_breaks = "1 month", labels = date_format("%Y"))
  + scale_y_continuous("Pr(war)")
  + theme_local()
  + theme(legend.position = "none")

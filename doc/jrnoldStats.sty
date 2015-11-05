@@ -1,0 +1,57 @@
+\ProvidesPackage{jrnoldStats}
+
+\RequirePackage{amsmath}
+\RequirePackage{amsfonts}
+
+% Programming Languages
+\newcommand{\proglang}[1]{\textsf{#1}}
+\newcommand{\RLang}{\proglang{R}}
+\newcommand{\Stan}{\proglang{Stan}}
+\newcommand{\pkg}[1]{\textbf{#1}}
+
+% Used to typeset distributions
+\newcommand{\dist}[1]{\mathcal{#1}}
+\newcommand{\distsep}[1]{;}
+\newcommand{\paren}[1]{\mathopen{}\left(#1\right)\mathclose{}}
+\newcommand{\disti}[2]{\ensuremath{\dist{#1}\paren{#2}}}
+\newcommand{\distii}[3]{\ensuremath{\dist{#1}\paren{#2 \distsep{} #3}}}
+\newcommand{\distiii}[3]{\ensuremath{\dist{#1}_{#2}\paren{#3}}}
+\newcommand{\distiv}[4]{\ensuremath{\dist{#1}_{#2}\paren{#3 \distsep{} #4}}}
+
+\newcommand{\dnorm}[1]{\disti{N}{#1}}
+\newcommand{\dmvnorm}[2]{\distiii{N}{#1}{#2}}
+\newcommand{\dlnorm}[1]{\disti{LN}{#1}}
+\newcommand{\dt}[2]{\ensuremath{\dist{T}_{#1}\paren{#2}}}
+\newcommand{\dcauchy}[1]{\disti{C}{#1}}
+\newcommand{\dhalfcauchy}[1]{\disti{C^+}{#1}}
+\newcommand{\dbeta}[1]{\disti{B}{#1}}
+\newcommand{\dinvbeta}[1]{\disti{IB}{#1}}
+\newcommand{\dgamma}[1]{\disti{G}{#1}}
+\newcommand{\dinvgamma}[1]{\disti{IG}{#1}}
+\newcommand{\dwishart}[1]{\disti{W}{#1}}
+\newcommand{\dinvwishart}[1]{\disti{IW}{#1}}
+\newcommand{\dunif}[1]{\disti{U}{#1}}
+\newcommand{\dexp}[1]{\disti{E}{#1}}
+\newcommand{\dlaplace}[1]{\disti{L}{#1}}
+
+% Math operators, misc
+\DeclareMathOperator{\E}{E}
+\DeclareMathOperator{\Median}{median}
+\DeclareMathOperator{\Mean}{mean}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\sd}{sd}
+\DeclareMathOperator{\se}{se}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\logit}{logit}
+%\newcommand{\tran}{^\top}
+\newcommand{\tran}{'}
+
+% Misc
+\newcommand{\Model}[1]{\ensuremath{\mathcal{M}_{\text{#1}}}}
+
+% Reals
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Rp}{\ensuremath{\mathbb{R}^{+}}}
+\newcommand{\abs}[1]{\ensuremath{\lvert#1\rvert}}
+\newcommand{\norm}[1]{\ensuremath{\lVert#1\rVvert}}

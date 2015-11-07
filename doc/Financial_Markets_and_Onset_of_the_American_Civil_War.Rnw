@@ -94,23 +94,7 @@ date_iso <- function(x) format(x, "%Y-%m-%d")
 
 \usepackage{placeins}
 
-\title{Did Financial Markets Anticipate the Onset of the American Civil War?}
-\author{Jeffrey B. Arnold}
-
-\frenchspacing
-
-\begin{document}
-
-\maketitle{}
-
-\begin{abstract}
-  I estimate the market implied \textit{ex ante} probability of the onset of the American Civil War using U.S. government and state bonds.
-  Surprisingly, financial markets were surprised by the Battle of Fort Sumter and the start of the war.
-  Prior to Abraham Lincoln's election in November 1860, the market assigned almost no probability to a war.
-  Even after the secession of several states, the week before the Battle of Fort Sumter, the market assigned a negligible probability, approximately 5\%, to war onset.
-\end{abstract}
-
-
+\title{Did Financial Markets Anticipate the Onset of the American Civil War?
 To what extent did financial markets anticipate the start of the American Civil War?
 How did the market's assessment of war risk change leading up to the war?
 Which events were associated with these changes?

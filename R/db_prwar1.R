@@ -12,7 +12,7 @@ PRICES0 <- PROJ$dbpath("prices0")
 prices0 <- PROJ$db[["prices0"]]
     
 .DEPENDENCIES <-
-    c(BOND_METADATA_FILE, BANKERS_FILE)
+    c(BOND_METADATA_FILE, BANKERS_FILE, PRICES0)
 
 PEACE <- as.Date(c("1855-07-01", "1857-9-1"))
 WAR <- as.Date(c("1861-04-15", "1861-05-18"))
@@ -65,14 +65,14 @@ get_war_peace_yields <- function() {
                 date >= PEACE[1] & date <= PEACE[2],
                 series != "U.S. 5s, 1874")
          %>% group_by(series)
-         %>% summarise(yield_peace = mean(ytm),
-                       yield_peace_min = min(ytm),
-                       yield_peace_sd = sd(ytm),
+         %>% summarise(yield_peace = mean(ytm_gold),
+                       yield_peace_min = min(ytm_gold),
+                       yield_peace_sd = sd(ytm_gold),
                        price_peace = mean(price),
                        price_peace_min = min(price),                       
                        price_peace_sd = sd(price),
-                       logyield_peace = mean(log(ytm)),
-                       logyield_peace_sd = sd(log(ytm)),
+                       logyield_peace = mean(log(ytm_gold)),
+                       logyield_peace_sd = sd(log(ytm_gold)),
                        logprice_peace = mean(log(price)),
                        logprice_peace_sd = sd(log(price)))
          )
@@ -84,14 +84,14 @@ get_war_peace_yields <- function() {
     war_yields <-
         (group_by(bond_yields, series)
          %>% filter(date >= WAR[1] & date <= WAR[2])
-         %>% summarise(yield_war = mean(ytm),
-                       yield_war_min = min(ytm),
-                       yield_war_sd = sd(ytm),
+         %>% summarise(yield_war = mean(ytm_gold),
+                       yield_war_min = min(ytm_gold),
+                       yield_war_sd = sd(ytm_gold),
                        price_war = mean(price),
                        price_war_min = min(price),
                        price_war_sd = sd(price),
-                       logyield_war = mean(log(ytm)),
-                       logyield_war_sd = sd(log(ytm)),
+                       logyield_war = mean(log(ytm_gold)),
+                       logyield_war_sd = sd(log(ytm_gold)),
                        logprice_war = mean(log(price)),
                        logprice_war_sd = sd(log(price)))
                        
@@ -170,16 +170,16 @@ get_data <- function() {
                })
     .data[["cashflows"]] <- NULL
     ret <- (mutate(.data,
-                   prwar1 = (ytm - yield_peace) / (1 - price_war / 100),
-                   prwar2 = (ytm - yield_peace) / (1 - pv_yield_war / 100),
-                   prwar3 = (ytm - yield_peace_min) / (1 - price_war / 100),
-                   prwar4 = (ytm - yield_peace_min) / (1 - pv_yield_war / 100),
-                   prwar5 = (ytm - yield_peace_2) / (1 - price_war / 100),
-                   prwar6 = (ytm - yield_peace_2) / (1 - pv_yield_war / 100),
+                   prwar1 = (ytm_gold - yield_peace) / (1 - price_war / 100),
+                   prwar2 = (ytm_gold - yield_peace) / (1 - pv_yield_war / 100),
+                   prwar3 = (ytm_gold - yield_peace_min) / (1 - price_war / 100),
+                   prwar4 = (ytm_gold - yield_peace_min) / (1 - pv_yield_war / 100),
+                   prwar5 = (ytm_gold - yield_peace_2) / (1 - price_war / 100),
+                   prwar6 = (ytm_gold - yield_peace_2) / (1 - pv_yield_war / 100),
                    ## variation of proportional method proposed by Frey
-                   prwar7 = (ytm - yield_peace) / (yield_war - yield_peace),
-                   prwar8 = (ytm - yield_peace_2) / (yield_war - yield_peace_2),
-                   prwar9 = (ytm - yield_peace_min) / (yield_war - yield_peace_min),                   
+                   prwar7 = (ytm_gold - yield_peace) / (yield_war - yield_peace),
+                   prwar8 = (ytm_gold - yield_peace_2) / (yield_war - yield_peace_2),
+                   prwar9 = (ytm_gold - yield_peace_min) / (yield_war - yield_peace_min)                 
                   )
            %>% select(-wgt))
     list(prwar = ret,

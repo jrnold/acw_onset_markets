@@ -1,0 +1,200 @@
+---
+title: "Auctions of the American Civil War"
+author: "Jeffrey Arnold"
+date: "November 6, 2015"
+output: html_document
+---
+
+```{r}
+library("ggplot2")
+library("dplyr")
+```
+
+
+```{r}
+DIR_AUCTION <- PROJ$path("submodules/civil_war_era_findata/sources/auctions")
+FILE_BIDDERS <- file.path(DIR_AUCTION, "bidders.csv")
+FILE_BIDS <- file.path(DIR_AUCTION, "bids.csv")
+FILE_AUCTIONS <- file.path(DIR_AUCTION, "metadata.csv")
+```
+
+Loan of February 8, 1861 (12 Stat 129) authorized a loan of $25 million with interest not exceeding 6 per cent, reimbursable in not less than 10 nor more than 25 years. (Bayley, p. 76, 151; Knight, p. 78)
+The Treasury expected a definicency of $24,000.
+This was due to a falling off in revenue caused by secession which had diminished revenues.
+
+
+The first was advertised on February 13, 1861 with bids being received until February 23, 1861. It advertised 8 million.
+
+- http://www.nytimes.com/1861/02/14/news/affairs-nation-highly-important-washington-electoral-vote-counted-joint-session.html?pagewanted=2
+- http://www.nytimes.com/1861/02/25/news/news-of-the-day.html?pagewanted=2
+ 
+The second was advertised on March 22, 1861, with bids being received until April 2, 1861. It advertised for 8 million.
+
+
+http://www.nytimes.com/1861/04/05/news/policy-decided-upon-administration-meaning-extensive-military-naval-preparations.html
+
+> The fact that Secretary CHASE accepted only a portion of the bids for the eight million loan, I see, is construed in Wall-street as an evidence of a peace policy. This is a mistake. The Government will not lower the standard of public credit by an act of its own. It will make such expenditures as are necessary to maintain its existence, and will rely upon the patriotism of the people to furnish the money. When it cannot obtain funds at fair rates, it will use Treasury notes. It is husbanding its resources. Every expenditure that can be delayed is stopped; only Army and Navy bills receive prompt dispatch.
+
+http://www.nytimes.com/1861/04/04/news/national-affairs-rejection-bids-for-new-eight-million-loan-less-than-four.html
+
+> It was a bold and judicious stroke of policy on Mr. CHASE's part to refuse to award more of the loan than was offered to be taken at fair rates. He has administered a a rebuke to the combination of bidders, which must show them that they overshot their mark, and he has, by this one act, advanced the public credit and greatly promoted public confidence.  He says he expects capitalists to bid for the Government loan as an investment, and not toy with it as fancy stock.
+
+> The wisdom of his decision is already vindicated by numerous telegraphic dispatches from rejected bidders offering to take the unawarded stock at higher figures, and it is at this hour apparent that any amount of loan securities might now be disposed of at a handsome advance open ninety-four.
+
+http://www.nytimes.com/1861/04/04/news/national-affairs-rejection-bids-for-new-eight-million-loan-less-than-four.html?pagewanted=2
+
+> Contrary to the expectation of bidders, the Secretary of the Treasury has decided to-day to accept no offer below ninety-four for the eight million loan. The amount, therefore, determined upon is only about $3,100,000.
+
+> The decision of the Secretary of the Treasury in rejecting all bids for the loan under ninety-four, has caused great disappointment among bidders. They allege the advertisement gave no such direction. 
+
+http://www.nytimes.com/1861/04/06/news/impending-crisis-threat-bombard-sumpter-forty-eight-hours-naval-military.html
+
+The third was advertised on May 11, 1861 with bids being received until May 21, 1861, later extended to May 25.
+It was for the remaining $8,994,000. 
+The announcement noted that the "act reserves to the Secretary the right to deline bids not regarded as advantageous to the United States" (1861 Treasury Report, p. 52-53)
+
+http://www.nytimes.com/1861/05/28/news/secession-rebellion-important-seat-war-disposition-federal-troops-virginia.html?pagewanted=2
+
+> The Treasury Department, immediately after the opening of the proposals on Saturday, commenced informing the successful bidders of the result. The Secretary accepted all bids for the bonds placed at 85 and upward, and awarded the remainder to the bidders for the Treasury notes at or above par. There were awarded of the bonds $6,753,000, and of the Treasury notes, $2,241,000.
+
+*Merchants' Magazine*, Vol. 44, p. 666. https://books.google.com/books?output=text&id=QKcRAAAAYAAJ&jtp=666
+
+> Those bids were offered on the 2d April during a period of returning confidence that peace would be maintained. On opening the bids it was found that for $3,100,000 a rate of 94 c. was offered, or about 3£ per cent, higher than the previous loan; about 93J- c. was offered for sums equal to a balance of the loan, or three per cent, higher than the rate at which the previous loan had been issued. The whole amount offered was over $30,000,000. The Department thought proper to reject all bids below 94, an unprecedented action which was received with disfavor. The rejection of the money seemed, however, to confirm the public impression that no measures tending to bring on collision would be attempted. Rumors, however, became suddenly rife that great activity prevailed in the army and navy, with the view to such measures as might bring on hostilities. 
+
+```{r}
+bidders <- read.csv(FILE_BIDDERS, stringsAsFactors = FALSE)
+bids <- read.csv(FILE_BIDS, stringsAsFactors = FALSE)
+auctions <- read.csv(FILE_AUCTIONS, stringsAsFactors = FALSE)
+
+bidders1861 <- bidders %>%
+  filter(grepl("Loan of Feb 1861", auction))
+
+bids1861 <- bids %>%
+  filter(grepl("Loan of Feb 1861", auction)) %>%
+  mutate(is_accepted = accepted > 0) %>%
+  left_join(bidders1861, by = c("auction", "bidder_num")) %>%
+  filter(price_gold > 70)
+# There is a bid of 60 in the May Auction. Too anomalous.
+
+auctions1861_bids <-
+  bids1861 %>%
+  group_by(auction) %>%
+  summarise(bids_n = n(),
+            amount_total = sum(amount),
+            amount_accepted = sum(amount[is_accepted]),
+            bids_price_mean = mean(price_gold),
+            bids_price_sd = sd(price_gold),
+            bids_price_min = min(price_gold[is_accepted]),
+            bids_price_wtd_mean = weighted.mean(price_gold, amount),
+            bids_price_wtd_sd = sqrt(Hmisc::wtd.var(price_gold, amount)),
+            bids_yield_mean = mean(ytm1),
+            bids_yield_sd = sd(ytm1),
+            bids_yield_wtd_mean = weighted.mean(ytm1, amount),
+            bids_yield_wtd_sd = sqrt(Hmisc::wtd.var(ytm1, amount))
+  )
+
+bids1861_bidders <- bids %>%
+  filter(grepl("Loan of Feb 1861", auction)) %>%
+  filter(price_gold > 70) %>%
+  group_by(auction, bidder_num) %>%
+  summarise(n = n(),
+            accepted = sum(accepted),
+            price = weighted.mean(price_gold, amount),
+            yield = weighted.mean(ytm1, amount),
+            amount = sum(amount),
+            accepted = accepted > 0) %>%
+  left_join(bidders1861, by = c("auction", "bidder_num"))
+
+auctions1861_bidders <-
+  bids1861_bidders %>%
+  group_by(auction) %>%
+  summarise(bidders_n = n(),
+            bidders_num_bids = sum(n),
+            bidders_price_mean = mean(price),
+            bidders_price_sd = sd(price),
+            bidders_price_wtd_mean = weighted.mean(price, amount),
+            bidders_price_wtd_sd = sqrt(Hmisc::wtd.var(price, amount)),
+            bidders_yield_mean = mean(yield),
+            bidders_yield_sd = sd(yield),
+            bidders_yield_wtd_mean = weighted.mean(yield, amount),
+            bidders_yield_wtd_sd = sqrt(Hmisc::wtd.var(yield, amount))
+  )
+
+auctions1861 <-
+  right_join(auctions1861_bids, auctions1861_bidders, by = c("auction"))
+
+```
+
+```{r}
+ggplot(bids1861, aes(x = auction, y = price_gold, colour = accepted,
+                     size = amount)) +
+  geom_point() 
+
+ggplot(bids1861, aes(x = auction, y = price_gold, weight = amount)) +
+  geom_boxplot() 
+
+ggplot(bids1861, aes(x = auction, y = price_gold)) +
+  geom_boxplot() 
+
+```
+
+```{r}
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = accepted,
+                     size = amount)) +
+  geom_point() 
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, weight = amount)) +
+  geom_boxplot()
+
+ggplot(bids1861_bidders, aes(x = auction, y = price)) +
+  geom_boxplot()
+```
+
+
+## Institutional Bidders vs. Non-Bidders
+
+```{r}
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = institutional,
+                     size = amount)) +
+  geom_point() 
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, weight = amount,
+                             colour = institutional)) +
+  geom_boxplot()
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = institutional)) +
+  geom_boxplot()
+
+```
+
+## New York City
+
+```{r}
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "New York"),
+                     size = amount)) +
+  geom_point() 
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, weight = amount,
+                             colour = (city == "New York"))) +
+  geom_boxplot()
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "New York"))) +
+  geom_boxplot()
+
+```
+
+## Washington, D.C.
+
+```{r}
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "Washington"),
+                     size = amount)) +
+  geom_point() 
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, weight = amount,
+                             colour = (city == "Washington"))) +
+  geom_boxplot()
+
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "Washington"))) +
+  geom_boxplot()
+
+```

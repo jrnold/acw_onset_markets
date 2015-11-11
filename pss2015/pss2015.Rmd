@@ -1,0 +1,9 @@
+---
+title: "Financial Markets and the American Civil War"
+author: "Jeffrey Arnold"
+job: 
+date: "November 12, 2015"
+mode: selfcontained
+---
+
+--- 

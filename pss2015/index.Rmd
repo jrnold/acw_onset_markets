@@ -1,0 +1,79 @@
+---
+title: "Financial Markets and the American Civil War"
+author: "Jeffrey B. Arnold"
+job: University of Washington
+date: "November 12, 2015"
+mode: selfcontained
+framework: revealjs
+revealjs:
+  theme: simple
+  center: "false"
+---
+
+--- background:img/3b15462r-edited.jpg}
+
+--- 
+
+<img src="img/tyb2c.jpg" title="made at imgflip.com" alt = "Any headline that ends in a question mark can be answered by the word no"/>
+
+---
+
+## What I'm going to talk about
+
+- Financial markets did not anticipate the start of the American Civil War
+
+    - Government and state bond markets
+    - Government bond auctions
+
+- Bond markets within the war
+- Foreign exchange markets
+
+--- 
+
+Plot of state and government bonds 
+
+--- 
+
+Plot of the spread
+
+--- 
+
+Plot of the probability of war
+
+--- &vertical
+
+Auction Data
+
+--- 
+
+Timeline of auctions
+
+--- 
+
+Auction data
+
+--- 
+
+<img src="img/what-does-it-mean.png" />
+
+--- 
+
+## What does it mean?
+
+1. Implications for theories
+
+   - Private information vs. commitment theories of war (Fearon 1995, Gartzke 1998)
+   - Capitalist peace
+   - Endogenous war expectations (Chadefeux 2015)
+
+2. Civil war is a worst case
+3. Does it generalize? 
+
+--- 
+
+## Images
+
+- Grumpy Cat. Made at <imgflip.com>. https://imgflip.com/i/tyb2c
+- View of the Gold Room http://www.loc.gov/pictures/item/2006688527/
+- What does that even mean? http://tommcfarlin.com/wp-content/uploads/2014/04/what-does-it-mean.png
+

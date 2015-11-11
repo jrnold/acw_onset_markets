@@ -8,6 +8,7 @@ output: html_document
 ```{r}
 library("ggplot2")
 library("dplyr")
+library("tidyr")
 ```
 
 
@@ -22,14 +23,12 @@ Loan of February 8, 1861 (12 Stat 129) authorized a loan of $25 million with int
 The Treasury expected a definicency of $24,000.
 This was due to a falling off in revenue caused by secession which had diminished revenues.
 
-
 The first was advertised on February 13, 1861 with bids being received until February 23, 1861. It advertised 8 million.
 
 - http://www.nytimes.com/1861/02/14/news/affairs-nation-highly-important-washington-electoral-vote-counted-joint-session.html?pagewanted=2
 - http://www.nytimes.com/1861/02/25/news/news-of-the-day.html?pagewanted=2
  
 The second was advertised on March 22, 1861, with bids being received until April 2, 1861. It advertised for 8 million.
-
 
 http://www.nytimes.com/1861/04/05/news/policy-decided-upon-administration-meaning-extensive-military-naval-preparations.html
 
@@ -62,18 +61,33 @@ http://www.nytimes.com/1861/05/28/news/secession-rebellion-important-seat-war-di
 > Those bids were offered on the 2d April during a period of returning confidence that peace would be maintained. On opening the bids it was found that for $3,100,000 a rate of 94 c. was offered, or about 3£ per cent, higher than the previous loan; about 93J- c. was offered for sums equal to a balance of the loan, or three per cent, higher than the rate at which the previous loan had been issued. The whole amount offered was over $30,000,000. The Department thought proper to reject all bids below 94, an unprecedented action which was received with disfavor. The rejection of the money seemed, however, to confirm the public impression that no measures tending to bring on collision would be attempted. Rumors, however, became suddenly rife that great activity prevailed in the army and navy, with the view to such measures as might bring on hostilities. 
 
 ```{r}
-bidders <- read.csv(FILE_BIDDERS, stringsAsFactors = FALSE)
+bidders <- read.csv(FILE_BIDDERS, stringsAsFactors = FALSE) %>%
+    mutate(city_state = ifelse(! city == "", 
+                           gsub(", $", "", paste(city, state, sep = ", ")),
+                           ""),
+           city_state2 = ifelse(! city_state %in% c("Boston, MA",
+                                                    "Philadelphia, PA",
+                                                    "New York, NY",
+                                                    "Washington, DC"),
+                          "Other", city_state),
+           NY = (city_state == "New York, NY"),
+           DC = (city_state == "Washington, DC")
+           )
+
 bids <- read.csv(FILE_BIDS, stringsAsFactors = FALSE)
 auctions <- read.csv(FILE_AUCTIONS, stringsAsFactors = FALSE)
 
 bidders1861 <- bidders %>%
-  filter(grepl("Loan of Feb 1861", auction))
+  filter(grepl("Loan of Feb 1861", auction)) %>%
+  mutate(auction = gsub("; Loan of Feb 1861", "", auction))
 
 bids1861 <- bids %>%
   filter(grepl("Loan of Feb 1861", auction)) %>%
-  mutate(is_accepted = accepted > 0) %>%
+  mutate(is_accepted = accepted > 0,
+         auction = gsub("; Loan of Feb 1861", "", auction)) %>%
   left_join(bidders1861, by = c("auction", "bidder_num")) %>%
   filter(price_gold > 70)
+
 # There is a bid of 60 in the May Auction. Too anomalous.
 
 auctions1861_bids <-
@@ -126,6 +140,36 @@ auctions1861 <-
 ```
 
 ```{r}
+bids1861_bidders_city <-
+  bids1861_bidders %>%
+  group_by(auction, city2) %>%
+  summarise(n = n(),
+            yield_mean = mean(yield),
+            yield_sd = sd(yield),
+            price_mean = mean(price),
+            price_sd = sd(price))
+
+bids1861_bidders_city <-
+  bids1861_bidders %>%
+  mutate(city = (city == "New York")) %>%
+  group_by(auction, city) %>%
+  summarise(n = n(),
+            yield_mean = mean(yield),
+            yield_sd = sd(yield),
+            price_mean = mean(price),
+            price_sd = sd(price))
+
+bids1861_bidders_institutional <-
+  bids1861_bidders %>%
+  group_by(auction, institutional) %>%
+  summarise(n = n(),
+            yield_mean = mean(yield),
+            yield_sd = sd(yield),
+            price_mean = mean(price),
+            price_sd = sd(price))
+```
+
+```{r}
 ggplot(bids1861, aes(x = auction, y = price_gold, colour = accepted,
                      size = amount)) +
   geom_point() 
@@ -170,31 +214,122 @@ ggplot(bids1861_bidders, aes(x = auction, y = price, colour = institutional)) +
 ## New York City
 
 ```{r}
-ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "New York"),
+ggplot(bids1861_bidders, aes(x = auction, y = price,
+                             colour = (city_state2 == "New York, NY"),
                      size = amount)) +
   geom_point() 
 
 ggplot(bids1861_bidders, aes(x = auction, y = price, weight = amount,
-                             colour = (city == "New York"))) +
+                             colour = (city_state == "New York, NY"))) +
   geom_boxplot()
 
-ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "New York"))) +
+ggplot(bids1861_bidders, aes(x = auction, y = price,
+                             colour = (city_state == "New York, NY"))) +
   geom_boxplot()
 
 ```
 
-## Washington, D.C.
+## Cities
 
 ```{r}
-ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "Washington"),
+ggplot(bids1861_bidders, aes(x = auction, y = price, colour = city_state2,
                      size = amount)) +
-  geom_point() 
+  geom_violin() 
 
-ggplot(bids1861_bidders, aes(x = auction, y = price, weight = amount,
-                             colour = (city == "Washington"))) +
-  geom_boxplot()
 
-ggplot(bids1861_bidders, aes(x = auction, y = price, colour = (city == "Washington"))) +
-  geom_boxplot()
+ggplot(bids1861, aes(x = auction, y = yield, colour = city2,
+                     size = amount)) +
+  geom_violin() 
 
 ```
+
+
+What are all the cities? 
+
+```{r}
+bidders1861 %>%
+  group_by(auction, city_state) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  spread(auction, n, fill = 0) %>%
+  mutate(total = `1861-02-13` +
+            `1861-03-22` +
+            `1861-05-11`) %>%
+  arrange(- total) %>%
+  knitr::kable()
+  
+```
+
+What were the states? 
+
+```{r}
+bidders1861 %>%
+  group_by(auction, state) %>%
+  summarise(n = n()) %>%
+  ungroup() %>%
+  spread(auction, n, fill = 0) %>%
+  mutate(total = `1861-02-13` +
+            `1861-03-22` +
+            `1861-05-11`) %>%
+  arrange(- total) %>%
+  knitr::kable()
+  
+```
+
+Who were the Washington, DC people?
+
+```{r}
+bidders1861 %>%
+  filter(city_state == "Washington, DC") %>%
+  select(name, price_mean, auction) %>%
+  knitr::kable()
+
+```
+
+- [American Colonization Society](https://en.wikipedia.org/wiki/American_Colonization_Society):
+  Society whose objective was to send free blacks to Africa.
+  
+- John C. Rives. Publisher of the Congressional Globe [http://www.nytimes.com/1864/04/11/news/obituary.html](NYT Apr 11, 1864). Died in 1864 at age 67. Accused of buying British Consols prior to the War [NYT 04/15/1865](http://www.nytimes.com/1865/04/15/news/the-late-john-c-rives-british-consols.html)
+- A. J. Glossbrenner. Dem member of U.S. House or Representatives from Penn (1865-1869).
+  Sergeant at arms of the House of Representatives and Private Secretary to President Buchanan.
+- Thomas F. Andrews. Doctor. Wealthy. He endowed a chair of scriptural archaeology at the Catholic U of America. [source](https://books.google.com/books?id=JZoaAAAAYAAJ&pg=PA86)
+- [Benjamin Ogle Tayloe](https://en.wikipedia.org/wiki/Benjamin_Ogle_Tayloe) 1796-1868.
+  His house was a salon for the Washington elite.
+
+## Regression Models
+
+```{r}
+mod1 <- lm(price ~ city2 * auction, data = bids1861_bidders)
+mod2 <- lm(yield ~ city2 * auction + institutional, data = bids1861_bidders)
+
+mod1 <- lm(price ~ city2 * auction, data = bids1861_bidders)
+mod2 <- lm(yield ~ city2 * auction + institutional, data = bids1861_bidders)
+```
+
+```{r}
+for (i in unique(bids1861_bidders$auction)) {
+  print(summary(lm(price ~ NY + DC + institutional,
+                   data = filter(bids1861_bidders, auction == i))))
+}
+
+
+for (i in unique(bids1861_bidders$auction)) {
+  print(summary(lm(price ~ NY + DC,
+                   data = filter(bids1861_bidders, auction == i))))
+}
+
+```
+
+## All Auctions
+
+```{r}
+ggplot(bids, aes(x = auction, y = ytm1)) +
+  geom_violin() +
+  coord_flip()
+```
+
+
+
+
+
+

@@ -15,3 +15,5 @@ auto/
 /pss2015/index.html
 /pss2015/index.md
 pss2015/img
+cache/
+plotly.inc

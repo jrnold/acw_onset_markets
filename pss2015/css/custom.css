@@ -1,0 +1,14 @@
+.title-page h1 {
+    color: white;
+}
+.title-page p {
+    color: white;
+}
+#title-conference {
+    color: white;
+}
+.reveal section img {
+    background:none;
+    border:none;
+    box-shadow:none;
+}

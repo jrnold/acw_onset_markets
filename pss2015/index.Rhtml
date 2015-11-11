@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8">
+
+    <title>Financial Markets and the American Civil War</title>
+
+    <meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+    <meta name="author" content="Jeffrey B. Arnold">
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+    <link rel="stylesheet" href="css/reveal.css">
+    <link rel="stylesheet" href="css/theme/white.css" id="theme">
+    
+
+    <!-- Code syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+
+    <!-- Printing and PDF exports -->
+    <script>
+      var link = document.createElement( 'link' );
+      link.rel = 'stylesheet';
+      link.type = 'text/css';
+      link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+      document.getElementsByTagName( 'head' )[0].appendChild( link );
+    </script>
+
+    <!--[if lt IE 9]>
+	<script src="lib/js/html5shiv.js"></script>
+	<![endif]-->
+
+    <!-- custom -->
+    <link rel="stylesheet" href="css/custom.css" id="custom-css">
+    
+  
+    <script src="plotly-latest.min.js"></script>
+  </head>
+
+<!--begin.rcode header, echo = FALSE
+suppressPackageStartupMessages({
+  library("knitr")
+  library("dplyr")
+  library("tidyr")
+  library("filehash")
+  library("htmlwidgets")
+  library("plotly")
+})
+opts_chunk$set(echo = FALSE, results = 'asis',
+               cache = FALSE, autodep = TRUE,
+               dev = 'svg')
+
+end.rcode-->    
+    
+<!--begin.rcode data
+DIR_ACW_FINANCES_DIR <- PROJ$path("submodules/civil_war_era_findata")
+
+DATE_PRICES_START <- as.Date("1855-7-1") # First date to use
+DATE_PANIC_1857_START <- as.Date("1857-9-1") 
+DATE_PANIC_1857_END <- as.Date("1858-2-1")
+DATE_ELECTION <- as.Date("1860-11-7")
+DATE_PREWAR <- as.Date("1861-3-1")
+DATE_FORT_SUMTER <- as.Date("1861-4-15")
+DATE_WAR_START_END <- as.Date("1861-6-1")
+DATE_WEEK_PRE_SUMTER <- as.Date("1861-4-13")
+DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
+
+bankers0 <- filter(PROJ$db[["prices0"]], src == "Bankers")
+
+end.rcode-->
+
+
+<!--begin.rcode debug,echo=FALSE,results='hide'
+Sys.getenv('plotly_username')
+Sys.getenv('plotly_api_key')
+end.rcode-->
+
+
+  <body>
+
+    <div class="reveal">
+
+      <!-- Any section element inside of this container is displayed as a slide -->
+      <div class="slides">
+        <section data-background="assets/img/12856v.png">
+          <div class="title-page">
+            <div class="title-block">
+              <h1 id="title-title">Financial Markets <br/><small>and the</small><br/>American Civil War</h1>
+            </div>
+            <div class="author-block">
+              <p id="title-author">
+                Jeffrey B. Arnold
+              </p>
+              <p id="title-institution">
+                University of Washington
+              </p>
+            </div>
+            <div id="title-conference">
+              <p id="title-place">
+                2015 Annual Meeting of the Peace Science Society (International), Oxford, Miss.
+              </p>
+              <p id="title-date">November 12, 2015</p>
+            </div>
+          </div>
+        </section>
+
+        <section>
+          <h1>What I'll be talking about today</h1>
+
+          <ol>
+            <li>What bond markets tell us about the onset of the war
+            <li>What bond and currency markets tell us about the conduct of the war
+            <li>What exchange rate markets may tell us about foreign intervention
+          </ol>
+        </section>
+
+        <section>
+
+          <section>
+            <h1>Did Financial Markets Anticipate the Onset of the American Civil War?</h1>
+          </section>
+          
+          <section>
+            <img src="https://i.imgflip.com/tyul6.jpg" alt="Any headline that ends in a question mark can be answered by the word no" title="made at imgflip.com"/>
+          </section>
+
+          <section>
+            <ol>
+              <li>State and government bonds influenced by war
+              <li>Southern state bonds worse returns than Northern state or U.S. government bonds
+            </ol>
+          </section>
+
+          <section>
+          </section>
+
+
+          <section>
+            Plot of yield spread
+          </section>
+
+          <section>
+            Plot of implied probability of war
+          </section>
+
+          <section>
+            But what about the beliefs of individual investors? 
+          </section>
+
+          <section>
+            <img src="assets/img/AR_TREASURY_1861_2_Page_32.jpg">
+          </section>
+
+          <section>
+            <h1>Probability of War from a </h1>
+            $$
+            \Pr(\text{default}) = \frac{y - r}{1 - R}
+            $$
+            
+          </section>
+          
+        </section>        
+        
+        <section>
+          <h1>Images</h1>
+          <ul>
+            <li>
+              <a href="http://www.loc.gov/pictures/resource/ppmsca.12856/">New York Gold Room bulletin board on Black Friday, Sept 24, 1869</a>. Cropped.
+            </li>
+            <li>
+              Grumpy cat <a href="https://imgflip.com/i/tyul6">made by author at imgflip.com</a>
+            </li>
+            <li>
+              United States. Department of the Treasury. "Report of the Secretary of the Treasury, on the Finances, Containing Estimates of the Public Revenue and Public Expenditures, and Plans for Improving and Increasing the Revenue," <emph>Annual Report of the Secretary of the Treasury on the State of the Finances</emph> (July 4, 1861). https://fraser.stlouisfed.org/title/?id=194#!5505, accessed on November 11, 2015. p. 32.
+            </li>
+          </ul>
+        </section>
+
+        <section>
+          <section>
+            <h1>Bond and Currency Markets in the War</h1>
+          </section>
+
+        </section>
+
+        <section>
+          <section>
+            <h1>Bond and Currency Markets in the War</h1>
+          </section>
+
+
+        </section>
+        
+      </div>
+
+    </div>
+
+    <script src="lib/js/head.min.js"></script>
+    <script src="js/reveal.js"></script>
+    
+
+    <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+      controls: true,
+      progress: true,
+      history: true,
+      center: true,
+
+      transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+      // Optional reveal.js plugins
+      dependencies: [
+      { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+      { src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+      { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+      { src: 'plugin/zoom-js/zoom.js', async: true },
+      { src: 'plugin/notes/notes.js', async: true }
+      { src: 'plugin/math/math.js', async: true }      
+      ]
+      });
+
+    </script>
+
+  </body>
+</html>

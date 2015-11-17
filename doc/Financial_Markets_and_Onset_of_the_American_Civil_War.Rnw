@@ -39,7 +39,7 @@ date_iso <- function(x) format(x, "%Y-%m-%d")
 
 \usepackage{hyperref}
 \hypersetup{
-  pdftitle={Three Essays on Conflict and Financial Markets, and Political Methodology},
+  pdftitle={Financial Markets and the Onset of the American Civil War},
   pdfauthor={Jeffrey B. Arnold},
   pdfkeywords={},
   %% Colors from jss.cls (Journal of statistical software)
@@ -95,6 +95,14 @@ date_iso <- function(x) format(x, "%Y-%m-%d")
 \usepackage{placeins}
 
 \title{Did Financial Markets Anticipate the Onset of the American Civil War?
+\thanks{
+Thanks to Randall Stone, Hein Goemans, Curtis Signorino, Mark Bils, Gary Hollibaugh, Tyson Chatagnier, Paul Poast, Benjamin Fordham, Michael McCoy, Chad Nelson, and Richard Jordan for their comments.
+This paper was presented at the 2015 Peace Science Society Conference.
+All errors remain my own.}}
+\author{Jeffrey B. Arnold}
+
+\begin{document}
+
 To what extent did financial markets anticipate the start of the American Civil War?
 How did the market's assessment of war risk change leading up to the war?
 Which events were associated with these changes?

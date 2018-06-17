@@ -16,7 +16,7 @@
 
     <link rel="stylesheet" href="css/reveal.css">
     <link rel="stylesheet" href="css/theme/white.css" id="theme">
-    
+
 
     <!-- Code syntax highlighting -->
     <link rel="stylesheet" href="lib/css/zenburn.css">
@@ -36,31 +36,42 @@
 
     <!-- custom -->
     <link rel="stylesheet" href="css/custom.css" id="custom-css">
-    
-  
-    <script src="plotly-latest.min.js"></script>
+
   </head>
 
-<!--begin.rcode header, echo = FALSE
+<!--begin.rcode header, echo = FALSE, warning = FALSE
 suppressPackageStartupMessages({
   library("knitr")
+  library("Hmisc")
   library("dplyr")
   library("tidyr")
   library("filehash")
+  library("scales")
+  library("ggplot2")
   library("htmlwidgets")
   library("plotly")
 })
 opts_chunk$set(echo = FALSE, results = 'asis',
                cache = FALSE, autodep = TRUE,
-               dev = 'svg')
+               message = FALSE, warning = FALSE,
+               dev = 'png', fig.height = 4, fig.width = 6)
+theme_local <- theme_minimal
 
-end.rcode-->    
-    
+HEIGHT = 5.5
+WIDTH = 8.25
+
+plotsave <- function(filename, ...) {
+  ggsave(filename, ...)
+  cat(sprintf("<img src=\"%s\">", filename))
+}
+
+end.rcode-->
+
 <!--begin.rcode data
 DIR_ACW_FINANCES_DIR <- PROJ$path("submodules/civil_war_era_findata")
 
 DATE_PRICES_START <- as.Date("1855-7-1") # First date to use
-DATE_PANIC_1857_START <- as.Date("1857-9-1") 
+DATE_PANIC_1857_START <- as.Date("1857-9-1")
 DATE_PANIC_1857_END <- as.Date("1858-2-1")
 DATE_ELECTION <- as.Date("1860-11-7")
 DATE_PREWAR <- as.Date("1861-3-1")
@@ -70,6 +81,22 @@ DATE_WEEK_PRE_SUMTER <- as.Date("1861-4-13")
 DATE_WEEK_POST_SUMTER <- as.Date("1861-4-20")
 
 bankers0 <- filter(PROJ$db[["prices0"]], src == "Bankers")
+
+bankers_ytm <- bankers0 %>%
+  select(date, series, group, matches("ytm")) %>%
+  gather(yield, value, - date, - series, - group)
+
+bankers_groups_ytm <- bankers_ytm %>%
+  group_by(group, date, yield) %>%
+  summarise(value = mean(value, na.rm = TRUE))
+
+bankers_groups_diff <- bankers_groups_ytm %>%
+  spread(group, value) %>%
+  mutate(diff_s_n = South - North,
+         diff_s_us = South - Union,
+         diff_n_us = North - Union) %>%
+  select(date, diff_s_n, diff_s_us, diff_n_us, yield) %>%
+  gather(variable, value, - date, - yield)
 
 end.rcode-->
 
@@ -118,90 +145,456 @@ end.rcode-->
           </ol>
         </section>
 
-        <section>
+
 
           <section>
             <h1>Did Financial Markets Anticipate the Onset of the American Civil War?</h1>
           </section>
-          
+
           <section>
-            <img src="https://i.imgflip.com/tyul6.jpg" alt="Any headline that ends in a question mark can be answered by the word no" title="made at imgflip.com"/>
+            <img src="assets/img/tyul6.jpg" alt="Any headline that ends in a question mark can be answered by the word no" title="made at imgflip.com"/>
           </section>
 
           <section>
+            <h2>How are State and Government Bonds related to war initiation?</h2>
             <ol>
-              <li>State and government bonds influenced by war
-              <li>Southern state bonds worse returns than Northern state or U.S. government bonds
+              <li>State and government bonds payoffs contingent on war (debt, inflation, default)
+              <li>If war, Southern state bonds riskier than Northern state or U.S. government bonds
             </ol>
           </section>
 
           <section>
+            <h2>State and government bonds</h2>
+
+<!--begin.rcode bond_series,warning=FALSE,results='asis'
+{ggplot(filter(bankers0, date < as.Date("1862-1-1"),
+              !grepl("California", series)),
+       aes(x = date, y = ytm_gold,
+                     group = series, colour = group)) +
+  geom_line() +
+  theme_local()} %>%
+  plotsave("figure/state_govt_bonds.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
+
+          </section>
+
+          <section>
+           <h2>North-South yield spreads</h2>
+
+<!--begin.rcode spreads, warning=FALSE
+#spreads_summary <- PROJ$db[["spreads2_summary"]]
+
+# (ggplot(filter(spreads_summary[["theta"]]
+#                , dimension == 2
+#                ## , date >= as.Date("1860-9-1")
+#                ## , date <= as.Date("1861-4-13")
+#                ),
+#         aes(x = date))
+#  + geom_ribbon(mapping = aes(ymin = value_p025, ymax = value_p975), alpha = 0.2)
+#  + geom_ribbon(mapping = aes(ymin = value_p25, ymax = value_p75), alpha = 0.5)
+#  + geom_line(mapping = aes(y = value_mean))
+#  + scale_x_date("", date_breaks = "1 year", labels = date_format("%Y"))
+#  + scale_y_continuous("spread (%)")
+#  + theme_local()
+#  )
+{ggplot(filter(bankers_groups_diff, yield == "ytm_gold"), aes(x = date, y = value, colour = variable)) +
+  geom_line() +
+  scale_x_date("", date_breaks = "1 year", labels = date_format("%Y")) +
+  scale_y_continuous("spread in yields") +
+  theme_local()} %>%
+  plotsave("figure/north_south_spreads.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
+
+          </section>
+
+          <section>
+            <h2>Implied probability of war </h2>
+
+            <p>Treat war as a <emph>default</emph> event
+            $$
+            \Pr(\text{default}) = \frac{y - r}{1 - R}
+            $$
+
+            <ol>
+            <li> y is yield
+            <li> r is war-risk-free interest rate: rate for 1855-1857
+            <li> R is value of bond if war. Observed value after Fort Sumter.
+            </ol>
+
+          </section>
+
+          <section>
+           <h2>Implied probability of war</h2>
+<!--begin.rcode
+prwar1 <- filter(PROJ[["db"]][["prwar1"]][["prwar"]],
+                date >= as.Date("1858-7-1")
+                ) %>%
+  mutate(USG = grepl("U\\.S\\.", series))
+
+{(ggplot(prwar1, aes(x = date, y = pmax(0, prwar2), group = series, color = USG))
++ geom_vline(xintercept = as.numeric(DATE_ELECTION), colour = "gray")
++ geom_line()
++ scale_x_date("", date_breaks = "1 year", labels = date_format("%Y"))
++ scale_y_continuous("Pr(war)")
++ theme_local()
++ theme(legend.position = "none")
+)} %>%
+  plotsave("figure/prwar.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
           </section>
 
 
           <section>
-            Plot of yield spread
+            <h2>But what about the beliefs of individual investors?</h2>
           </section>
 
-          <section>
-            Plot of implied probability of war
-          </section>
+<!--begin.rcode
+DIR_AUCTION <- PROJ$path("submodules/civil_war_era_findata/sources/auctions")
+FILE_BIDDERS <- file.path(DIR_AUCTION, "bidders.csv")
+FILE_BIDS <- file.path(DIR_AUCTION, "bids.csv")
+FILE_AUCTIONS <- file.path(DIR_AUCTION, "metadata.csv")
 
-          <section>
-            But what about the beliefs of individual investors? 
-          </section>
+bidders <- read.csv(FILE_BIDDERS, stringsAsFactors = FALSE) %>%
+    mutate(city_state = ifelse(! city == "",
+                           gsub(", $", "", paste(city, state, sep = ", ")),
+                           ""),
+           city_state2 = ifelse(! city_state %in% c("Boston, MA",
+                                                    "Philadelphia, PA",
+                                                    "New York, NY",
+                                                    "Washington, DC"),
+                          "Other", city_state),
+           NY = (city_state == "New York, NY"),
+           DC = (city_state == "Washington, DC")
+           )
+
+bids <- read.csv(FILE_BIDS, stringsAsFactors = FALSE)
+auctions <- read.csv(FILE_AUCTIONS, stringsAsFactors = FALSE)
+
+bidders1861 <- bidders %>%
+  filter(grepl("Loan of Feb 1861", auction)) %>%
+  mutate(auction = gsub("; Loan of Feb 1861", "", auction))
+
+bids1861 <- bids %>%
+  filter(grepl("Loan of Feb 1861", auction)) %>%
+  mutate(is_accepted = accepted > 0,
+         auction = gsub("; Loan of Feb 1861", "", auction)) %>%
+  left_join(bidders1861, by = c("auction", "bidder_num")) %>%
+  filter(price_gold > 70)
+
+# There is a bid of 60 in the May Auction. Too anomalous.
+
+auctions1861_bids <-
+  bids1861 %>%
+  group_by(auction) %>%
+  summarise(bids_n = n(),
+            amount_total = sum(amount),
+            amount_accepted = sum(amount[is_accepted]),
+            bids_price_mean = mean(price_gold),
+            bids_price_sd = sd(price_gold),
+            bids_price_min = min(price_gold[is_accepted]),
+            bids_price_wtd_mean = weighted.mean(price_gold, amount),
+            bids_price_wtd_sd = sqrt(Hmisc::wtd.var(price_gold, amount)),
+            bids_yield_mean = mean(ytm1),
+            bids_yield_sd = sd(ytm1),
+            bids_yield_wtd_mean = weighted.mean(ytm1, amount),
+            bids_yield_wtd_sd = sqrt(Hmisc::wtd.var(ytm1, amount))
+  )
+
+bids1861_bidders <- bids1861 %>%
+  group_by(auction, bidder_num) %>%
+  summarise(n = n(),
+            accepted = sum(accepted),
+            price = weighted.mean(price_gold, amount),
+            yield = weighted.mean(ytm1, amount),
+            amount = sum(amount),
+            is_accepted = accepted > 0) %>%
+  left_join(bidders1861, by = c("auction", "bidder_num"))
+
+auctions1861_bidders <-
+  bids1861_bidders %>%
+  group_by(auction) %>%
+  summarise(bidders_n = n(),
+            bidders_num_bids = sum(n),
+            bidders_price_mean = mean(price),
+            bidders_price_sd = sd(price),
+            bidders_price_wtd_mean = weighted.mean(price, amount),
+            bidders_price_wtd_sd = sqrt(Hmisc::wtd.var(price, amount)),
+            bidders_yield_mean = mean(yield),
+            bidders_yield_sd = sd(yield),
+            bidders_yield_wtd_mean = weighted.mean(yield, amount),
+            bidders_yield_wtd_sd = sqrt(Hmisc::wtd.var(yield, amount))
+  )
+
+auctions1861 <-
+  right_join(auctions1861_bids, auctions1861_bidders, by = c("auction"))
+
+bids1861_bidders_city <-
+  bids1861_bidders %>%
+  group_by(auction, city_state2) %>%
+  summarise(n = n(),
+            yield_mean = mean(yield),
+            yield_sd = sd(yield),
+            price_mean = mean(price),
+            price_sd = sd(price))
+
+bids1861_bidders_city <-
+  bids1861_bidders %>%
+  mutate(city = (city == "New York")) %>%
+  group_by(auction, city) %>%
+  summarise(n = n(),
+            yield_mean = mean(yield),
+            yield_sd = sd(yield),
+            price_mean = mean(price),
+            price_sd = sd(price))
+
+bids1861_bidders_institutional <-
+  bids1861_bidders %>%
+  group_by(auction, institutional) %>%
+  summarise(n = n(),
+            yield_mean = mean(yield),
+            yield_sd = sd(yield),
+            price_mean = mean(price),
+            price_sd = sd(price))
+end.rcode-->
 
           <section>
             <img src="assets/img/AR_TREASURY_1861_2_Page_32.jpg">
           </section>
 
           <section>
-            <h1>Probability of War from a </h1>
-            $$
-            \Pr(\text{default}) = \frac{y - r}{1 - R}
-            $$
-            
-          </section>
-          
-        </section>        
-        
-        <section>
-          <h1>Images</h1>
-          <ul>
-            <li>
-              <a href="http://www.loc.gov/pictures/resource/ppmsca.12856/">New York Gold Room bulletin board on Black Friday, Sept 24, 1869</a>. Cropped.
-            </li>
-            <li>
-              Grumpy cat <a href="https://imgflip.com/i/tyul6">made by author at imgflip.com</a>
-            </li>
-            <li>
-              United States. Department of the Treasury. "Report of the Secretary of the Treasury, on the Finances, Containing Estimates of the Public Revenue and Public Expenditures, and Plans for Improving and Increasing the Revenue," <emph>Annual Report of the Secretary of the Treasury on the State of the Finances</emph> (July 4, 1861). https://fraser.stlouisfed.org/title/?id=194#!5505, accessed on November 11, 2015. p. 32.
-            </li>
-          </ul>
-        </section>
+          <h2>Bidders for Auctions of the Loan of Feb 1861</h2>
+<!--begin.rcode
+{ggplot(bids1861_bidders, aes(x = auction, y = price)) +
+  geom_violin(fill = "gray", colour = "gray") +
+  geom_point(mapping = aes(size = amount)) +
+  theme_local() +
+  xlab("") +
+  ylab("Price in gold dollars") +
+  coord_flip() +
+  theme(legend.position = "none") } %>%
+  plotsave("figure/auction_bidders.svg", ., height = HEIGHT, width = WIDTH)
 
-        <section>
+end.rcode-->
+          </section>
+
           <section>
-            <h1>Bond and Currency Markets in the War</h1>
+          <h3>Bidders for Auctions of the Loan of Feb 1861</h3>
+<!--begin.rcode
+{ggplot(bids1861_bidders, aes(x = city_state2, y = price, colour = city_state2)) +
+  geom_violin() +
+  facet_wrap(~ auction, ncol = 1) +
+  geom_point(mapping = aes(size = amount)) +
+  theme_local() +
+  coord_flip() +
+  scale_x_discrete("") +
+  scale_y_continuous("Price in gold dollars") +
+  theme(legend.position = "none")} %>%
+  plotsave("figure/auction_bidders_city.svg", ., height = HEIGHT, width = WIDTH)
+end.rcode-->
           </section>
 
-        </section>
+          <section>
+          <h3>Institutional investors</h3>
+<!--begin.rcode
+{ggplot(bids1861_bidders, aes(x = institutional, y = price)) +
+  geom_violin(mapping = aes(colour = institutional, fill = institutional), alpha = 0.3) +
+  facet_wrap(~ auction, ncol = 1) +
+  geom_point(mapping = aes(size = amount, colour = institutional)) +
+  theme_local() +
+  coord_flip() +
+  scale_x_discrete("") +
+  scale_y_continuous("Price in gold dollars") +
+  theme(legend.position = "none")} %>%
+  plotsave("figure/auction_bidders_institutional.svg", ., height = HEIGHT, width = WIDTH)
+end.rcode-->
+          </section>
+
+          <section>
+          <h3>Avg. size of bid vs. avg. bid for auctions of the Loan of Feb 1861</h3>
+<!--begin.rcode
+{ggplot(bids1861_bidders, aes(x = log(amount), y = price, colour = is_accepted)) +
+  geom_point() +
+  facet_wrap(~ auction, ncol = 1) +
+  theme_local() +
+  scale_x_continuous("Total Bid Amount") +
+  scale_y_continuous("Avg. Bid") +
+  theme(legend.position = "none")} %>%
+  plotsave("figure/auction_bidders_size.svg", . , height = HEIGHT, width = WIDTH)
+end.rcode-->
+          </section>
 
         <section>
+          <h2>What are the broader implications?</h2>
+          <ol>
+            <li> Private information theories of war (Fearon 1995, Gartzke 1999)
+            <li> Capitalist peace (Gartzke et al. 2001)
+            <li> Ability to predict war (Chadefeaux)
+        </section>
+
           <section>
-            <h1>Bond and Currency Markets in the War</h1>
+            <h1>State and U.S. Government Bond Markets in the War</h1>
           </section>
 
 
-        </section>
-        
+          <section>
+            <h3>U.S. Government and State Bonds, 1861-1865</h3>
+<!--begin.rcode
+groupings <-
+  c("California 7 per cents, 1870" = "Calif",
+    "California 7 per cents, 1877" = "Calif",
+    "Georgia 6 per cents" = "South",
+    "Indiana 5 per cents" = "North",
+    "Indiana 6 per cents" = "North",
+    "Kentucky 6 per cents" = "Border",
+    "Louisiana 6 per cents" = "South",
+    "Missouri 6 per cents" = "Border",
+    "North Carolina 6 per cents" = "South",
+    "Ohio 6 per cents, 1875" = "North",
+    "Ohio 6 per cents, 1886" = "North",
+    "Pennsylvania 5 per cents" = "North",
+    "Tennessee 6 per cents" = "South",
+    "U.S. 5 per cents, 1874" = "US",
+    "U.S. 6 per cents, 1867-8" = "US",
+    "U.S. 6 per cents, 1881" = "US",
+    "Virginia 6 per cents" = "South"
+    )
+bankers <- read.csv(file.path(DIR_ACW_FINANCES_DIR,
+                              "data/bankers_magazine_govt_state_loans_yields_2.csv"),
+                    stringsAsFactors = FALSE) %>%
+  mutate(date = as.Date(date),
+         group = groupings[series])
+
+{ggplot(bankers %>%filter(date >= as.Date("1861-1-1")),
+        aes(x = date, y = ytm_gold,
+                    colour = group,
+                    group = series)) +
+  geom_line() +
+  scale_x_date("") +
+  scale_y_continuous("yield") +
+  theme_local()} %>%
+  plotsave("figure/bonds_war.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
+
+          </section>
+
+          <section>
+          <h3>U.S. Government Bonds</h3>
+
+<!--begin.rcode
+{ggplot(bankers %>%
+          filter(date >= as.Date("1861-1-1"),
+                 group == "US"),
+        aes(x = date, y = ytm_gold,
+                    colour = series,
+                    group = series)) +
+  geom_line() +
+  scale_x_date("") +
+  scale_y_continuous("yield") +
+  theme_local()} %>%
+  plotsave("figure/bonds_usg_war.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
+          </section>
+
+
+          <section>
+          <h1>Puzzles?</h1>
+          <ol>
+          <li>Riskiness (expected cost/duration of war) <emph>highest</emph> in late 1864
+          <li>Variance increases as war goes on
+          <li>How to forecast surprising battles
+          </ol>
+          </section>
+
+          <section>
+          <h1>What I plan to do</h1>
+
+          <ol>
+          <li>Structural break model using state and government bonds, Greenbacks, and Graybacks
+          <li>Regress change in prices/yields on <emph>news</emph>
+          </ol>
+
+          </section>
+
+
+<!--begin.rcode
+FX_MIN_DATE <- as.Date("1859-05-26")
+FX_MAX_DATE <- as.Date("1865-12-29")
+CITIES <- c("London", "Paris", "Amsterdam", "Frankfort", "Hamburg", "Berlin",
+"Bremen")
+
+bankers_fx <- read.csv(file.path(DIR_ACW_FINANCES_DIR,
+                                 "data/bankers_magazine_exchange_rates.csv"),
+                       stringsAsFactors = FALSE) %>%
+  filter(! city == "London" | type == "bankers' bills") %>%
+  mutate(rate = 0.5 * (rate_low + rate_high)) %>%
+  select(date, city, rate, rate_low, rate_high, gold_rate)
+
+merchants_fx <- read.csv(file.path(DIR_ACW_FINANCES_DIR,
+                                   "data/merchants_magazine_exchange_rates.csv"),
+                         stringsAsFactors = FALSE) %>%
+  mutate(rate = 0.5 * (rate_low + rate_high)) %>%
+  select(date, city, rate, rate_low, rate_high, gold_rate)
+
+MAX_RESID <- 3
+
+fxrates <- bind_rows(merchants_fx, bankers_fx) %>%
+  mutate(date = as.Date(date)) %>%
+  filter(date >= FX_MIN_DATE,
+         date <= FX_MAX_DATE,
+         city %in% CITIES) %>%
+  group_by(city) %>%
+  mutate(lograte_mean = mean(log(rate)),
+         lograte_sd = sd(log(rate)),
+         lograte_standard = (log(rate) - lograte_mean) / lograte_sd) %>%
+  arrange(city, date) %>%
+  group_by(city) %>%
+  do({
+    resids <- StructTS(log(.[["rate"]]))[["residuals"]]
+    .[abs(resids) < 4, ]
+  })
+
+end.rcode-->
+
+          <section>
+          <h1> New York foreign exchange markets during the American Civil War</h1>
+          </section>
+
+          <section>
+            <h3>New York foreign exchange markets during the American Civil War</h3>
+<!--begin.rcode
+{ggplot(fxrates, aes(x = date, y = lograte_standard, colour = city)) +
+  geom_line() +
+  theme_local()} %>%
+  plotsave("figure/fx_all.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
+
+          </section>
+
+          <section>
+            <h3>New York foreign exchange markets during the American Civil War</h3>
+<!--begin.rcode
+{ggplot(fxrates %>% filter(city %in% c("London", "France")), aes(x = date, y = lograte_standard)) +
+  geom_line() +
+  theme_local()} %>%
+  plotsave("figure/fx_london.svg", ., height = HEIGHT, width = WIDTH)
+
+end.rcode-->
+          </section>
+
+
       </div>
 
     </div>
 
     <script src="lib/js/head.min.js"></script>
     <script src="js/reveal.js"></script>
-    
+
 
     <script>
 
@@ -222,8 +615,8 @@ end.rcode-->
       { src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
       { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
       { src: 'plugin/zoom-js/zoom.js', async: true },
-      { src: 'plugin/notes/notes.js', async: true }
-      { src: 'plugin/math/math.js', async: true }      
+      { src: 'plugin/notes/notes.js', async: true },
+      { src: 'plugin/math/math.js', async: true }
       ]
       });
 

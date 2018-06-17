@@ -107,8 +107,7 @@ auctions1861_bids <-
             bids_yield_wtd_sd = sqrt(Hmisc::wtd.var(ytm1, amount))
   )
 
-bids1861_bidders <- bids %>%
-  filter(grepl("Loan of Feb 1861", auction)) %>%
+bids1861_bidders <- bids1861 %>%
   filter(price_gold > 70) %>%
   group_by(auction, bidder_num) %>%
   summarise(n = n(),
@@ -170,8 +169,9 @@ bids1861_bidders_institutional <-
 ```
 
 ```{r}
-ggplot(bids1861, aes(x = auction, y = price_gold, colour = accepted,
+ggplot(bids1861, aes(x = auction, y = price_gold, colour = is_accepted,
                      size = amount)) +
+  geom_violin(fill = "gray") +
   geom_point() 
 
 ggplot(bids1861, aes(x = auction, y = price_gold, weight = amount)) +
@@ -299,11 +299,11 @@ bidders1861 %>%
 ## Regression Models
 
 ```{r}
-mod1 <- lm(price ~ city2 * auction, data = bids1861_bidders)
-mod2 <- lm(yield ~ city2 * auction + institutional, data = bids1861_bidders)
+mod1 <- lm(price ~ city_state2 * auction, data = bids1861_bidders)
+mod2 <- lm(yield ~ city_state2 * auction + institutional, data = bids1861_bidders)
 
-mod1 <- lm(price ~ city2 * auction, data = bids1861_bidders)
-mod2 <- lm(yield ~ city2 * auction + institutional, data = bids1861_bidders)
+mod1 <- lm(price ~ city_state2 * auction, data = bids1861_bidders)
+mod2 <- lm(yield ~ city_state2 * auction + institutional, data = bids1861_bidders)
 ```
 
 ```{r}

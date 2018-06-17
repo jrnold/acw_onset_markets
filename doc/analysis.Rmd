@@ -439,9 +439,6 @@ local({
      + theme_local()
      + theme(legend.position = "none")
      )
-
-    
-    
 })
 
 ``` 
